@@ -1,0 +1,160 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style";
+
+// Replace above style with this SCSS file to enable dark mode styles
+//@import "./assets/sass/style.dark";
+
+@import "./assets/sass/style.angular.scss";
+
+
+//design for ng-select
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+//this theme to make select with bottom border
+//@import "~@ng-select/ng-select/themes/material.theme.css";
+
+.ng-select {
+    border:0px;
+    min-height: 50px;
+    border-radius: 5px;
+	font-family: 'Cairo' !important;
+
+}
+.ng-select .ng-select-container  {            
+    min-height: 60px;
+    border-radius: 5px;
+	font-family: 'Cairo' !important;
+}
+
+.ng-select.customized .ng-select-container  {            
+    min-height: 50px;
+    border-radius: 15px;
+	font-family: 'Cairo' !important;
+}
+
+ng-select.ng-invalid.ng-touched .ng-select-container {
+    border-color: #dc3545;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px #fde6e8;
+}
+
+
+
+body {
+	font-family: 'Cairo' !important;
+	font-size: 1rem !important;
+}
+
+
+.fullWidth {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+
+button,
+mat-form-field,
+mat-panel-title {
+	width: 100%;
+	font-family: 'Cairo' !important;
+	font-size: 14px !important;
+}
+
+input {
+	font-family: 'Cairo' !important;
+	font-size: 14px !important;
+}
+
+th {
+	font-family: 'Cairo' !important;
+	font-size: 14px !important;
+}
+
+
+/* .custom {
+	position: fixed;
+	width: inherit;
+  }*/
+
+/* Structure */
+table {
+	width: 100%;
+}
+
+.mat-form-field {
+	font-size: 14px;
+	width: 100%;
+}
+
+.fontsection {
+	font-family: 'Cairo' !important;
+	font-size: 22px !important;
+}
+
+.fontForInputs {
+	font-family: 'Cairo' !important;
+	font-size: 14px !important;
+}
+
+.Success.mat-snack-bar-container {
+	background-color: rgb(0, 161, 0);
+	color: white;
+}
+
+.boldfont {
+	font-family: 'Cairo' !important;
+	font-size: 14px !important;
+	font-weight: bold;
+}
+.HintsStyles {
+	font-family: 'Cairo' !important;
+	font-size: 10px !important;
+	font-weight: bold;
+}
+
+.Error.mat-snack-bar-container {
+	background-color: rgb(134, 0, 0);
+	color: white;
+}
+
+.Warning.mat-snack-bar-container {
+	background-color: rgb(255, 153, 20);
+	color: white;
+}
+
+.heiglightRowClass {
+	background-color: rgb(219, 219, 219);
+}
+
+
+.multiselect-dropdown .dropdown-btn {
+    display: inline-block !important;
+    border: 1px solid #e2e2e2 !important;
+    width: 100%;
+	height: 100% !important;
+    padding: 13px 13px !important;
+    margin-bottom: 0;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+}
+
+.mat-card{
+	padding: 10px !important;
+}
+
+.mat-table{
+	font-family: 'Cairo' !important;
+	font-size: 8px !important;
+}
+
+th{
+	text-align : center !important;
+}
+
+.border-bottom{
+	border:1px solid #e4e4e4 !important; height: 1px;
+}

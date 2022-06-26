@@ -1,0 +1,22 @@
+  
+Wrote by Eng : Hazem Raafat Yehia
+------------------------------------
+
+
+Please Follow Any Rules Written By me Here .......
+
+
+tokens:
+-----------
+
+( token ) to save tokens setted in LoginComponent
+
+( companyLink ) setted in LoginComponent
+
+-----------
+
+( CommonHttpService ) use this service for any request
+
+( HttpReponseModel ) use this model to recieve any response with 200  
+
+( ErrorResponse ) subscribe observable to return any response with 400 and display : look at LookupIdNameComponent Please

@@ -1,0 +1,296 @@
+<h2 mat-dialog-title>
+	<span class="fontsection"> {{'HR.TITLES.BRANCHDATA'|translate}} </span>
+</h2>
+
+<mat-divider></mat-divider>
+<form [formGroup]="branchDataForm" (ngSubmit)="Submit(branchDataForm.value)">
+
+
+	<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+		<input type="hidden" name="id" formControlName="id">
+		<input type="hidden" name="company_Id" formControlName="company_Id">
+
+		<div class="row mt-5">
+
+			<div class="col-md-12">
+
+				<div class="d-flex justify-content-start align-content-center">
+					<mat-icon class="text-primary">home</mat-icon>
+					<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
+						{{'HR.TITLES.BRANCHMAINDATA'|translate}}
+					</h1>
+				</div>
+
+				<div class="mb-5 border-bottom"></div>
+
+				<div class="row">
+
+					<div class="col-md-4">
+
+						<mat-form-field appearance="outline">
+							<mat-label> {{'HR.INPUTS.BRANCHNAME' | translate}}</mat-label>
+							<input matInput placeholder="Placeholder" name="branchName" formControlName="branchName">
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									  validation: 'required',
+									  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.BRANCHNAME' | translate},
+									  control: branchDataForm.controls['branchName']
+									}"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                  validation: 'minlength',
+	                                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.BRANCHNAME' | translate , min:3},
+	                                  control: branchDataForm.controls['branchName']
+	                                }"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                    validation: 'maxlength',
+	                                    message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.BRANCHNAME' | translate , max:100},
+	                                    control: branchDataForm.controls['branchName']
+	                                 }"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+
+					</div>
+					<div class="col-md-6">
+
+						<div class="row mt-2">
+							<div class="col-md-3">
+								<label class="fontForInputs mt-5"> {{'HR.INPUTS.STATE' | translate}}
+									<span class="text-danger">*</span></label>
+							</div>
+
+							<div class="col-md-9">
+
+								<ng-select [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
+									name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)">
+								</ng-select>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="row">
+
+					<div class="col-md-4">
+
+						<mat-form-field appearance="outline">
+							<mat-label>{{'HR.INPUTS.ADDRESS' | translate}}</mat-label>
+							<input matInput placeholder="" name="branchAddress"
+								formControlName="branchAddress">
+							<mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									  validation: 'required',
+									  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.ADDRESS' | translate},
+									  control: branchDataForm.controls['branchAddress']
+									}"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                  validation: 'minlength',
+	                                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , min:3},
+	                                  control: branchDataForm.controls['branchAddress']
+	                                }"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                    validation: 'maxlength',
+	                                    message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , max:100},
+	                                    control: branchDataForm.controls['branchAddress']
+	                                 }"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="row mt-2">
+							<div class="col-md-3">
+								<label class="fontForInputs mt-5"> {{'HR.INPUTS.REGION' | translate}} <span
+										class="text-danger">*</span> </label>
+							</div>
+
+							<div class="col-md-9">
+
+								<ng-select [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
+									name="region_Id" formControlName="region_Id">
+								</ng-select>
+
+								<mat-hint>
+									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
+										  control: branchDataForm.controls['region_Id']
+										}"></ng-container>
+								</mat-hint>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+
+			<div class="col-md-12">
+
+
+
+				<div class="d-flex justify-content-start align-content-center">
+					<mat-icon class="text-primary">perm_phone_msg</mat-icon>
+					<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
+						{{'HR.TITLES.CONTACTDATA'|translate}}
+					</h1>
+				</div>
+
+				<div class="mb-5 border-bottom">
+				</div>
+
+
+				<div class="row">
+
+					<div class="col-md-4">
+						<mat-form-field appearance="outline">
+							<mat-label>{{'HR.INPUTS.EMAIL' | translate}}</mat-label>
+							<input matInput placeholder="" name="email" formControlName="email">
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									  validation: 'required',
+									  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+									  control: branchDataForm.controls['email']
+									}"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										validation: 'pattern',
+										message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+										control: branchDataForm.controls['email']
+									  }"></ng-container>
+
+							</mat-hint>
+
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-md-3">
+								<label class="fontForInputs mt-5"> {{'HR.INPUTS.RESPONSIBLEEMPLOYEE' | translate}}
+									<span class="text-danger">*</span></label>
+							</div>
+
+							<div class="col-md-9">
+
+								<!--	<ng-multiselect-dropdown class="mt-5" [settings]="dropdownSettings"
+									[data]="dropdownListDataForEmployee" name="branchManager_Id"
+									formControlName="branchManager_Id">
+								</ng-multiselect-dropdown>
+-->
+
+								<ng-select [items]="dropdownListDataForEmployee" bindLabel="Name" bindValue="Id"
+									name="branchManager_Id" formControlName="branchManager_Id">
+								</ng-select>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									validation: 'required',
+									message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.RESPONSIBLEEMPLOYEE' | translate},
+									control: branchDataForm.controls['branchManager_Id']
+								  }"></ng-container>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-4">
+						<mat-form-field appearance="outline">
+							<mat-label> {{'HR.INPUTS.PHONENUM' | translate}}</mat-label>
+							<input matInput placeholder="01147785..." name="phoneNumber" formControlName="phoneNumber">
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									  validation: 'required',
+									  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+									  control: branchDataForm.controls['phoneNumber']
+									}"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                  validation: 'minlength',
+	                                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , min:3},
+	                                  control: branchDataForm.controls['phoneNumber']
+	                                }"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+	                                    validation: 'maxlength',
+	                                    message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , max:20},
+	                                    control: branchDataForm.controls['phoneNumber']
+	                                 }"></ng-container>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										validation: 'pattern',
+										message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+										control: branchDataForm.controls['phoneNumber']
+									  }"></ng-container>
+
+							</mat-hint>
+
+						</mat-form-field>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="d-flex align-items-center gap-5">
+
+				<div class="d-flex justify-content-start align-content-center">
+					<mat-icon class="text-primary">assignment</mat-icon>
+					<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
+						{{'HR.TITLES.CONTROLDATA'|translate}}
+					</h1>
+				</div>
+
+				<div class="mb-5 border-bottom"></div>
+
+				<div class="">
+					<p> <span class="fontForInputs"> {{'HR.INPUTS.ISMAIN' | translate}} </span>
+						<mat-checkbox name="isMain" formControlName="isMain"></mat-checkbox>
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<br>
+
+	</mat-dialog-content>
+
+	<mat-dialog-actions>
+		<div class="d-flex">
+			<button mat-raised-button type="submit" (click)="submitClicked=true"
+				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>close</button>
+		</div>
+	</mat-dialog-actions>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+	<ng-container *ngIf="control.hasError(validation)  && submitClicked">
+		<div class="fv-plugins-message-container">
+			<span role="alert">{{ message }}</span>
+		</div>
+	</ng-container>
+</ng-template>

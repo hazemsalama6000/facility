@@ -1,0 +1,57 @@
+<form [formGroup]="SearchUsersConnectionLogsForm" (ngSubmit)="searchUsersConnectionLogs(SearchUsersConnectionLogsForm.value)">
+
+
+	<div class="row">
+
+		<div class="col-md-5">
+
+			<div class="row align-items-center">
+				<div class="col-md-2">
+					<label class="col-md-2" for="companyId" class="fontForInputs"> المستخدمين </label>
+				</div>
+				<div class="col-md-10">
+					<ng-select class="customized" [items]="dropUsersData" bindLabel="Name" bindValue="Id"
+						name="companyId" formControlName="empId">
+					</ng-select>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-2">
+
+			<mat-form-field color="accent" appearance="fill">
+				<mat-label>
+					من تاريخ
+				</mat-label>
+				<input matInput [matDatepicker]="picker1" formControlName="startDate">
+				<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+				<mat-datepicker #picker1></mat-datepicker>
+			</mat-form-field>
+
+		</div>
+
+		<div class="col-md-2">
+
+			<mat-form-field color="accent" appearance="fill">
+				<mat-label>
+					الى تاريخ
+				</mat-label>
+				<input matInput [matDatepicker]="picker2" formControlName="endDate">
+				<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+
+		</div>
+		
+		<div class="col-md-2">
+			<button mat-mini-fab color="primary" id="search" type="submit" class="mx-10">
+				<mat-icon style="font-size: 20px;">search</mat-icon>
+			</button>
+		</div>
+
+
+	</div>
+
+
+</form>

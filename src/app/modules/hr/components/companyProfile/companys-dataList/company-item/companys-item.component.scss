@@ -1,0 +1,40 @@
+
+#company_upsert{
+width: 100%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.container {
+	position: relative;
+	text-align: center;
+	color: black;
+  }
+
+.centered {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  .top-left {
+	position: absolute;
+	top: 8px;
+	left: 16px;
+  }
+  
+  /* Top right text */
+  .top-right {
+	position: absolute;
+	top: -6px;
+	right: 37px;
+  }
+
+  .btn{line-height: 1;}
+
+  .selectedCardClass{
+     background-color:#dddcdc !important;		 
+  }
+
