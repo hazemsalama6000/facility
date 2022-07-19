@@ -1,30 +1,28 @@
 <section id="company_list">
 
-	<mat-card class="col-md-12">
-		<div style="width:100%" class="d-flex justify-content-between align-items-center">
+  <mat-card class="col-md-12">
+    <div style="width:100%" class="d-flex justify-content-between align-items-center">
 
-			<span class="fontsection">
-				{{"HR.TITLES.COMPANIESDATA" | translate}}
-			</span>
+      <span class="fontsection">{{'HR.TITLES.COMPANIESDATA' | translate}} </span>
 
-			<button matTooltip="اضافة" mat-mini-fab color="primary" class="mx-md-1" id="kt_activities_toggle" (click)="openDialog()"
-				aria-label="Example icon button with a filter list icon">
-				<mat-icon>add</mat-icon>
-			</button>
+      <button matTooltip="{{'HR.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" id="kt_activities_toggle"
+        (click)="openDialog()" aria-label="Example icon button with a filter list icon">
+        <mat-icon>add</mat-icon>
+      </button>
 
-		</div>
+    </div>
 
-	</mat-card>
+  </mat-card>
 
 
 
-	<div class="row">
-		<!--<button (click)="openDialog()" class="btn btn-primary col-md-2">
+  <div class="row">
+    <!--<button (click)="openDialog()" class="btn btn-primary col-md-2">
 			{{ "HR.BUTTONS.ADD" | translate }}
 		</button>-->
-		<div class="col-md-12">
-			<company-item *ngFor="let x of companys"  [company]="x"></company-item>
-		</div>
-	</div>
+    <div class="col-md-12">
+      <company-item *ngFor="let x of companys" [company]="x"></company-item>
+    </div>
+  </div>
 
 </section>

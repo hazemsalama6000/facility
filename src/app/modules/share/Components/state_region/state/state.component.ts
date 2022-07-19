@@ -6,7 +6,6 @@ import { LookUpModel } from "src/app/shared-module/models/lookup";
 	templateUrl:'./state.component.html',
 	styleUrls:['./state.component.scss'],
 	changeDetection:ChangeDetectionStrategy.OnPush
-
 })
 
 export class StateComponent 

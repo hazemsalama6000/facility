@@ -19,10 +19,16 @@ export const locale = {
       companies: "Companies",
       onlineUsers: "Online Users",
       loginUsersData: "Users Login Information"
-    }, USERDIALOG: {
-      MyProfile: "My Profile",
+    },
+    FOOTER:{
+      COPYRIGHT:"Copy Right"
+    },
+     USERDIALOG: {
+      MYPROFILE: "My Profile",
       PROFILESETTING: "Account Settings",
-      LOGOUT: "LogOut"
+      LOGOUT: "LogOut",
+      LANGUAGE:"Language"
+
     },
 
     HR: {
@@ -53,6 +59,7 @@ export const locale = {
         COMPANYDATA: "company data",
         BRANCHNAME:"Branch Name",
         ISMAIN:"IsMain",
+        EMPLOYEE:"Employee",
         RESPONSIBLEEMPLOYEE:"Manager Name",
         SALESSTATELOGIN:"Stop Logining For representative",
         STATUS:"Status"
@@ -67,21 +74,38 @@ export const locale = {
         BACK: "Back",
         SAVE: "Save",
 				DELETE: "Delete",
-
+        EDITCOMPANY:"Edit Company",
+        VIEWBRANCHS:"View Branchs"
       },
       TITLES: {
         ADDORUPDATE: "add or Edit",
 				ACTIVE: "Active",
 				NOTACTIVE: "Not Active",
+        SETACTIVE: "Set Active",
+				SETNOTACTIVE: "Set Not Active",
 				JOBS: "Jobs",
 				COMPANIESDATA: "Companies Data",
 				BRANCHDATA:"Branch Data",
 				BRANCHMAINDATA:"Main Data",
 				CONTACTDATA:"Contact Data",
 				CONTROLDATA:"Control Data",
-
         BRANCHS:"Branchs",
-        
+        COMPANYDATA:"Company Data:",
+        COMPANYCODE:"Code :",
+        COUNTUSERS:"Number Of Users :",
+        COMPANYNOTACTIVE:"Not Active",
+        COMPANYACTIVE:"Active",
+        GOVERNORATE:"Governorate",
+        REGION:"Region",
+        COMMERCIALRECORD:"Commercial Record",
+        TAXCARDNUMBER:"Tax Card NO",
+        WTAX:"WTax",
+        ACTIVITY:"Activity",
+        STAX:"STax",
+        COMPANYDATA1:"Company Data",
+        COMAPNYCONTACTDATA:"Company Contact Data",
+        TAXDATA:"Tax Data"
+
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"

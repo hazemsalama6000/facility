@@ -12,6 +12,11 @@ const Routing: Routes = [
 	      import('../modules/hr/hr.module').then((m)=>m.HrModule)
   },
   {
+	path:'employee',
+	loadChildren:()=>
+	    import('../modules/employees/employees.module').then((m)=>m.EmployeesModule)
+  },
+  {
 	path:'permissions',
 	loadChildren:()=>
 	import('../modules/permissions/permissions.module').then(m=>m.PermissionsModule)
@@ -20,8 +25,7 @@ const Routing: Routes = [
 	  path:'share',
 	  loadChildren:()=>
 	      import('../modules/share/share.module').then((m)=>m.shareModule)
-  }
- ,
+  },
   {
     path: '',
     redirectTo: '/dashboard',

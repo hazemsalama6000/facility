@@ -49,7 +49,7 @@
 								translate}}
 							</label>
 							<span class="mx-2">
-								<section matTooltip="{{element.isActive==true?'ايقاف التفعيل':'تفعيل'}}"
+								<section matTooltip="{{element.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
 									class="example-section">
 									<mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
 										(click)="toggleActiveDeactive(element)" [checked]="element.isActive">
@@ -94,7 +94,7 @@
 					</div>
 
 					<div [hidden]="element.isAdd == false">
-						
+
 						<button  matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary"
 							(click)="Submit(element)" aria-label="Example icon button with a menu icon">
 							<mat-icon><span class="material-symbols-outlined">

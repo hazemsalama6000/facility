@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
-import { EmployeeService } from "../../services/employee.service";
+import { EmployeeService } from "../../../employees/services/employee.service";
 
 @Component({
 	selector: "branchs-c",

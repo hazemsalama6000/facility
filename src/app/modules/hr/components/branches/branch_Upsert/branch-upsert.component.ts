@@ -6,7 +6,7 @@ import { dropdownSettings } from "src/app/core-module/UIServices/dropdownsetting
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { ICompany } from "src/app/modules/hr/models/ICompany";
 import { CompanyService } from "src/app/modules/hr/services/company.service";
-import { EmployeeService } from "src/app/modules/hr/services/employee.service";
+import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";

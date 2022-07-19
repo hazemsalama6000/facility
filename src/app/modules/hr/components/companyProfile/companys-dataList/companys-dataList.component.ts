@@ -9,7 +9,7 @@ import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { environment } from "src/environments/environment";
 import { ICompanyDisplayData } from "../../../models/ICompanyDisplayData";
 import { CompanyService } from "../../../services/company.service";
-import { EmployeeService } from "../../../services/employee.service";
+import { EmployeeService } from "../../../../employees/services/employee.service";
 import { CompanyUpsertComponent } from "./company-item/companys-upsert/company-upsert.component";
 @Component({
 	selector: "company-DataList",

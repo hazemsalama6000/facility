@@ -1,136 +1,134 @@
 <div class="col-md-12">
 
 
-	<div class="col-md-4">
+  <div class="col-md-4">
 
-		<mat-form-field appearance="standard">
-			<mat-label> {{"HR.INPUTS.FILTER" | translate}}</mat-label>
-			<input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-		</mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label> {{"HR.INPUTS.FILTER" | translate}}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
 
-	</div>
+  </div>
 
-	<form #testForm="ngForm" (ngSubmit)="testForm.form.valid" novalidate>
+  <form #testForm="ngForm" (ngSubmit)="testForm.form.valid" novalidate>
 
-		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-			<!-- Name Column -->
-			<ng-container matColumnDef="name">
-				<th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.NAME" | translate}} </th>
-				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
-					(dblclick)="element.isEdit = true">
-					<span [hidden]="element.isEdit == true || element.isAdd == true">
-						{{element.Name}}
-					</span>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.NAME" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;" (dblclick)="element.isEdit = true">
+          <span [hidden]="element.isEdit == true || element.isAdd == true">
+            {{element.Name}}
+          </span>
 
-					<mat-form-field class="col-md-5" [hidden]="element.isEdit == false || element.isAdd == true">
-						<input matInput [value]="element.Name" id="Name{{element.Name}}" name="Name{{element.Name}}" [(ngModel)]="element.Name">
-					</mat-form-field>
+          <mat-form-field class="col-md-5" [hidden]="element.isEdit == false || element.isAdd == true">
+            <input matInput [value]="element.Name" id="Name{{element.Name}}" name="Name{{element.Name}}"
+              [(ngModel)]="element.Name">
+          </mat-form-field>
 
-					<mat-form-field class="col-md-5" [hidden]="element.isAdd == false">
-						<input matInput autofocus="on"  id="NameForAddDepartment" name="NameForAddDepartment" [(ngModel)]="element.Name" #NameForAddDepartment>
-					</mat-form-field>
+          <mat-form-field class="col-md-5" [hidden]="element.isAdd == false">
+            <input matInput autofocus="on" id="NameForAddDepartment" name="NameForAddDepartment"
+              [(ngModel)]="element.Name" #NameForAddDepartment>
+          </mat-form-field>
 
-				</td>
-			</ng-container>
+        </td>
+      </ng-container>
 
-			<ng-container matColumnDef="state">
-				<th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.STATUS" | translate}} </th>
-				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
-					(dblclick)="element.isEdit = true">
-					<div [hidden]="element.isAdd == true">
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.STATUS" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;" (dblclick)="element.isEdit = true">
+          <div [hidden]="element.isAdd == true">
 
-						<div class="d-flex justify-content-center align-items-center">
-							<label *ngIf="element.isActive == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |
-								translate}}
-							</label>
-							<label *ngIf="element.isActive == false" class="badge badge-danger"> {{"HR.TITLES.NOTACTIVE"
-								|
-								translate}}
-							</label>
-							<span class="mx-2">
-								<section matTooltip="{{element.isActive==true?'ايقاف التفعيل':'تفعيل'}}"
-									class="example-section">
-									<mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
-										(click)="toggleActiveDeactive(element)" [checked]="element.isActive">
-									</mat-slide-toggle>
-								</section>
-							</span>
+            <div class="d-flex justify-content-center align-items-center">
+              <label *ngIf="element.isActive == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}
+              </label>
+              <label *ngIf="element.isActive == false" class="badge badge-danger"> {{"HR.TITLES.NOTACTIVE"|translate}}
+              </label>
+              <span class="mx-2">
+                <section
+                  matTooltip="{{element.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+                  class="example-section">
+                  <mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
+                    (click)="toggleActiveDeactive(element)" [checked]="element.isActive">
+                  </mat-slide-toggle>
+                </section>
+              </span>
 
-						</div>
-					</div>
+            </div>
+          </div>
 
-				</td>
-			</ng-container>
+        </td>
+      </ng-container>
 
 
-			<ng-container matColumnDef="action">
-				<th mat-header-cell *matHeaderCellDef> </th>
-				<td mat-cell *matCellDef="let element">
-					<div [hidden]="element.isAdd == true">
-						<div class="d-flex gap-1 justify-content-center align-items-center">
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <div [hidden]="element.isAdd == true">
+            <div class="d-flex gap-1 justify-content-center align-items-center">
 
-							<button [hidden]="element.isEdit == true" matTooltip="{{'SHARE.BUTTONS.EDIT'|translate}}" mat-mini-fab color="primary"
-								(click)="element.isEdit=true;" aria-label="Example icon button with a menu icon">
-								<mat-icon><span class="material-symbols-outlined">
-										edit
-									</span></mat-icon>
-							</button>
+              <button [hidden]="element.isEdit == true" matTooltip="{{'SHARE.BUTTONS.EDIT'|translate}}" mat-mini-fab
+                color="primary" (click)="element.isEdit=true;" aria-label="Example icon button with a menu icon">
+                <mat-icon><span class="material-symbols-outlined">
+                    edit
+                  </span></mat-icon>
+              </button>
 
-							<button [hidden]="element.isEdit == false" matTooltip="{{'SHARE.BUTTONS.SAVE'|translate}}" mat-mini-fab color="primary"
-								(click)="Submit(element);element.isEdit=false;"
-								aria-label="Example icon button with a menu icon">
-								<mat-icon><span class="material-symbols-outlined">
-										done_all
-									</span></mat-icon>
-							</button>
+              <button [hidden]="element.isEdit == false" matTooltip="{{'SHARE.BUTTONS.SAVE'|translate}}" mat-mini-fab
+                color="primary" (click)="Submit(element);element.isEdit=false;"
+                aria-label="Example icon button with a menu icon">
+                <mat-icon><span class="material-symbols-outlined">
+                    done_all
+                  </span></mat-icon>
+              </button>
 
-							<button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn" (click)="Remove(element)" class="mx-md-1"
-								aria-label="Example icon button with a filter list icon">
-								<mat-icon>close</mat-icon>
-							</button>
+              <button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn"
+                (click)="Remove(element)" class="mx-md-1" aria-label="Example icon button with a filter list icon">
+                <mat-icon>close</mat-icon>
+              </button>
 
-						</div>
-					</div>
+            </div>
+          </div>
 
-					<div [hidden]="element.isAdd == false">
-						
-						<button  matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary"
-							(click)="Submit(element)" aria-label="Example icon button with a menu icon">
-							<mat-icon><span class="material-symbols-outlined">
-									done_all
-								</span>
-							</mat-icon>
-						</button>
+          <div [hidden]="element.isAdd == false">
 
-						<button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn" (click)="deleteRow()" class="mx-md-1"
-								aria-label="Example icon button with a filter list icon">
-								<mat-icon>subdirectory_arrow_left</mat-icon>
-						</button>
+            <button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary"
+              (click)="Submit(element)" aria-label="Example icon button with a menu icon">
+              <mat-icon><span class="material-symbols-outlined">
+                  done_all
+                </span>
+              </mat-icon>
+            </button>
 
-					</div>
+            <button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn" (click)="deleteRow()"
+              class="mx-md-1" aria-label="Example icon button with a filter list icon">
+              <mat-icon>subdirectory_arrow_left</mat-icon>
+            </button>
 
-				</td>
-			</ng-container>
+          </div>
 
-			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns; let entry"
-				[ngClass]="{'heiglightRowClass':entry.Id == currentSelected.Id}" (click)="rowClicked(row)"
-				style="cursor:pointer ;">
+        </td>
+      </ng-container>
 
-			</tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let entry"
+        [ngClass]="{'heiglightRowClass':entry.Id == currentSelected.Id}" (click)="rowClicked(row)"
+        style="cursor:pointer ;">
 
-			<!-- Row shown when there is no matching data. -->
-			<tr class="mat-row" *matNoDataRow>
-				<td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}} "{{input.value}}"</td>
-			</tr>
-		</table>
+      </tr>
 
-	</form>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}} "{{input.value}}"</td>
+      </tr>
+    </table>
 
-	<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-		aria-label="Select page of periodic elements">
-	</mat-paginator>
+  </form>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
 
 
 </div>

@@ -2,7 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
-import { EmployeeService } from "src/app/modules/hr/services/employee.service";
+import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { ILocationXY } from "../../../models/ILocationXY.interface";
 import { IOnlineUsers } from "../../../models/IOnlineUsers.interface";

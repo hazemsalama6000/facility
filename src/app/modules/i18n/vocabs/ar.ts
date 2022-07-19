@@ -1,3 +1,4 @@
+
 // USA
 export const locale = {
 	lang: 'ar',
@@ -20,10 +21,14 @@ export const locale = {
 			onlineUsers: "المستخدمين المتصلين",
 			loginUsersData: "بيانات الدخول للمستخدمين"
 		},
+    FOOTER:{
+      COPYRIGHT:"جميع الحقوق محفوظة"
+    },
 		USERDIALOG: {
-			MyProfile: "الملف الشخصى",
+			MYPROFILE: "الملف الشخصى",
 			PROFILESETTING: "أعدادات الحساب",
-			LOGOUT: "تسجيل الخروج"
+			LOGOUT: "تسجيل الخروج",
+      LANGUAGE:"اللغة"
 		},
 
 		HR: {
@@ -67,6 +72,8 @@ export const locale = {
 				BACK: "رجوع",
 				SAVE: "حفظ",
 				DELETE: "حذف",
+        EDITCOMPANY:"تعديل الشركة",
+        VIEWBRANCHS:"عرض الفروع"
 			},
 			TITLES: {
 				ADDORUPDATE: "اضافة  ",
@@ -80,8 +87,23 @@ export const locale = {
 				BRANCHMAINDATA:"بيانات الاساسية",
 				CONTACTDATA:"بيانات الاتصال",
 				CONTROLDATA:"بيانات التحكم",
-
 				BRANCHS:"الفروع",
+        COMPANYDATA:"بيانات الشركة :",
+        COMPANYCODE:"الكود :",
+        COUNTUSERS:"عدد المستخدمين :",
+        COMPANYNOTACTIVE:"غير نشط",
+        COMPANYACTIVE:"نشط",
+        GOVERNORATE:"المحافظة",
+        REGION:"المنطقة",
+        COMMERCIALRECORD:"السجل التجارى",
+        TAXCARDNUMBER:"رقم البطاقة الضريبية",
+        WTAX:"ضريبة الخصم",
+        ACTIVITY:"النشاط",
+        STAX:"ضريبة ق م",
+        COMPANYDATA1:"بيانات الشركة",
+        COMAPNYCONTACTDATA:"بيانات تواصل الشركة",
+        TAXDATA:"البيانات الضريبية"
+
 
 			},
 			MESSAGE:{

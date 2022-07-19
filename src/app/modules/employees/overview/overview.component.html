@@ -1,0 +1,360 @@
+
+
+<div class="row pt-5 gy-5 gx-xl-12">
+    <div class="col-xxl-6">
+      <div class="card card-xxl-stretch mb-xl-3">
+
+       
+        <div
+  class="
+    card-body
+    p-0
+    d-flex
+    justify-content-between
+    flex-column
+    overflow-hidden
+  "
+>
+  <div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
+    <div class="me-2">
+      <span class="fw-bolder text-gray-800 d-block fs-3">Orders</span>
+
+      <span class="text-gray-400 fw-bold">Jan 1 - Oct 26 2022</span>
+    </div>
+
+    <div class="fw-bolder fs-3" [ngClass]="'fs-5 text-' + chartColor">
+     250 orders
+    </div>
+  </div>
+
+  <div #chartRef class="mixed-widget-10-chart" [style.height]="chartHeight">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [yaxis]="chartOptions.yaxis"
+      [dataLabels]="chartOptions.dataLabels"
+      [stroke]="chartOptions.stroke"
+      [legend]="chartOptions.legend"
+      [fill]="chartOptions.fill"
+      [states]="chartOptions.states"
+      [tooltip]="chartOptions.tooltip"
+      [colors]="chartOptions.colors"
+      [markers]="chartOptions.markers"
+      [plotOptions]="chartOptions.plotOptions"
+    ></apx-chart>
+  </div>
+</div>
+
+  
+      </div>
+    </div>
+    <div class="col-xxl-6">
+        <div class="card card-xxl-stretch mb-xl-3">
+         <!-- begin::Header -->
+  <!-- begin::Header -->
+  
+  <div class="card-header border-0 pt-5">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="card-label fw-bolder fs-3 mb-1">Orders History</span>
+        
+      </h3>
+      <div
+        class="card-toolbar"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-trigger="hover"
+        title="Click to add a user"
+      >
+        <a href="#" class="btn btn-sm btn-light-primary">
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+            class="svg-icon svg-icon-3"
+          ></span>
+          New Order
+        </a>
+      </div>
+    </div>
+    <!-- end::Header -->
+    <!-- begin::Body -->
+    <div class="card-body py-3">
+      <!-- begin::Table container -->
+      <div class="table-responsive">
+        <!-- begin::Table -->
+        <table
+          class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+        >
+          <!-- begin::Table head -->
+          <thead>
+            <tr class="fw-bolder text-muted">
+             
+            
+              <th class="min-w-240px">Task</th>
+              <th class="min-w-80px">Progress</th>
+              <th class="min-w-80px">Status</th>
+              <th class="min-w-40px text-end">Action</th>
+            </tr>
+          </thead>
+          <!-- end::Table head -->
+          <!-- begin::Table body -->
+          <tbody>
+            <tr>
+             
+            
+              <td>
+                <a
+                  href="#"
+                  class="text-dark fw-bolder text-hover-primary d-block fs-6"
+                >
+                  Task Name
+                </a>
+                <span class="text-muted fw-bold text-muted d-block fs-9">
+                  25/06/2022 11:15 AM
+                </span>
+              </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">50%</span>
+                  </div>
+                  <div class="progress h-6px w-100">
+                    <div
+                      class="progress-bar bg-primary"
+                      role="progressbar"
+                      [style.width]="'50%'"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="badge badge-light-success">Todo</div></td>
+              <td>
+                <div class="d-flex justify-content-end flex-shrink-0">
+                  <a
+                    href="#"
+                    class="
+                      btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                      me-1
+                    "
+                  >
+                    <span
+                      [inlineSVG]="
+                        './assets/media/icons/duotune/art/art005.svg'
+                      "
+                      class="svg-icon svg-icon-3"
+                    ></span>
+                  </a>
+                 
+                 
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  <a
+                    href="#"
+                    class="text-dark fw-bolder text-hover-primary d-block fs-6"
+                  >
+                    Task Name
+                  </a>
+                  <span class="text-muted fw-bold text-muted d-block fs-9">
+                    25/06/2022 11:15 AM
+                  </span>
+                </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">70%</span>
+                  </div>
+                  <div class="progress h-6px w-100">
+                    <div
+                      class="progress-bar bg-danger"
+                      role="progressbar"
+                      [style.width]="'70%'"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="badge badge-light-primary">In progress</div></td>
+              <td>
+                <div class="d-flex justify-content-end flex-shrink-0">
+                
+                  <a
+                    href="#"
+                    class="
+                      btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                      me-1
+                    "
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                      class="svg-icon svg-icon-3"
+                    ></span>
+                  </a>
+                
+                </div>
+              </td>
+            </tr>
+            <tr>
+            
+             
+              <td>
+                  <a
+                    href="#"
+                    class="text-dark fw-bolder text-hover-primary d-block fs-6"
+                  >
+                    Task Name
+                  </a>
+                  <span class="text-muted fw-bold text-muted d-block fs-9">
+                    25/06/2022 11:15 AM
+                  </span>
+                </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">60%</span>
+                  </div>
+                  <div class="progress h-6px w-100">
+                    <div
+                      class="progress-bar bg-success"
+                      role="progressbar"
+                      [style.width]="'60%'"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="badge badge-light-success">Completed</div></td>
+              <td>
+                <div class="d-flex justify-content-end flex-shrink-0">
+                 
+                  <a
+                    href="#"
+                    class="
+                      btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                      me-1
+                    "
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                      class="svg-icon svg-icon-3"
+                    ></span>
+                  </a>
+                
+                </div>
+              </td>
+            </tr>
+            <tr>
+            
+             
+              <td>
+                  <a
+                    href="#"
+                    class="text-dark fw-bolder text-hover-primary d-block fs-6"
+                  >
+                    Task Name
+                  </a>
+                  <span class="text-muted fw-bold text-muted d-block fs-9">
+                    25/06/2022 11:15 AM
+                  </span>
+                </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">50%</span>
+                  </div>
+                  <div class="progress h-6px w-100">
+                    <div
+                      class="progress-bar bg-warning"
+                      role="progressbar"
+                      [style.width]="'50%'"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="badge badge-light-warning">Completed</div></td>
+              <td>
+                <div class="d-flex justify-content-end flex-shrink-0">
+                 
+                  <a
+                    href="#"
+                    class="
+                      btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                      me-1
+                    "
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                      class="svg-icon svg-icon-3"
+                    ></span>
+                  </a>
+                 
+                </div>
+              </td>
+            </tr>
+            <tr>
+            
+              <td>
+                  <a
+                    href="#"
+                    class="text-dark fw-bolder text-hover-primary d-block fs-6"
+                  >
+                    Task Name
+                  </a>
+                  <span class="text-muted fw-bold text-muted d-block fs-9">
+                    25/06/2022 11:15 AM
+                  </span>
+                </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">90%</span>
+                  </div>
+                  <div class="progress h-6px w-100">
+                    <div
+                      class="progress-bar bg-info"
+                      role="progressbar"
+                      [style.width]="'90%'"
+                    ></div>
+                  </div>
+                </div>
+              </td>
+              <td><div class="badge badge-light-danger">Pending</div></td>
+              <td>
+                <div class="d-flex justify-content-end flex-shrink-0">
+                
+                  <a
+                    href="#"
+                    class="
+                      btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                      me-1
+                    "
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                      class="svg-icon svg-icon-3"
+                    ></span>
+                  </a>
+                 
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <!-- end::Table body -->
+        </table>
+        <!-- end::Table -->
+      </div>
+      <!-- end::Table container -->
+    </div>
+    <!-- begin::Body -->
+    
+    <!-- end::Body -->
+    
+        </div>
+      </div>
+  </div>
+
+
+
+
+  
+
+  

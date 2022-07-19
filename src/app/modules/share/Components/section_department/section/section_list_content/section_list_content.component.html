@@ -55,7 +55,7 @@
 							<label *ngIf="element.isActive == false" class="badge badge-danger"> {{"HR.TITLES.NOTACTIVE"|translate}}
 							</label>
 							<span class="mx-2">
-								<section matTooltip="{{element.isActive==true?'ايقاف التفعيل':'تفعيل'}}"
+								<section matTooltip="{{element.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
 									class="example-section">
 									<mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
 										(click)="toggleActiveDeactive(element)" [checked]="element.isActive">

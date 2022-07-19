@@ -31,7 +31,6 @@ import { BranchListContentComponent } from './components/branches/branch_list_co
     CommonModule,
     HrRoutingModule,
     TranslationModule,
-    AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
