@@ -8,7 +8,6 @@ import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { ComplainService } from "src/app/modules/operations/services/complain.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
-import { ComplainTypeService } from "src/app/shared-module/Services/complainType.service";
 import { LookupService } from "src/app/shared-module/Services/Lookup.service";
 
 
@@ -49,7 +48,6 @@ export class UpsertComponent {
 		private fb: FormBuilder,
 		private toaster: toasterService,
 		private jobService: LookupService,
-		private compainTypeService: ComplainTypeService,
 		private auth: AuthService,
 		private activatedRoute: ActivatedRoute
 	) {
@@ -88,9 +86,7 @@ export class UpsertComponent {
 	addNewRow() {
 		if (this.pageName == 'jobs') {
 			this.jobService.addFlag.next(true);
-		} else if (this.pageName == 'compainType') {
-			this.compainTypeService.addFlag.next(true);
-		}
+		} 
 	}
 
 	// for Insert And Delete distingush them with model.id
@@ -120,26 +116,7 @@ export class UpsertComponent {
 							this.toaster.openWarningSnackBar(error);
 						}
 					);
-			} else if (this.pageName == 'compainType') {
-				this.compainTypeService.PostLookupData(model).
-					subscribe(
-						(data: HttpReponseModel) => {
-
-							if (data.isSuccess) {
-								this.toaster.openSuccessSnackBar(data.message);
-								this.compainTypeService.bSubject.next(true);
-							}
-							else if (data.isExists) {
-								this.toaster.openWarningSnackBar(data.message);
-							}
-							this.messageErrors = "";
-						},
-						(error: any) => {
-							this.toaster.openWarningSnackBar(error);
-						}
-					);
-			}
-
+			} 
 		}
 
 		else {
@@ -152,18 +129,7 @@ export class UpsertComponent {
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error);
 					});
-			} else if (this.pageName == 'compainType') {
-				this.compainTypeService.UpdateLookupData(model).subscribe(
-					(data: any) => {
-						this.toaster.openSuccessSnackBar(data.message);
-						this.compainTypeService.bSubject.next(true);
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error);
-					});
-			}
-
-
+			} 
 		}
 
 	}

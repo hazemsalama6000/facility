@@ -11,7 +11,6 @@ import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/modules/auth";
 import { ActivatedRoute } from "@angular/router";
-import { ComplainTypeService } from "src/app/shared-module/Services/complainType.service";
 @Component({
 	selector: 'list_content',
 	templateUrl: './list_content.component.html',
@@ -36,7 +35,6 @@ export class ListContentComponent {
 
 	constructor(
 		private jobService: LookupService,
-		private compainTypeService: ComplainTypeService,
 		private toaster: toasterService,
 		public dialog: MatDialog,
 		private auth: AuthService,
@@ -55,9 +53,6 @@ export class ListContentComponent {
 			if (this.pageName == 'jobs') {
 				const datajob = this.jobService.selectFromStore().subscribe(data => { this.getallData(); });
 				this.unsubscribe.push(datajob);
-			} else if (this.pageName == 'compainType') {
-				const datacomplain = this.compainTypeService.selectFromStore().subscribe(data => { this.getallData(); });
-				this.unsubscribe.push(datacomplain);
 			}
 		});
 		this.unsubscribe.push(udata);
@@ -65,10 +60,7 @@ export class ListContentComponent {
 
 		if (this.pageName == 'jobs') {
 			this.jobService.addFlag.subscribe((data) => { if (data == true) this.addNewRow(); });
-		} else if (this.pageName == 'compainType') {
-			this.compainTypeService.addFlag.subscribe((data) => { if (data == true) this.addNewRow(); });
 		}
-
 	}
 
 	addNewRow() {
@@ -129,40 +121,13 @@ export class ListContentComponent {
 							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 						}
 					);
-				} else if (this.pageName == 'compainType') {
-					this.compainTypeService.PostLookupData(model).subscribe(
-						(data: HttpReponseModel) => {
-							if (data.isSuccess) {
-								this.toaster.openSuccessSnackBar(data.message);
-								this.compainTypeService.bSubject.next(true);
-								this.compainTypeService.addFlag.next(true);
-							}
-							else if (data.isExists) {
-								this.toaster.openWarningSnackBar(data.message);
-							}
-						},
-						(error: any) => {
-							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-						}
-					);
 				}
-
 			}
 
 			else {
 
 				if (this.pageName == 'jobs') {
 					this.jobService.UpdateLookupData(model).subscribe(
-						(data: any) => {
-							this.dataSource.data[index].isEdit = false;
-							this.dataSource.data = this.dataSource.data;
-							this.toaster.openSuccessSnackBar(data.message);
-						},
-						(error: any) => {
-							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-						});
-				} else if (this.pageName == 'compainType') {
-					this.compainTypeService.UpdateLookupData(model).subscribe(
 						(data: any) => {
 							this.dataSource.data[index].isEdit = false;
 							this.dataSource.data = this.dataSource.data;
@@ -189,15 +154,6 @@ export class ListContentComponent {
 				(error: any) => {
 					console.log(error);
 				});
-		} else if (this.pageName == 'compainType') {
-			this.compainTypeService.addFlag.next(false);
-			this.compainTypeService.UpdateLookupData(element).subscribe(
-				(data: HttpReponseModel) => {
-					this.toaster.openSuccessSnackBar(data.message);
-					this.getallData();
-				},
-				(error: any) => console.log(error)
-			);
 		}
 
 	}
@@ -210,15 +166,6 @@ export class ListContentComponent {
 				if (confirmed) {
 					if (this.pageName == 'jobs') {
 						this.jobService.DeleteLookupData(model.Id).subscribe(
-							(data: HttpReponseModel) => {
-								this.toaster.openSuccessSnackBar(data.message);
-								this.getallData();
-							},
-							(error: any) => {
-								this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-							});
-					} else if (this.pageName == 'compainType') {
-						this.compainTypeService.DeleteLookupData(model.Id).subscribe(
 							(data: HttpReponseModel) => {
 								this.toaster.openSuccessSnackBar(data.message);
 								this.getallData();
@@ -243,15 +190,7 @@ export class ListContentComponent {
 					this.dataSource.paginator = this.paginator;
 				}
 			);
-		} else if (this.pageName == 'compainType') {
-			this.compainTypeService.getLookupData(this.userdata.companyId).subscribe(
-				(data: LookUpModel[]) => {
-					this.dataSource = new MatTableDataSource<LookUpModel>(data);
-					this.dataSource.paginator = this.paginator;
-				}
-			);
-		}
-
+		} 
 	}
 
 	//filter from search Box
@@ -263,9 +202,7 @@ export class ListContentComponent {
 	ngOnDestroy() {
 		if (this.pageName == 'jobs') {
 			this.jobService.addFlag.next(false);
-		} else if (this.pageName == 'compainType') {
-			this.compainTypeService.addFlag.next(false);
-		}
+		} 
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}
 

@@ -21,7 +21,7 @@ export class AsideMenuComponent implements OnInit {
     this.unsubcribe.push(getdata);
   }
 
-  ngOnInit(): void {console.log(this.userData.menu) }
+  ngOnInit(): void { console.log(this.userData.menu) }
 
   ngOnDestroy() {
     this.unsubcribe.forEach((sb) => sb.unsubscribe());
@@ -35,7 +35,7 @@ export class AsideMenuComponent implements OnInit {
       "isLast": false,
       "route": "",
       "permission": "",
-      "isDeleted":false,
+      "isDeleted": false,
       "icon": "",
       "childNode": [
         {
@@ -45,7 +45,7 @@ export class AsideMenuComponent implements OnInit {
           "isLast": true,
           "route": "/",
           "permission": "Screen.Bills.Issues.View",
-          "isDeleted":false,
+          "isDeleted": false,
           "icon": "home",
           "childNode": []
         },
@@ -56,7 +56,7 @@ export class AsideMenuComponent implements OnInit {
           "isLast": false,
           "route": "",
           "permission": "",
-          "isDeleted":false,
+          "isDeleted": false,
           "icon": "",
           "childNode": [
             {
@@ -64,14 +64,14 @@ export class AsideMenuComponent implements OnInit {
               "name": "إعدادات",
               "parentId": 31,
               "isLast": false,
-              "icon": "manage_accounts","isDeleted":false,
+              "icon": "manage_accounts", "isDeleted": false,
               "childNode": [
                 {
                   "id": 34,
                   "name": "الشركات",
                   "parentId": 32,
                   "isLast": true,
-                  "route": "/hr/company","isDeleted":false,
+                  "route": "/hr/company", "isDeleted": false,
                   "permission": "Screen.Shared.Company.View",
                   "icon": "",
                   "childNode": []
@@ -80,7 +80,7 @@ export class AsideMenuComponent implements OnInit {
                   "id": 35,
                   "name": "صلاحيات المدير",
                   "parentId": 32,
-                  "isLast": true,"isDeleted":false,
+                  "isLast": true, "isDeleted": false,
                   "route": "/permissions/superadminroles",
                   "permission": "Screen.Shared.Geographic.View",
                   "icon": "",
@@ -90,7 +90,7 @@ export class AsideMenuComponent implements OnInit {
                   "id": 36,
                   "name": "المستخدمين المتصلين",
                   "parentId": 32,
-                  "isLast": true,"isDeleted":false,
+                  "isLast": true, "isDeleted": false,
                   "route": "/permissions/onlineUsers",
                   "permission": "Screen.Shared.Company.View",
                   "icon": "",
@@ -104,14 +104,14 @@ export class AsideMenuComponent implements OnInit {
               "parentId": 31,
               "isLast": false,
               "route": "",
-              "permission": "","isDeleted":false,
+              "permission": "", "isDeleted": false,
               "icon": "people_outline",
               "childNode": [
                 {
                   "id": 37,
                   "name": "بيانات الدخول للمستخدمين ",
                   "parentId": 33,
-                  "isLast": true,"isDeleted":false,
+                  "isLast": true, "isDeleted": false,
                   "route": "/permissions/userconnectionlog",
                   "permission": "Screen.Shared.Company.View",
                   "icon": "",
@@ -127,15 +127,68 @@ export class AsideMenuComponent implements OnInit {
           "parentId": 1,
           "isLast": false,
           "route": "",
-          "permission": "","isDeleted":false,
+          "permission": "", "isDeleted": false,
           "icon": "",
           "childNode": [
             {
               "id": 41,
+              "name": "الوظائف",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/hr/jobs",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "job",
+              "childNode": []
+            }, {
+              "id": 41,
               "name": " بيانات الموظف ",
               "parentId": 39,
-              "isLast": true,"isDeleted":false,
+              "isLast": true,
+              "isDeleted": false,
               "route": "/employee/employeeprofile",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            }, {
+              "id": 41,
+              "name": " قائمة الموظفين ",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/employee/employeelist",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            }
+          ]
+        }, {
+          "id": 39,
+          "name": "اعدادات عامة",
+          "parentId": 1,
+          "isLast": false,
+          "route": "",
+          "permission": "", 
+          "isDeleted": false,
+          "icon": "settings",
+          "childNode": [
+            {
+              "id": 41,
+              "name": "المحافظات والمناطق",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/share/state_region",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            } , {
+              "id": 41,
+              "name": "",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/share/department_section",
               "permission": "Screen.Shared.Company.View",
               "icon": "perm_identity",
               "childNode": []
@@ -146,142 +199,27 @@ export class AsideMenuComponent implements OnInit {
           "id": 42,
           "name": "إعدادات العملاء",
           "parentId": 1,
-          "isLast": false,"isDeleted":false,
+          "isLast": false, "isDeleted": false,
           "route": "",
           "permission": "",
           "icon": "",
-          "childNode": [
-            {
-              "id": 43,
-              "name": " بيانات العملاء ",
-              "parentId": 42,
-              "isLast": true,"isDeleted":false,
-              "route": "/customer/cutomerprofile",
-              "permission": "Screen.Customer.Customers.View",
-              "icon": "supervisor_account",
-              "childNode": []
-            }
-          ]
+          "childNode": []
         },
         {
           "id": 44,
           "name": "الفواتير",
           "parentId": 1,
-          "isLast": false,"isDeleted":false,
+          "isLast": false, "isDeleted": false,
           "route": "",
           "permission": "",
           "icon": "",
-          "childNode": [
-            {
-              "id": 45,
-              "name": "الفواتير",
-              "parentId": 44,
-              "isLast": false,"isDeleted":false,
-              "route": "",
-              "permission": "",
-              "icon": "receipt_long",
-              "childNode": [
-                {
-                  "id": 46,
-                  "name": " فواتير العملاء ",
-                  "parentId": 45,
-                  "isLast": true,"isDeleted":false,
-                  "route": "/operation/customerbills",
-                  "permission": "Screen.Shared.Company.View",
-                  "icon": "",
-                  "childNode": []
-                },
-                {
-                  "id": 47,
-                  "name": " الأصدارات ",
-                  "parentId": 45,
-                  "isLast": true,"isDeleted":false,
-                  "route": "/operation/issue",
-                  "permission": "Screen.Technician.Technician.View",
-                  "icon": "",
-                  "childNode": []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": 48,
-          "name": "العمليات",
-          "parentId": 1,
-          "isLast": false,"isDeleted":false,
-          "route": "",
-          "permission": "",
-          "icon": "",
-          "childNode": [
-            {
-              "id": 49,
-              "name": "الشكاوى",
-              "parentId": 48,
-              "isLast": false,"isDeleted":false,
-              "route": "",
-              "permission": "",
-              "icon": "support_agent",
-              "childNode": [
-                {
-                  "id": 50,
-                  "name": " انواع الشكاوى ",
-                  "parentId": 49,
-                  "isLast": true,"isDeleted":false,
-                  "route": "/operation/compainType",
-                  "permission": "Screen.Customer.Customers.View",
-                  "icon": "",
-                  "childNode": []
-                },
-                {
-                  "id": 51,
-                  "name": " الشكاوى ",
-                  "parentId": 49,
-                  "isLast": true,"isDeleted":false,
-                  "route": "/operation/complainlist",
-                  "permission": "Screen.Operation.Complaints.View",
-                  "icon": "",
-                  "childNode": []
-                }
-              ]
-            },
-            {
-              "id": 52,
-              "name": " القراءات ",
-              "parentId": 48,
-              "isLast": true,"isDeleted":false,
-              "route": "/operation/readinglist",
-              "permission": "Screen.Operation.MeterReading.View",
-              "icon": "checklist",
-              "childNode": []
-            },
-            {
-              "id": 53,
-              "name": " سحب البيانات ",
-              "parentId": 48,
-              "isLast": true,"isDeleted":false,
-              "route": "/operation/receivedata",
-              "permission": "Screen.Technician.Technician.View",
-              "icon": "download",
-              "childNode": []
-            },
-            {
-              "id": 54,
-              "name": " ادارة تعديلات العملاء ",
-              "parentId": 48,
-              "isLast": true,"isDeleted":false,
-              "route": "/operation/cutomerupdatemanage",
-              "permission": "Screen.Customer.Customers.View",
-              "icon": "manage_accounts",
-              "childNode": []
-            }
-          ]
+          "childNode": []
         },
         {
           "id": 55,
           "name": "إدارة المستخدمين",
           "parentId": 1,
-          "isLast": false,"isDeleted":false,
+          "isLast": false, "isDeleted": false,
           "route": "",
           "permission": "",
           "icon": "",
@@ -290,7 +228,7 @@ export class AsideMenuComponent implements OnInit {
               "id": 56,
               "name": "صلاحيات المستخدمين",
               "parentId": 55,
-              "isLast": false,"isDeleted":false,
+              "isLast": false, "isDeleted": false,
               "route": "",
               "permission": "",
               "icon": "admin_panel_settings",
@@ -299,7 +237,7 @@ export class AsideMenuComponent implements OnInit {
                   "id": 57,
                   "name": "المستخدمين ",
                   "parentId": 56,
-                  "isLast": true,"isDeleted":false,
+                  "isLast": true, "isDeleted": false,
                   "route": "/permissions/users",
                   "permission": "Screen.Customer.Customers.View",
                   "icon": "",
@@ -309,52 +247,10 @@ export class AsideMenuComponent implements OnInit {
                   "id": 58,
                   "name": "الأدوار",
                   "parentId": 56,
-                  "isLast": true,"isDeleted":false,
+                  "isLast": true, "isDeleted": false,
                   "route": "/permissions/roles",
                   "permission": "Screen.Technician.Technician.View",
                   "icon": "",
-                  "childNode": []
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Report",
-      "isLast": false,"isDeleted":false,
-      "route": "",
-      "permission": "",
-      "icon": "",
-      "childNode": [
-        {
-          "id": 10,
-          "name": "Child_L3-1",
-          "parentId": 6,
-          "isLast": false,"isDeleted":false,
-          "route": "",
-          "permission": "",
-          "icon": "",
-          "childNode": [
-            {
-              "id": 13,
-              "name": "Child_L6_2",
-              "parentId": 10,
-              "isLast": false,"isDeleted":false,
-              "route": "",
-              "permission": "",
-              "icon": "",
-              "childNode": [
-                {
-                  "id": 14,
-                  "name": "Child_L6_3",
-                  "parentId": 13,
-                  "isLast": true,"isDeleted":false,
-                  "route": "Module/Test",
-                  "permission": "Screen.Technician.Technician.View",
-                  "icon": "Icon",
                   "childNode": []
                 }
               ]
