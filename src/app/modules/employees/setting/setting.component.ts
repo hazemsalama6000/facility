@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -23,7 +23,6 @@ export class SettingComponent implements OnInit {
 	@Output() emitForActiveProp = new EventEmitter<boolean>();
 	@Input() set _Employee(value: IEmployee) {
 		this.employeeProfile = value;
-		console.log(this.employeeProfile.imagePath);
 	}
 
 	constructor(private service: EmployeeService, private dialog: MatDialog, private technicianService: TechnitianService, private toaster: toasterService) { }
@@ -32,11 +31,15 @@ export class SettingComponent implements OnInit {
 	}
 
 	toggleActive() {
+		if(this.employeeProfile.id==undefined){
+			this.toaster.openWarningSnackBar('اختر عميل');
+			return;
+		}
 		this.service.toggleActive(this.employeeProfile.id).subscribe(
 			(data: HttpReponseModel) => {
 				this.toaster.openSuccessSnackBar(data.message);
-				this.employeeProfile.isActive = !this.employeeProfile.isActive;
-				this.emitForActiveProp.emit(this.employeeProfile.isActive);
+				this.employeeProfile.userIsActive = !this.employeeProfile.userIsActive;
+				this.emitForActiveProp.emit(this.employeeProfile.userIsActive);
 			},
 			(error) => {
 				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
@@ -46,7 +49,10 @@ export class SettingComponent implements OnInit {
 
 
 	toggleIsTechnician() {
-
+		if(this.employeeProfile.id==undefined){
+			this.toaster.openWarningSnackBar('اختر موظف');
+			return;
+		}
 		if (this.employeeProfile.isTechnician == true) {
 
 			this.technicianService.toggleIsTechnician(this.employeeProfile.id).subscribe(
@@ -69,6 +75,10 @@ export class SettingComponent implements OnInit {
 
 
 	openDialog() {
+		if(this.employeeProfile.id==undefined){
+			this.toaster.openWarningSnackBar('اختر موظف');
+			return;
+		}
 		const dialogPosition: DialogPosition = {
 			top: '0px',
 			right: '0px'
@@ -80,7 +90,6 @@ export class SettingComponent implements OnInit {
 				maxHeight: '100vh',*/
 				maxHeight: '100vh',
 				height: '100%',
-
 				//panelClass: 'full-screen-modal',*/
 				position: dialogPosition,
 				data: { employeeId: this.employeeProfile.id }
@@ -92,7 +101,7 @@ export class SettingComponent implements OnInit {
 				this.emitter.emit(result);
 			}
 			else {
-				this.employeeProfile.isTechnician = false;				
+				this.employeeProfile.isTechnician = false;
 			}
 		});
 

@@ -210,7 +210,7 @@ export class CompanyUpsertComponent implements OnInit {
 	// initialize Form With Validations
 	initForm() {
 
-		this.company = {
+		this.company = {companyServiceName:'',
 			id: 0, code: '', companyName: '', activity: '', address: '', mobileUsersCount: 0, region_Id: 0, isActive: false, logoPrint: '',
 			logoWeb: '', phoneNumber: '0', email: '', managerName: '', managerPosition: '', commercialRecord: '', taxCardNo: '', vatTax: '',
 			isValTaxActive: false, hasDirectTransferForStocks: false, wTax: '', state_Id: 0, isWTaxActive: false, taxFileNo: '', vatTaxNum: '', employee_Id: 0
@@ -245,7 +245,7 @@ export class CompanyUpsertComponent implements OnInit {
 
 	mapFormGroupsToModel(companyDataForm: any): ICompany {
 
-		console.log(companyDataForm);
+		// console.log(companyDataForm);
 		let model: any = {};
 
 		model.id = companyDataForm.id;
@@ -334,7 +334,7 @@ export class CompanyUpsertComponent implements OnInit {
 
 							if (data.isSuccess) {
 								this.toaster.openSuccessSnackBar(data.message);
-								console.log(data.message);
+								// console.log(data.message);
 								this.service.bSubject.next(true);
 							}
 							else if (data.isExists) {

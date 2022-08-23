@@ -1,13 +1,4 @@
 export interface ICompany {
-
-	id: number,
-	code: string,
-	companyName: string,
-	activity: string,
-	address: string,
-	phoneNumber: string,
-	logoPrint: string,
-	logoWeb: string,
 	commercialRecord: string
 	taxCardNo: string,
 	taxFileNo: string,
@@ -17,13 +8,22 @@ export interface ICompany {
 	hasDirectTransferForStocks: boolean,
 	wTax: string,
 	isWTaxActive: boolean,
-	email: string,
-	isActive: boolean,
-	mobileUsersCount: number,
-	state_Id :number
+	state_Id: number
 	region_Id: number,
 	managerName: string,
 	managerPosition: string,
-	employee_Id:number
+	employee_Id: number;
+	activity: string;
+	address: string;
+	code: string;
+	companyName: string;
+	companyServiceName: string;
+	email: string;
+	id: number;
+	isActive: boolean;
+	logoPrint: string;
+	logoWeb: string;
+	mobileUsersCount: number;
+	phoneNumber: string;
 
 }

@@ -2,7 +2,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -20,7 +19,7 @@ import { SharedModule } from './shared-module/shared-module.module';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './core-module/custom-route-reuse-strategy';
-
+import {HashLocationStrategy,LocationStrategy} from '@angular/common';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -81,7 +80,8 @@ function appInitializer(authService: AuthService) {
 			provide: HTTP_INTERCEPTORS,
 			useClass: RetryInterceptor,
 			multi: true
-		}*/
+		}*/,
+		{provide:LocationStrategy,useClass:HashLocationStrategy}
 	],
 	bootstrap: [AppComponent],
 })

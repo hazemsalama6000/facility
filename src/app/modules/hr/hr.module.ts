@@ -18,14 +18,14 @@ import { BranchListContentComponent } from './components/branches/branch_list_co
 
 @NgModule({
   declarations: [
-	  CompanyComponent,
-	  CompanysDataListComponent,
-	  CompanyItemComponent,
-	  CompanyUpsertComponent,
-	  BranchComponent,
-	  BranchUpsertComponent,
-	  BranchListContentComponent,
-	  BranchUpsertComponent
+    CompanyComponent,
+    CompanysDataListComponent,
+    CompanyItemComponent,
+    CompanyUpsertComponent,
+    BranchComponent,
+    BranchUpsertComponent,
+    BranchListContentComponent,
+    BranchUpsertComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +34,7 @@ import { BranchListContentComponent } from './components/branches/branch_list_co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-	SharedModule,
+    SharedModule,
   ]
 })
 export class HrModule { }

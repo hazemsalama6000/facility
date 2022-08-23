@@ -5,8 +5,8 @@ import { BranchComponent } from './components/branches/branch.component';
 import { CompanyComponent } from './components/companyProfile/company.component';
 
 const routes: Routes = [
-	{path:'jobs' , component:LookupIdNameComponent},
-	{path:'company',component:CompanyComponent }
+	{path:'jobs' , component:LookupIdNameComponent,data:{page:'jobs'}},
+	{path:'company',component:CompanyComponent },
 ];
 
 @NgModule({

@@ -85,7 +85,7 @@ export class CompanysDataListComponent {
 						, logoPrint: `${localStorage.getItem('companyLink')}${item.logoPrint}`
 					}) as ICompanyDisplayData);
 
-					console.log(this.companys);
+					// console.log(this.companys);
 				}
 			);
 

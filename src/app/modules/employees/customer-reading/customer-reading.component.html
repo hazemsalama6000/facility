@@ -1,0 +1,155 @@
+<div class="example-container mat-elevation-z8">
+	<div class="example-loading-shade"
+		 *ngIf="isLoadingResults || isRateLimitReached">
+	  <mat-spinner [diameter]="60"  *ngIf="isLoadingResults"></mat-spinner>
+	  <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+		GitHub's API rate limit has been reached. It will be reset in one minute.
+	  </div>
+	</div>
+  
+	<div class="example-table-container">
+				<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+			<ng-container matColumnDef="customerName">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> العميل</th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-success badge-sm"> {{element.customerName}}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="value">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> القراءة </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-primary badge-sm"> 
+						{{element.value}}
+					</span>
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="lastReading">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> القراءة السابقة </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.lastReading}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="meterStatus">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> حالة العداد </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.meterStatus}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="readingImagePath">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> الصورة </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<p-image *ngIf="element.actualreadingImagePath!=null && element.actualreadingImagePath!=''"
+						[src]="element.readingImagePath" width="150" height="50" [preview]="true">
+					</p-image>
+
+					<img *ngIf="element.actualreadingImagePath==null || element.actualreadingImagePath==''" src="assets\\media\\icons\\images.png" width="60" height="50">
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="issueName">
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> اسم الاصدار </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-danger badge-sm">
+						{{element.issueName}}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="issueStatus">
+				<th   class="stylingHeader" mat-header-cell *matHeaderCellDef> حالة الاصدار </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.issueStatus}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="XY">
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> الموقع</th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<button (click)="currentLocation(element.x,element.y)" matTooltip="اخر موقع للمستخدم" mat-mini-fab
+						color="primary" class="justify-content-center align-items-center"
+						aria-label="Example icon button with a filter list icon">
+						<mat-icon style="font-size:20px ;"> location_on</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+
+
+			<ng-container matColumnDef="issueDate">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> تاريخ الاصدار</th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.issueDate | date:'dd/MM/yyyy'}}
+				</td>
+			</ng-container>
+
+			<!-- Name Column -->
+			<ng-container matColumnDef="isRevised">
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> تمت المراجعة</th>
+				<td mat-cell *matCellDef="let element; let x=index">
+					<span>
+						<a *ngIf="element.isRevised == true; else inActiveForisRevised"
+							class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+							data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+							نعم
+						</a>
+
+						<ng-template #inActiveForisRevised>
+							<a class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+								data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+								لا
+							</a>
+						</ng-template>
+					</span>
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="isPotsed">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> تمت الارسال</th>
+				<td mat-cell *matCellDef="let element; let x=index">
+					<span>
+						<a *ngIf="element.isRevised == true; else inActiveForisPotsed"
+							class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+							data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+							نعم
+						</a>
+
+						<ng-template #inActiveForisPotsed>
+							<a class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+								data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+								لا
+							</a>
+						</ng-template>
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="notes">
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> ملاحظات </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.notes}}
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns; let entry" style="cursor:pointer ;">
+
+			</tr>
+
+			<!-- Row shown when there is no matching data. -->
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}}</td>
+			</tr>
+		</table>
+
+	</div>
+  
+	<mat-paginator [length]="resultsLength" [pageSize]="5" aria-label="Select page of GitHub search results"></mat-paginator>
+  </div>

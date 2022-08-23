@@ -5,8 +5,9 @@ import {
 	HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY,  Observable, of, throwError } from 'rxjs';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from '../services/auth.service';
 import { LoggingService } from '../services/Logging.service';
 
@@ -16,7 +17,11 @@ import { LoggingService } from '../services/Logging.service';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-	constructor(private Logging: LoggingService ,private authService:AuthService) { }
+	constructor(
+		private Logging: LoggingService,
+		private authService: AuthService,
+		private toaster: toasterService,
+	) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -35,14 +40,19 @@ export class ErrorInterceptor implements HttpInterceptor {
 					this.authService.logout();
 				}
 
+				if (requestError.status == 403) {
+					this.toaster.openErrorSnackBar('ليس لديك صلاحية الدخول');
+					// console.log(requestError)
+				}
+
 				if (requestError.status == 400) {
 
-				let	messageError:string = "";
-					
-					const errors:any = {};
+					let messageError: string = "";
 
-					for(const key in error.errors){
-						if(Object.prototype.hasOwnProperty.call(error.errors , key) ){
+					const errors: any = {};
+
+					for (const key in error.errors) {
+						if (Object.prototype.hasOwnProperty.call(error.errors, key)) {
 							errors[key] = error.errors[key];
 							messageError += " - " + error.errors[key][0];
 						}
@@ -71,7 +81,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 				else {
 					return EMPTY;
 				}
-
 
 			})
 		);

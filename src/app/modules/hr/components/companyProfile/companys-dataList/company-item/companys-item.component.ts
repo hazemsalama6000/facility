@@ -82,7 +82,7 @@ export class CompanyItemComponent {
 					if (data.isSuccess) {
 						this.toaster.openSuccessSnackBar(data.message);
 						this.company.logoPrint = `${localStorage.getItem('companyLink')}${data.data}`;
-						console.log(this.company.logoPrint);
+						// console.log(this.company.logoPrint);
 					}
 					else if (data.isExists) {
 						this.toaster.openWarningSnackBar(data.message);
@@ -131,9 +131,9 @@ export class CompanyItemComponent {
 
 					if (data.isSuccess) {
 						this.toaster.openSuccessSnackBar(data.message);
-						console.log(data.data);
+						// console.log(data.data);
 						this.company.logoWeb = `${localStorage.getItem('companyLink')}${data.data}`
-						console.log(this.company.logoWeb);
+						// console.log(this.company.logoWeb);
 						//	this.service.bSubject.next(true);
 					}
 					else if (data.isExists) {

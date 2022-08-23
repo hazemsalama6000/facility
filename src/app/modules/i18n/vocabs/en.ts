@@ -5,6 +5,7 @@ export const locale = {
     TRANSLATOR: {
       SELECT: 'Select your language',
     },
+
     MENU: {
       NEW: 'new',
       ACTIONS: 'Actions',
@@ -13,21 +14,34 @@ export const locale = {
       FEATURES: 'Features',
       APPS: 'Apps',
       DASHBOARD: 'Dashboard',
-      governoratsAndRegions: "Governorats And Regions",
-      departments: "Departments",
-      jobs: "Jobs",
-      companies: "Companies",
-      onlineUsers: "Online Users",
-      loginUsersData: "Users Login Information"
+      GOVERNORATESANDREGIONS: "Governorats And Regions",
+      DEPARTMENTS: "Departments",
+      JOBS: "Jobs",
+      COMPANIES: "Companies",
+      ONLINEUSERS: "Online Users",
+      LOGINUSERSDATA: "Users Login Information",
+      TRACINGUSERSLOCATION: "Tracking users' locations",
+      EMPLOYEELIST: "Employee List",
+      PERMISSION: "Permissions",
+      USERS: "Users",
+      ROLES: "Roles",
+      SUPERADMIN: "Super Admin",
+      COMPLAINLIST: "Complain list",
+      READINGLIST: "Reading list",
+      COMPLAINTYPE: "Compain Type",
+      ISSUES: "Issues",
+      RECEIVEDATA: "Receive Data"
     },
-    FOOTER:{
-      COPYRIGHT:"Copy Right"
+
+    FOOTER: {
+      COPYRIGHT: "Copy Right"
     },
-     USERDIALOG: {
+
+    USERDIALOG: {
       MYPROFILE: "My Profile",
       PROFILESETTING: "Account Settings",
       LOGOUT: "LogOut",
-      LANGUAGE:"Language"
+      LANGUAGE: "Language"
 
     },
 
@@ -57,13 +71,13 @@ export const locale = {
         LOGOPRINT: "logoPrint",
         LOGOWEB: "logoWeb",
         COMPANYDATA: "company data",
-        BRANCHNAME:"Branch Name",
-        ISMAIN:"IsMain",
-        EMPLOYEE:"Employee",
-        RESPONSIBLEEMPLOYEE:"Manager Name",
-        SALESSTATELOGIN:"Stop Logining For representative",
-        STATUS:"Status"
-
+        BRANCHNAME: "Branch Name",
+        ISMAIN: "IsMain",
+        EMPLOYEE: "Employee",
+        RESPONSIBLEEMPLOYEE: "Manager Name",
+        SALESSTATELOGIN: "Stop Logining For representative",
+        STATUS: "Status",
+        ISUPLOADIMAGE: "Upload Image"
 
       },
       BUTTONS: {
@@ -73,38 +87,38 @@ export const locale = {
         NEXT: "Next",
         BACK: "Back",
         SAVE: "Save",
-				DELETE: "Delete",
-        EDITCOMPANY:"Edit Company",
-        VIEWBRANCHS:"View Branchs"
+        DELETE: "Delete",
+        EDITCOMPANY: "Edit Company",
+        VIEWBRANCHS: "View Branchs"
       },
       TITLES: {
         ADDORUPDATE: "add or Edit",
-				ACTIVE: "Active",
-				NOTACTIVE: "Not Active",
+        ACTIVE: "Active",
+        NOTACTIVE: "Not Active",
         SETACTIVE: "Set Active",
-				SETNOTACTIVE: "Set Not Active",
-				JOBS: "Jobs",
-				COMPANIESDATA: "Companies Data",
-				BRANCHDATA:"Branch Data",
-				BRANCHMAINDATA:"Main Data",
-				CONTACTDATA:"Contact Data",
-				CONTROLDATA:"Control Data",
-        BRANCHS:"Branchs",
-        COMPANYDATA:"Company Data:",
-        COMPANYCODE:"Code :",
-        COUNTUSERS:"Number Of Users :",
-        COMPANYNOTACTIVE:"Not Active",
-        COMPANYACTIVE:"Active",
-        GOVERNORATE:"Governorate",
-        REGION:"Region",
-        COMMERCIALRECORD:"Commercial Record",
-        TAXCARDNUMBER:"Tax Card NO",
-        WTAX:"WTax",
-        ACTIVITY:"Activity",
-        STAX:"STax",
-        COMPANYDATA1:"Company Data",
-        COMAPNYCONTACTDATA:"Company Contact Data",
-        TAXDATA:"Tax Data"
+        SETNOTACTIVE: "Set Not Active",
+        JOBS: "Jobs",
+        COMPANIESDATA: "Companies Data",
+        BRANCHDATA: "Branch Data",
+        BRANCHMAINDATA: "Main Data",
+        CONTACTDATA: "Contact Data",
+        CONTROLDATA: "Control Data",
+        BRANCHS: "Branchs",
+        COMPANYDATA: "Company Data:",
+        COMPANYCODE: "Code :",
+        COUNTUSERS: "Number Of Users :",
+        COMPANYNOTACTIVE: "Not Active",
+        COMPANYACTIVE: "Active",
+        GOVERNORATE: "Governorate",
+        REGION: "Region",
+        COMMERCIALRECORD: "Commercial Record",
+        TAXCARDNUMBER: "Tax Card NO",
+        WTAX: "WTax",
+        ACTIVITY: "Activity",
+        STAX: "STax",
+        COMPANYDATA1: "Company Data",
+        COMAPNYCONTACTDATA: "Company Contact Data",
+        TAXDATA: "Tax Data"
 
       },
       MESSAGE: {
@@ -186,8 +200,6 @@ export const locale = {
         INVALID_FIELD: 'Field is not valid',
         INVALID_CREDENTIALS: 'verify Credentials',
         INVALID_COMPANY: 'verify Company Code'
-
-
       }
     },
 
@@ -250,7 +262,14 @@ export const locale = {
         SAVE: "Save",
         DELETE: "Delete",
         LASTLOCATION: "Last Location",
-        NOTCONNECTED: "Not Connected"
+        NOTCONNECTED: "Not Connected",
+        CANCEL: "Cancel",
+        ALLUSERS: "All Users",
+        ADDROLE: "Add Role",
+        ADDUSER: "Add User",
+        EDITROLE: "Edit Role",
+        VIEW: "View Details",
+        RESETPASSWORD: "Reset Password"
       },
       TITLES: {
         ADDORUPDATEONLINEUSERS: "Users Login Data",
@@ -261,18 +280,138 @@ export const locale = {
         USERNAME: "User Name",
         LOGINTIME: "Login Time",
         REMININIGTIME: "Remining Time",
+        REMININIG: "Remining",
         DAY: "D",
         HOUR: "H",
         MINUTE: "M",
-        ONLINEUSERS: "Online Users",
         COMPANIES: "Companies",
         COUNTONLINEUSERFOREACHCOMPANY: "Count Connected Users Foreach Company",
+        ONLINEUSERS: "Online Users",
+        OFFLINEUSERS: "Offline Users",
+        ADDNEWUSER: "Add New User",
+        EMPLOYEE: "Employee",
+        FULLNAME: "User Name",
+        PHONENUMBER: "Phone Number",
+        EMAIL: "Email",
+        PASSWORD: "password",
+        USERTYPE: "User Type",
+        ROLES: "ROLES",
+        ASSIGNROLESTOUSER: "Assign Roles To User",
+        SEARCHUSER: "Search Users",
+        STATUS: "Status",
+        LASTLOGINTIME: "Last Login Time",
+        ASSIGNEDROLES: "Assigned Roles",
+        TOTAL: "Total",
+        ONLINE: "Online",
+        OFFLINE: "Offline",
+        OVERVIEW: "Overview",
+        CARDTOTAL: "Total users with this role:",
+        MORE: "more...",
+        TABLETITLEROLEPROFILE: "Count Users In Role",
+        ADDPERMISSIONTOCOMPANY: "Add Role To Company",
+        ADDNEWROLE: "Add New Role",
+        ROLEPERMISSION: "Role Permissions",
+        ROLENAME: "Role Name",
+        UPDATEROLE: "Update Role",
+        JOB: "Job",
+        USERONLINE: "Online",
+        USEROFFLINE: "Offline"
 
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      },
+      PLACEHOLDER: {
+        ROLENAMEPLACEHOLDER: "Enter a role name"
+      }
+    },
+
+    EMPLOYEE: {
+      INPUTS: {
+      },
+      BUTTONS: {
+        ADD: "Add",
+        CLOSE: "close",
+        EDIT: "edit",
+        SAVE: "Save",
+        DELETE: "Delete",
+      },
+      TITLES: {
+        NAME: "Name",
+        MOBILE: "Mobile",
+        BRANCHNAME: "Branch Name",
+        DEPARTMENT: "Department",
+        SECTION: "Section",
+        JOB: "Job",
+        HIREDATE: "HireDate",
+        GRADUATIONDATE: "GraduateDate",
+        QUALIFICATION: "Qualification",
+        UNIVERSITY: "University",
+        NID: "National ID",
+        BITHDATE: "BirthDate",
+        ADDRESS: "Address",
+        STATE: "State",
+        REGION: "Region",
+        MARTIALSTATUS: "NartialStatus",
+        MILITERYSTATUS: "MiliteryStatus"
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      }
+    },
+
+    OPERATION: {
+      INPUTS: {
+        BRANCH: "Branch",
+        AREA: "Area",
+        BLOCK: "Block",
+        CUSTOMET: "Customer",
+        EMPLOYEE: "Employee",
+        STARTDATE: "start Date",
+        ENDDATE: "End Date",
+        CUSTOMERCODE: "search by customer Code",
+      },
+      BUTTONS: {
+        REVISED: "Revised",
+        POSTED: "Post"
+      },
+      TITLES: {
+        COLLECTORNAME: "Collector Name",
+        CUSTOMERNAME: "Customer Name",
+        CUSTOMERCODE: "Customer Code",
+        BRANCHNAME: "Branch Name",
+        AREANAME: "AreaName",
+        BLOCKNAME: "BlockName",
+        VALUE: "Value",
+        LASTREADING: "Last Reading",
+        IMAGE: "Complaint Images",
+        METERSTATUS: "Meter Status",
+        ISSUENAME: "Issue Name",
+        ISSUESTATUS: "Issue Status",
+        ISSUEDATE: "Issue Date",
+        NOTES: "Notes",
+        DTAE: "Date",
+        DETAILS: "Details",
+        COMPLAINTYPE: "ComplaintType",
+        COMPLAINTYPES: "Compain Type",
+        BILLSTARTNUM: "Start S/N",
+        BILLENDNUM: "End S/N",
+        ISSUETITLE: "Issues",
+        READINGS: "Readings",
+        COMPLAINTS: "Complaints",
+        IMAGERERADING: "Image Reading",
+        LOCATION: "Location",
+        READINGDATE: "Reading Date",
+        RECEIVEDATA: "Receive Data",
+        GEOGRAPHICDATA: "Geographic Data",
+        COLLECTORDATA: "Collector Data",
+        CUSTOMERDATA: "Customer Data",
+        ISSUEDATA: "Issues Data",
+        PULLDATA: "Pull Data"
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
       }
     }
-
   }
 };

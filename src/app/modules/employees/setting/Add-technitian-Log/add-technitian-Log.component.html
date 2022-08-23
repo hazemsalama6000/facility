@@ -1,80 +1,164 @@
-<!--export interface ITechnitianLog {
-	employeeId: number,
-	useGps: boolean,
-	returnFromBill: boolean
-}-->
+<div style="padding:15px;width: 300px;">
 
-<h2 mat-dialog-title>
+	<h2 mat-dialog-title>
 
-	<div class="d-flex justify-content-between align-items-center">
+		<div class="d-flex justify-content-between align-items-center">
 
-		<span class="fontsection">  البيانات الفنية </span>
-		<button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
-			<mat-icon>close</mat-icon>
-		</button>
+			<span class="fontsection"> البيانات الفنية </span>
+			<button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+				<mat-icon>close</mat-icon>
+			</button>
 
-	</div>
+		</div>
 
-</h2>
+	</h2>
 
 
-<mat-divider></mat-divider>
+	<mat-divider></mat-divider>
 
-<form [formGroup]="AddTechnicianForm" (ngSubmit)="saveTechnitian(AddTechnicianForm.value)">
+	<form [formGroup]="AddTechnicianForm" (ngSubmit)="saveTechnitian(AddTechnicianForm.value)">
 
-	<mat-dialog-content style="z-index: -1;" class="mat-typography">
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
 
+			<input type="hidden" name="employee_Id" formControlName="employee_Id">
 
-		<input type="hidden" name="employeeId" formControlName="employeeId">
+			<br>
+			<div class="row mt-5">
 
-	<!--	<div class="d-flex justify-content-start align-content-center">
-			<mat-icon class="text-primary">perm_phone_msg</mat-icon>
-			<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
-				{{'HR.TITLES.COMAPNYCONTACTDATA'|translate}}
-			</h1>
-		</div>-->
+				<div class="col-md-12">
+					<section class="d-flex flex-stack">
+						<mat-slide-toggle name="canComplain" formControlName="canComplain" class="example-margin"
+							[color]="'red'">
+						</mat-slide-toggle>
+						<span class=" fontForInputs"> اضافة بلاغ</span>
 
-		<br>
-	
-		<div class="row mt-5">
+					</section>
+				</div>
 
-			<div class="col-md-12 d-flex justify-content-center align-items-center">
-				<section class="example-section">
-					<span class="mx-2 fontForInputs"> استخدام ال Gps </span>
-					<mat-slide-toggle name="useGps" formControlName="useGps" class="example-margin"
-						[color]="'red'">
-					</mat-slide-toggle>
-				</section>
 			</div>
 
-		</div>
+			<div class="row mt-5">
 
-		<div class="row mt-5">
+				<div class="col-md-12">
+					<section class=" d-flex flex-stack">
+						<mat-slide-toggle name="canCollect" formControlName="canCollect" class="example-margin"
+							[color]="'red'">
+						</mat-slide-toggle>
+						<span class=" fontForInputs">تحصيل فواتير </span>
 
-			<div class="col-md-12 d-flex justify-content-center align-items-center">
-				<section class="example-section">
-					<span class="mx-2 fontForInputs"> ارجاع فواتير </span>
-					<mat-slide-toggle name="returnFromBill" formControlName="returnFromBill" class="example-margin"
-						[color]="'red'">
-					</mat-slide-toggle>
-				</section>
+					</section>
+				</div>
+
+
 			</div>
 
-		</div>
+			<div class="row mt-5">
+				<div class="col-md-12">
+					<section class="d-flex flex-stack">
+						<mat-slide-toggle name="canRead" formControlName="canRead" class="example-margin"
+							[color]="'red'">
+						</mat-slide-toggle>
+						<span class="fontForInputs"> تسجيل قراءه</span>
 
-	</mat-dialog-content>
+					</section>
+				</div>
+			</div>
 
 
-	<mat-dialog-actions>
-		<div class="d-flex">
-			<button mat-raised-button type="submit" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
-		</div>
-	</mat-dialog-actions>
 
-</form>
 
-<!--<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+			<div class="row mt-5">
+				<div class="col-md-12">
+					<section class="d-flex flex-stack">
+						<mat-slide-toggle name="canEditCustomer" formControlName="canEditCustomer"
+							class="example-margin" [color]="'red'">
+						</mat-slide-toggle>
+						<span class="fontForInputs"> تعديل بيانات عميل</span>
+
+					</section>
+				</div>
+			</div>
+
+			<div class="row mt-5">
+
+				<div class="col-md-12">
+					<section class="d-flex flex-stack">
+						<mat-slide-toggle name="attachImageRead" formControlName="attachImageRead"
+							class="example-margin" [color]="'red'">
+						</mat-slide-toggle>
+						<span class="fontForInputs">ارفاق صوره قراءه العداد</span>
+
+					</section>
+				</div>
+			</div>
+
+			<div class="row mt-5">
+
+				<div class="col-md-12">
+					<section class="d-flex flex-stack">
+						<mat-slide-toggle name="attachImageEditCustomer" formControlName="attachImageEditCustomer"
+							class="example-margin" [color]="'red'">
+						</mat-slide-toggle>
+						<span class="fontForInputs">ارفاق صوره لتعديلات العملاء</span>
+
+					</section>
+				</div>
+
+			</div>
+
+			<br>
+
+			<div class="row">
+
+				<mat-form-field>
+					<mat-label class="fontForInputs">الحد الاقصي للعمل بدون شبكة </mat-label>
+					<input matInput placeholder="" name="maxOfflineWorkingHours"
+						formControlName="maxOfflineWorkingHours">
+					<mat-hint>
+
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										validation: 'pattern',
+										message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+										control: AddTechnicianForm.controls['maxOfflineWorkingHours']
+									  }"></ng-container>
+					</mat-hint>
+				</mat-form-field>
+
+			</div>
+
+			<div class="row">
+
+				<mat-form-field>
+					<mat-label class="fontForInputs"> الحد الاقصي لعدد الفواتير المسجلة بدون شبكة </mat-label>
+					<input matInput placeholder="" name="maxOfflineWorkingBills"
+						formControlName="maxOfflineWorkingBills">
+					<mat-hint>
+
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'pattern',
+											message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+											control: AddTechnicianForm.controls['maxOfflineWorkingBills']
+										  }"></ng-container>
+
+					</mat-hint>
+				</mat-form-field>
+
+			</div>
+
+
+		</mat-dialog-content>
+
+
+		<mat-dialog-actions>
+			<div class="d-flex">
+				<button mat-raised-button type="submit" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			</div>
+		</mat-dialog-actions>
+
+	</form>
+
+	<!--<ng-template #formError let-control="control" let-message="message" let-validation="validation">
 	<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
 		<div class="fv-plugins-message-container">
 			<span role="alert">
@@ -83,3 +167,17 @@
 		</div>
 	</ng-container>
 </ng-template>-->
+
+
+	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+		<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+			<div class="fv-plugins-message-container">
+				<span role="alert">
+					{{ message }}
+				</span>
+			</div>
+		</ng-container>
+	</ng-template>
+
+
+</div>

@@ -1,0 +1,149 @@
+<section class="row">
+
+  <div class="col-md-12 overflow-auto mat-elevation-z8">
+
+    <p-table [columns]="selectedColumns" [value]="employees" responsiveLayout="scroll" [loading]="loading">
+
+      <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-end">
+
+          <p-multiSelect [options]="columns" optionLabel=" " [(ngModel)]="selectedColumns" appendTo="body"
+            class="HeaderColumns">
+            <ng-template let-option pTemplate="item">
+              <span>{{'EMPLOYEE.TITLES.'+option.translateKey|translate}}</span>
+            </ng-template>
+          </p-multiSelect>
+
+          <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1"
+            (click)="exportExcel()" pTooltip="XLS" tooltipPosition="bottom"></button>
+
+          <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+            class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
+
+          <p-divider layout="vertical"></p-divider>
+
+          <a type="button" pButton pRipple icon="pi pi-user-plus" class="p-button-primary mx-1"
+            pTooltip="{{ 'HR.BUTTONS.ADD' | translate }}" tooltipPosition="bottom" appendTo="body"
+            routerLink="/employee/"></a>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">{{'EMPLOYEE.TITLES.'+col.translateKey|translate}}</th>
+          <th class="text-center"></th>
+        </tr>
+
+        <tr>
+          <ng-container *ngFor="let col of columns;let i=index">
+
+            <th *ngIf="col.propName=='name'">
+
+              <p-multiSelect [options]="employeeDropdown" optionLabel="Name" #employee appendTo="body"
+                (onChange)="myfilter(employee.value,'employee')">
+                <ng-template let-option pTemplate="item">
+                  <span>{{option.Name}}</span>
+                </ng-template>
+              </p-multiSelect>
+
+            </th>
+
+            <th *ngIf="col.propName=='branch'">
+
+              <p-dropdown [options]="branchDropdown" #branch appendTo="body" optionLabel="branchName"
+                (onChange)="myfilter(branch.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
+
+              <!-- <p-multiSelect [options]="branchDropdown" optionLabel="branchName" #branch appendTo="body"
+                (onChange)="myfilter(branch.value,'branch')">
+                <ng-template let-option pTemplate="item">
+                  <span>{{option.branchName}}</span>
+                </ng-template>
+              </p-multiSelect> -->
+
+            </th>
+
+
+            <th *ngIf="col.propName=='department'">
+              <p-dropdown [options]="departmentDropdown" #department appendTo="body" optionLabel="Name"
+                (onChange)="myfilter(department.value,'department')" placeholder=" " [showClear]="true"></p-dropdown>
+
+              <!-- <p-multiSelect [options]="departmentDropdown" optionLabel="Name" appendTo="body"
+                (onChange)="myfilter($event.value,'department')">
+                <ng-template let-option pTemplate="item">
+                  <span>{{option.Name}}</span>
+                </ng-template>
+              </p-multiSelect> -->
+
+            </th>
+
+            <th *ngIf="col.propName=='section'">
+
+              <p-dropdown [options]="sectionDropdown" #section appendTo="body" optionLabel="Name"
+                (onChange)="myfilter(section.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
+
+              <!-- <p-multiSelect [options]="sectionDropdown" optionLabel="Name" appendTo="body"
+                (onChange)="myfilter($event.value,'section')">
+                <ng-template let-option pTemplate="item">
+                  <span>{{option.Name}</span>
+                </ng-template>
+              </p-multiSelect> -->
+
+            </th>
+
+            <th *ngIf="col.propName=='job'">
+
+              <p-multiSelect [options]="jobDropdown" optionLabel="displayValue"
+                (onChange)="myfilter($event.value,'job')" appendTo="body">
+                <ng-template let-option pTemplate="item">
+                  <span>{{option.displayValue}</span>
+                </ng-template>
+              </p-multiSelect>
+
+            </th>
+
+            <th *ngIf="i>4"></th>
+
+          </ng-container>
+          <th></th>
+
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-employee let-columns="columns">
+        <tr>
+          <ng-container *ngFor="let selectedColumns of columns">
+            <td *ngIf="selectedColumns.propName.includes('Date')">{{
+              employee[selectedColumns.propName]|date:'dd/MM/yyyy'}}</td>
+            <td *ngIf="!selectedColumns.propName.includes('Date')">{{ employee[selectedColumns.propName]}}</td>
+          </ng-container>
+
+          <td>
+            <a mat-mini-fab color="primary" routerLink="/employee/overview" [queryParams]="{ id: employee.id}"
+              id="search" type="submit" class="mx-10">
+              <mat-icon style="font-size: 20px;">person</mat-icon>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Start Pagenation -->
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="12">
+            <p-paginator dropdownAppendTo="body" [rows]="5" [totalRecords]="totalRecords"
+              (onPageChange)="changePage($event)" [rowsPerPageOptions]="[5,10,20,30]"></p-paginator>
+          </td>
+        </tr>
+      </ng-template>
+      <!-- End Pagenation -->
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="11" class="text-center">{{'EMPLOYEE.MESSAGE.NOROWFOUND'|translate}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+
+</section>

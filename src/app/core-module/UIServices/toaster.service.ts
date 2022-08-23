@@ -39,7 +39,7 @@ export class toasterService {
 		this._snackBar.open(message,'', {
 			duration: 3000, horizontalPosition: this.horizontalPosition,
 			verticalPosition: this.verticalPosition,
-			panelClass: 'Warning'
+			panelClass: ['Warning']
 		});
 
 	}

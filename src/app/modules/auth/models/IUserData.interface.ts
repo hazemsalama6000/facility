@@ -1,3 +1,5 @@
+import { ITreeMenu } from "../../permissions/models/ITreeMenu.interface";
+
 export interface IUserData {
     appHasTutorial: boolean;
     branchId: number;
@@ -15,4 +17,5 @@ export interface IUserData {
     userCode: string;
     userId: string;
     userName: string;
+    menu:ITreeMenu[];
 }

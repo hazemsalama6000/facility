@@ -130,7 +130,7 @@ export class BranchListContentComponent {
 
 		this.service.getBranchData(companyId).subscribe(
 			(data: IBranch[]) => {
-				console.log(data);
+				// console.log(data);
 				this.dataSource = new MatTableDataSource<IBranch>(data);
 				this.dataSource.paginator = this.paginator;	
 			}

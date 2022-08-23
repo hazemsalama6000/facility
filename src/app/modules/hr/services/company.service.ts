@@ -49,7 +49,8 @@ export class CompanyService {
 	}
 
 	getCompanyDataById(id: number): Observable<ICompany> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_GETBYID}${id}`);
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_GETBYID}${id}`)
+		.pipe(map(Items =>  Items.data as ICompany  ));
 	}
 
 	PostCompanyData(model: any): Observable<any> {

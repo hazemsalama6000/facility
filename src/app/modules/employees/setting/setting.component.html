@@ -57,14 +57,14 @@
       Apply
     </button>
   </div>-->
-	<div class="mb-10">
+<!--	<div class="mb-10">
 		<label class="form-label fw-bold">تنشيط:</label>
 
 		<div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
 			<input class="form-check-input" type="checkbox" value="" name="notifications"
-				defaultChecked="{{employeeProfile.isActive}}" [checked]="employeeProfile.isActive" (click)="toggleActive()" />
+				defaultChecked="{{employeeProfile.userIsActive}}" [checked]="employeeProfile.userIsActive" (click)="toggleActive()" />
 
-			<a *ngIf="employeeProfile.isActive == true; else inActive"
+			<a *ngIf="employeeProfile.userIsActive == true; else inActive"
 				class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer" data-bs-toggle="modal"
 				data-bs-target="#kt_modal_upgrade_plan">
 				{{'HR.TITLES.COMPANYACTIVE'|translate}}
@@ -78,9 +78,11 @@
 			</ng-template>
 		</div>
 	</div>
-
+-->
 	<div class="mb-10">
 		<label class="form-label fw-bold">فنى:</label>
+
+
 		<div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
 			<input class="form-check-input" type="checkbox" value="" name="notifications"
 				defaultChecked="{{employeeProfile.isTechnician}}" [checked]="employeeProfile.isTechnician" (click)="toggleIsTechnician()"/>

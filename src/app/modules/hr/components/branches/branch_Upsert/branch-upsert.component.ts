@@ -143,7 +143,7 @@ export class BranchUpsertComponent implements OnInit {
 			this.service.getBranchDataById(this.data.branchId).subscribe(
 				(data: IBranchUpsert) => {
 					this.branch = data;
-					console.log(this.branch);
+					// console.log(this.branch);
 					this.fillDropDowns();
 				}
 			)
@@ -168,7 +168,7 @@ export class BranchUpsertComponent implements OnInit {
 
 							if (data.isSuccess) {
 								this.toaster.openSuccessSnackBar(data.message);
-								console.log(data.message);
+								// console.log(data.message);
 								this.service.bSubject.next(true);
 							}
 							else if (data.isExists) {

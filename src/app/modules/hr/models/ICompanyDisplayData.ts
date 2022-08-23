@@ -7,17 +7,18 @@ export interface ICompanyDisplayData {
 	phoneNumber?: number,
 	logoWeb?: string,
 	logoPrint?: string,
-	hasDirectTransferForStocks?: boolean,
+	hasDirectTransferForStocks?: boolean, //*
 	email?: string,
 	isActive?: boolean,
 	mobileUsersCount?: number,
-	state?: string,
-	region?: string,
-	managerName?: string,
-	managerPosition?: string,
-	roleName?: string,
-	commercialRecord: string,
-	taxCardNo: string,
-	wTax: string
-	vatTax: string
+	state?: string, //*
+	region?: string, //*
+	managerName?: string,  //*
+	managerPosition?: string, //*
+	roleName?: string,  //*
+	commercialRecord: string, //*
+	taxCardNo: string,//*
+	wTax: string  //*
+	vatTax: string , //*
+	companyServiceName :string
 }

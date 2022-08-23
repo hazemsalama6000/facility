@@ -113,6 +113,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 						}
 						else {
 							localStorage.setItem(this.TOKENIN_LOCALSTORAGE, LoginResponse.token);
+							this.authService.getUserByToken().subscribe();
 							this.router.navigate(['']);
 						}
 					});

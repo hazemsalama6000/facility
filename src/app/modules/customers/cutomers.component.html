@@ -1,0 +1,345 @@
+<mat-card class="col-md-12">
+	<div class="d-flex align-items-center justify-content-between">
+
+		<div class="d-flex" style="width:250px;">
+			<mat-icon class="text-primary mx-5" style="font-size:30px;">assignment_ind</mat-icon>
+
+			<span class="fontsection">
+				بيانات العملاء
+			</span>
+		</div>
+
+		<div class="row align-items-center mx-2">
+
+		</div>
+
+		<div class="row mx-5">
+
+			<mat-form-field style="width:250px;" appearance="fill">
+				<mat-label>كود العميل</mat-label>
+				<input #codeInput type="text" name="code" matInput>
+				<mat-icon matSuffix
+					(click)="getCustomerProfileByCode(codeInput.value);blockselect.handleClearClick();areaselect.handleClearClick();employeeselect.handleClearClick();customerselect.handleClearClick();"
+					style="cursor: pointer;">search</mat-icon>
+			</mat-form-field>
+
+			<ng-select class="customized" style="width:250px ;" [items]="dropdownBranchData" bindLabel="Name"
+				bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر الفرع"
+				(change)="branchSelectListOnChange($event);blockselect.handleClearClick();areaselect.handleClearClick();employeeselect.handleClearClick();customerselect.handleClearClick();"
+				(clear)="clearBranches();blockselect.handleClearClick();areaselect.handleClearClick();employeeselect.handleClearClick();customerselect.handleClearClick();">
+			</ng-select>
+
+			<ng-select #areaselect class="customized" style="width:250px ;" [items]="dropdownAreaData" bindLabel="Name"
+				bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر المنطقة"
+				(change)="areaSelectListOnChange($event);blockselect.handleClearClick();employeeselect.handleClearClick();"
+				(clear)="clearArea();blockselect.handleClearClick();employeeselect.handleClearClick();">
+			</ng-select>
+			<ng-select #blockselect class="customized" style="width:250px ;" [items]="dropdownBlockData"
+				bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر المربع"
+				(change)="blockSelectListOnChange($event);employeeselect.handleClearClick();"
+				(clear)="clearBlocks();employeeselect.handleClearClick();">
+			</ng-select>
+
+			<ng-select #employeeselect class="customized" style="width:250px ;" [items]="dropdownEmployeeData"
+				bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر الموظف"
+				(change)="employeeSelectListOnChange($event);customerselect.handleClearClick();"
+				(clear)="clearEmployee();customerselect.handleClearClick();">
+			</ng-select>
+
+			<ng-select #customerselect class="customized" style="width:250px ;" [items]="dropdownCustomerData"
+				bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر العميل"
+				(change)="customerSelectListOnChange($event)">
+			</ng-select>
+
+
+		</div>
+
+	</div>
+
+</mat-card>
+<!--begin::Container-->
+
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-xl-row mt-5">
+	<!--begin::Sidebar-->
+	<div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+		<!--begin::Card-->
+		<div class="card mb-5 mb-xl-8">
+			<!--begin::Card body-->
+			<div class="card-body pt-5">
+				<!--begin::Summary-->
+				<div class="d-flex flex-center flex-column mb-5">
+					<!--begin::Avatar-->
+					<div class="symbol symbol-150px symbol-circle mb-4">
+						<img src="../../../assets/media/svg/avatars/001-boy.svg" alt="image" />
+					</div>
+					<!--end::Avatar-->
+					<!--begin::Name-->
+					<a title="get data from endpoint:/api/v1/hr/getemployeeprofileinfo , when click name open edit employee profile"
+						class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">{{employeeDisplay.name}}</a>
+					<!--end::Name-->
+
+				</div>
+				<div style="margin: 0px;padding: 0px;" *ngIf="employeeDisplay.id > 0">
+					<div  class="d-flex flex-start flex-column">
+
+						<div class="d-flex flex-stack fw-bold fs-6 mb-2 pe-2">
+							<a class="
+                                  d-flex
+                                  align-items-start
+                                  text-gray-400 text-hover-primary
+                                  mb-2
+                                  cursor-pointer
+                                ">
+								<mat-icon> vpn_key</mat-icon>
+
+								{{employeeDisplay.code}}
+							</a>
+							<!--<div class="badge badge-light-info d-inline" *ngIf="employeeDisplay.isTechnician == true"> فنى
+						</div>-->
+							<!--begin::Badge-->
+						</div>
+
+						<div class="d-flex flex-stack fw-bold fs-6 mb-2 pe-2">
+							<a class="
+                                  d-flex
+                                  align-items-start
+                                  text-gray-400 text-hover-primary
+                                  mb-2
+                                  cursor-pointer
+                                ">
+								<mat-icon>portrait</mat-icon>
+
+								{{employeeDisplay.actualName}}
+							</a>
+							<!--<div class="badge badge-light-info d-inline" *ngIf="employeeDisplay.isTechnician == true"> فنى
+						</div>-->
+							<!--begin::Badge-->
+						</div>
+
+
+						<div class="d-flex flex-stack fw-bold fs-6 mb-2 pe-2"
+							(click)="currentLocation(employeeDisplay.x,employeeDisplay.y)">
+							<a class="
+                                  d-flex
+                                  align-items-start
+                                  text-gray-400 text-hover-primary
+                                  mb-2
+                                  cursor-pointer
+                                ">
+								<mat-icon color="primary"> pin_drop</mat-icon>
+
+								اظهر الموقع
+							</a>
+							<!--<div class="badge badge-light-info d-inline" *ngIf="employeeDisplay.isTechnician == true"> فنى
+						</div>-->
+							<!--begin::Badge-->
+						</div>
+
+					</div>
+
+
+					<!--end::Details toggle-->
+					<div class="separator separator-dashed my-3"></div>
+					<!--begin::Details content-->
+					<div class="pb-5 fs-6">
+						<!--begin::Details item-->
+
+						<!--begin::Details item-->
+						<div class="fw-bolder mt-5"> تفاصيل العميل ( المنطقة و المربع )</div>
+						<div class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">{{employeeDisplay.areaName}} ,
+								{{employeeDisplay.blockName}} </a>
+						</div>
+
+
+						<!--begin::Details item-->
+						<!--begin::Details item-->
+						<!--begin::Details item-->
+					</div>
+
+					<div class="separator separator-dashed my-3"></div>
+					<div class="fw-bolder mt-5"> النشاط :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.actualActivity}}
+							</a>
+						</span>
+					</div>
+
+					<div class="fw-bolder mt-5"> عدد الوحدات :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.numOfUnits}}
+							</a>
+						</span>
+					</div>
+					<div class="fw-bolder mt-5"> رقم الشاسية :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.meterChassisNum}}
+							</a>
+						</span>
+					</div>
+					<div class="fw-bolder mt-5"> قراءه العداد :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.meterStartReading}}
+							</a>
+						</span>
+					</div>
+					<div class="fw-bolder mt-5"> بدء تشغيل العداد :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.meterStartDate | date:'dd/MM/yyyy'}}
+							</a>
+						</span>
+
+					</div>
+					<div class="fw-bolder mt-5"> بدء خدمة العداد :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.meterStartIssue | date:'dd/MM/yyyy'}}
+							</a>
+						</span>
+
+					</div>
+
+					<div class="fw-bolder mt-5"> تاريخ البدء :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.startIssue | date:'dd/MM/yyyy'}}
+							</a>
+						</span>
+					</div>
+
+					<div class="fw-bolder mt-5"> بدء النشاط :
+						<span class="text-gray-600">
+							<a class="text-gray-600 text-hover-primary">
+								{{employeeDisplay.activityStartIssue | date:'dd/MM/yyyy'}}
+							</a>
+						</span>
+					</div>
+
+					<div class="fw-bolder mt-5"> لدية صرف صحي
+						<a *ngIf="employeeDisplay.hasSewage == true; else inActiveForhasSewage"
+							class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+							data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+							نعم
+						</a>
+
+						<ng-template #inActiveForhasSewage>
+							<a class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+								data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+								لا
+							</a>
+						</ng-template>
+					</div>
+
+
+					<div class="fw-bolder mt-5"> البيانات مكتملة
+						<a *ngIf="employeeDisplay.isDataComplete == true; else inActiveForisDataComplete"
+							class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+							data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+							مكتملة
+						</a>
+
+						<ng-template #inActiveForisDataComplete>
+							<a class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+								data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+								غير مكتملة
+							</a>
+						</ng-template>
+					</div>
+				</div>
+				<!--end::Details content-->
+			</div>
+			<!--end::Card body-->
+		</div>
+		<!--end::Card-->
+	</div>
+	<!--end::Sidebar-->
+	<!--begin::Content-->
+	<div class="flex-lg-row-fluid justify-content-between ms-lg-5" *ngIf="employeeDisplay.id > 0">
+		<div class="row">
+			<div class="col-md-8">
+				<mat-tab-group  style="width: 600px;">
+			
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<a class="nav-link text-hover-primary me-6 fontForInputs"
+					    		style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
+								[routerLink]="['/customer/cutomerprofile/complains/', employeeDisplay.id ]" routerLinkActive="text-primary">
+								الشكاوى
+								<mat-icon>receipt</mat-icon>
+							</a>
+						</ng-template>
+					</mat-tab>
+			
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<a class="nav-link text-hover-primary me-6 fontForInputs"
+							   style="color:rgb(71, 71, 71); font-weight: bold;" id="reads"
+								[routerLink]="['/customer/cutomerprofile/reading/', employeeDisplay.id ]" routerLinkActive="text-primary">
+								القراءات
+								<mat-icon>visibility</mat-icon>
+							</a>
+						</ng-template>
+					</mat-tab>
+			
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<a class="nav-link text-hover-primary me-6 fontForInputs"
+						    	style="color:rgb(71, 71, 71); font-weight: bold;"
+								[routerLink]="['/customer/cutomerprofile/updatelog/', employeeDisplay.id ]" routerLinkActive="text-primary">
+								طلب التعديل
+								<mat-icon>mode_edit</mat-icon>
+							</a>
+						</ng-template>
+					</mat-tab>
+
+					<mat-tab>
+						<ng-template mat-tab-label>
+							<a class="nav-link text-hover-primary me-6 fontForInputs"
+								style="color:rgb(71, 71, 71); font-weight: bold;"
+								[routerLink]="['/customer/cutomerprofile/bills/', employeeDisplay.id ]"
+								routerLinkActive="text-primary">
+								<mat-icon> money</mat-icon>
+								التحصيلات
+							</a>
+						</ng-template>
+					</mat-tab>
+
+			
+				</mat-tab-group>
+			</div>
+			<div class="col-md-2">
+				<div class="me-0 mt-3" >
+					<a data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">
+			
+					</a>
+					<a class="btn btn-sm btn-primary me-3 cursor-pointer" data-kt-menu-trigger="click"
+						data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+						اعدادات الملف
+						<i class="bi bi-gear-fill fs-3"></i>
+					</a>
+					<app-setting (emitForActiveProp)="editActiveProp($event)" (emitter)="editEmployeeTechnicialData($event)"
+						[_Employee]="employeeDisplay">
+					</app-setting>
+				</div>
+			</div>
+				
+		</div>
+		<!--begin:::Tabs-->
+
+
+	
+
+		<br>
+		<!--end:::Tabs-->
+		<!--begin:::Tab content-->
+		<router-outlet class="col-md-6"></router-outlet>
+		<!--end:::Tab content-->
+	</div>
+	<!--end::Content-->
+</div>
