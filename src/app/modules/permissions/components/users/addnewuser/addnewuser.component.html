@@ -1,0 +1,226 @@
+<div id="kt_addnewuser" class="bg-white" data-kt-drawer="true" data-kt-drawer-name="addnewuser"
+    data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'900px', 'lg': '900px'}"
+    data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_addnewuser_toggle"
+    data-kt-drawer-close="#kt_addnewuser_close">
+    <div class="card shadow-none rounded-0 w-100">
+        <form [formGroup]="userDataForm" (ngSubmit)="Submit()">
+            <!-- Begin Header -->
+            <div class="card-header" id="kt_addnewuser_header">
+                <h3 class="card-title fw-bolder text-dark fontsection fs-2">{{'PERMISSIONS.TITLES.ADDNEWUSER'|translate}} </h3>
+
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
+                        id="kt_addnewuser_close">
+                        <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"
+                            class="svg-icon svg-icon-1"></span>
+                    </button>
+                </div>
+            </div>
+            <!-- End Header -->
+
+            <!-- Begin Body -->
+            <div class="card-body position-relative" id="kt_addnewuser_body">
+
+                <div class="row">
+                    <div class="col-8 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMPLOYEE'|translate}}</label>
+                                    <p-dropdown [options]="employeeDropdown" optionLabel="Name" optionValue="Id"
+                                        placeholder=" "
+                                        class="form-control form-control-solid mb-3 mb-lg-0 userDropdown"
+                                        formControlName="employeeId">
+                                    </p-dropdown>
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                              validation: 'required',
+                                                              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.EMPLOYEE' | translate},
+                                                              control: userDataForm.controls['employeeId']
+                                                            }"></ng-container>
+                                    </mat-hint>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMAIL'|translate}}</label>
+                                    <input type="email" formControlName="email"
+                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                  validation: 'required',
+                                                                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.EMAIL' | translate},
+                                                                  control: userDataForm.controls['email']
+                                                                }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                    validation: 'pattern',
+                                                                    message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+                                                                    control: userDataForm.controls['email']
+                                                                  }"></ng-container>
+
+                                    </mat-hint>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PHONENUMBER'|translate}}</label>
+                                    <input type="text" formControlName="phoneNumber"
+                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                  validation: 'required',
+                                                                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate},
+                                                                  control: userDataForm.controls['phoneNumber']
+                                                                }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                    validation: 'min',
+                                                                    message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate , min:10},
+                                                                    control: userDataForm.controls['phoneNumber']
+                                                                  }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                      validation: 'max',
+                                                                      message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate , max:11},
+                                                                      control: userDataForm.controls['phoneNumber']
+                                                                   }"></ng-container>
+
+                                    </mat-hint>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.FULLNAME'|translate}}</label>
+                                    <input type="text" formControlName="userName"
+                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                              validation: 'required',
+                                                              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate},
+                                                              control: userDataForm.controls['userName']
+                                                            }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                validation: 'min',
+                                                                message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , min:3},
+                                                                control: userDataForm.controls['userName']
+                                                              }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                  validation: 'max',
+                                                                  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , max:100},
+                                                                  control: userDataForm.controls['userName']
+                                                               }"></ng-container>
+
+                                    </mat-hint>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PASSWORD'|translate}}</label>
+                                    <input type="password" formControlName="password"
+                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                  validation: 'required',
+                                                                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.PASSWORD' | translate},
+                                                                  control: userDataForm.controls['password']
+                                                                }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                    validation: 'min',
+                                                                    message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PASSWORD' | translate , min:6},
+                                                                    control: userDataForm.controls['password']
+                                                                  }"></ng-container>
+
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                                      validation: 'max',
+                                                                      message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PASSWORD' | translate , max:100},
+                                                                      control: userDataForm.controls['password']
+                                                                   }"></ng-container>
+
+                                    </mat-hint>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="fv-row mb-7">
+                                    <label
+                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.USERTYPE'|translate}}</label>
+                                    <p-dropdown [options]="userTypeDropdown" optionLabel="Name" optionValue="Id"
+                                        placeholder=" "
+                                        class="form-control form-control-solid mb-3 mb-lg-0 userDropdown"
+                                        formControlName="userType_Id">
+                                    </p-dropdown>
+                                    <mat-hint>
+                                        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                              validation: 'required',
+                                                              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.USERTYPE' | translate},
+                                                              control: userDataForm.controls['userType_Id']
+                                                            }"></ng-container>
+                                    </mat-hint>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-12">
+                        <div class="mb-7">
+
+                            <label class="required fw-bold fs-6 mb-5">{{'PERMISSIONS.TITLES.ROLES'|translate}}</label>
+
+                            <ng-container *ngFor="let role of rolesData;let i=index">
+                                <div class="d-flex fv-row">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input me-3" name="user_role" type="checkbox"
+                                            [value]="role.id" id="kt_modal_update_role_option_{{i}}" [checked]='false'
+                                            (change)="onCheckboxChange($event)" />
+                                        <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                            <div class="fw-bolder text-gray-800">{{role.name}}</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class='separator separator-dashed my-5'></div>
+                            </ng-container>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Body -->
+
+            <!-- Begin Footer -->
+            <div class="card-footer py-5 row justify-content-center" id="kt_editemployees_footer">
+                <div class="col-md-6 d-flex">
+                    <button type="reset" id="kt_addnewuser_close" class="btn btn-light me-3"
+                        #btnClose>{{'PERMISSIONS.BUTTONS.CANCEL'|translate}}</button>
+                    <button type="submit" id="kt_modal_new_target_submit1" class="btn btn-primary"
+                        (click)="saveButtonClickedFlag = true">
+                        <span class="indicator-label">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- End Footer -->
+        </form>
+    </div>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+        <div class="fv-plugins-message-container">
+            <span role="alert">
+                {{ message }}
+            </span>
+        </div>
+    </ng-container>
+</ng-template>

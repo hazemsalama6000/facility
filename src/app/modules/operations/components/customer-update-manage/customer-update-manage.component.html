@@ -1,0 +1,89 @@
+<form [formGroup]="customerEditSearchForm" (ngSubmit)="searchCustomerEdits(customerEditSearchForm.value)">
+
+	<mat-card class="col-md-12">
+		<div class="d-flex align-items-center justify-content-between">
+
+			<div class="d-flex align-items-center">
+				<mat-icon class="text-primary mx-5" style="font-size:30px ;">assignment_ind</mat-icon>
+
+				<span class="fontsection"> تعديلات العملاء</span>
+
+
+				<mat-form-field class="mx-10 mb-3" style="width:190px; height: 40px;" appearance="outline">
+					<mat-label>كود العميل</mat-label>
+					<input #codeInput type="text" name="code" matInput>
+					<mat-icon matSuffix color="primary" (click)="getCustomerDataByCode(codeInput.value)" style="cursor: pointer;">search
+					</mat-icon>
+				</mat-form-field>
+				
+			</div>
+
+			<div class="row align-items-center mx-5">
+
+			</div>
+
+			<button  mat-fab color="primary" id="search" type="submit" class="mx-10">
+				<mat-icon style="font-size: 25px;">search</mat-icon>
+			</button>
+		</div>
+
+	<br>
+
+		<div class="row ">
+
+				<ng-select style="width: 150px;" class="customized" [items]="dropdownUpdateTypeData" formControlName="UpdatingTypeId"
+					bindLabel="Name" bindValue="Id" name="UpdatingTypeId" placeholder="اختر نوع التعديل">
+				</ng-select>
+			
+				<ng-select style="width: 200px;" class="customized" [items]="dropdownBranchData" formControlName="BranchId" bindLabel="Name"
+					bindValue="Id" name="region_Id" id="BranchId" placeholder="اختر الفرع"
+					(change)="branchSelectListOnChange($event);blockselect.handleClearClick();areaselect.handleClearClick();employeeselect.handleClearClick();">
+				</ng-select>
+			
+				<ng-select #areaselect style="width: 200px;" class="customized" formControlName="AreaId" [items]="dropdownAreaData"
+					bindLabel="Name" bindValue="Id" name="AreaId" id="AreaId" placeholder="اختر المنطقة"
+					(change)="areaSelectListOnChange($event);blockselect.handleClearClick();employeeselect.handleClearClick();customerselect.handleClearClick();">
+				</ng-select>
+			
+				<ng-select style="width: 200px;" #blockselect class="customized" formControlName="BlockId" [items]="dropdownBlockData"
+					bindLabel="Name" bindValue="Id" name="BlockId" id="BlockId" placeholder="اختر المربع"
+					(change)="blockSelectListOnChange($event);employeeselect.handleClearClick();customerselect.handleClearClick();">
+				</ng-select>
+			
+				<ng-select style="width: 200px;" #employeeselect class="customized" formControlName="Employee_id"
+					[items]="dropdownEmployeeData" bindLabel="Name" bindValue="Id" name="Employee_id" id="Employee_id"
+					placeholder="اختر الموظف"
+					(change)="employeeSelectListOnChange($event);customerselect.handleClearClick();">
+				</ng-select>
+		
+				<ng-select style="width: 200px;" #customerselect class="customized" formControlName="CustomerId"
+					[items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="CustomerId" id="CustomerId"
+					placeholder="اختر العميل" (change)="employeeSelectListOnChange($event)">
+				</ng-select>
+
+	
+				<mat-form-field style="width: 160px;" color="accent" appearance="fill">
+					<mat-label>{{'PERMISSIONS.INPUTS.FROMDATE'|translate}}</mat-label>
+					<input matInput [matDatepicker]="picker1" formControlName="StartDate">
+					<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+					<mat-datepicker #picker1></mat-datepicker>
+				</mat-form-field>
+
+		
+				<mat-form-field style="width: 160px;" color="accent" appearance="fill">
+					<mat-label>{{'PERMISSIONS.INPUTS.TODATE'|translate}}</mat-label>
+					<input matInput [matDatepicker]="picker2" formControlName="EndDate">
+					<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+					<mat-datepicker #picker2></mat-datepicker>
+				</mat-form-field>
+
+			
+		</div>
+
+	</mat-card>
+
+</form>
+
+<div class="mt-5">
+	<customer-update-datatable></customer-update-datatable>
+</div>

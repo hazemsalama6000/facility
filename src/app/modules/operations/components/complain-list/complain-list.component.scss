@@ -1,0 +1,27 @@
+.p-datatable-reading {
+    min-height: 400px;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    padding: .5rem .5rem !important;
+}
+
+.buttonsearch {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    width: 45px;
+    height: 96%;
+    border: 0;
+    margin: 1px;
+    border-radius: 5px 0px 0px 6px
+}
+
+.p-input-icon-left>.p-inputtext {
+    padding-left: 3.7rem;
+}
+
+.p-inputtext {
+    padding: 0.75rem 0.6rem;
+}
+

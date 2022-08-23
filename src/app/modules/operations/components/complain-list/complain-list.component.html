@@ -1,0 +1,169 @@
+<!-- <div class="row mx-0 mb-5">
+  <mat-card>
+    <div style="width:100%" class="d-flex justify-content-between align-items-center fontsection">
+      <span >{{"OPERATION.TITLES.COMPLAINTS" | translate}}</span>
+    </div>
+  </mat-card>
+</div> -->
+
+<section class="row m-0">
+
+  <div class="col-md-12 overflow-auto mat-elevation-z8">
+
+    <p-table [value]="complainData" responsiveLayout="scroll" [loading]="loading" class="removepadding">
+
+      <ng-template pTemplate="caption">
+        <div class="row mx-0 mb-2  justify-content-end">
+          <div class="col">
+
+            <div class="d-flex">
+              <span class="fontsection me-2 align-self-center">{{"OPERATION.TITLES.COMPLAINTS" | translate}}</span>
+
+              <p-divider layout="vertical" class="mx-2"></p-divider>
+              <span class="p-input-icon-left">
+                <button class="buttonsearch" (click)="myfilter('CustomerCode');"><i class="pi pi-search"></i></button>
+                <input type="text" pInputText placeholder="{{'OPERATION.INPUTS.CUSTOMERCODE'|translate}}" [(ngModel)]="searchObject.CustomerCode">
+              </span>
+            </div>
+
+          </div>
+          <div class="col justify-content-end d-flex">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1" (click)="exportExcel()" pTooltip="XLS"
+              tooltipPosition="bottom"></button>
+          </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="row mx-0 justify-content-center align-items-center">
+          <div class="col">
+            <p-dropdown [options]="branchDropdown" appendTo="body" optionValue="Id" optionLabel="Name"
+              (onChange)="myfilter('branch');blockDropdown = [];customerDropdown = [];" placeholder="{{'OPERATION.INPUTS.BRANCH'|translate}}"
+              [showClear]="true" [(ngModel)]="searchObject.BranchId"></p-dropdown>
+          </div>
+          <div class="col">
+            <p-dropdown [options]="areaDropdown" appendTo="body" optionValue="Id" optionLabel="Name" (onChange)="myfilter('area')"
+              placeholder="{{'OPERATION.INPUTS.AREA'|translate}}" [showClear]="true" [(ngModel)]="searchObject.AreaId">
+            </p-dropdown>
+          </div>
+          <div class="col">
+            <p-dropdown [options]="blockDropdown" appendTo="body" optionValue="Id" optionLabel="Name" (onChange)="myfilter('block')"
+              placeholder="{{'OPERATION.INPUTS.BLOCK'|translate}}" [showClear]="true" [(ngModel)]="searchObject.BlockId"></p-dropdown>
+          </div>
+          <div class="col">
+            <p-dropdown [options]="customerDropdown" appendTo="body" optionValue="Id" optionLabel="Name" (onChange)="myfilter('')"
+              placeholder="{{'OPERATION.INPUTS.CUSTOMET'|translate}}" [showClear]="true" [(ngModel)]="searchObject.CustomerId"></p-dropdown>
+          </div>
+          <div class="col">
+            <p-dropdown [options]="collectorDropdown" appendTo="body" optionValue="Id" optionLabel="Name" (onChange)="myfilter('')"
+              placeholder="{{'OPERATION.INPUTS.EMPLOYEE'|translate}}" [showClear]="true" [(ngModel)]="searchObject.Employee_id" [filter]="true"
+              filterBy="Name"></p-dropdown>
+          </div>
+          <div class="col">
+            <p-calendar [showIcon]="true" inputId="icon" #start [maxDate]="end.value" appendTo="body" dir="ltr" (onSelect)="myfilter('startDate')"
+              placeholder="{{'OPERATION.INPUTS.STARTDATE'|translate}}" [(ngModel)]="startDate">
+            </p-calendar>
+          </div>
+          <div class="col">
+            <p-calendar [showIcon]="true" inputId="icon" #end [minDate]="start.value" appendTo="body" dir="ltr" (onSelect)="myfilter('endDate')"
+              placeholder="{{'OPERATION.INPUTS.ENDDATE'|translate}}" [(ngModel)]="endDate">
+            </p-calendar>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th class="text-center">{{'OPERATION.TITLES.BRANCHNAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.AREANAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.BLOCKNAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.COLLECTORNAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.CUSTOMERNAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.CUSTOMERCODE'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.DATE'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.ISSUENAME'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.DETAILS'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.COMPLAINTYPE'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.IMAGE'|translate}}</th>
+          <th class="text-center">{{'OPERATION.TITLES.LOCATION'|translate}} </th>
+          <th class="text-center">
+            <button pButton pRipple type="button" [disabled]="showBtnIsRevise" label="{{'OPERATION.BUTTONS.REVISED'|translate}}"
+              (click)="postAllDataToChecked()" class="p-button-rounded p-button-info p-1 mb-2 d-block" styleClass="p-button-sm"></button>
+            <input class="form-check-input" name="user_role" type="checkbox" [(ngModel)]="btnIsRevise"
+              (change)="setAllIsRevise('revise');showBtnIsRevise=false;" />
+          </th>
+          <th class="text-center">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>search</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <p-radioButton name="isRevised" value="true" [(ngModel)]="searchObject.IsRevised" (onClick)="myfilter('isRevised')"
+                label="تم المراجعة" class="d-block m-2"></p-radioButton>
+              <p-radioButton name="isRevised" value="false" [(ngModel)]="searchObject.IsRevised" (onClick)="myfilter('isRevised')"
+                label="لم يتم المراجعة" class="d-block m-2"></p-radioButton>
+              <p-radioButton name="isRevised" [value]="null" [(ngModel)]="searchObject.IsRevised" (onClick)="myfilter('isRevised')" label="الكل"
+                class="d-block m-2">
+              </p-radioButton>
+            </mat-menu>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-complain>
+        <tr>
+          <td>{{complain.branchName}}</td>
+          <td>{{complain.areaName}}</td>
+          <td>{{complain.blockName}}</td>
+          <td>{{complain.collectorName}}</td>
+          <td>{{complain.customerName}}</td>
+          <td>{{complain.customerCode}}</td>
+          <td>{{complain.date|date:'dd/MM/yyyy'}}</td>
+          <td>{{complain.issueName}}</td>
+          <td>{{complain.details }}</td>
+          <td>{{complain.complaintTypeName}}</td>
+          <td>
+            <button mat-icon-button color="accent" matTooltip="عرض الصور" (click)="openDialog(complain)">
+              <mat-icon style="font-size: 22px;">filter</mat-icon>
+            </button>
+          </td>
+          <td>
+            <button (click)="currentLocation(complain.x,complain.y)" matTooltip="موقع المستخدم" mat-mini-fab color="primary"
+              class="justify-content-center align-items-center" aria-label="Example icon button with a filter list icon">
+              <mat-icon style="font-size:20px ;"> location_on</mat-icon>
+            </button>
+          </td>
+          <td>
+            <input class="form-check-input me-3" matTooltip="{{complain.isRevised?'':'تحديد للمراجعة'}}" name="user_role" type="checkbox"
+              id="kt_modal_update_role_option_0" [checked]="complain.IsRevised" [(ngModel)]="complain.isRevised" />
+          </td>
+
+          <td>
+            <a mat-mini-fab color="primary" matTooltip="ارسال" (click)="ActiveRevise(complain)" id="search" type="submit">
+              <mat-icon style="font-size: 25px;">visibility</mat-icon>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Start Pagenation -->
+      <!-- <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="12">
+            <p-paginator dropdownAppendTo="body" [rows]="10" [totalRecords]="totalRecords"
+              (onPageChange)="changePage($event)" [rowsPerPageOptions]="[10,30,50,100]"></p-paginator>
+          </td>
+        </tr>
+      </ng-template> -->
+      <!-- End Pagenation -->
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="12" class="text-center">{{'EMPLOYEE.MESSAGE.NOROWFOUND'|translate}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+    <div>
+      <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="changePage($event)" [rowsPerPageOptions]="[10,30,50,100]"></p-paginator>
+    </div>
+  </div>
+
+</section>

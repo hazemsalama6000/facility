@@ -1,0 +1,197 @@
+<form [formGroup]="menuForm" (ngSubmit)="addmenu()" style="direction: rtl;">
+
+  <div mat-dialog-title>
+    <div class="row mx-0">
+      <div class="col fontForInputs fs-2 fw-bolder"> {{data.type=='add'? 'اضافة الى':'تعديل'}} ({{data.node.name }})</div>
+      <div class="col-2">
+        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-content class=" overflow-auto">
+
+    <section class="example-section mb-2" *ngIf="(data.node.level==2&&data.type=='add')||(data.node.level==1&&data.type=='add')">
+      <label class="fontForInputs fw-bolder form-label m-0">نوع العنصر:</label>
+      <mat-radio-group (change)="changeMode()" formControlName="type">
+        <mat-radio-button class="example-margin fontForInputs fw-bolder form-label" [checked]="type=='list'?true:false" value="list">قائمة
+        </mat-radio-button>
+        <mat-radio-button class="example-margin fontForInputs fw-bolder form-label" [checked]="type=='child'?true:false" value="child">عنصر داخلى
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <div class="row mx-0">
+      <!-- {{'PERMISSIONS.TITLES.NAME'|translate}} {{'PERMISSIONS.PLACEHOLDER.ROLENAMEPLACEHOLDER'|translate}}-->
+      <div class="col-6 mb-4">
+        <label class="fs-5 fw-bolder form-label mb-2"><span class="required">الاسم</span></label>
+        <input class="form-control form-control-solid" placeholder="" name="Name" formControlName="Name"
+          [ngClass]="{'border-danger':menuForm.controls['Name'].errors&&(menuForm.controls['Name'].touched||saveButtonClickedFlag)}" />
+        <mat-hint>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'required',
+                                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                                    control: menuForm.controls['Name']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'minlength',
+                                    message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                                    control: menuForm.controls['Name']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                      validation: 'maxlength',
+                                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                                      control: menuForm.controls['Name']
+                                   }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <!--{{'PERMISSIONS.TITLES.Icon'|translate}}  {{'PERMISSIONS.PLACEHOLDER.ROLENAMEPLACEHOLDER'|translate}}-->
+      <div class="col-6 mb-4" *ngIf="(data.node.level==2&&data.type=='add')||(data.node.level==1&&data.type=='add'&&type=='child')||
+      (data.node.level==3&&data.type=='edit')||(data.node.level==2&&data.type=='edit'&&data.node.isLast)">
+        <label class="fs-5 fw-bolder form-label mb-2"><span class="required">الأيقونة</span> </label>
+
+        <span class="d-block position-relative">
+          <mat-icon class="m-0 position-absolute float-left p-2" style="left: 0;font-size: 30px;">{{icon.value}}</mat-icon>
+          <input type="text" placeholder="" class="form-control form-control-solid" name="Icon" formControlName="Icon" #icon
+            [ngClass]="{'border-danger':menuForm.controls['Icon'].errors&&(menuForm.controls['Icon'].touched||saveButtonClickedFlag)}">
+        </span>
+
+        <mat-hint>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'required',
+                                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                                    control: menuForm.controls['Icon']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'minlength',
+                                    message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                                    control: menuForm.controls['Icon']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                      validation: 'maxlength',
+                                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                                      control: menuForm.controls['Icon']
+                                   }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <!--{{'PERMISSIONS.TITLES.route'|translate}}  {{'PERMISSIONS.PLACEHOLDER.ROLENAMEPLACEHOLDER'|translate}}-->
+      <div class="col-6 mb-4" *ngIf="(data.node.level==2&&data.type=='add'&&type=='child')||(data.node.level==1&&data.type=='add'&&type=='child')||(data.node.level==3&&data.type=='add')||
+        ((data.node.level==2||data.node.level==3||data.node.level==4)&&data.type=='edit'&&data.node.isLast)">
+        <label class="fs-5 fw-bolder form-label mb-2"><span class="required">اللينك</span></label>
+        <input class="form-control form-control-solid" placeholder="" name="Route" formControlName="Route"
+          [ngClass]="{'border-danger':menuForm.controls['Route'].errors&&(menuForm.controls['Route'].touched||saveButtonClickedFlag)}" />
+        <mat-hint>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'required',
+                                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                                    control: menuForm.controls['Route']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'minlength',
+                                    message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                                    control: menuForm.controls['Route']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                      validation: 'maxlength',
+                                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                                      control: menuForm.controls['Route']
+                                   }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <!--{{'PERMISSIONS.TITLES.permission'|translate}}  -->
+      <div class="col-6 mb-4" *ngIf="(data.node.level==3&&data.type=='add')||((data.node.level==2||data.node.level==1)&&data.type=='add'&&type=='child')||
+      ((data.node.level==2||data.node.level==3||data.node.level==4)&&data.type=='edit'&&data.node.isLast)">
+        <label class="fs-5 fw-bolder form-label mb-2"><span class="required">الصلاحية</span></label>
+        <ng-select class="customized" [items]="permission" formControlName="Permission" bindLabel="Name" bindValue="Name" name="Permission"
+          placeholder="اختر الصلاحية" appendTo="body"
+          [ngClass]="{'border-danger':menuForm.controls['Permission'].errors&&(menuForm.controls['Permission'].touched||saveButtonClickedFlag)}">
+        </ng-select>
+
+        <mat-hint>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'required',
+                                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                                    control: menuForm.controls['Permission']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'minlength',
+                                    message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                                    control: menuForm.controls['Permission']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                      validation: 'maxlength',
+                                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                                      control: menuForm.controls['Permission']
+                                   }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <!--{{'PERMISSIONS.TITLES.order'|translate}}  -->
+      <div class="col-6 mb-4">
+        <label class="fs-5 fw-bolder form-label mb-2"><span class="required">الترتيب</span></label>
+        <input class="form-control form-control-solid" placeholder="" name="OrderBy" formControlName="OrderBy"
+          [ngClass]="{'border-danger':menuForm.controls['OrderBy'].errors&&(menuForm.controls['OrderBy'].touched||saveButtonClickedFlag)}" />
+        <mat-hint>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'required',
+                                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                                    control: menuForm.controls['OrderBy']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                    validation: 'minlength',
+                                    message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                                    control: menuForm.controls['OrderBy']
+                                  }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                      validation: 'maxlength',
+                                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                                      control: menuForm.controls['OrderBy']
+                                   }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+    </div>
+  </div>
+
+  <mat-dialog-actions class="row justify-content-end">
+
+    <button mat-button mat-dialog-close class="w-125px p-0 bg-gray-100">{{'PERMISSIONS.BUTTONS.CANCEL'|translate}}</button>
+    <button mat-button cdkFocusInitial class="btn btn-primary w-125px p-0" type="submit" (click)="saveButtonClickedFlag = true"
+      [disabled]="disabledBtn">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</button>
+
+  </mat-dialog-actions>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

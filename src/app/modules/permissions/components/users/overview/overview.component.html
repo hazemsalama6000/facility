@@ -1,0 +1,61 @@
+<div class="row g-6 g-xl-9">
+    <ng-container *ngFor="let userKey of userKeys">
+        <div class="col-lg-6 col-xxl-4" *ngIf="userdata[userKey]?.length>0">
+            <!--begin::Clients-->
+            <div class="card h-100">
+                <div class="card-body p-9">
+                    <!--begin::Heading-->
+                    <div class="fs-2hx fw-bold mb-3 pb-2">{{userdata[userKey]?.userType}}{{userKey}}</div>
+                    <div class="d-flex flex-wrap mb-5">
+                        <!--begin::Due-->
+                        <div class="border border-gray-300 border-dashed rounded min-w-75px py-3 px-4 me-2 mb-3">
+                            <div class="fs-6 text-gray-800 fw-bold">{{'PERMISSIONS.TITLES.TOTAL'|translate}}</div>
+                            <div class="fw-semibold text-gray-400">{{userdata[userKey]?.length}} {{'PERMISSIONS.TITLES.USERS'|translate}}</div>
+                        </div>
+                        <!--end::Due-->
+                        <!--begin::Budget-->
+                        <div class="border border-gray-300 border-dashed rounded min-w-75px py-3 px-4 me-2 mb-3">
+                            <div class="fs-6 text-gray-800 fw-bold"> <span _ngcontent-xlb-c220=""
+                                    class="badge badge-success badge-circle w-10px h-10px me-1"></span> {{'PERMISSIONS.TITLES.ONLINE'|translate}}</div>
+                            <div class="fw-semibold text-gray-400">{{getLength(userdata[userKey],true)}} {{'PERMISSIONS.TITLES.USERS'|translate}}</div>
+                        </div>
+                        <div class="border border-gray-300 border-dashed rounded min-w-75px py-3 px-4 me-2 mb-3">
+                            <div class="fs-6 text-gray-800 fw-bold"><span _ngcontent-xlb-c220=""
+                                    class="badge badge-danger badge-circle w-10px h-10px me-1"></span> {{'PERMISSIONS.TITLES.OFFLINE'|translate}}</div>
+                            <div class="fw-semibold text-gray-400">{{getLength(userdata[userKey],false)}} {{'PERMISSIONS.TITLES.USERS'|translate}}</div>
+                        </div>
+                        <!--end::Budget-->
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Users group-->
+                    <div class="symbol-group symbol-hover mb-3">
+                        <ng-container *ngFor="let user of userdata[userKey];let i=index">
+                            <div *ngIf="8>i" class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="{{user.name}}">
+                                <img *ngIf="user.imagePath!=''&&user.imagePath!=null" alt="" [src]="url+user.imagePath" />
+                                <span *ngIf="user.imagePath==''||user.imagePath==null" class="symbol-label bg-info text-inverse-info fw-bolder">{{user.name|slice:0:1}}</span>
+                            </div>
+                        </ng-container>
+
+                        <a *ngIf="userdata[userKey]?.length>8" href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_view_users">
+                            <span class="symbol-label bg-dark text-inverse-dark fs-8 fw-bolder" data-bs-toggle="tooltip"
+                                data-bs-trigger="hover" title="View more users">+{{userdata[userKey]?.length-8}}</span>
+                        </a>
+
+                    </div>
+                    <!--end::Users group-->
+                    <!--begin::Actions-->
+                    <div class="d-flex">
+                        <a routerLink="/permissions/users" class="btn btn-primary btn-sm me-3"
+                            data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">{{'PERMISSIONS.BUTTONS.ALLUSERS'|translate}}</a>
+
+                    </div>
+                    <!--end::Actions-->
+                </div>
+            </div>
+            <!--end::Clients-->
+        </div>
+    </ng-container>
+
+
+</div>

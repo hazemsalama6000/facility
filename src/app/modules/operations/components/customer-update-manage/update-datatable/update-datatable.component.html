@@ -1,0 +1,150 @@
+<div class="example-container mat-elevation-z8">
+	<div class="example-loading-shade"
+		 *ngIf="isLoadingResults || isRateLimitReached">
+	  <mat-spinner [diameter]="50" *ngIf="isLoadingResults"></mat-spinner>
+	  <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+		GitHub's API rate limit has been reached. It will be reset in one minute.
+	  </div>
+	</div>
+  
+	<div class="example-table-container">
+  
+	  <table mat-table [dataSource]="data" class="example-table"
+			 matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+			<!-- Name Column -->
+			<ng-container matColumnDef="BranchName">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> الفرع </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span>
+						{{element.branchName}}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="AreaName">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> المنطقة </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.areaName}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="BlockName">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> المربع </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					{{element.blockName}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="CustomerName">
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef>اسم العميل </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-sm badge-primary">
+						{{element.customerName}}
+					</span>
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="CustomerCode">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> كود العميل </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+
+					{{element.customerCode}}
+
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="CollectorName">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> اسم الموظف </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-sm badge-secondary">
+						{{element.collectorName}}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="RequestDate">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> تاريخ الطلب</th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+					<span class="badge badge-info badge-sm">
+						{{element.requestDate | date:'short'}}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="UpdatedTypeName">
+				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> نوع التعديل </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+
+					{{element.updatedTypeName}}
+
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="UpdatedTypeSysName">
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>التعديل </th>
+				<td mat-cell class="text-center" *matCellDef="let element">
+
+					<div *ngIf="element.updatedTypeSysName == 'location';">
+						<div class="">
+							<button (click)="currentLocation(element.x,element.y)"
+								matTooltip="اخر موقع للمستخدم" mat-mini-fab color="primary"
+								class="justify-content-center align-items-center"
+								aria-label="Example icon button with a filter list icon">
+								<mat-icon style="font-size:20px ;"> location_on</mat-icon>
+							</button>
+						</div>
+					</div>
+
+					<div *ngIf="element.updatedTypeSysName == 'activity';">
+						<span class="badge badge-sm badge-secondary">
+							{{element.customerActivity}}
+						</span>
+					</div>
+
+					<div *ngIf="element.updatedTypeSysName == 'unitsnumber';">
+						<span class="badge badge-sm badge-secondary">
+							{{element.numOfUnits}}
+						</span>
+					</div>
+
+					<div *ngIf="element.updatedTypeSysName == 'customerimage';">
+
+
+
+						<div class="">
+							<!--	<a style="text-decoration:none;" #down download="custom-filename.jpg"
+						[href]="element.imagePath" class="download-btn" title="ImageName">
+					</a>
+					<button matTooltip="تنزيل الصورة " (click)="down.click()" mat-mini-fab color="accent"
+						class="justify-content-center align-items-center"
+						aria-label="Example icon button with a filter list icon">
+						<mat-icon style="font-size:20px ;"> image</mat-icon>
+					</button>-->
+
+							<button matTooltip="تنزيل الصورة "
+								(click)="openDialogDisplayImages(element.imagePath)" mat-mini-fab color="accent"
+								class="justify-content-center align-items-center"
+								aria-label="Example icon button with a filter list icon">
+								<mat-icon style="font-size:20px ;"> image</mat-icon>
+							</button>
+
+						</div>
+					</div>
+
+
+				</td>
+			</ng-container>
+
+  
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	  </table>
+	</div>
+  
+	<mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20,100]" 
+	aria-label="Select page of GitHub search results"></mat-paginator>
+  </div>
+  

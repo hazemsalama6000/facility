@@ -1,0 +1,624 @@
+<ng-container *ngFor="let item of userData.menu[0].childNode">
+  <div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
+    <a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
+        <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+      </span><span class="menu-title"> {{item.name}} </span>
+    </a>
+  </div>
+
+  <ng-container *ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon==''||item.icon==null)">
+    <div class="menu-item">
+      <div class="menu-content pb-2">
+        <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">{{item.name}}</span>
+      </div>
+    </div>
+
+    <ng-container *ngFor="let item of item.childNode">
+      <div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
+        <a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
+            <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+          </span><span class="menu-title"> {{item.name}} </span>
+        </a>
+      </div>
+
+
+      <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"
+        *ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon!=''||item.icon!=null)">
+        <span class="menu-link"><span class="menu-icon">
+            <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+          </span>
+          <span class="menu-title">{{item.name}}</span>
+          <span class="menu-arrow"></span></span>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          
+          <ng-container *ngFor="let item of item.childNode">
+            <div class="menu-item"  *ngIf="item.isDeleted==false">
+              <a class="menu-link without-sub" routerLink="{{item.route}}" routerLinkActive="active">
+                <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                <span class="menu-title">{{item.name}} </span>
+              </a>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+
+
+
+<!-- <div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">home</mat-icon>
+    </span><span class="menu-title"> الرئيسية </span></a>
+</div>
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">صلاحيات المدير العام</span>
+  </div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+    </span><span class="menu-title">إعدادات</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/hr/company" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{"MENU.COMPANIES" | translate}}</span>
+      </a>
+    </div>
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/permissions/superadminroles" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{'MENU.SUPERADMIN'|translate}}</span>
+      </a>
+    </div>
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/permissions/onlineUsers" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{"MENU.ONLINEUSERS" | translate}}</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">people_outline</mat-icon>
+    </span><span class="menu-title">متابعة المستخدمين</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/permissions/userconnectionlogs" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{"MENU.LOGINUSERSDATA" | translate}} </span>
+      </a>
+    </div>
+
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/permissions/userLocationLogs" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title"> {{'MENU.TRACINGUSERSLOCATION'|translate}} </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">شئون العاملين</span>
+  </div>
+</div>
+
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/employee/employeeprofile" routerLinkActive="active">
+    <span class="menu-icon">
+      <mat-icon style="font-size:25px;">perm_identity</mat-icon>
+    </span>
+    <span class="menu-title"> بيانات الموظف </span></a>
+</div>
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">إعدادات العملاء</span>
+  </div>
+</div>
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/customer/cutomerprofile" routerLinkActive="active">
+    <span class="menu-icon">
+      <mat-icon style="font-size:25px;">supervisor_account</mat-icon>
+    </span>
+    <span class="menu-title"> بيانات العملاء </span>
+  </a>
+</div>
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">الفواتير</span>
+  </div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">receipt_long</mat-icon>
+    </span><span class="menu-title">الفواتير</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/operation/customerbills" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">   تحصيلات الفواتير  </span>
+      </a>
+    </div>
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/operation/issue" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title"> {{'MENU.ISSUES'|translate}} </span></a>
+    </div>
+
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">العمليات</span>
+  </div>
+</div>
+
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">support_agent</mat-icon>
+    </span><span class="menu-title">{{'MENU.COMPLAINLIST'|translate}}</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/operation/compainType" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title"> {{'MENU.COMPLAINTYPE'|translate}} </span>
+      </a>
+    </div>
+
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/operation/complainlist" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title"> {{'MENU.COMPLAINLIST'|translate}} </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/operation/readinglist" routerLinkActive="active">
+    <span class="menu-icon">
+      <mat-icon style="font-size:25px;">checklist</mat-icon>
+    </span>
+    <span class="menu-title"> {{'MENU.READINGLIST'|translate}} </span></a>
+</div>
+
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/operation/receivedata" routerLinkActive="active"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">download</mat-icon>
+    </span><span class="menu-title"> {{'MENU.RECEIVEDATA'|translate}} </span></a>
+</div>
+
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/operation/cutomerupdatemanage" routerLinkActive="active">
+    <span class="menu-icon">
+      <mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+    </span>
+    <span class="menu-title"> ادارة تعديلات العملاء </span>
+  </a>
+</div>
+
+<div class="menu-item">
+  <div class="menu-content pb-2">
+    <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">إدارة المستخدمين</span>
+  </div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon">
+      <mat-icon style="font-size:25px;">admin_panel_settings</mat-icon>
+    </span><span class="menu-title">صلاحيات المستخدمين</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/permissions/users" routerLinkActive="active">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{"MENU.USERS" | translate}} </span>
+      </a>
+    </div>
+
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/permissions/roles">
+        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+        <span class="menu-title">{{'MENU.ROLES'|translate}}</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLinkActive="active" routerLink="/permissions/managemenu">
+    <span class="menu-icon">
+      <mat-icon style="font-size:25px;">admin_panel_settings</mat-icon>
+    </span>
+    <span class="menu-title">اعدادات القائمة</span>
+  </a>
+</div> -->
+
+
+
+
+
+
+
+<!-- Separator -->
+
+<!--<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/employee/employeelist" routerLinkActive="active"><span
+      class="menu-icon">
+      <span [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'" class="svg-icon svg-icon-2"></span>
+    </span><span class="menu-title"> {{'MENU.EMPLOYEELIST'|translate}} </span></a>
+</div>-->
+
+
+
+<!-- Separator -->
+
+
+<!-- Separator -->
+<!-- Pages -->
+<!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+    ><span class="menu-icon"
+      ><span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media  <span class="menu-link"
+/icons/duotune/general/gen022.svg'"
+      ></span></span
+    ><span class="menu-title">Pages</span><span class="menu-arrow"></span
+  ></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div
+      class="menu-item menu-accordion"
+      routerLinkActive="here show"
+      data-kt-menu-trigger="click"
+    >
+      <span class="menu-link"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title" data-link="/crafted/pages/profile"
+          >Profile</span
+        ><span class="menu-arrow"></span
+      ></span>
+      <div
+        class="menu-sub menu-sub-accordion"
+        routerLinkActive="menu-active-bg"
+      >
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/profile/overview"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Overview</span></a
+          >
+        </div>
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/profile/projects"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Projects</span></a
+          >
+        </div>
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/profile/campaigns"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Campaigns</span></a
+          >
+        </div>
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/profile/documents"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Documents</span></a
+          >
+        </div>
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/profile/connections"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Connections</span></a
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      class="menu-item menu-accordion"
+      routerLinkActive="here show"
+      data-kt-menu-trigger="click"
+    >
+      <span class="menu-link"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title" data-link="/crafted/pages/wizards"
+          >Wizards</span
+        ><span class="menu-arrow"></span
+      ></span>
+      <div
+        class="menu-sub menu-sub-accordion"
+        routerLinkActive="menu-active-bg"
+      >
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/wizards/horizontal"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Horizontal</span></a
+          >
+        </div>
+        <div class="menu-item">
+          <a
+            class="menu-link without-sub"
+            routerLinkActive="active"
+            routerLink="/crafted/pages/wizards/vertical"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Vertical</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Accounts -->
+<!-- <div
+  class="menu-item menu-accordion"
+  data-kt-menu-trigger="click"
+  routerLinkActive="here show"
+>
+  <span class="menu-link"
+    ><span class="menu-icon"
+      ><span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/communication/com006.svg'"
+      ></span></span
+    ><span class="menu-title" data-link="/crafted/account">Accounts</span
+    ><span class="menu-arrow"></span
+  ></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/account/overview"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Overview</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/account/settings"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Settings</span></a
+      >
+    </div>
+  </div>
+</div> -->
+
+<!-- Errors -->
+<!-- <div
+  class="menu-item menu-accordion"
+  data-kt-menu-trigger="click"
+  routerLinkActive="here show"
+>
+  <span class="menu-link"
+    ><span class="menu-icon"
+      ><span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen040.svg'"
+      ></span></span
+    ><span class="menu-title" data-link="/error">Errors</span
+    ><span class="menu-arrow"></span
+  ></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLink="/error/404"
+        routerLinkActive="active"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Error 404</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLink="/error/500"
+        routerLinkActive="active"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Error 500</span></a
+      >
+    </div>
+  </div>
+</div> -->
+
+<!-- Widgets -->
+<!-- <div
+  class="menu-item menu-accordion"
+  data-kt-menu-trigger="click"
+  routerLinkActive="here show"
+>
+  <span class="menu-link"
+    ><span class="menu-icon"
+      ><span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'"
+      ></span></span
+    ><span class="menu-title" data-link="/crafted/widgets">Widgets</span
+    ><span class="menu-arrow"></span
+  ></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/lists"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Lists</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/statistics"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Statistics</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/charts"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Charts</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/mixed"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Mixed</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/tables"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Tables</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/crafted/widgets/feeds"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Feeds</span></a
+      >
+    </div>
+  </div>
+</div> -->
+
+<!-- Separator -->
+<!-- <div class="menu-item">
+  <div class="menu-content pt-8 pb-2">
+    <span class="text-muted text-uppercase fs-8">Apps</span>
+  </div>
+</div> -->
+
+<!-- Chat -->
+<!-- <div
+  class="menu-item menu-accordion"
+  data-kt-menu-trigger="click"
+  routerLinkActive="here show"
+>
+  <span class="menu-link"
+    ><span class="menu-icon"
+      ><span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'"
+      ></span></span
+    ><span class="menu-title" data-link="/apps/chat">Chat</span
+    ><span class="menu-arrow"></span
+  ></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/apps/chat/private-chat"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Private Chat</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/apps/chat/group-chat"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Group Chart</span></a
+      >
+    </div>
+    <div class="menu-item">
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/apps/chat/drawer-chat"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Drawer Chart</span></a
+      >
+    </div>
+  </div>
+</div> -->
+
+<!-- Separator -->
+<!-- <div class="menu-item">
+  <div class="menu-content">
+    <div class="separator mx-1 my-4"></div>
+  </div>
+</div> -->
+
+<!-- Changelog  -->
+<!-- <div class="menu-item">
+  <a target="_blank" class="menu-link" [href]="appPreviewChangelogUrl">
+    <span class="menu-icon">
+      <span
+        class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+      ></span>
+    </span>
+    <span class="menu-title">Changelog {{ appAngularVersion }}</span>
+  </a>
+</div> -->

@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-title class="d-flex align-items-center p-2 fontsection">
+    {{"OPERATION.TITLES.RECEIVEDATA" | translate}}
+    <mat-icon class="text-primary mx-5" style="font-size:30px ;">cloud_download</mat-icon>
+  </mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-card-content class="mt-10">
+
+    <div class="col-md-4 fs-1 p-2">
+      <span> {{"OPERATION.TITLES.GEOGRAPHICDATA" | translate}}</span>
+      <button mat-raised-button color="primary" class="mt-2" (click)="getGeographicData()"
+        [disabled]="buttons.btnGeographic">{{"OPERATION.TITLES.PULLDATA" | translate}}</button>
+    </div>
+
+    <div class="col-md-4 fs-1 p-2">
+      <span> {{"OPERATION.TITLES.COLLECTORDATA" | translate}}</span>
+      <button mat-raised-button color="primary" class="mt-2" (click)="getEmployeeData()"
+        [disabled]="buttons.btnEmployee">{{"OPERATION.TITLES.PULLDATA" | translate}}</button>
+    </div>
+
+    <div class="col-md-4 fs-1 p-2">
+      <span> {{"OPERATION.TITLES.CUSTOMERDATA" | translate}}</span>
+      <button mat-raised-button color="primary" class="mt-2" (click)="getCustomerData()"
+        [disabled]="buttons.btnCustomer">{{"OPERATION.TITLES.PULLDATA" | translate}}</button>
+    </div>
+
+    <div class="col-md-4 fs-1 p-2">
+      <span> {{"OPERATION.TITLES.ISSUEDATA" | translate}}</span>
+      <button mat-raised-button color="primary" class="mt-2" (click)="getIssueData()"
+        [disabled]="buttons.btnIssue">{{"OPERATION.TITLES.PULLDATA" | translate}}</button>
+    </div>
+<!-- 
+    <mat-stepper orientation="vertical" [linear]="true">
+
+      <mat-step>
+        <ng-template matStepLabel>Step 1</ng-template>
+        <ng-template matStepContent>
+          <p>This content was rendered lazily</p>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Step 2</ng-template>
+        <ng-template matStepContent>
+          <p>This content was also rendered lazily</p>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Step 3</ng-template>
+        <p>This content was rendered eagerly</p>
+        <button mat-button matStepperPrevious>Back</button>
+      </mat-step>
+
+    </mat-stepper> -->
+
+  </mat-card-content>
+
+</mat-card>

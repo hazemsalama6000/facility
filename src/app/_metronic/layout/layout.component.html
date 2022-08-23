@@ -1,0 +1,35 @@
+<div class="mcontainer">
+
+  <div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+      <app-aside *ngIf="asideDisplay" id="kt_aside" data-kt-drawer="true" data-kt-drawer-name="aside"
+        data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
+        data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
+        data-kt-drawer-toggle="#kt_aside_mobile_toggle" class="aside" [ngClass]="asideCSSClasses"></app-aside>
+
+
+      <div class="row" style="width: 100%;">
+
+        <div class="col-12 bg-topHeader">
+          <app-header></app-header>
+        </div>
+
+        <div class="col-12 bg-topHeader mt-1">
+          <app-toolbar></app-toolbar>
+        </div>
+
+        <div class="col-12 mt-5">
+          <app-content></app-content>
+        </div>
+
+        <app-footer class="footer py-4 d-flex flex-lg-column mt-5" id="kt_footer"></app-footer>
+
+      </div>
+
+    </div>
+  </div>
+
+  <app-scripts-init></app-scripts-init>
+  <app-scroll-top></app-scroll-top>
+
+</div>

@@ -1,0 +1,269 @@
+<!-- begin::Header -->
+<div class="card-header border-0">
+	<h3 class="card-title fw-bolder text-dark fontsection"> الاصدارات </h3>
+	<div class="card-toolbar">
+
+	</div>
+</div>
+<div *ngIf="dailyStatics" class="data" style="height: 500px;overflow-y: auto;">
+	<!-- end::Header -->
+	<!-- begin::Body -->
+	<div class="card-body pt-2">
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-success"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[0].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-success fs-8 fw-bolder">{{dailyStatics[0].issueStatus}}</span>
+
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-primary"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[1].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-primary fs-8 fw-bolder">{{dailyStatics[1].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-warning"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[2].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-warning fs-8 fw-bolder">{{dailyStatics[2].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-primary"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[3].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-primary fs-8 fw-bolder">{{dailyStatics[3].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-danger"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[4].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-danger fs-8 fw-bolder">{{dailyStatics[4].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-success"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[5].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-success fs-8 fw-bolder">{{dailyStatics[5].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<br>
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-success"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[6].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-success fs-8 fw-bolder">{{dailyStatics[6].issueStatus}}</span>
+
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-primary"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[7].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-primary fs-8 fw-bolder">{{dailyStatics[7].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-warning"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[8].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-warning fs-8 fw-bolder">{{dailyStatics[8].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-primary"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[9].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-primary fs-8 fw-bolder">{{dailyStatics[9].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center mb-8">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-danger"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[10].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-danger fs-8 fw-bolder">{{dailyStatics[10].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+		<!-- begin::Item -->
+		<div class="d-flex align-items-center">
+			<!-- begin::Bullet -->
+			<span class="bullet bullet-vertical h-40px bg-success"></span>
+			<!-- end::Bullet -->
+			<!-- begin::Checkbox -->
+			<div class="form-check form-check-custom form-check-solid mx-5">
+				<input class="form-check-input" type="checkbox" value="" />
+			</div>
+			<!-- end::Checkbox -->
+			<!-- begin::Description -->
+			<div class="flex-grow-1">
+				<a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+					{{dailyStatics[11].issueName}}
+				</a>
+				<span class="text-muted fw-bold d-block"></span>
+			</div>
+			<!-- end::Description -->
+			<span class="badge badge-light-success fs-8 fw-bolder">{{dailyStatics[11].issueStatus}}</span>
+		</div>
+		<!-- end:Item -->
+	</div>
+
+</div>
+<!-- end::Body -->
