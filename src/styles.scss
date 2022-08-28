@@ -400,6 +400,10 @@ app-treepermission mat-tree-node[aria-level="4"] {
 	display: flex !important;
 }
 
+app-pathroute ng-select ,app-addpathroute ng-select {
+    width:auto !important;
+}
+
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {
 		margin-inline-end: 21px !important;

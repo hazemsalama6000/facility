@@ -20,12 +20,12 @@ import { BillDatatableComponent } from './customer-bills/customer-bill-datatable
   declarations: [
     SettingComponent,
     OverviewComponent,
-	CutomersComponent,
-	UserLocationComponent,
-	ComplainsComponent,
-	CustomerReadingComponent,
-	UpdateRequestComponent,
-	BillDatatableComponent
+    CutomersComponent,
+    UserLocationComponent,
+    ComplainsComponent,
+    CustomerReadingComponent,
+    UpdateRequestComponent,
+    BillDatatableComponent
   ],
   imports: [
     CommonModule,

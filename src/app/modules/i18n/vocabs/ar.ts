@@ -422,6 +422,52 @@ export const locale = {
       MESSAGE: {
         NOROWFOUND: "لايوجد بيانات"
       }
-    }
+    },
+
+    DECLARATIONS: {
+      INPUTS: {
+        YEAR: "الاسم",
+        FILTER: "بحث",
+        FROMDATE: 'من تاريخ',
+        TODATE: "الى تاريخ",
+        PATHROUTE: "اختر خط السير",
+        REGION: 'اختر المنطقة',
+        STATE: 'اختر المحافظة',
+        NAME:'الاسم',
+        TECHNICIAN:'اختر المندوب'
+      },
+      BUTTONS: {
+        ADD: "اضافة",
+        CLOSE: "غلق",
+        EDIT: "تعديل",
+        SAVE: "حفظ",
+        DELETE: "حذف",
+        CANCEL: "الغاء",
+        CANCELASSIGN:'الغاء التخصيص',
+        REASSIGN:'أعادة تخصيص'
+      },
+      TITLES: {
+        FINANCIALYEARTABLE: 'بيانات السنة المالية ',
+        YEAR: "الاسم",
+
+        DATEFROM: 'من تاريخ',
+        DATETO: 'الى تاريخ',
+        STATUS: 'حالة التفعيل',
+        ACTIVE: "مفعل",
+        NOTACTIVE: "غير مفعل",
+        ADDFINANCIALYEAR: 'اضافة سنة مالية',
+
+        PATHROUTETABLE: "بيانات خطوط السير ",
+        PATHROUTEADD: "اضافة خط السير",
+        NAME: "الاسم",
+        STATE: "المحافظة",
+        REGION: "المنطقة",
+        TECHNICIAN: 'المندوب'
+
+      },
+      MESSAGE: {
+        NOROWFOUND: "لايوجد بيانات"
+      }
+    },
   }
 };

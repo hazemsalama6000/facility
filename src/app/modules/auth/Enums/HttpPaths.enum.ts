@@ -171,7 +171,23 @@ export enum HttpPaths {
 	API_ADD_MENU="/api/v1/permissions/addpermissionmenuitem",
 	API_UPDATE_MENU="/api/v1/permissions/updatepermissionmenuitem",
 	API_DELETE_MENU="/api/v1/permissions/removepermissionmenuitem/",
-	API_ActiveDeactive_MENU="/api/v1/permissions/changenodeactivation"
+	API_ACTIVEDEACTIVE_MENU="/api/v1/permissions/changenodeactivation",
+
+	//financial year
+	API_GET_FINANCIAL_YEAR="/api/v1/shared/getfinancialyears/",
+	API_ADD_FINANCIAL_YEAR="/api/v1/shared/addfinancialyear",
+	API_DEACTIVE_FINANCIAL_YEAR="/api/v1/shared/changefinancialyearactiveornot?",
+
+	//path route
+	API_LIST_OF_STATES="/api/v1/shared/listofstates",
+	API_LIST_OF_REGIONS="/api/v1/shared/listofregions?",
+	API_LIST_OF_TECHNICIAN="",
+	API_LIST_OF_PATHROUTE="/api/v1/route/listofpathroutes?CompanyBranchId=1",
+	API_GET_PATH_ROUTE="/api/v1/route/getallpathroutes?",
+	API_ADD_PATH_ROUTE="/api/v1/route/addpathroute",
+	API_ACTIVE_DEACTIVE_PATH_ROUTE="/api/v1/route/changepathrouteactiveornot/",
+	API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN="",
+	API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN="",
 
 
 
