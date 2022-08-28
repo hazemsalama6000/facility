@@ -26,7 +26,17 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/permissions/permissions.module').then(m => m.PermissionsModule)
   },
-   {
+  {
+    path: 'declarations',
+    loadChildren: () =>
+      import('../modules/declarations/declarations.module').then(m => m.DeclarationsModule)
+  },
+  {
+    path: 'car',
+    loadChildren: () =>
+      import('../modules/car/car.module').then(m => m.CarModule)
+  },
+  {
     path: 'operation',
     loadChildren: () =>
       import('../modules/operations/operations.module').then(m => m.OperationsModule)

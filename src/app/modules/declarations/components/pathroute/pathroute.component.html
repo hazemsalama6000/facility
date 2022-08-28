@@ -1,0 +1,164 @@
+<section style="width:100%;">
+
+
+  <section>
+    <!-- {{"HR.TITLES.JOBS" | translate}} *ngIf="addButton"-->
+    <mat-card class="col-md-7">
+      <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
+        <span class="fontForInputs fs-3"> {{"DECLARATIONS.TITLES.PATHROUTETABLE"|translate}}</span>
+        <button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openAddDialog()"
+          aria-label="Example icon button with a filter list icon">
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- <span class="fontForInputs"> بيانات خطوط السير </span> -->
+      <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
+
+        <div class="col-md-4">
+          <ng-select class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" name="region_Id"
+            id="state" placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" (change)="getRegion($event)"
+            (clear)="dropdownRegionData=[];dropdownPathRouteData=[];">
+          </ng-select>
+        </div>
+
+        <div class="col-md-4">
+          <ng-select  class="customized" style="width:250px ;" [items]="dropdownRegionData" bindLabel="Name" bindValue="Id"
+            name="region" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}"
+            (change)="getPathRoute($event)"
+            (clear)="dropdownPathRouteData=[];">
+          </ng-select>
+        </div>
+
+        <div class="col-md-4">
+          <ng-select  class="customized" style="width:250px ;" [items]="dropdownPathRouteData" bindLabel="Name" bindValue="Id"
+            name="pathroute" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.PATHROUTE' | translate}}">
+          </ng-select>
+        </div>
+
+        <div class="col-md-1 d-none">
+          <button matTooltip="{{'DECLARATIONS.BUTTONS.ROMDATE'|translate}}" mat-mini-fab color="primary" class="mx-md-1">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </mat-card>
+
+  </section>
+
+
+
+  <div class="col-md-7 mt-10">
+
+
+    <!-- <div class="col-md-4">
+
+      <mat-form-field appearance="standard">
+        <mat-label> {{"HR.INPUTS.FILTER" | translate}}</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+      </mat-form-field>
+
+    </div> -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}}</th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.name}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.STATE" | translate}}</th>
+        <td mat-cell *matCellDef="let element; let x=index">
+          <span>{{element.state}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
+      <ng-container matColumnDef="region">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.REGION" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index">
+          <span>{{element.region}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
+      <ng-container matColumnDef="technician">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.TECHNICIAN" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index">
+          <span>{{element.technician}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{"DECLARATIONS.TITLES.STATUS" | translate}}</th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+
+          <div class="d-flex justify-content-center align-items-center">
+            <label *ngIf="element.isActive == true" class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>
+            <label *ngIf="element.isActive == false" class="badge badge-danger">{{"DECLARATIONS.TITLES.NOTACTIVE"|translate}}</label>
+            <span class="mx-2">
+              <section
+                matTooltip="{{element.isActive === true? ('DECLARATIONS.TITLES.NOTACTIVE' | translate): ('DECLARATIONS.TITLES.ACTIVE' | translate)}}"
+                class="example-section">
+                <mat-slide-toggle name="isActive" class="example-margin" [color]="'red'" (change)="toggleActiveDeactive(element)"
+                  [checked]="element.isActive">
+                </mat-slide-toggle>
+              </section>
+            </span>
+
+          </div>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let x=index">
+
+          <!-- <button matTooltip="تعديل" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialog(element)">
+            <mat-icon>edit</mat-icon>
+          </button>  -->
+
+          <button matTooltip="{{'DECLARATIONS.BUTTONS.REASSIGN' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
+            (click)="openAssignDialog(element)">
+            <mat-icon>replay</mat-icon>
+          </button>
+
+          <button *ngIf="element.technician!=''&&element.technician!=null" matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}"
+            mat-mini-fab color="warn" class="mx-md-1" (click)="stopAssignTechincian(element)">
+            <mat-icon>refresh</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let entry">
+
+      </tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}} </td>
+      </tr>
+    </table>
+
+
+
+    <mat-paginator [length]="totalRecord" [pageSize]="searchModel.PageSize" (page)="pageEvent($event) " [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+
+  </div>
+
+</section>

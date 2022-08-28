@@ -412,6 +412,49 @@ export const locale = {
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
       }
+    },
+    DECLARATIONS: {
+      INPUTS: {
+        YEAR: "Name",
+        FILTER: "Search",
+        FROMDATE: 'From Date',
+        TODATE: "To Date",
+        PATHROUTE: "Path Route",
+        REGION: 'Select Region',
+        STATE: 'Select State',
+        NAME:'Name',
+        TECHNICIAN:'Select Technician'
+      },
+      BUTTONS: {
+        ADD: "Add",
+        CLOSE: "close",
+        EDIT: "edit",
+        SAVE: "Save",
+        DELETE: "Delete",
+        CANCEL: "Cancel",
+        CANCELASSIGN:'Cancel Assign',
+        REASSIGN:'Reassign'
+      },
+      TITLES: {
+        FINANCIALYEARTABLE: 'Financial Year',
+        YEAR: "Name",
+        DATEFROM: 'From Date',
+        DATETO: 'To Date',
+        STATUS: 'Status',
+        ACTIVE: "Active",
+        NOTACTIVE: "Not Active",
+        ADDFINANCIALYEAR: 'Add Financial Year',
+
+        PATHROUTETABLE: "Path Route Data",
+        PATHROUTEADD: "Add Path Route",
+        NAME: "Name", STATE: "State",
+        REGION: "Region",
+        TECHNICIAN:'Technician'
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      }
     }
+
   }
 };

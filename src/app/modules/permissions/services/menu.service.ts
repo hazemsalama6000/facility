@@ -39,7 +39,7 @@ export class MenuService {
   }
 
   toggleItemsActiveDeactive(ids:number[]): Observable<any>{
-    return this.http.CommonPutRequests(ids, `${localStorage.getItem("companyLink")}${HttpPaths.API_ActiveDeactive_MENU}`);
+    return this.http.CommonPutRequests(ids, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVEDEACTIVE_MENU}`);
   }
 
 }

@@ -87,27 +87,24 @@ export class AuthService implements OnDestroy {
 
   getUserByToken(): Observable<any> {
     const auth = this.getAuthFromLocalStorage();
-    if (!auth || !auth.userId) {
+    if (!auth || !auth.userId)
       return of(undefined);
-    }
 
+    let obj = { fullName: '', companyId: 1,branchId:1, email: 'xxx@xx.com' } as IUserData;
+    this.userData.next(obj);
+    return of(obj);
 
-    this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserByToken(auth.token).pipe(
-      map((user: any) => {
-
-        if (user) {
-          this.userData.next(user.data);
-        } else {
-          this.logout();
-        }
-        return user;
-      }), catchError(err => {
-        this.logout();
-        return throwError(err)
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    // this.isLoadingSubject.next(true);
+    // return this.authHttpService.getUserByToken(auth.token).pipe(
+    //   map((user: any) => {
+    //     user ? this.userData.next(user.data) : this.logout();
+    //     return user;
+    //   }), catchError(err => {
+    //     this.logout();
+    //     return throwError(err)
+    //   }),
+    //   finalize(() => this.isLoadingSubject.next(false))
+    // );
   }
 
   // getUserByToken1(): Observable<any> {
