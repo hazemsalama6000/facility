@@ -11,7 +11,7 @@ const route: Routes = [
 	{ path: 'pathroute', component: PathrouteComponent },
 	{ path: 'transferingcompany', component: TransferingCompanyComponent },
 	{ path: 'carsmodels', component: CarsModelsComponent },
-	{path:'carexpenses', component:CarExpensesComponent}
+	{ path: 'carexpenses', component: CarExpensesComponent }
 ]
 @NgModule({
 	imports: [RouterModule.forChild(route)],
