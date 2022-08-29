@@ -9,7 +9,6 @@ import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { CutomerService } from "src/app/modules/customers/services/customer.service";
-import { ISearch } from "src/app/modules/employees/models/ISearch.interface";
 import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { ICustomerEditManageSearch } from "../../models/cutomer-editmanage/ICustomerEditManageSearch.interface";
@@ -118,7 +117,7 @@ export class CustomerUpdateManageComponent implements OnInit {
 	}
 
 	searchEmployeeAndCustomer() {
-		let search: ISearch = { branchId: this.searchModel.BranchId, AreaId: this.searchModel.AreaId, Block: this.searchModel.BlockId };
+		let search: any = { branchId: this.searchModel.BranchId, AreaId: this.searchModel.AreaId, Block: this.searchModel.BlockId };
 		let searchCustomer: any = { AreaId: this.searchModel.AreaId, Block: this.searchModel.BlockId, branchId: this.searchModel.BranchId, employeeId: this.searchModel.Employee_id }
 
 		this.service.getLookupEmployeeDataByParam(search)
