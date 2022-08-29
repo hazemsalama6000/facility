@@ -54,7 +54,7 @@ export enum HttpPaths {
 	API_CARS_EXPENSE_UPDATE = "/api/v1/Trans/updatetranscarexpensetypes/",
 	API_CARS_EXPENSE_GETALL = "/api/v1/Trans/getcarsexpensestypes",
 	API_CARS_EXPENSE_DELETE = "/api/v1/Trans/removetranscarexpensetypes/",
-	
+
 	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
 	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
 
@@ -113,7 +113,7 @@ export enum HttpPaths {
 
 	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/listOfEmployees",
 	API_GET_EMPLOYEES_DATA = "/api/v1/hr/listofallemployeeswithfilter",
-	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofile",
+	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofileinfo",
 	API_ADD_TECHNICIAN = "/api/v1/tech/addtechnicianlog",
 	API_GET_TECHNNICIAN_DATA = "/api/v1/tech/gettechnicianlogs",
 	API_TOGGLE_EMPLOYEE_ACTIVE = "/api/v1/hr/changeactiveornot",

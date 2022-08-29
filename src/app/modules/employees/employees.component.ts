@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
+import { AuthService } from '../auth';
 import { IEmployee } from './models/employee.interface';
 import { ITechnitianLog } from './models/ITechnitianLog.interface';
 import { EmployeeService } from './services/employee.service';
@@ -17,16 +18,18 @@ import { AddTechnitianLogComponent } from './setting/Add-technitian-Log/add-tech
 })
 export class EmployeesComponent implements OnInit {
 	imageFile: File;
-
+	companyId: number;
 	dropdownEmployeeData: LookUpModel[] = [];
 	employeeDsiaplay: IEmployee = {} as IEmployee;
 	constructor(private service: EmployeeService,
-		private toaster: toasterService , public dialog: MatDialog) {
-
+		private toaster: toasterService, public dialog: MatDialog,private auth:AuthService) {
+this.auth.userData.subscribe((userData)=>{
+	this.companyId = userData.companyId;
+});
 	}
 
 	ngOnInit(): void {
-		this.service.getLookupEmployeeData(1005).subscribe((data: LookUpModel[]) => {
+		this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
 			this.dropdownEmployeeData = data;
 		});
 	}
@@ -82,7 +85,7 @@ export class EmployeesComponent implements OnInit {
 
 	editEmployeeTechnicialData(value: ITechnitianLog) {
 
-		this.employeeDsiaplay.techTechnician = {employee_Id:0,id:0,isActive:false,returnFromBill:false,useGps:false};
+		this.employeeDsiaplay.techTechnician = { employee_Id: 0, id: 0, isActive: false, returnFromBill: false, useGps: false };
 		this.employeeDsiaplay.isTechnician = true;
 		this.employeeDsiaplay.techTechnician.employee_Id = value.employeeId;
 		this.employeeDsiaplay.techTechnician.isActive = true;
@@ -94,7 +97,7 @@ export class EmployeesComponent implements OnInit {
 		this.employeeDsiaplay.isActive = value;
 	}
 
-	
+
 
 
 	openDialogForEmployee() {
@@ -121,7 +124,7 @@ export class EmployeesComponent implements OnInit {
 				this.editEmployeeTechnicialData(result);
 			}
 			else {
-				this.employeeDsiaplay.isTechnician = false;				
+				this.employeeDsiaplay.isTechnician = false;
 			}
 		});
 
@@ -153,7 +156,7 @@ export class EmployeesComponent implements OnInit {
 				this.editEmployeeTechnicialData(result);
 			}
 			else {
-				this.employeeDsiaplay.isTechnician = false;				
+				this.employeeDsiaplay.isTechnician = false;
 			}
 		});
 
