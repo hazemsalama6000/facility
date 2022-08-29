@@ -36,7 +36,7 @@
 
 
 			<ng-container matColumnDef="assignSales">
-				<th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.STATUS" | translate}} </th>
+				<th mat-header-cell *matHeaderCellDef> تفعيل للمناديب </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
 					(dblclick)="element.isEdit = true">
 					<div [hidden]="element.isAdd == true">
@@ -52,7 +52,7 @@
 							<span class="mx-2">
 								<section matTooltip="{{element.isActiveForTechnician === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
 									class="example-section">
-									<mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
+									<mat-slide-toggle name="" class="example-margin" [color]="'red'"
 										(click)="toggleAssignSalesActiveDeactive(element)" [checked]="element.isActiveForTechnician">
 									</mat-slide-toggle>
 								</section>

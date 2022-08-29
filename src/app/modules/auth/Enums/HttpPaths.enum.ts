@@ -55,10 +55,8 @@ export enum HttpPaths {
 	API_CARS_EXPENSE_GETALL = "/api/v1/Trans/getcarsexpensestypes",
 	API_CARS_EXPENSE_DELETE = "/api/v1/Trans/removetranscarexpensetypes/",
 
-	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
-	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
-
-
+	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactive/",
+	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetechnicianactiveandenactive/",
 
 
 	//Region APIS

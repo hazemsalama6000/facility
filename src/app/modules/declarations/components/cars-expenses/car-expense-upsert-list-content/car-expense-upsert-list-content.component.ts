@@ -97,6 +97,7 @@ export class CarExpenseListContentComponent {
 	Submit(model: LookUpModel) {
 
 		model.company_Id = this.userdata.companyId;
+		model.companyBranchId=this.userdata.branchId;
 		model.isActive = true;
 		if (model.Id == 0) {
 			model.Id = 0;
