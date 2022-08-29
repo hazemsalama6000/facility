@@ -10,6 +10,7 @@ import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";
 import { ConfirmationDialogService } from "src/app/shared-module/Components/confirm-dialog/confirmDialog.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import { TransferingCompanyService } from "../../../services/transferingCompany.service";
 @Component({
 	selector: 'transfering-company_list_content',
 	templateUrl: './transfering-company_list_content.component.html',
@@ -33,7 +34,7 @@ export class TransferingCompanyListContentComponent {
 	 private unsubscribe: Subscription[] = [];
 
 
-	constructor(private service: StatesService, private toaster: toasterService 
+	constructor(private service: TransferingCompanyService, private toaster: toasterService 
 		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService ,private auth:AuthService) {
 		//subscribe here to invoke when insert done in upsert component
 		this.service.selectFromStore().subscribe(data => {
