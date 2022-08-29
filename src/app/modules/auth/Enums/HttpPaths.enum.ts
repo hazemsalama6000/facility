@@ -28,6 +28,16 @@ export enum HttpPaths {
 	API_STATE_DELETE = "/api/v1/shared/deletestate/",
 	API_STATE_UACTIVEDEACTIVE = "/api/v1/shared/changstateactiveornot/",
 
+
+
+	//Transfering Company APIS
+
+	API_TRANSFERINGCOMPANY_ADD = "/api/v1/shared/addstate/api/v1/bill/addpaymentgateway",
+	API_TRANSFERINGCOMPANY_UPDATE = "/api/v1/bill/updatepaymentgateway/",
+	API_TRANSFERINGCOMPANY_GETALL = "/api/v1/bill/getallpaymentgateways/",
+	API_TRANSFERINGCOMPANY_DELETE = "/api/v1/bill/deletepaymentgateway/",
+	API_TRANSFERINGCOMPANY_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
+
 	//Region APIS
 
 	API_REGION_ADD = "/api/v1/shared/addregion",
