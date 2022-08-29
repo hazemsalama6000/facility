@@ -42,7 +42,7 @@ export enum HttpPaths {
 	//Cars Models APIS
 
 	API_CARS_MODELS_ADD = "/api/v1/Trans/addtranscarmodel",
-	API_CARS_MODELS_UPDATE = "/api/v1/bill/updatepaymentgateway/",
+	API_CARS_MODELS_UPDATE = "/api/v1/Trans/updatetranscarmodel/",
 	API_CARS_MODELS_GETALL = "/api/v1/Trans/getcarsmodels/",
 	API_CARS_MODELS_DELETE = "/api/v1/Trans/removetranscarmodel/",
 	//API_CARS_MODELS_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
