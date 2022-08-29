@@ -38,6 +38,16 @@ export enum HttpPaths {
 	API_TRANSFERINGCOMPANY_DELETE = "/api/v1/bill/deletepaymentgateway/",
 	API_TRANSFERINGCOMPANY_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
 
+
+	//Cars Models APIS
+
+	API_CARS_MODELS_ADD = "/api/v1/Trans/addtranscarmodel",
+	API_CARS_MODELS_UPDATE = "/api/v1/bill/updatepaymentgateway/",
+	API_CARS_MODELS_GETALL = "/api/v1/Trans/getcarsmodels/",
+	API_CARS_MODELS_DELETE = "/api/v1/Trans/removetranscarmodel/",
+	//API_CARS_MODELS_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
+
+	
 	//Region APIS
 
 	API_REGION_ADD = "/api/v1/shared/addregion",
@@ -175,29 +185,29 @@ export enum HttpPaths {
 	API_GET_DAILY_STATICS = "/api/v1/shared/getdailystatistics",
 
 	//Menu
-	API_GET_ALL_MENU="/api/v1/permissions/getadminmenu",
-	API_GET_USER_MENU="/api/v1/permissions/getmenu",
-	API_GET_PERMISSIONS_MENU="/api/v1/permissions/getmenupermissions",
-	API_ADD_MENU="/api/v1/permissions/addpermissionmenuitem",
-	API_UPDATE_MENU="/api/v1/permissions/updatepermissionmenuitem",
-	API_DELETE_MENU="/api/v1/permissions/removepermissionmenuitem/",
-	API_ACTIVEDEACTIVE_MENU="/api/v1/permissions/changenodeactivation",
+	API_GET_ALL_MENU = "/api/v1/permissions/getadminmenu",
+	API_GET_USER_MENU = "/api/v1/permissions/getmenu",
+	API_GET_PERMISSIONS_MENU = "/api/v1/permissions/getmenupermissions",
+	API_ADD_MENU = "/api/v1/permissions/addpermissionmenuitem",
+	API_UPDATE_MENU = "/api/v1/permissions/updatepermissionmenuitem",
+	API_DELETE_MENU = "/api/v1/permissions/removepermissionmenuitem/",
+	API_ACTIVEDEACTIVE_MENU = "/api/v1/permissions/changenodeactivation",
 
 	//financial year
-	API_GET_FINANCIAL_YEAR="/api/v1/shared/getfinancialyears/",
-	API_ADD_FINANCIAL_YEAR="/api/v1/shared/addfinancialyear",
-	API_DEACTIVE_FINANCIAL_YEAR="/api/v1/shared/changefinancialyearactiveornot?",
+	API_GET_FINANCIAL_YEAR = "/api/v1/shared/getfinancialyears/",
+	API_ADD_FINANCIAL_YEAR = "/api/v1/shared/addfinancialyear",
+	API_DEACTIVE_FINANCIAL_YEAR = "/api/v1/shared/changefinancialyearactiveornot?",
 
 	//path route
-	API_LIST_OF_STATES="/api/v1/shared/listofstates",
-	API_LIST_OF_REGIONS="/api/v1/shared/listofregions?",
-	API_LIST_OF_TECHNICIAN="",
-	API_LIST_OF_PATHROUTE="/api/v1/route/listofpathroutes?CompanyBranchId=1",
-	API_GET_PATH_ROUTE="/api/v1/route/getallpathroutes?",
-	API_ADD_PATH_ROUTE="/api/v1/route/addpathroute",
-	API_ACTIVE_DEACTIVE_PATH_ROUTE="/api/v1/route/changepathrouteactiveornot/",
-	API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN="",
-	API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN="",
+	API_LIST_OF_STATES = "/api/v1/shared/listofstates",
+	API_LIST_OF_REGIONS = "/api/v1/shared/listofregions?",
+	API_LIST_OF_TECHNICIAN = "",
+	API_LIST_OF_PATHROUTE = "/api/v1/route/listofpathroutes?CompanyBranchId=1",
+	API_GET_PATH_ROUTE = "/api/v1/route/getallpathroutes?",
+	API_ADD_PATH_ROUTE = "/api/v1/route/addpathroute",
+	API_ACTIVE_DEACTIVE_PATH_ROUTE = "/api/v1/route/changepathrouteactiveornot/",
+	API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN = "",
+	API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN = "",
 
 
 
