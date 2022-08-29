@@ -6,6 +6,7 @@ import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import { CarExpenseService } from "../../../services/carexpense.service";
 import { TransferingCompanyService } from "../../../services/transferingCompany.service";
 
 
@@ -40,7 +41,7 @@ export class CarExpenseUpsertComponent {
 		}
 	}
 
-	constructor(private fb: FormBuilder, private toaster: toasterService, private service: TransferingCompanyService, private auth: AuthService) { }
+	constructor(private fb: FormBuilder, private toaster: toasterService, private service: CarExpenseService, private auth: AuthService) { }
 
 
 	ngOnInit(): void {

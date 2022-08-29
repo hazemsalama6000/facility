@@ -10,6 +10,7 @@ import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";
 import { ConfirmationDialogService } from "src/app/shared-module/Components/confirm-dialog/confirmDialog.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import { CarExpenseService } from "../../../services/carexpense.service";
 import { TransferingCompanyService } from "../../../services/transferingCompany.service";
 @Component({
 	selector: 'car-expense-list-content',
@@ -24,7 +25,7 @@ export class CarExpenseListContentComponent {
 	NameForAdd: string;
 	@Output() edit: EventEmitter<LookUpModel> = new EventEmitter();
 
-	displayedColumns: string[] = ['name', 'state', 'action'];
+	displayedColumns: string[] = ['name', 'assignSales','state', 'action'];
 
 	dataSource: any;
 
@@ -34,7 +35,7 @@ export class CarExpenseListContentComponent {
 	 private unsubscribe: Subscription[] = [];
 
 
-	constructor(private service: TransferingCompanyService, private toaster: toasterService 
+	constructor(private service: CarExpenseService, private toaster: toasterService 
 		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService ,private auth:AuthService) {
 		//subscribe here to invoke when insert done in upsert component
 		this.service.selectFromStore().subscribe(data => {
@@ -70,6 +71,20 @@ export class CarExpenseListContentComponent {
 		this.service.addFlag.next(false);
 
 		this.service.toggleActiveDeactive(element).subscribe(
+			(data: HttpReponseModel) => {
+				this.toaster.openSuccessSnackBar(data.message);
+				this.getallData();
+			},
+			(error: any) => {
+				this.toaster.openWarningSnackBar(error.toString().replace("Error:",""));
+			});
+	}
+
+
+	toggleAssignSalesActiveDeactive(element: LookUpModel) {
+		this.service.addFlag.next(false);
+
+		this.service.toggleAssignSalesActiveDeactive(element).subscribe(
 			(data: HttpReponseModel) => {
 				this.toaster.openSuccessSnackBar(data.message);
 				this.getallData();

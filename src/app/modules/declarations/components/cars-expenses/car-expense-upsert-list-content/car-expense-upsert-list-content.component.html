@@ -34,6 +34,37 @@
 				</td>
 			</ng-container>
 
+
+			<ng-container matColumnDef="assignSales">
+				<th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.STATUS" | translate}} </th>
+				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
+					(dblclick)="element.isEdit = true">
+					<div [hidden]="element.isAdd == true">
+
+						<div class="d-flex justify-content-center align-items-center">
+							<label *ngIf="element.isActiveSales == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |
+								translate}}
+							</label>
+							<label *ngIf="element.isActiveSales == false" class="badge badge-danger"> {{"HR.TITLES.NOTACTIVE"
+								|
+								translate}}
+							</label>
+							<span class="mx-2">
+								<section matTooltip="{{element.isActiveSales === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+									class="example-section">
+									<mat-slide-toggle name="isValTaxActive" class="example-margin" [color]="'red'"
+										(click)="toggleAssignSalesActiveDeactive(element)" [checked]="element.isActiveSales">
+									</mat-slide-toggle>
+								</section>
+							</span>
+
+						</div>
+					</div>
+
+				</td>
+			</ng-container>
+
+
 			<ng-container matColumnDef="state">
 				<th mat-header-cell *matHeaderCellDef> {{"HR.INPUTS.STATUS" | translate}} </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
