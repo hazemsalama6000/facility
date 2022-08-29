@@ -46,11 +46,9 @@ export class CarExpenseService {
 		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSE_UACTIVEDEACTIVE}${model.Id}`);
 	}
 
-	
 	toggleAssignSalesActiveDeactive(model: LookUpModel): Observable<any> {
 		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE}${model.Id}`);
 	}
-
 
 	getStateIdObservable(): Observable<any> {
 		return this.emitStateIdSubject.asObservable();

@@ -16,6 +16,9 @@ import { TransferingCompanyListContentComponent } from './components/transfering
 import { CarsModelsComponent } from './components/cars-models/cars-models.component';
 import { CarsModelsUpsertComponent } from './components/cars-models/cars-models-upsert/cars-models-upsert.component';
 import { CarsModelsListContentComponent } from './components/cars-models/cars-models-list-content/cars-models-list-content.component';
+import { CarExpensesComponent } from './components/cars-expenses/car-expenses.component';
+import { CarExpenseListContentComponent } from './components/cars-expenses/car-expense-upsert-list-content/car-expense-upsert-list-content.component';
+import { CarExpenseUpsertComponent } from './components/cars-expenses/car-expense-upsert/car-expense-upsert.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { CarsModelsListContentComponent } from './components/cars-models/cars-mo
 	TransferingCompanyListContentComponent,
 	CarsModelsComponent,
 	CarsModelsUpsertComponent,
-	CarsModelsListContentComponent
+	CarsModelsListContentComponent,
+	CarExpensesComponent,
+	CarExpenseListContentComponent,
+	CarExpenseUpsertComponent
   ],
   imports: [
     CommonModule,

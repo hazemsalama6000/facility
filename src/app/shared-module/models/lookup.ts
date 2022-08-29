@@ -3,6 +3,7 @@ export class LookUpModel {
 	Name: string;
 	company_Id?: number;
 	isActive?: boolean;
+	isActiveSales?:boolean;
 	isEdit?:boolean = false;
 	isAdd?:boolean = false;
 }
