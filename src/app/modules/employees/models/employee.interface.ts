@@ -1,14 +1,44 @@
-import { IBlock } from "./IBlock.interface"
-import { ITechnitianLog } from "./ITechnitianLog.interface"
 
-
-export interface IEmployee {
-	id: number,
-	employeeName: string,
-	employeeJob: string,
-	branchName: string,
-	userIsActive: boolean,
-	isTechnician:boolean,
-	blocks: IBlock[],
-	technician:ITechnitianLog
+export interface IEmployee{
+    imagePath: string,
+    militery_Status: string,
+    maritalStatus: string,
+    hR_Status: string,
+    region: string,
+    state: string,
+    job: string,
+    section: string,
+    department: string,
+    branch: string,
+    isActive: boolean,
+    techTechnician: {
+		id: number,
+		employee_Id: number,
+		useGps: boolean,
+		returnFromBill: boolean,
+		isActive: boolean
+	},
+    id: number,
+    name: string,
+    code: string,
+    address: string,
+    region_Id: number,
+    birthDate: Date,
+    mobile: string,
+    nId: string,
+    militaryStatus_Id: number,
+    martialStatus_Id: number,
+    state_Id: number,
+    job_Id: number,
+    department_Id: number,
+    section_Id: number,
+    status_Id: number,
+    university: string,
+    qualification: string,
+    graduateDate: Date,
+    jobSection_Id: number,
+    hireDate: Date,
+    branch_Id: number,
+    isTechnician: boolean,
+	email:string
 }

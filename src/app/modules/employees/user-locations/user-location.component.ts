@@ -3,7 +3,6 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Loader } from "@googlemaps/js-api-loader";
 import { google } from "google-maps";
 import { Subscription } from "rxjs";
-import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { ILocationXY } from "src/app/modules/permissions/models/ILocationXY.interface";
 import { OnlineUsersService } from "src/app/modules/permissions/services/onlineUsers.service";
 
@@ -251,13 +250,17 @@ export class UserLocationComponent implements OnDestroy {
 		}
 	];
 
-	message = "";
-
-	constructor(private route: ActivatedRoute, private service: OnlineUsersService, private toaster: toasterService) {
+	constructor(private route: ActivatedRoute, private service: OnlineUsersService) {
 		this.route.paramMap.subscribe((data: ParamMap) => {
-			this.employeeId = +data.get('employeeId')!;
-			// console.log(this.employeeId);
+			this.employeeId = +data.get('employeeId')!
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.subscribe.unsubscribe();
+		if (this.idInterval) {
+			clearInterval(this.idInterval);
+		}
 	}
 
 
@@ -272,61 +275,33 @@ export class UserLocationComponent implements OnDestroy {
 		});
 
 		loader.load().then(() => {
-			this.InitializeMap();
-		});
-
-		loader.load().then(() => {
 
 			this.idInterval = setInterval(() => {
 
-				this.InitializeMap();
+				this.subscribe = this.service.getOnlineUsersCurrentLocationData(this.employeeId).subscribe((data: ILocationXY[]) => {
 
-			}, 20000);
+					let location = { lat: data[0].x, lng: data[0].y }
+					this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+						center: location,
+						zoom: 10,
+						styles: this.styles
+					});
+
+					const marker = new google.maps.Marker({
+						position: location,
+						map: this.map,
+						title: data[0].empName + "\n" + data[0].date
+					});
+
+				});
+
+			}, 8000);
 
 		});
 
-	}
 
-	InitializeMap() {
-		this.subscribe = this.service.getOnlineUsersCurrentLocationData(this.employeeId).subscribe((data: ILocationXY[]) => {
-			this.message = "";
-			console.log(data.length);
-			if (data.length < 1) {
-				this.message = "لايوجد بيانات";
-			}
-			else {
-				let location = { lat: data[0].x, lng: data[0].y }
-				this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-					center: location,
-					zoom: 10,
-					styles: this.styles
-				});
 
-				const marker = new google.maps.Marker({
-					position: location,
-					map: this.map,
-					title: data[0].empName + "\n" + data[0].date
-				});
-			}
 
-		},(err)=>{
-			this.toaster.openWarningSnackBar("لايوجد مواقع");
-			if (this.subscribe) {
-				this.subscribe.unsubscribe();
-				if (this.idInterval) {
-					clearInterval(this.idInterval);
-				}
-			}
-		});
-	}
-
-	ngOnDestroy(): void {
-		if (this.subscribe) {
-			this.subscribe.unsubscribe();
-			if (this.idInterval) {
-				clearInterval(this.idInterval);
-			}
-		}
 	}
 
 

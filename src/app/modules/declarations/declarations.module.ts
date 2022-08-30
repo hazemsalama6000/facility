@@ -13,6 +13,15 @@ import { AddpathrouteComponent } from './components/pathroute/addpathroute/addpa
 import { AssigntechnicianComponent } from './components/pathroute/assigntechnician/assigntechnician.component';
 import { AddinventorycategoryComponent } from './components/inventorycategory/addinventorycategory/addinventorycategory.component';
 import { InventorycategoryComponent } from './components/inventorycategory/inventorycategory.component';
+import { TransferingCompanyComponent } from './components/transfering-company/transfering-company.component';
+import { TransferingCompanyUpsertComponent } from './components/transfering-company/transfering-company_upsert/transfering-company-upsert.component';
+import { TransferingCompanyListContentComponent } from './components/transfering-company/transfering-company_list_content/transfering-company_list_content.component';
+import { CarsModelsComponent } from './components/cars-models/cars-models.component';
+import { CarsModelsUpsertComponent } from './components/cars-models/cars-models-upsert/cars-models-upsert.component';
+import { CarsModelsListContentComponent } from './components/cars-models/cars-models-list-content/cars-models-list-content.component';
+import { CarExpensesComponent } from './components/cars-expenses/car-expenses.component';
+import { CarExpenseListContentComponent } from './components/cars-expenses/car-expense-upsert-list-content/car-expense-upsert-list-content.component';
+import { CarExpenseUpsertComponent } from './components/cars-expenses/car-expense-upsert/car-expense-upsert.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +32,15 @@ import { InventorycategoryComponent } from './components/inventorycategory/inven
     AssigntechnicianComponent,
     AddinventorycategoryComponent,
     InventorycategoryComponent
+	TransferingCompanyComponent,
+	TransferingCompanyUpsertComponent,
+	TransferingCompanyListContentComponent,
+	CarsModelsComponent,
+	CarsModelsUpsertComponent,
+	CarsModelsListContentComponent,
+	CarExpensesComponent,
+	CarExpenseListContentComponent,
+	CarExpenseUpsertComponent
   ],
   imports: [
     CommonModule,

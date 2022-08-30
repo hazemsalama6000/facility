@@ -4,10 +4,7 @@ import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpSe
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { HttpPaths } from "src/app/modules/auth/Enums/HttpPaths.enum";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
-import { ICustomerEditManageSearch } from "../../operations/models/cutomer-editmanage/ICustomerEditManageSearch.interface";
 import { IEmployee } from "../models/employee.interface";
-import { IEmployeeManage } from "../models/IEmployeeList.interface";
-import { ISearch } from "../models/ISearch.interface";
 
 @Injectable({
 	providedIn: 'root'
@@ -21,7 +18,7 @@ export class EmployeeService {
 
 	constructor(private http: CommonHttpService) { }
 
-	getLookupEmployeeDataByParam(model?: ISearch): Observable<LookUpModel[]> {
+	getLookupEmployeeDataByParam(model?: any): Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?
 				BranchId=${model?.branchId == undefined ? '' : model?.branchId}&areaId=${model?.AreaId == undefined ? '' : model?.AreaId}&blockId=${model?.Block == undefined ? '' : model.Block}`)
 			.pipe(
@@ -99,7 +96,7 @@ export class EmployeeService {
 		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_UPDATE}${model.Id}`);
 	}
 
-	getEmployeesData(searchModel: any): Observable<IEmployeeManage> {
+	getEmployeesData(searchModel: any): Observable<any> {
 		return this.http.CommonPostRequests(searchModel, `${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEES_DATA}`)
 		// .pipe(map(Items => Items.map((Item: any) => ({ ...Item }))));
 

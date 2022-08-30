@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+  <div class="row mx-0">
+    <div class="col"> </div>
+    <div class="col-2"> <button mat-button mat-dialog-close>
+        <span class="material-icons">
+          close
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content class=" overflow-auto">
+  <h2 *ngIf="images.length==0">{{'OPERATION.MESSAGE.NOROWFOUND'|translate}}</h2>
+  <div class="row mx-0" *ngIf="images.length>0">
+    <div class="col-md-6 col-sm-12 p-2" *ngFor="let img of images">
+      <p-image [src]="url+img" width="150" height="50" [preview]="true"></p-image>
+    </div>
+  </div>
+</div>

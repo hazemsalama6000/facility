@@ -28,6 +28,39 @@ export enum HttpPaths {
 	API_STATE_DELETE = "/api/v1/shared/deletestate/",
 	API_STATE_UACTIVEDEACTIVE = "/api/v1/shared/changstateactiveornot/",
 
+
+
+	//Transfering Company APIS
+
+	API_TRANSFERINGCOMPANY_ADD = "/api/v1/bill/addpaymentgateway",
+	API_TRANSFERINGCOMPANY_UPDATE = "/api/v1/bill/updatepaymentgateway/",
+	API_TRANSFERINGCOMPANY_GETALL = "/api/v1/bill/getallpaymentgateways",
+	API_TRANSFERINGCOMPANY_DELETE = "/api/v1/bill/deletepaymentgateway/",
+	API_TRANSFERINGCOMPANY_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
+
+
+	//Cars Models APIS
+
+	API_CARS_MODELS_ADD = "/api/v1/Trans/addtranscarmodel",
+	API_CARS_MODELS_UPDATE = "/api/v1/Trans/updatetranscarmodel/",
+	API_CARS_MODELS_GETALL = "/api/v1/Trans/getcarsmodels/",
+	API_CARS_MODELS_DELETE = "/api/v1/Trans/removetranscarmodel/",
+	//API_CARS_MODELS_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
+
+
+	//Cars expense APIS
+
+	API_CARS_EXPENSE_ADD = "/api/v1/Trans/addtranscarexpensetypes",
+	API_CARS_EXPENSE_UPDATE = "/api/v1/Trans/updatetranscarexpensetypes/",
+	API_CARS_EXPENSE_GETALL = "/api/v1/Trans/getcarsexpensestypes",
+	API_CARS_EXPENSE_GETList = "/api/v1/Trans/listofcarsExpensesTypes",
+
+	API_CARS_EXPENSE_DELETE = "/api/v1/Trans/removetranscarexpensetypes/",
+
+	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactive/",
+	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetechnicianactiveandenactive/",
+
+
 	//Region APIS
 
 	API_REGION_ADD = "/api/v1/shared/addregion",
@@ -78,9 +111,9 @@ export enum HttpPaths {
 
 	//Employee APIS
 
-	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/ListOfEmployees",
+	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/listOfEmployees",
 	API_GET_EMPLOYEES_DATA = "/api/v1/hr/listofallemployeeswithfilter",
-	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofile",
+	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofileinfo",
 	API_ADD_TECHNICIAN = "/api/v1/tech/addtechnicianlog",
 	API_GET_TECHNNICIAN_DATA = "/api/v1/tech/gettechnicianlogs",
 	API_TOGGLE_EMPLOYEE_ACTIVE = "/api/v1/hr/changeactiveornot",
@@ -165,20 +198,21 @@ export enum HttpPaths {
 	API_GET_DAILY_STATICS = "/api/v1/shared/getdailystatistics",
 
 	//Menu
-	API_GET_ALL_MENU="/api/v1/permissions/getadminmenu",
-	API_GET_USER_MENU="/api/v1/permissions/getmenu",
-	API_GET_PERMISSIONS_MENU="/api/v1/permissions/getmenupermissions",
-	API_ADD_MENU="/api/v1/permissions/addpermissionmenuitem",
-	API_UPDATE_MENU="/api/v1/permissions/updatepermissionmenuitem",
-	API_DELETE_MENU="/api/v1/permissions/removepermissionmenuitem/",
-	API_ACTIVEDEACTIVE_MENU="/api/v1/permissions/changenodeactivation",
+	API_GET_ALL_MENU = "/api/v1/permissions/getadminmenu",
+	API_GET_USER_MENU = "/api/v1/permissions/getmenu",
+	API_GET_PERMISSIONS_MENU = "/api/v1/permissions/getmenupermissions",
+	API_ADD_MENU = "/api/v1/permissions/addpermissionmenuitem",
+	API_UPDATE_MENU = "/api/v1/permissions/updatepermissionmenuitem",
+	API_DELETE_MENU = "/api/v1/permissions/removepermissionmenuitem/",
+	API_ACTIVEDEACTIVE_MENU = "/api/v1/permissions/changenodeactivation",
 
 	//financial year
-	API_GET_FINANCIAL_YEAR="/api/v1/shared/getfinancialyears/",
-	API_ADD_FINANCIAL_YEAR="/api/v1/shared/addfinancialyear",
-	API_DEACTIVE_FINANCIAL_YEAR="/api/v1/shared/changefinancialyearactiveornot?",
+	API_GET_FINANCIAL_YEAR = "/api/v1/shared/getfinancialyears/",
+	API_ADD_FINANCIAL_YEAR = "/api/v1/shared/addfinancialyear",
+	API_DEACTIVE_FINANCIAL_YEAR = "/api/v1/shared/changefinancialyearactiveornot?",
 
 	//path route
+
 	API_LIST_OF_STATES="/api/v1/shared/listofstates",
 	API_LIST_OF_REGIONS="/api/v1/shared/listofregions?",
 	API_LIST_OF_TECHNICIAN="/api/v1/tech/listoftechnicians?companyBranchId=",
