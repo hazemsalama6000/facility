@@ -11,7 +11,9 @@ export class ViewimagesForCustomerComponent implements OnInit {
 	url: string = localStorage.getItem("companyLink") as string;
 	images: string[] = [];
 	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-		this.images.push(data.imagePath);
+		data.attachments.forEach((element:any) => {
+			this.images.push(element.path);
+		});
 	}
 
 	ngOnInit() {

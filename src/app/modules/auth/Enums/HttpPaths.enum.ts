@@ -60,6 +60,15 @@ export enum HttpPaths {
 	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactive/",
 	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetechnicianactiveandenactive/",
 
+	// cars expenses transactions
+
+	API_GET_CARS_EXPENSES_ADD = "/api/v1/Trans/addtranscarexpense?",
+	API_GET_CARS_EXPENSES = "/api/v1/Trans/getcarsexpenses?",
+	API_CARS_EXPENSETRANSACTION_DELETE = "/api/v1/Trans/removetranscarexpense/",
+
+	// cars 
+	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
+
 
 	//Region APIS
 

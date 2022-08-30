@@ -11,6 +11,9 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, EMPTY, map, merge, Observable, startWith, switchMap } from "rxjs";
 import { IExpenseCarSearch } from "../../../models/IExpenseCarSearch.interface";
 import { IReponseExpenseCar } from "../../../models/IResponseExpenseCar.interface";
+import { toasterService } from "src/app/core-module/UIServices/toaster.service";
+import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
+import { ConfirmationDialogService } from "src/app/shared-module/Components/confirm-dialog/confirmDialog.service";
 @Component({
 	selector: 'car-expense-transactions-datatable',
 	templateUrl: './car-expense-transactions-datatablecomponent.html',
@@ -18,15 +21,14 @@ import { IReponseExpenseCar } from "../../../models/IResponseExpenseCar.interfac
 })
 export class CarExpenseTransactionDatatableComponent {
 
-	displayedColumns: string[] = ['BranchName',
-		'AreaName',
-		'BlockName',
-		'CustomerName',
-		'CustomerCode',
-		'CollectorName',
-		'RequestDate',
-		'UpdatedTypeName',
-		'UpdatedTypeSysName'];
+	displayedColumns: string[] = [
+		'expense',
+		'expenseDate',
+		'carNumber',
+		'expenseValue',
+		'approvedOrRejectBy',
+		'actions'
+	];
 
 	data: IReponseExpenseCar[] = [];
 	currentSearchParameter: IExpenseCarSearch = {} as IExpenseCarSearch;
@@ -37,8 +39,9 @@ export class CarExpenseTransactionDatatableComponent {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
-	constructor(private _httpClient: HttpClient, private service: CarExpenseTransactionService, public dialog: MatDialog) {
-		this.currentSearchParameter = { pageNumber: 0, expense_Id: 0, pageSize: 0, carPlat: 0, endDate: '', startDate: '' };
+	constructor(private _httpClient: HttpClient, private service: CarExpenseTransactionService
+		, public dialog: MatDialog,private toaster:toasterService, private confirmationDialogService: ConfirmationDialogService ) {
+		this.currentSearchParameter = { pageNumber: 0, expense_Id: 0, pageSize: 0, branchId: 0, carPlat: 0, endDate: '', startDate: '' };
 	}
 
 	ngAfterViewInit() {
@@ -52,8 +55,8 @@ export class CarExpenseTransactionDatatableComponent {
 					this.currentSearchParameter.pageNumber = this.paginator.pageIndex + 1;
 					this.currentSearchParameter.pageSize = this.paginator.pageSize;
 
-					// console.log(this.currentSearchParameter);
-					return this.service.searchCustomerUpdate(this.currentSearchParameter);
+					console.log(this.currentSearchParameter);
+					return this.service.searchCarTransactions(this.currentSearchParameter);
 				}),
 				map((data: ItemsWithPages) => {
 					this.isLoadingResults = false;
@@ -61,7 +64,7 @@ export class CarExpenseTransactionDatatableComponent {
 					if (data === null) {
 						return [];
 					}
-					this.resultsLength = data.totalRecords;
+					this.resultsLength = data.totalCount;
 					return data.data;
 				}),
 			)
@@ -94,31 +97,44 @@ export class CarExpenseTransactionDatatableComponent {
 	}
 
 
+	removeCarExpenseTransaction(element: IReponseExpenseCar) {
 
-	openDialogDisplayImages(imagePath: string) {
-		// console.log(imagePath);
-		// const dialogPosition: DialogPosition = {
-		// 	top: '0px',
-		// 	right: '0px'
-		// };
+		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ? `)
+		.then((confirmed) => {
+			if (confirmed) {
+				this.service.DeleteCarTransactions(element.id).subscribe(
+					(data: HttpReponseModel) => {
+						this.toaster.openSuccessSnackBar(data.message);
+						this.service.searchUpdateUserManageAction.next(true);
+					},
+					(error: any) => {
+						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+					});
+			}
+		})
+		.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+
+	}
+
+
+
+
+
+	openDialogDisplayImages(attachments: { id: number, path: string }) {
+
+		 console.log(attachments);
+	
 
 		const dialogRef = this.dialog.open(ViewimagesForCustomerComponent,
 			{
-				/*maxWidth: '50vw',
-				maxHeight: '100vh',*/
 				maxHeight: '100vh',
 				minHeight: '50%',
 				width: '50%',
-
-				//panelClass: 'full-screen-modal',*/
-				// position: dialogPosition,
-				data: { imagePath: imagePath }
+				data: { attachments: attachments }
 			});
 	}
 
-	rowClicked(model: IReponseExpenseCar) {
-
-	}
+	rowClicked(model: IReponseExpenseCar) { }
 
 	currentLocation(x: number, y: number) {
 
@@ -148,18 +164,6 @@ export class CarExpenseTransactionDatatableComponent {
 
 export interface ItemsWithPages {
 	data: IReponseExpenseCar[];
-	totalRecords: number;
+	totalCount: number;
 }
 
-/*export class ExampleHttpDatabase {
-
-	constructor(private _httpClient: HttpClient) { }
-
-	getRepoIssues(sort: string, order: SortDirection, page: number): Observable<ItemsWithPages> {
-		const href = 'https://api.github.com/search/issues';
-		const requestUrl = `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1
-			}`;
-
-		return this._httpClient.get<ItemsWithPages>(requestUrl);
-	}
-}*/

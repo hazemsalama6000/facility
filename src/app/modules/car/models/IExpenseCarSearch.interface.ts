@@ -1,4 +1,5 @@
 export interface IExpenseCarSearch {
+	branchId:number,
 	startDate: string,
 	endDate: string,
 	carPlat: number,

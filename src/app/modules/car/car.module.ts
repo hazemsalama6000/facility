@@ -11,12 +11,14 @@ import { SharedModule } from 'src/app/shared-module/shared-module.module';
 import { CarExpenseTransactionDatatableComponent } from './components/carexpensetransactions/update-datatable/car-expense-transactions-datatable.component';
 import { CarExpensesTransactionComponent } from './components/carexpensetransactions/car-expenses-transactions.component';
 import { ViewimagesForCustomerComponent } from './components/carexpensetransactions/update-datatable/viewimages/viewimages.component';
+import { CarTransactionUpsertComponent } from './components/carexpensetransactions/expense-transaction-upsert/expense-transaction-upsert.component';
 
 @NgModule({
   declarations: [
 	CarExpenseTransactionDatatableComponent,
 	CarExpensesTransactionComponent,
 	ViewimagesForCustomerComponent,
+	CarTransactionUpsertComponent,
     ManagecarComponent,
     UpsertcarComponent
   ],

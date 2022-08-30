@@ -1,4 +1,5 @@
-<form [formGroup]="carExpenseTransactionSearchForm" (ngSubmit)="searchCustomerEdits(carExpenseTransactionSearchForm.value)">
+<form [formGroup]="carExpenseTransactionSearchForm"
+	(ngSubmit)="searchCarExpensesTransactions(carExpenseTransactionSearchForm.value)">
 
 	<mat-card class="col-md-12">
 		<div class="d-flex align-items-center justify-content-between">
@@ -6,41 +7,46 @@
 			<div class="d-flex align-items-center">
 				<mat-icon class="text-primary mx-5" style="font-size:30px ;">assignment_ind</mat-icon>
 
-				<span class="fontsection"> مصروفات السيارات  </span>
-				
+				<span class="fontsection"> مصروفات السيارات </span>
+
 			</div>
+
+			<button (click)="openDialog()" matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+				 aria-label="Example icon button with a filter list icon">
+				<mat-icon>add</mat-icon>
+			</button>
 
 		</div>
 
-	<br>
+		<br>
 
 		<div class="row ">
-		
-				<mat-form-field style="width: 160px;" color="accent" appearance="fill">
-					<mat-label>{{'PERMISSIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-					<input matInput [matDatepicker]="picker1" formControlName="startDate">
-					<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-					<mat-datepicker #picker1></mat-datepicker>
-				</mat-form-field>
-		
-				<mat-form-field style="width: 160px;" color="accent" appearance="fill">
-					<mat-label>{{'PERMISSIONS.INPUTS.TODATE'|translate}}</mat-label>
-					<input matInput [matDatepicker]="picker2" formControlName="endDate">
-					<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-					<mat-datepicker #picker2></mat-datepicker>
-				</mat-form-field>
-			
-				<ng-select style="width: 250px;" class="customized" [items]="dropdownCarsData" formControlName="carPlat"
-					bindLabel="Name" bindValue="Id" name="carPlat" placeholder="لوحة السيارة">
-				</ng-select>
-				
-				<ng-select style="width: 250px;" class="customized" [items]="dropdownCarExpenseTypesData" formControlName="carPlat"
-					bindLabel="Name" bindValue="Id" name="carPlat" placeholder="المصروفات">
-				</ng-select>
 
-				<button mat-fab color="primary" id="search" type="submit" class="mx-10">
-					<mat-icon style="font-size: 25px;">search</mat-icon>
-				</button>
+			<mat-form-field style="width: 160px;" color="accent" appearance="fill">
+				<mat-label>{{'PERMISSIONS.INPUTS.FROMDATE'|translate}}</mat-label>
+				<input matInput [matDatepicker]="picker1" formControlName="startDate">
+				<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+				<mat-datepicker #picker1></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field style="width: 160px;" color="accent" appearance="fill">
+				<mat-label>{{'PERMISSIONS.INPUTS.TODATE'|translate}}</mat-label>
+				<input matInput [matDatepicker]="picker2" formControlName="endDate">
+				<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+
+			<ng-select style="width: 250px;" class="customized" [items]="dropdownCarsData" formControlName="carPlat"
+				bindLabel="Name" bindValue="Id" name="carPlat" placeholder="لوحة السيارة">
+			</ng-select>
+
+			<ng-select style="width: 250px;" class="customized" [items]="dropdownCarExpenseTypesData"
+				formControlName="carPlat" bindLabel="Name" bindValue="Id" name="carPlat" placeholder="المصروفات">
+			</ng-select>
+
+			<button mat-fab color="primary" id="search" type="submit" class="mx-10">
+				<mat-icon style="font-size: 25px;">search</mat-icon>
+			</button>
 
 		</div>
 
