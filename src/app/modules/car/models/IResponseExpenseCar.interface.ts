@@ -6,7 +6,7 @@ export interface IReponseExpenseCar{
 	carDataId: number,
 	carNumber: string,
 	expenseId: number,
-	expense: string,
+	expenseType: string,
 	approvedOrRejectBy: string,
 	approvedOrRejectDate: string,
 	mobileDate: string,

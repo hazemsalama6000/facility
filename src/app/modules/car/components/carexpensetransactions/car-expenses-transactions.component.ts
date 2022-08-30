@@ -76,7 +76,7 @@ export class CarExpensesTransactionComponent implements OnInit {
 
 
 	
-	openDialog() {
+	openDialogAddingTransaction() {
 
 		const dialogPosition: DialogPosition = {
 			top: '0px',

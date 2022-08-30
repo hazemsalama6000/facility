@@ -1,15 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
-import { dropdownSettings } from "src/app/core-module/UIServices/dropdownsetting";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
-import { ICompany } from "src/app/modules/hr/models/ICompany";
-import { CompanyService } from "src/app/modules/hr/services/company.service";
-import { EmployeeService } from "src/app/modules/employees/services/employee.service";
-import { IRegion } from "src/app/modules/share/models/IRegion.interface";
-import { RegionService } from "src/app/modules/share/Services/region.service";
-import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { IExpenseTransaction } from "../../../models/IExpenseTransaction.interface";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
@@ -47,7 +39,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 		private auth: AuthService,
 		private carExpenseTransactionService: CarExpenseTransactionService,
 		private carService: CarService, private datePipe: DatePipe
-	) {}
+	) { }
 
 
 	setDefaultForForm() {
@@ -56,7 +48,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 			CarDataId: ['', Validators.compose([Validators.required])],
 			Attachments: [''],
 			Notes: [''],
-			ExpenseDate: [''],
+			ExpenseDate: [new Date().toISOString(), Validators.compose([Validators.required])],
 			ExpenseValue: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 		});
 	}
@@ -95,15 +87,18 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 	Submit(ExpenseTransactionDataForm: any) {
 
-console.log(ExpenseTransactionDataForm);
+		console.log(ExpenseTransactionDataForm);
 
 		if (this.expenseTransactionDataForm.valid) {
 
 			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
 
 			const fd = new FormData();
+			
+			if (this.attachment != null) {
+				fd.append('Attachments', this.attachment, this.attachment.name);
+			}
 
-			fd.append('Attachments', this.attachment, this.attachment.name);
 			fd.append('CarDataId', ExpenseTransactionDataForm.CarDataId.toString());
 			fd.append('ExpenseDate', ExpenseTransactionDataForm.ExpenseDate);
 			fd.append('ExpenseId', ExpenseTransactionDataForm.ExpenseId);

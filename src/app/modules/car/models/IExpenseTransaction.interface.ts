@@ -3,6 +3,6 @@ export interface IExpenseTransaction {
 	CarDataId: number,
 	ExpenseId: number,
 	ExpenseDate: string,
-	Attachments: File[],
+	Attachments: string,
 	Notes: string
 }
