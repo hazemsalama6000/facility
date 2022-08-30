@@ -21,7 +21,7 @@ export class CarExpenseTransactionService {
 	constructor(private http: CommonHttpService) { }
 
 	PostExpenseTransactionData(model: any): Observable<any> {
-		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_ADD}`);
+		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_GET_CARS_EXPENSES_ADD}`);
 	}
 
 	getLookupCarExpenseTypesData(companyId: number): Observable<LookUpModel[]> {

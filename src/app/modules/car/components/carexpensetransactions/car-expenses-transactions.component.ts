@@ -87,9 +87,8 @@ export class CarExpensesTransactionComponent implements OnInit {
 			{
 				maxHeight: '100vh',
 				height: '100%',
-				position: dialogPosition,
-				data: { companyId: 0 }
-			});
+				position: dialogPosition
+						});
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(`Dialog result: ${result}`);

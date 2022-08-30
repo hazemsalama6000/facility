@@ -27,17 +27,17 @@
 			<div class="col-md-12">
 
 				<span class=" mx-10">
-					<label class="fontForInputs">{{'HR.INPUTS.LOGOPRINT' | translate}} </label>
+					<label class="fontForInputs">صور للصرفيات </label>
 					<input type="file" class="mx-2" (change)="logoPrintChange($event)" placeholder="Placeholder"
 						name="Attachments" formControlName="Attachments">
 				</span>
 
 
-				<div class="row">
+				<div class="row mt-2">
 
 					<div class="col-md-4">
 
-						<div class="row mt-2">
+						<div class="row">
 							<div class="col-md-3">
 								<label class="fontForInputs mt-5"> المصروف </label>
 							</div>
@@ -46,14 +46,23 @@
 								<ng-select [items]="dropdownCarExpenseTypesData" bindLabel="Name" bindValue="Id"
 									name="ExpenseId" formControlName="ExpenseId">
 								</ng-select>
+								<mat-hint>
+									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'اختر الصرف',
+										  control: expenseTransactionDataForm.controls['ExpenseId']
+										}"></ng-container>
+								</mat-hint>
 							</div>
+
+							
 						</div>
 					</div>
 
-					<div class="col-md-4">
-						<mat-form-field style="width: 160px;" color="accent" appearance="fill">
-							<mat-label>{{'PERMISSIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-							<input matInput [matDatepicker]="picker1" formControlName="startDate">
+					<div class="col-md-6">
+						<mat-form-field style="width:100%" color="accent" appearance="fill">
+							<mat-label> التاريخ </mat-label>
+							<input matInput [matDatepicker]="picker1" formControlName="ExpenseDate">
 							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 							<mat-datepicker #picker1></mat-datepicker>
 						</mat-form-field>
@@ -66,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-4">
 
-						<div class="row mt-2">
+						<div class="row">
 							<div class="col-md-3">
 								<label class="fontForInputs mt-5"> السيارة </label>
 							</div>
@@ -75,7 +84,13 @@
 								<ng-select [items]="dropdownCarsData" bindLabel="Name" bindValue="Id" name="CarDataId"
 									formControlName="CarDataId">
 								</ng-select>
-
+								<mat-hint>
+									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'اختر السيارة',
+										  control: expenseTransactionDataForm.controls['CarDataId']
+										}"></ng-container>
+								</mat-hint>
 							</div>
 						</div>
 					</div>
@@ -109,7 +124,7 @@
 						</mat-form-field>
 					</div>
 
-					<div class="col-md-12">
+					<div class="col-md-10">
 						<mat-form-field appearance="outline">
 							<mat-label> ملاحظات </mat-label>
 							<input matInput placeholder="Placeholder" name="Notes" formControlName="Notes">
@@ -139,7 +154,7 @@
 	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
 		<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
 			<div class="fv-plugins-message-container">
-				<span role="alert">
+				<span role="alert" class="fontForInputs">
 					{{ message }}
 				</span>
 			</div>
