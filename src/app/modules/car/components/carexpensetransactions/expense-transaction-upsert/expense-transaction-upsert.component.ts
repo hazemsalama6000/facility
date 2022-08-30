@@ -49,7 +49,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 			Attachments: [''],
 			Notes: [''],
 			ExpenseDate: [new Date().toISOString(), Validators.compose([Validators.required])],
-			ExpenseValue: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+			ExpenseValue: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 		});
 	}
 
@@ -111,6 +111,8 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
+							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
+
 						}
 						else if (data.isExists) {
 							this.toaster.openWarningSnackBar(data.message);

@@ -110,20 +110,8 @@
 							<mat-hint>
 
 								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-									validation: 'min',
-									message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , min:0},
-									control: expenseTransactionDataForm.controls['ExpenseValue']
-								  }"></ng-container>
-
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-									  validation: 'max',
-									  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , max:100},
-									  control: expenseTransactionDataForm.controls['ExpenseValue']
-								   }"></ng-container>
-
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 												validation: 'pattern',
-												message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate},
+												message: 'القيمة تحتوي حروف' ,
 												control: expenseTransactionDataForm.controls['ExpenseValue']
 											  }"></ng-container>
 
@@ -164,7 +152,7 @@
 	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
 		<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
 			<div class="fv-plugins-message-container">
-				<span role="alert" class="fontForInputs">
+				<span role="alert" class="fontForHints">
 					{{ message }}
 				</span>
 			</div>
