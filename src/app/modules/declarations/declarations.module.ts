@@ -10,13 +10,19 @@ import { AddfinancialyearComponent } from './components/financialyear/addfinanci
 import { PathrouteComponent } from './components/pathroute/pathroute.component';
 import { SharedModule } from 'src/app/shared-module/shared-module.module';
 import { AddpathrouteComponent } from './components/pathroute/addpathroute/addpathroute.component';
+import { AssigntechnicianComponent } from './components/pathroute/assigntechnician/assigntechnician.component';
+import { AddinventorycategoryComponent } from './components/inventorycategory/addinventorycategory/addinventorycategory.component';
+import { InventorycategoryComponent } from './components/inventorycategory/inventorycategory.component';
 
 @NgModule({
   declarations: [
     FinancialyearComponent,
     AddfinancialyearComponent,
     PathrouteComponent,
-    AddpathrouteComponent
+    AddpathrouteComponent,
+    AssigntechnicianComponent,
+    AddinventorycategoryComponent,
+    InventorycategoryComponent
   ],
   imports: [
     CommonModule,

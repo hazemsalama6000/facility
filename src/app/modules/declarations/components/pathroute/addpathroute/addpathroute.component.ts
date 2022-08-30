@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { RegionService } from 'src/app/core-module/LookupsServices/region.service';
 import { StateService } from 'src/app/core-module/LookupsServices/state.service';
+import { TechnicianService } from 'src/app/core-module/LookupsServices/technician.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
@@ -30,14 +31,16 @@ export class AddpathrouteComponent {
   pathRouteForm: FormGroup = this.fb.group({
     id: [0],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    region_Id: ['', Validators.compose([Validators.required])],
-    technician_Id: ['', Validators.compose([Validators.required])],
+    region_Id: [null, Validators.compose([Validators.required])],
+    state_Id: [null, Validators.compose([Validators.required])],
+    technician_Id: [null, Validators.compose([Validators.required])],
     companyBranch_Id: [0],
     isActive: [true]
   });
 
   constructor(
     private pathrouteService: PathrouteService,
+    private technicianService:TechnicianService,
     private stateService: StateService,
     private regionService: RegionService,
     private auth: AuthService,
@@ -46,22 +49,17 @@ export class AddpathrouteComponent {
     @Inject(MAT_DIALOG_DATA) public data: { pathRoute: IPathRoute },
     public dialogRef: MatDialogRef<AddpathrouteComponent>
   ) {
-    //set data when edit
-    if (data.pathRoute) {
-
-    }
-
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
 
     this.getstate();
+    this.getTechnician();
   }
 
-
   addPathRoute() {
-    console.log(this.pathRouteForm.value)
+    
     if (this.pathRouteForm.valid && this.saveButtonClickedFlag) {
-      this.pathRouteForm.patchValue({ companyBranch_Id: this.userData.branchId })
+      this.pathRouteForm.patchValue({ companyBranch_Id: this.userData.branchId });
       this.pathrouteService.addPathRoute(this.pathRouteForm.value).subscribe(
         (data: HttpReponseModel) => {
           if (data.isSuccess) {
@@ -74,7 +72,6 @@ export class AddpathrouteComponent {
           }
         },
         (error: any) => {
-          console.log(error);
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }
       );
@@ -84,7 +81,7 @@ export class AddpathrouteComponent {
 
   getstate() {
     this.stateService.getLookupStateData().subscribe(
-      (res: LookUpModel[]) => this.dropdownStateData=res,
+      (res: LookUpModel[]) => this.dropdownStateData = res,
       (err) => console.log(err),
       () => { });
   }
@@ -92,7 +89,14 @@ export class AddpathrouteComponent {
   getRegion(model: LookUpModel) {
     console.log(model)
     this.regionService.getLookupStateData(model.Id).subscribe(
-      (res: LookUpModel[]) => this.dropdownRegionData=res,
+      (res: LookUpModel[]) => this.dropdownRegionData = res,
+      (err) => console.log(err),
+      () => { });
+  }
+
+  getTechnician() {
+    this.technicianService.getLookUpTechnician(this.userData.branchId).subscribe(
+      (res: LookUpModel[]) => this.dropdownTechnicianData = res,
       (err) => console.log(err),
       () => { });
   }

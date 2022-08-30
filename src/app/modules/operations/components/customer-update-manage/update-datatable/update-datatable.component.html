@@ -1,16 +1,14 @@
 <div class="example-container mat-elevation-z8">
-	<div class="example-loading-shade"
-		 *ngIf="isLoadingResults || isRateLimitReached">
-	  <mat-spinner [diameter]="50" *ngIf="isLoadingResults"></mat-spinner>
-	  <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-		GitHub's API rate limit has been reached. It will be reset in one minute.
-	  </div>
+	<div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+		<mat-spinner [diameter]="50" *ngIf="isLoadingResults"></mat-spinner>
+		<div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+			GitHub's API rate limit has been reached. It will be reset in one minute.
+		</div>
 	</div>
-  
+
 	<div class="example-table-container">
-  
-	  <table mat-table [dataSource]="data" class="example-table"
-			 matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+
+		<table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
 			<!-- Name Column -->
 			<ng-container matColumnDef="BranchName">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> الفرع </th>
@@ -22,7 +20,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="AreaName">
-				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> المنطقة </th>
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> المنطقة </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					{{element.areaName}}
 				</td>
@@ -36,7 +34,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="CustomerName">
-				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef>اسم العميل </th>
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>اسم العميل </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span class="badge badge-sm badge-primary">
 						{{element.customerName}}
@@ -56,7 +54,7 @@
 
 
 			<ng-container matColumnDef="CollectorName">
-				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> اسم الموظف </th>
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> اسم الموظف </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span class="badge badge-sm badge-secondary">
 						{{element.collectorName}}
@@ -74,7 +72,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="UpdatedTypeName">
-				<th  class="stylingHeader" mat-header-cell *matHeaderCellDef> نوع التعديل </th>
+				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> نوع التعديل </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 
 					{{element.updatedTypeName}}
@@ -89,10 +87,8 @@
 
 					<div *ngIf="element.updatedTypeSysName == 'location';">
 						<div class="">
-							<button (click)="currentLocation(element.x,element.y)"
-								matTooltip="اخر موقع للمستخدم" mat-mini-fab color="primary"
-								class="justify-content-center align-items-center"
-								aria-label="Example icon button with a filter list icon">
+							<button (click)="currentLocation(element.x,element.y)" matTooltip="اخر موقع للمستخدم" mat-mini-fab color="primary"
+								class="justify-content-center align-items-center" aria-label="Example icon button with a filter list icon">
 								<mat-icon style="font-size:20px ;"> location_on</mat-icon>
 							</button>
 						</div>
@@ -124,10 +120,8 @@
 						<mat-icon style="font-size:20px ;"> image</mat-icon>
 					</button>-->
 
-							<button matTooltip="تنزيل الصورة "
-								(click)="openDialogDisplayImages(element.imagePath)" mat-mini-fab color="accent"
-								class="justify-content-center align-items-center"
-								aria-label="Example icon button with a filter list icon">
+							<button matTooltip="تنزيل الصورة " (click)="openDialogDisplayImages(element.imagePath)" mat-mini-fab color="accent"
+								class="justify-content-center align-items-center" aria-label="Example icon button with a filter list icon">
 								<mat-icon style="font-size:20px ;"> image</mat-icon>
 							</button>
 
@@ -138,13 +132,12 @@
 				</td>
 			</ng-container>
 
-  
-		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-	  </table>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
 	</div>
-  
-	<mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20,100]" 
-	aria-label="Select page of GitHub search results"></mat-paginator>
-  </div>
-  
+
+	<mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20,100]" aria-label="Select page of GitHub search results">
+	</mat-paginator>
+</div>

@@ -127,7 +127,8 @@ export class AsideMenuComponent implements OnInit {
           "parentId": 1,
           "isLast": false,
           "route": "",
-          "permission": "", "isDeleted": false,
+          "permission": "",
+           "isDeleted": false,
           "icon": "",
           "childNode": [
             {
@@ -162,15 +163,16 @@ export class AsideMenuComponent implements OnInit {
               "childNode": []
             }
           ]
-        }, {
-          "id": 39,
+        }, 
+        {
+          "id": 388,
           "name": "اعدادات عامة",
           "parentId": 1,
           "isLast": false,
           "route": "",
           "permission": "", 
           "isDeleted": false,
-          "icon": "settings",
+          "icon": "",
           "childNode": [
             {
               "id": 41,
@@ -183,12 +185,32 @@ export class AsideMenuComponent implements OnInit {
               "icon": "perm_identity",
               "childNode": []
             } , {
-              "id": 41,
-              "name": "",
+              "id": 42,
+              "name": "الادارات والاقسام",
               "parentId": 39,
               "isLast": true,
               "isDeleted": false,
               "route": "/share/department_section",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            } , {
+              "id": 41,
+              "name": "خطوط السير",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "declarations/pathroute",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            }, {
+              "id": 41,
+              "name": "تعريف الفترة المالية",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "declarations/financialyear",
               "permission": "Screen.Shared.Company.View",
               "icon": "perm_identity",
               "childNode": []
@@ -197,13 +219,47 @@ export class AsideMenuComponent implements OnInit {
         },
         {
           "id": 42,
-          "name": "إعدادات العملاء",
+          "name": "إعدادات السيارات",
           "parentId": 1,
           "isLast": false, "isDeleted": false,
           "route": "",
           "permission": "",
           "icon": "",
-          "childNode": []
+          "childNode": [
+            {
+              "id": 41,
+              "name": "تعريف السيارات",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/car/managecar",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            } 
+          ]
+        },{
+          "id": 42,
+          "name": "إعدادات المخازن",
+          "parentId": 1,
+          "isLast": false, 
+          "isDeleted": false,
+          "route": "",
+          "permission": "",
+          "icon": "",
+          "childNode": [
+            {
+              "id": 41,
+              "name": "تصنيف المخازن",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/declarations/invcategory",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            } 
+          ]
         },
         {
           "id": 44,
@@ -214,7 +270,9 @@ export class AsideMenuComponent implements OnInit {
           "permission": "",
           "icon": "",
           "childNode": []
-        },
+        }
+        
+        ,
         {
           "id": 55,
           "name": "إدارة المستخدمين",

@@ -73,13 +73,14 @@ export class CustomerUpdateManageComponent implements OnInit {
 	ngAfterViewInit(): void {
 		this.getCustomerDataByCode('');
 	}
+	
 	searchCustomerEdits(model: ICustomerEditManageSearch) {
 		model.StartDate = this.datePipe.transform(model.StartDate, 'MM/dd/yyyy')!;
 		model.EndDate = this.datePipe.transform(model.EndDate, 'MM/dd/yyyy')!;
-	
+
 		this.customerEditManageService.searchParameterAction.next(model);
 		this.customerEditManageService.searchUpdateUserManageAction.next(true);
-	
+
 	}
 
 	getCustomerDataByCode(customerCode: string) {
