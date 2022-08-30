@@ -1,0 +1,145 @@
+<section style="width:100%;">
+
+
+  <section>
+    <mat-card class=" mb-5">
+
+      <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
+        <span class="fontForInputs fs-3"> {{"CARS.TITLES.CARSTABLE"|translate}}</span>
+        <button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openAddDialog()"
+          aria-label="Example icon button with a filter list icon">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
+
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label> {{'CARS.INPUTS.CARNUMBER' | translate}} </mat-label>
+            <input matInput placeholder="Placeholder" name="name" [(ngModel)]="searchModel.carNumber">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <ng-select #region class="customized" [(ngModel)]="searchModel.carModelId" [items]="dropdownCarModelData" bindLabel="Name" bindValue="Id"
+            name="region" id="region_Id" placeholder="{{'CARS.INPUTS.CARMODEL' | translate}}">
+          </ng-select>
+        </div>
+
+        <div class="col-md-4">
+          <ng-select #pathRoute [(ngModel)]="searchModel.technicianId" class="customized" [items]="dropdownTechnicianData" bindLabel="Name"
+            bindValue="Id" name="pathroute" id="region_Id" placeholder="{{'CARS.INPUTS.TECHNICIAN' | translate}}">
+          </ng-select>
+        </div>
+
+        <div class="col-md-1 d-flex justify-content-center">
+          <button matTooltip="{{'CARS.BUTTONS.ROMDATE'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="getallData()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </mat-card>
+  </section>
+
+
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="model">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.CARMODEL" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <span>{{element.model}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="plateCar">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.CARNUMBER" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index">
+        <span>{{element.plateCar}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="techname">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.TECHNICIANNAME" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index">
+        <span>{{element.technician}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="drivername">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.DRIVERNAME" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index">
+        <span>{{element.driver}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="downloadfiles">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.DOWNLOADFILES" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index">
+        <div class="d-flex">
+          <ng-container *ngFor="let file of element.attachments">
+            <a [href]="url+file.path" [download]="file.id" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
+              <mat-icon>download</mat-icon>
+            </a>
+          </ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element; let x=index">
+
+        <button matTooltip="{{'DECLARATIONS.BUTTONS.EDIT' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
+          (click)="openAddDialog(element);$event.stopPropagation()">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <!-- <button matTooltip="{{'CARS.BUTTONS.DOWNLOAD' | translate}}" mat-mini-fab color="primary" class="mx-md-1">
+          <mat-icon>download</mat-icon>
+        </button> -->
+
+        <button mat-mini-fab color="accent" (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openAssignDialog(element,'technician')">
+            <mat-icon>dialpad</mat-icon><span>تخصيص مندوب</span>
+          </button>
+          <button *ngIf="element.technicianId" mat-menu-item (click)="openunAssignTechincian(element,'technician')">
+            <mat-icon>voicemail</mat-icon><span>ايقاف تخصيص مندوب</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="openAssignDialog(element,'driver')">
+            <mat-icon>notifications_off</mat-icon><span>تخصيص سائق</span>
+          </button>
+          <button *ngIf="element.driverId" mat-menu-item (click)="openunAssignTechincian(element,'driver')">
+            <mat-icon>notifications_off</mat-icon><span>ايقاف تخصيص سائق</span>
+          </button>
+        </mat-menu>
+
+
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let entry" [ngClass]="{'heiglightRowClass':entry.id == currentSelected.id}"
+      (click)="rowClicked(row)" style="cursor:pointer ;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4"> {{'CARS.MESSAGE.NOROWFOUND'|translate}} </td>
+    </tr>
+  </table>
+
+  <mat-paginator [length]="totalRecord" [pageSize]="searchModel.PageSize" (page)="pageEvent($event) " [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+
+
+</section>

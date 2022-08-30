@@ -16,8 +16,12 @@ export class PathrouteService {
 
   constructor(private http: CommonHttpService) { }
 
-  getLookUpPathRoute(): Observable<LookUpModel[]> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_PATH_ROUTE}`)
+  getLookUpPathRoute(searchModel: any): Observable<LookUpModel[]> {
+    let queryString = Object.keys(searchModel).map((key: string) =>
+      searchModel[key] != null && searchModel[key] != '' && searchModel[key] != undefined ? key + '=' + searchModel[key] : null
+    ).filter(x => x != null).join('&');
+
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_PATHROUTE}${queryString}`)
       .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
   }
 
@@ -36,18 +40,14 @@ export class PathrouteService {
 
   toggelIsActivePathRoute(pathRouteId: number) {
     return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVE_DEACTIVE_PATH_ROUTE}${pathRouteId}`);
-  }  
-  
+  }
+
   UnAssignTechincianToPathRoute(pathRouteId: number) {
-    return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths}${pathRouteId}`);
+    return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN}${pathRouteId}`);
   }
 
   AssignPathRouteToTechnician(PathRoute_Id: number, Technicial_Id: number) {
-    return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVE_DEACTIVE_PATH_ROUTE}`);
-  }
-
-  UnAssignPathRoute(pathRoute_Id: number) {
-    return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVE_DEACTIVE_PATH_ROUTE}${pathRoute_Id}`);
+    return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN}TechnicianId=${Technicial_Id}&PathRouteId=${PathRoute_Id}`);
   }
 
 

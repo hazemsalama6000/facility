@@ -2,7 +2,7 @@
 
   <div mat-dialog-title>
     <div class="row mx-0">
-      <div class="col"> اضافة خط سير</div>
+      <div class="col"> {{"DECLARATIONS.TITLES.PATHROUTEADD"|translate}}</div>
       <div class="col-2">
         <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
       </div>
@@ -14,9 +14,29 @@
     <div class="row mx-0">
 
       <div class="col-md-6 mb-3">
-        <ng-select #areaselect appendTo="body" class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id"
+        <ng-select #areaselect appendTo="body" class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" formControlName="state_Id"
           name="state_Id" id="state_Id" placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" (change)="getRegion($event)" (clear)="dropdownRegionData=[]">
-        </ng-select>
+        </ng-select>    
+          <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.STATE' | translate},
+                control: pathRouteForm.controls['state_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STATE' | translate , min:3},
+                control: pathRouteForm.controls['state_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STATE' | translate , max:100},
+                  control: pathRouteForm.controls['state_Id']
+               }"></ng-container>
+
+        </mat-hint>
       </div>
 
       <div class="col-md-6 mb-3">
@@ -26,19 +46,19 @@
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate},
                 control: pathRouteForm.controls['region_Id']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'minlength',
-                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate , min:3},
                 control: pathRouteForm.controls['region_Id']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate , max:100},
                   control: pathRouteForm.controls['region_Id']
                }"></ng-container>
 
@@ -81,19 +101,19 @@
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
-                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.TECHNICIAN' | translate},
                 control: pathRouteForm.controls['technician_Id']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'minlength',
-                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TECHNICIAN' | translate , min:3},
                 control: pathRouteForm.controls['technician_Id']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TECHNICIAN' | translate , max:100},
                   control: pathRouteForm.controls['technician_Id']
                }"></ng-container>
 

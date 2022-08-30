@@ -30,9 +30,9 @@
           <span class="menu-title">{{item.name}}</span>
           <span class="menu-arrow"></span></span>
         <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
-          
+
           <ng-container *ngFor="let item of item.childNode">
-            <div class="menu-item"  *ngIf="item.isDeleted==false">
+            <div class="menu-item" *ngIf="item.isDeleted==false">
               <a class="menu-link without-sub" routerLink="{{item.route}}" routerLinkActive="active">
                 <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                 <span class="menu-title">{{item.name}} </span>
@@ -63,11 +63,3 @@
       <span [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'" class="svg-icon svg-icon-2"></span>
     </span><span class="menu-title">{{"MENU.DEPARTMENTS" | translate}}</span></a>
 </div> -->
-
-
-
-
-
-
-
-

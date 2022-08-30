@@ -433,8 +433,8 @@ export const locale = {
         PATHROUTE: "اختر خط السير",
         REGION: 'اختر المنطقة',
         STATE: 'اختر المحافظة',
-        NAME:'الاسم',
-        TECHNICIAN:'اختر المندوب'
+        NAME: 'الاسم',
+        TECHNICIAN: 'اختر المندوب'
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -443,11 +443,11 @@ export const locale = {
         SAVE: "حفظ",
         DELETE: "حذف",
         CANCEL: "الغاء",
-        CANCELASSIGN:'الغاء التخصيص',
-        REASSIGN:'أعادة تخصيص'
+        CANCELASSIGN: 'الغاء التخصيص',
+        REASSIGN: 'أعادة تخصيص'
       },
       TITLES: {
-        FINANCIALYEARTABLE: 'بيانات السنة المالية ',
+        FINANCIALYEARTABLE: 'بيانات الفترة المالية ',
         YEAR: "الاسم",
 
         DATEFROM: 'من تاريخ',
@@ -455,19 +455,71 @@ export const locale = {
         STATUS: 'حالة التفعيل',
         ACTIVE: "مفعل",
         NOTACTIVE: "غير مفعل",
-        ADDFINANCIALYEAR: 'اضافة سنة مالية',
+        ADDFINANCIALYEAR: 'اضافة الفترة مالية',
 
         PATHROUTETABLE: "بيانات خطوط السير ",
         PATHROUTEADD: "اضافة خط السير",
         NAME: "الاسم",
         STATE: "المحافظة",
         REGION: "المنطقة",
-        TECHNICIAN: 'المندوب'
+        TECHNICIAN: 'المندوب',
+        ASSIGNTECHNICIANTOPATHROUTE: "أعادة تخصيص",
+        INVENTORYCATEGORY:"تصنيف المخازن",
+        ADDINVENTORYCATEGORY:"أضافة تصنيف مخزن",
+        EDITINVENTORYCATEGORY:"تعديل تصنيف مخزن"
 
       },
       MESSAGE: {
         NOROWFOUND: "لايوجد بيانات"
       }
     },
+
+    CARS: {
+      INPUTS: {
+        TECHNICIAN: "أختر فني",
+        DRIVER:"اختر سائق",
+        CARMODEL: "أختر الموديل",
+        CARNUMBER: "أدخل رقم اللوحة",
+        NOTES:"ملاحظات",
+        FILE:"أرفاق ملفات",
+        FILECOUNT:"عدد الملفات : "
+      },
+      BUTTONS: {
+        ADD: "اضافة",
+        CLOSE: "غلق",
+        EDIT: "تعديل",
+        SAVE: "حفظ",
+        DELETE: "حذف",
+        CANCEL: "الغاء",
+        CANCELASSIGN: 'الغاء التخصيص',
+        REASSIGN: 'أعادة تخصيص',
+        DOWNLOAD: "تنزيل الملفات"
+      },
+      TITLES: {
+        CARSTABLE: "اعدادات السيارات",
+        CARMODEL: "الموديل",
+        CARNUMBER: "رقم اللوحة",
+        FROMDATE: 'من تاريخ',
+        TODATE: "الى تاريخ",
+        NOTES: "ملاحظات",
+        TECHNICIANNAME: "اسم المندوب",
+        DRIVERNAME: "اسم السائق",
+        UPDATECAR:"تعديل بيانات سيارة",
+        ADDCAR:"اضافة بيانات سيارة",
+        ASSIGNCARTOTECH:"تخصيص سيارة الى مندوب",
+        ASSIGNCARTODRIVER:"تخصيص سيارة الى سائق",
+        UNASSIGNCARTOTECH:"الغاء تخصيص مندوب من سيارة",
+        UNASSIGNCARTODRIVER:"الغاء تخصيص سائق من سيارة",
+        DRIVER:"سائق",
+        TECHNICIAN:"مندوب",
+        TYPE:"النوع",
+        DOWNLOADFILES:"تنزيل الملفات",
+
+      },
+      MESSAGE: {
+        NOROWFOUND: "لايوجد بيانات"
+      }
+    }
+
   }
 };

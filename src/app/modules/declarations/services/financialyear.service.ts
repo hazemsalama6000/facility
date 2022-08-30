@@ -17,16 +17,6 @@ export class FinancialyearService {
   GetFinancialYear(companyId: Number): Observable<IFinancialYear[]> {
     return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_FINANCIAL_YEAR}${companyId}`)
       .pipe(map((Items: any) => Items as IFinancialYear[]));
-
-    // return of([
-    //   { Id: 1, Year: '2015', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 2, Year: '2016', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 3, Year: '2017', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 4, Year: '2018', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 5, Year: '2019', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 6, Year: '2020', DateFrom: new Date(), DateTo: new Date(), IsActive: false },
-    //   { Id: 7, Year: '2021', DateFrom: new Date(), DateTo: new Date(), IsActive: true },
-    // ] as IFinancialYear[])
   }
 
   AddFinancialYear(model: IFinancialYear) {
