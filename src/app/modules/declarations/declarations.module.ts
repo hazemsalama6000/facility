@@ -31,16 +31,16 @@ import { CarExpenseUpsertComponent } from './components/cars-expenses/car-expens
     AddpathrouteComponent,
     AssigntechnicianComponent,
     AddinventorycategoryComponent,
-    InventorycategoryComponent
-	TransferingCompanyComponent,
-	TransferingCompanyUpsertComponent,
-	TransferingCompanyListContentComponent,
-	CarsModelsComponent,
-	CarsModelsUpsertComponent,
-	CarsModelsListContentComponent,
-	CarExpensesComponent,
-	CarExpenseListContentComponent,
-	CarExpenseUpsertComponent
+    InventorycategoryComponent,
+    TransferingCompanyComponent,
+    TransferingCompanyUpsertComponent,
+    TransferingCompanyListContentComponent,
+    CarsModelsComponent,
+    CarsModelsUpsertComponent,
+    CarsModelsListContentComponent,
+    CarExpensesComponent,
+    CarExpenseListContentComponent,
+    CarExpenseUpsertComponent
   ],
   imports: [
     CommonModule,
