@@ -53,6 +53,8 @@ export enum HttpPaths {
 	API_CARS_EXPENSE_ADD = "/api/v1/Trans/addtranscarexpensetypes",
 	API_CARS_EXPENSE_UPDATE = "/api/v1/Trans/updatetranscarexpensetypes/",
 	API_CARS_EXPENSE_GETALL = "/api/v1/Trans/getcarsexpensestypes",
+	API_CARS_EXPENSE_GETList = "/api/v1/Trans/listofcarsExpensesTypes",
+
 	API_CARS_EXPENSE_DELETE = "/api/v1/Trans/removetranscarexpensetypes/",
 
 	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactive/",
