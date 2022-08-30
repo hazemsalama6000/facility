@@ -38,8 +38,8 @@ export class PathrouteComponent implements OnInit {
 
   constructor(
     private pathrouteService: PathrouteService,
-    private stateService:StateService,
-    private regionService:RegionService,
+    private stateService: StateService,
+    private regionService: RegionService,
     private auth: AuthService,
     public dialog: MatDialog,
     private toaster: toasterService,
@@ -52,6 +52,8 @@ export class PathrouteComponent implements OnInit {
       this.unsubscribe.push(datajob);
     });
     this.unsubscribe.push(udata);
+
+    this.getstate();
   }
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class PathrouteComponent implements OnInit {
   getallData() {
     this.pathrouteService.getPathRoute(this.searchModel).subscribe((data: IPathRoutePaginantion) => {
       console.log(data)
-      this.dataSource = new MatTableDataSource<IPathRoute>(data.data??[]);
+      this.dataSource = new MatTableDataSource<IPathRoute>(data.data ?? []);
       this.dataSource.paginator = this.paginator;
       this.totalRecord = data.totalRecords
     });
@@ -68,23 +70,31 @@ export class PathrouteComponent implements OnInit {
 
   getstate() {
     this.stateService.getLookupStateData().subscribe(
-      (res: LookUpModel[]) => this.dropdownStateData=res,
+      (res: LookUpModel[]) => this.dropdownStateData = res,
       (err) => console.log(err),
       () => { });
   }
 
   getRegion(model: LookUpModel) {
     this.regionService.getLookupStateData(model.Id).subscribe(
-      (res: LookUpModel[]) => this.dropdownRegionData=res,
+      (res: LookUpModel[]) => this.dropdownRegionData = res,
       (err) => console.log(err),
       () => { });
-  }  
-  
-  getPathRoute(model: LookUpModel) {
-    this.pathrouteService.getLookUpPathRoute().subscribe(
-      (res: LookUpModel[]) => this.dropdownPathRouteData=res,
+    this.getPathRoute();
+    this.getallData();
+  }
+
+  getPathRoute() {
+    this.pathrouteService.getLookUpPathRoute({ StateId: this.searchModel.StateId, RegionId: this.searchModel.RegionId, CompanyBranchId: this.userdata.branchId }).subscribe(
+      (res: LookUpModel[]) => this.dropdownPathRouteData = res,
       (err) => console.log(err),
       () => { });
+
+    this.getallData();
+  }
+
+  changePathRoute(model: LookUpModel) {
+    this.getallData();
   }
 
   toggleActiveDeactive(model: IPathRoute) {
@@ -107,7 +117,7 @@ export class PathrouteComponent implements OnInit {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
-  stopAssignTechincian(model: IPathRoute){
+  stopAssignTechincian(model: IPathRoute) {
     this.confirmationDialogService.confirm(`من فضلك اكد ألغاء المندوب`, `هل تريد ألغاء المندوب ${model.name} ? `)
       .then((confirmed) => {
         if (confirmed) {
@@ -138,8 +148,8 @@ export class PathrouteComponent implements OnInit {
     this.dialog.open(AddpathrouteComponent, { maxHeight: '100vh', minHeight: '50%', width: '50%', data: { model: model } });
   }
 
-  openAssignDialog(model:IPathRoute){
-    this.dialog.open(AssigntechnicianComponent, { maxHeight: '100vh', minHeight: '50%', width: '50%', data: { model: model } });
+  openAssignDialog(model: IPathRoute) {
+    this.dialog.open(AssigntechnicianComponent, { maxHeight: '100vh', minHeight: '50%', width: '50%', data: { pathRoute: model } });
   }
 
   ngOnDestroy() {

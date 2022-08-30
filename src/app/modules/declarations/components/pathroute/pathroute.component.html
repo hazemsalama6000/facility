@@ -19,31 +19,28 @@
       <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
 
         <div class="col-md-4">
-          <ng-select class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" name="region_Id"
-            id="state" placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" (change)="getRegion($event)"
-            (clear)="dropdownRegionData=[];dropdownPathRouteData=[];">
+          <ng-select class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" name="region_Id" id="state"
+            placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" [(ngModel)]="searchModel.StateId"
+            (change)="getRegion($event);region.handleClearClick()" 
+            (clear)="dropdownRegionData=[];dropdownPathRouteData=[];region.handleClearClick();this.getallData();">
           </ng-select>
         </div>
 
         <div class="col-md-4">
-          <ng-select  class="customized" style="width:250px ;" [items]="dropdownRegionData" bindLabel="Name" bindValue="Id"
-            name="region" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}"
-            (change)="getPathRoute($event)"
-            (clear)="dropdownPathRouteData=[];">
+          <ng-select #region class="customized" style="width:250px ;" [(ngModel)]="searchModel.RegionId" [items]="dropdownRegionData" bindLabel="Name"
+            bindValue="Id" name="region" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}"
+            (change)="getPathRoute();pathRoute.handleClearClick()" 
+            (clear)="dropdownPathRouteData=[];pathRoute.handleClearClick()">
           </ng-select>
         </div>
 
         <div class="col-md-4">
-          <ng-select  class="customized" style="width:250px ;" [items]="dropdownPathRouteData" bindLabel="Name" bindValue="Id"
-            name="pathroute" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.PATHROUTE' | translate}}">
+          <ng-select #pathRoute [(ngModel)]="searchModel.PathRouteId" class="customized" style="width:250px ;" [items]="dropdownPathRouteData"
+            bindLabel="Name" bindValue="Id" name="pathroute" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.PATHROUTE' | translate}}"
+            (change)="changePathRoute($event)">
           </ng-select>
         </div>
 
-        <div class="col-md-1 d-none">
-          <button matTooltip="{{'DECLARATIONS.BUTTONS.ROMDATE'|translate}}" mat-mini-fab color="primary" class="mx-md-1">
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
       </div>
 
     </mat-card>

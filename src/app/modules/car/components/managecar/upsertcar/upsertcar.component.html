@@ -1,3 +1,155 @@
-<p>
-  upsertcar works!
-</p>
+<form [formGroup]="carForm" (ngSubmit)="addOrUpdateCar()" style="direction: rtl;">
+
+  <div mat-dialog-title>
+    <div class="row mx-0">
+      <div class="col"> {{data.carModel?("CARS.TITLES.UPDATECAR"|translate):("CARS.TITLES.ADDCAR"|translate) }}</div>
+      <div class="col-2">
+        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content class="overflow-auto py-2">
+    <div class="row mx-0">
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'CARS.INPUTS.CARNUMBER' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="name" formControlName="carNumber">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'CARS.INPUTS.CARNUMBER'  | translate},
+                  control: carForm.controls['carNumber']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'CARS.INPUTS.CARNUMBER'  | translate , min:3},
+                  control: carForm.controls['carNumber']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'CARS.INPUTS.CARNUMBER'  | translate , max:100},
+                  control: carForm.controls['carNumber']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <ng-select #areaselect appendTo="body" class="customized"  [items]="dropdownCarModelData" bindLabel="Name" bindValue="Id"
+          name="carModel_Id" id="carModel_Id" placeholder="{{'CARS.INPUTS.CARMODEL' | translate}}" formControlName="carModel_Id">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'CARS.INPUTS.CARMODEL' | translate},
+                control: carForm.controls['carModel_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'CARS.INPUTS.CARMODEL' | translate , min:3},
+                control: carForm.controls['carModel_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'CARS.INPUTS.CARMODELE' | translate , max:100},
+                  control: carForm.controls['carModel_Id']
+               }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <div class="col-md-6 mb-3" *ngIf="!isEdit">
+
+        <ng-select appendTo="body" class="customized" [items]="dropdownTechnicianData" bindLabel="Name"
+          bindValue="Id" name="technician_Id" id="technician_Id" placeholder="{{'CARS.INPUTS.TECHNICIAN' | translate}}" formControlName="technician_Id">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'CARS.INPUTS.TECHNICIAN' | translate},
+                control: carForm.controls['technician_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'CARS.INPUTS.TECHNICIAN' | translate , min:3},
+                control: carForm.controls['technician_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'CARS.INPUTS.TECHNICIAN' | translate , max:100},
+                  control: carForm.controls['technician_Id']
+               }"></ng-container>
+
+        </mat-hint>
+
+      </div>
+
+      <div class="col-md-6 mb-3" *ngIf="!isEdit">
+
+        <ng-select appendTo="body" class="customized" [items]="dropdownDriverData" bindLabel="Name"
+          bindValue="Id" name="technician_Id" id="technician_Id" placeholder="{{'CARS.INPUTS.DRIVER' | translate}}" formControlName="driver_Id">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'CARS.INPUTS.DRIVER' | translate},
+                control: carForm.controls['driver_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'CARS.INPUTS.DRIVER' | translate , min:3},
+                control: carForm.controls['driver_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'CARS.INPUTS.DRIVER' | translate , max:100},
+                  control: carForm.controls['driver_Id']
+               }"></ng-container>
+
+        </mat-hint>
+
+      </div>
+
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  
+  <div mat-dialog-actions>
+    <div class="text-center col-md-6 d-flex">
+      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'CARS.BUTTONS.CANCEL'|translate}}</button>
+
+      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
+        <span class="indicator-label">{{'CARS.BUTTONS.SAVE'|translate}}</span>
+        <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </button>
+
+    </div>
+  </div>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

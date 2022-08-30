@@ -413,6 +413,7 @@ export const locale = {
         NOROWFOUND: "No Rows Found"
       }
     },
+
     DECLARATIONS: {
       INPUTS: {
         YEAR: "Name",
@@ -422,8 +423,8 @@ export const locale = {
         PATHROUTE: "Path Route",
         REGION: 'Select Region',
         STATE: 'Select State',
-        NAME:'Name',
-        TECHNICIAN:'Select Technician'
+        NAME: 'Name',
+        TECHNICIAN: 'Select Technician'
       },
       BUTTONS: {
         ADD: "Add",
@@ -432,8 +433,8 @@ export const locale = {
         SAVE: "Save",
         DELETE: "Delete",
         CANCEL: "Cancel",
-        CANCELASSIGN:'Cancel Assign',
-        REASSIGN:'Reassign'
+        CANCELASSIGN: 'Cancel Assign',
+        REASSIGN: 'Reassign'
       },
       TITLES: {
         FINANCIALYEARTABLE: 'Financial Year',
@@ -449,7 +450,59 @@ export const locale = {
         PATHROUTEADD: "Add Path Route",
         NAME: "Name", STATE: "State",
         REGION: "Region",
-        TECHNICIAN:'Technician'
+        TECHNICIAN: 'Technician',
+        ASSIGNTECHNICIANTOPATHROUTE: "Assign To Technician",
+        INVENTORYCATEGORY:"Inventory Category",
+        ADDINVENTORYCATEGORY:"Add Inventory Category",
+        EDITINVENTORYCATEGORY:"Edit Inventory Category"
+
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      }
+    },
+
+    CARS: {
+      INPUTS: {
+        TECHNICIAN: "Select Technician",
+        DRIVER: "Select Driver",
+        CARMODEL: "Select Car Model",
+        CARNUMBER: "Enter Car Number",
+        NOTES: "Notes",
+        FILE: "Add Attachments",
+        FILECOUNT: "Files Count : "
+
+      },
+      BUTTONS: {
+        ADD: "Add",
+        CLOSE: "close",
+        EDIT: "edit",
+        SAVE: "Save",
+        DELETE: "Delete",
+        CANCEL: "Cancel",
+        CANCELASSIGN: 'Cancel Assign',
+        REASSIGN: 'Reassign',
+        DOWNLOAD: "Dowwnload Files"
+      },
+      TITLES: {
+        CARSTABLE: 'Cars Setting',
+        CARMODEL: "Model",
+        CARNUMBER: "Car Number",
+        FROMDATE: 'From Date',
+        TODATE: "To Date",
+        NOTES: "Notes",
+        TECHNICIANNAME: "Technician Name",
+        DRIVERNAME: "Driver Name",
+        UPDATECAR: "Update Car Data",
+        ADDCAR: "Add New Car",
+        ASSIGNCARTOTECH: "Assign Car To Technician",
+        ASSIGNCARTODRIVER: "Assign Car To Driver",
+        UNASSIGNCARTOTECH: "UnAssign Car To Technician",
+        UNASSIGNCARTODRIVER: "UnAssign Car To Driver",
+        DRIVER:"Driver",
+        TECHNICIAN:"Technician",
+        TYPE:"Type",
+        DOWNLOADFILES:"Download Files",
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
