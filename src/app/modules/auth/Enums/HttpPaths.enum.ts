@@ -70,6 +70,19 @@ export enum HttpPaths {
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
 
 
+	// unit Conversion
+
+	
+	API_UNIT_CONVERSION_ADD = "/api/v1/invt/addunitofconversion",
+	API_UNIT_CONVERSION_GETALL = "/api/v1/invt/getallunitsofconversion",
+	API_UNIT_CONVERSION_DELETE = "/api/v1/invt/deleteunitofconversion/",
+	API_UNIT_CONVERSION_UACTIVEDEACTIVE = "/api/v1/invt/changeunitofconversionactiveornot/",
+
+	// units
+	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
+	API_GET_MAIN_UNITS="api/v1/invt/getmainunit",
+
+
 	//Region APIS
 
 	API_REGION_ADD = "/api/v1/shared/addregion",
