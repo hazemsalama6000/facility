@@ -1,49 +1,50 @@
 <ng-container *ngFor="let item of menu[0].childNode">
-  <div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
-    <a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
-        <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
-      </span><span class="menu-title"> {{item.name}} </span>
-    </a>
-  </div>
+	<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
+		<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
+				<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+			</span><span class="menu-title"> {{item.name}} </span>
+		</a>
+	</div>
 
-  <ng-container *ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon==''||item.icon==null)">
-    <div class="menu-item">
-      <div class="menu-content pb-2">
-        <span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">{{item.name}}</span>
-      </div>
-    </div>
+	<ng-container *ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon==''||item.icon==null)">
+		<div class="menu-item">
+			<div class="menu-content pb-2">
+				<span class="text-muted text-uppercase fs-8" style="color: #009ef7 !important;">{{item.name}}</span>
+			</div>
+		</div>
 
-    <ng-container *ngFor="let item of item.childNode">
-      <div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
-        <a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
-            <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
-          </span><span class="menu-title"> {{item.name}} </span>
-        </a>
-      </div>
+		<ng-container *ngFor="let item of item.childNode">
+			<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
+				<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span
+						class="menu-icon">
+						<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+					</span><span class="menu-title"> {{item.name}} </span>
+				</a>
+			</div>
 
 
-      <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"
-        *ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon!=''||item.icon!=null)">
-        <span class="menu-link"><span class="menu-icon">
-            <mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
-          </span>
-          <span class="menu-title">{{item.name}}</span>
-          <span class="menu-arrow"></span></span>
-        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+			<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show"
+				*ngIf="item.isLast==false&&item.isDeleted==false&&(item.icon!=''||item.icon!=null)">
+				<span class="menu-link"><span class="menu-icon">
+						<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
+					</span>
+					<span class="menu-title">{{item.name}}</span>
+					<span class="menu-arrow"></span></span>
+				<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
 
-          <ng-container *ngFor="let item of item.childNode">
-            <div class="menu-item" *ngIf="item.isDeleted==false">
-              <a class="menu-link without-sub" routerLink="{{item.route}}" routerLinkActive="active">
-                <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                <span class="menu-title">{{item.name}} </span>
-              </a>
-            </div>
-          </ng-container>
+					<ng-container *ngFor="let item of item.childNode">
+						<div class="menu-item" *ngIf="item.isDeleted==false">
+							<a class="menu-link without-sub" routerLink="{{item.route}}" routerLinkActive="active">
+								<span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+								<span class="menu-title">{{item.name}} </span>
+							</a>
+						</div>
+					</ng-container>
 
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
+				</div>
+			</div>
+		</ng-container>
+	</ng-container>
 
 </ng-container>
 
@@ -63,3 +64,51 @@
       <span [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'" class="svg-icon svg-icon-2"></span>
     </span><span class="menu-title">{{"MENU.DEPARTMENTS" | translate}}</span></a>
 </div> -->
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="declarations/carexpenses" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> تعريف الصرفيات</span>
+	</a>
+</div>
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="car/carexpensetransaction" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> صرفيات السيارات </span>
+	</a>
+</div>
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="declarations/transferingcompany" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> التحويلات </span>
+	</a>
+</div>
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="declarations/carsmodels" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> موديلات السيارات </span>
+	</a>
+</div>
+
+
+
+
+
+
+
+
+
+
