@@ -424,7 +424,14 @@ export const locale = {
         REGION: 'Select Region',
         STATE: 'Select State',
         NAME: 'Name',
-        TECHNICIAN: 'Select Technician'
+        TECHNICIAN: 'Select Technician',
+
+        CODE:"Code",
+        STOCKNAME:"Stock Name",
+        EMPLOYEE:"Select Employee",
+        STOCKCATEGORY:"Select Stock Category",
+        ADDRESS:"Address",
+        STOCK:"Select Stock"
       },
       BUTTONS: {
         ADD: "Add",
@@ -454,7 +461,19 @@ export const locale = {
         ASSIGNTECHNICIANTOPATHROUTE: "Assign To Technician",
         INVENTORYCATEGORY:"Inventory Category",
         ADDINVENTORYCATEGORY:"Add Inventory Category",
-        EDITINVENTORYCATEGORY:"Edit Inventory Category"
+        EDITINVENTORYCATEGORY:"Edit Inventory Category",
+        INVENTORY:"Inventory",
+        CODE:"Code",
+        CATEGORY:"Category",
+        ADDRESS:"Address",
+        EMPLOYEE:"Employee",
+        ASSIGNSTOCKTOTECH:"Restoring Technique",
+        TECHNIQUENAME:"Technique Name",
+        ACTIVEDATE:"Active Date",
+        DEACTIVEDATE:"Deactive Date",
+        DEACTIVEBY:"Deactive By",
+        ADDSTOCK:"Add Inventory",
+        INTERNALDIVISION:"Internal Division Stock"
 
       },
       MESSAGE: {

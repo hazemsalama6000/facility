@@ -1,0 +1,184 @@
+<form [formGroup]="stockForm" (ngSubmit)="addStock()" style="direction: rtl;">
+
+  <div mat-dialog-title>
+    <div class="row mx-0">
+      <div class="col"> {{"DECLARATIONS.TITLES.ADDSTOCK"|translate}}</div>
+      <div class="col-2">
+        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content class="overflow-auto py-2">
+    <div class="row mx-0">
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.CODE' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="code" formControlName="code">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate},
+                  control: stockForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate , min:3},
+                  control: stockForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate , max:100},
+                  control: stockForm.controls['code']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.STOCKNAME' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.STOCKNAME'  | translate},
+                  control: stockForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STOCKNAME'  | translate , min:3},
+                  control: stockForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STOCKNAME'  | translate , max:100},
+                  control: stockForm.controls['name']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+
+        <ng-select appendTo="body" class="customized" [items]="dropdownEmployeeData" bindLabel="Name" bindValue="Id" name="employeeId" id="employeeId"
+          placeholder="{{'DECLARATIONS.INPUTS.EMPLOYEE' | translate}}" formControlName="employeeId">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.EMPLOYEE' | translate},
+                control: stockForm.controls['employeeId']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.EMPLOYEE' | translate , min:3},
+                control: stockForm.controls['employeeId']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.EMPLOYEE' | translate , max:100},
+                  control: stockForm.controls['employeeId']
+               }"></ng-container>
+
+        </mat-hint>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <ng-select appendTo="body" class="customized" [items]="dropdownStockCategoryData" bindLabel="Name" bindValue="Id"
+          formControlName="stockCategory_Id" name="stockCategory_Id" id="stockCategory_Id"
+          placeholder="{{'DECLARATIONS.INPUTS.STOCKCATEGORY' | translate}}">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.STOCKCATEGORY' | translate},
+                control: stockForm.controls['stockCategory_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STOCKCATEGORY' | translate , min:3},
+                control: stockForm.controls['stockCategory_Id']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.STOCKCATEGORY' | translate , max:100},
+                  control: stockForm.controls['stockCategory_Id']
+               }"></ng-container>
+
+        </mat-hint>
+      </div>
+
+      <div class="col-md-12 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.ADDRESS' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="address" formControlName="address">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.ADDRESS'  | translate},
+                  control: stockForm.controls['address']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.ADDRESS'  | translate , min:3},
+                  control: stockForm.controls['address']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.ADDRESS'  | translate , max:100},
+                  control: stockForm.controls['address']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-actions>
+    <div class="text-center col-md-6 d-flex">
+      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'DECLARATIONS.BUTTONS.CANCEL'|translate}}</button>
+
+      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
+        <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
+        <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </button>
+
+    </div>
+  </div>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

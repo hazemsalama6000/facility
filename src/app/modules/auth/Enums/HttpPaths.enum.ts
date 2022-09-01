@@ -235,35 +235,50 @@ export enum HttpPaths {
 
 	//path route
 
-	API_LIST_OF_STATES="/api/v1/shared/listofstates",
-	API_LIST_OF_REGIONS="/api/v1/shared/listofregions?",
-	API_LIST_OF_TECHNICIAN="/api/v1/tech/listoftechnicians?companyBranchId=",
-	API_LIST_OF_PATHROUTE="/api/v1/route/listofpathroutes?",
-	API_GET_PATH_ROUTE="/api/v1/route/getallpathroutes?",
-	API_ADD_PATH_ROUTE="/api/v1/route/addpathroute",
-	API_ACTIVE_DEACTIVE_PATH_ROUTE="/api/v1/route/changepathrouteactiveornot/",
-	API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN="/api/v1/route/replacetechwithanother?",
-	API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN="/api/v1/route/removetechfrompathroute?pathRouteId=",
+	API_LIST_OF_STATES = "/api/v1/shared/listofstates",
+	API_LIST_OF_REGIONS = "/api/v1/shared/listofregions?",
+	API_LIST_OF_TECHNICIAN = "/api/v1/tech/listoftechnicians?companyBranchId=",
+	API_LIST_OF_PATHROUTE = "/api/v1/route/listofpathroutes?",
+	API_GET_PATH_ROUTE = "/api/v1/route/getallpathroutes?",
+	API_ADD_PATH_ROUTE = "/api/v1/route/addpathroute",
+	API_ACTIVE_DEACTIVE_PATH_ROUTE = "/api/v1/route/changepathrouteactiveornot/",
+	API_ASSIGN_PATH_ROUTE_TO_TECHNICAIN = "/api/v1/route/replacetechwithanother?",
+	API_UNASSIGN_PATH_ROUTE_TO_TECHNICAIN = "/api/v1/route/removetechfrompathroute?pathRouteId=",
 
 
 	//CARS
-	API_LIST_OF_DRIVER="/api/v1/hr/listofcardrivers?",
-	API_GET_CARS="/api/v1/Trans/getcars?",
-	API_ADD_CAR="/api/v1/Trans/addtranscar",
-	API_UPDATE_CAR="/api/v1/Trans/updatetranscardata/",
-	API_ASSIGN_CAR_TO_TECHNICAIN="/api/v1/Trans/assigncartotechnician",
-	API_UNASSIGN_CAR_TO_TECHNICAIN="/api/v1/Trans/unssigncartotechnician",
-	API_ASSIGN_CAR_TO_DRIVER="/api/v1/Trans/assigncartodriver",
-	API_UNASSIGN_CAR_TO_DRIVER="/api/v1/Trans/unssigncartodriver",
-	API_LIST_OF_CAR_MODEL="/api/v1/Trans/listofcarsmodels/",
-	API_GET_OF_CAR_LOGS="/api/v1/Trans/getcarlogs?",
+	API_LIST_OF_DRIVER = "/api/v1/hr/listofcardrivers?",
+	API_GET_CARS = "/api/v1/Trans/getcars?",
+	API_ADD_CAR = "/api/v1/Trans/addtranscar",
+	API_UPDATE_CAR = "/api/v1/Trans/updatetranscardata/",
+	API_ASSIGN_CAR_TO_TECHNICAIN = "/api/v1/Trans/assigncartotechnician",
+	API_UNASSIGN_CAR_TO_TECHNICAIN = "/api/v1/Trans/unssigncartotechnician",
+	API_ASSIGN_CAR_TO_DRIVER = "/api/v1/Trans/assigncartodriver",
+	API_UNASSIGN_CAR_TO_DRIVER = "/api/v1/Trans/unssigncartodriver",
+	API_LIST_OF_CAR_MODEL = "/api/v1/Trans/listofcarsmodels/",
+	API_GET_OF_CAR_LOGS = "/api/v1/Trans/getcarlogs?",
 
 	//inventory Category
-	API_GET_INVENTORY_CATEGORY="/api/v1/invt/getstockcategorys?companyId=",
-	API_ADD_INVENTORY_CATEGORY="/api/v1/invt/addstockcategory",
-	API_UPDATE_INVENTORY_CATEGORY="/api/v1/invt/updatestockcategory/",
-	API_DELETE_INVENTORY_CATEGORY="/api/v1/invt/deletestockcategory/",
+	API_LIST_OF_INVENTORY_CATEGORY = "/api/v1/invt/listofstockcategory?companyId=",
+	API_GET_INVENTORY_CATEGORY = "/api/v1/invt/getstockcategorys?companyId=",
+	API_ADD_INVENTORY_CATEGORY = "/api/v1/invt/addstockcategory",
+	API_UPDATE_INVENTORY_CATEGORY = "/api/v1/invt/updatestockcategory/",
+	API_DELETE_INVENTORY_CATEGORY = "/api/v1/invt/deletestockcategory/",
 
+	//Inventory
+	API_GET_INVENTORY = "/api/v1/invt/getallstocks?companyBranchId=",
+	API_ADD_INVENTORY = "/api/v1/invt/addstock",
+	API_DELETE_INVENTORY = "/api/v1/invt/deletestock/",
+	API_ACTIVEDEACTIVE_INVENTORY = "/api/v1/invt/changestockactiveornot/",
+	API_ASSIGN_EMPLOYEE_TO_INVENTORY = "/api/v1/invt/assignemployeetostock?",
+
+	//Stock Technkique
+	API_GET_STOCK_TECHNIQUE = "/api/v1/invt/getstocktechniquelogs?stockId=",
+	API_LIST_OF_STOCK_TECHNIQUE = "/api/v1/invt/listofstocktechnique",
+	API_ADD_STOCK_TECHNIQUE = "/api/v1/invt/addstocktechniquelog",
+	API_DEACTIVE_STOCK_TECHNIQUE = "/api/v1/invt/stopstocktechniquelog",
+
+	
 
 
 

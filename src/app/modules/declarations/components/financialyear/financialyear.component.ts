@@ -71,18 +71,11 @@ export class FinancialyearComponent implements OnInit {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
-  findIsActive() {
-    console.log(this.dataSource.data.filter((x: any) => x.IsActive == true).length);
-    return this.dataSource.data.filter((x: any) => x.IsActive == true).length == 0;
-  }
-
-
   // getting data and initialize data Source and Paginator
   getallData() {
     this.financial.GetFinancialYear(this.userdata.companyId).subscribe((data: IFinancialYear[]) => {
       this.dataSource = new MatTableDataSource<IFinancialYear>(data);
       this.dataSource.paginator = this.paginator;
-console.log(data)
       this.addButton = data.filter((x) => x.isActive).length == 0;
     });
   }
