@@ -434,7 +434,13 @@ export const locale = {
         REGION: 'اختر المنطقة',
         STATE: 'اختر المحافظة',
         NAME: 'الاسم',
-        TECHNICIAN: 'اختر المندوب'
+        TECHNICIAN: 'اختر المندوب',
+        EMPLOYEE:"أختر الموظف",
+        CODE:"الكود",
+        STOCKNAME:"أسم المخزن",
+        STOCKCATEGORY:"اختر تصنيف المخزن",
+        ADDRESS:"العنوان",
+        STOCK:"اختر المخزن"
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -464,9 +470,22 @@ export const locale = {
         REGION: "المنطقة",
         TECHNICIAN: 'المندوب',
         ASSIGNTECHNICIANTOPATHROUTE: "أعادة تخصيص",
-        INVENTORYCATEGORY:"تصنيف المخازن",
-        ADDINVENTORYCATEGORY:"أضافة تصنيف مخزن",
-        EDITINVENTORYCATEGORY:"تعديل تصنيف مخزن"
+        INVENTORYCATEGORY: "تصنيف المخازن",
+        ADDINVENTORYCATEGORY: "أضافة تصنيف مخزن",
+        EDITINVENTORYCATEGORY: "تعديل تصنيف مخزن",
+        INVENTORY: "المخازن",
+        CODE: "الكود",
+        EMPLOYEE: "الموظف",
+        CATEGORY: "التصنيف",
+        ADDRESS: "العنوان",
+
+        ASSIGNSTOCKTOTECH:"طرق الصرف",
+        TECHNIQUENAME:"طريقةالصرف",
+        ACTIVEDATE:"تاريخ التفعيل",
+        DEACTIVEDATE:"تاريخ الايقاف",
+        DEACTIVEBY:"ايقاف بواسطة",
+        ADDSTOCK:"أضافة مخزن",
+        INTERNALDIVISION:"التقسيم الداخلى للمخازن"
 
       },
       MESSAGE: {
@@ -477,12 +496,12 @@ export const locale = {
     CARS: {
       INPUTS: {
         TECHNICIAN: "أختر فني",
-        DRIVER:"اختر سائق",
+        DRIVER: "اختر سائق",
         CARMODEL: "أختر الموديل",
         CARNUMBER: "أدخل رقم اللوحة",
-        NOTES:"ملاحظات",
-        FILE:"أرفاق ملفات",
-        FILECOUNT:"عدد الملفات : "
+        NOTES: "ملاحظات",
+        FILE: "أرفاق ملفات",
+        FILECOUNT: "عدد الملفات : "
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -504,16 +523,16 @@ export const locale = {
         NOTES: "ملاحظات",
         TECHNICIANNAME: "اسم المندوب",
         DRIVERNAME: "اسم السائق",
-        UPDATECAR:"تعديل بيانات سيارة",
-        ADDCAR:"اضافة بيانات سيارة",
-        ASSIGNCARTOTECH:"تخصيص سيارة الى مندوب",
-        ASSIGNCARTODRIVER:"تخصيص سيارة الى سائق",
-        UNASSIGNCARTOTECH:"الغاء تخصيص مندوب من سيارة",
-        UNASSIGNCARTODRIVER:"الغاء تخصيص سائق من سيارة",
-        DRIVER:"سائق",
-        TECHNICIAN:"مندوب",
-        TYPE:"النوع",
-        DOWNLOADFILES:"تنزيل الملفات",
+        UPDATECAR: "تعديل بيانات سيارة",
+        ADDCAR: "اضافة بيانات سيارة",
+        ASSIGNCARTOTECH: "تخصيص مندوب الى سيارة ",
+        ASSIGNCARTODRIVER: "تخصيص سائق الى سيارة ",
+        UNASSIGNCARTOTECH: "الغاء تخصيص مندوب من سيارة",
+        UNASSIGNCARTODRIVER: "الغاء تخصيص سائق من سيارة",
+        DRIVER: "سائق",
+        TECHNICIAN: "مندوب",
+        TYPE: "النوع",
+        DOWNLOADFILES: "تنزيل الملفات",
 
       },
       MESSAGE: {

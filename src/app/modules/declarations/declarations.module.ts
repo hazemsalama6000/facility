@@ -22,6 +22,13 @@ import { CarsModelsListContentComponent } from './components/cars-models/cars-mo
 import { CarExpensesComponent } from './components/cars-expenses/car-expenses.component';
 import { CarExpenseListContentComponent } from './components/cars-expenses/car-expense-upsert-list-content/car-expense-upsert-list-content.component';
 import { CarExpenseUpsertComponent } from './components/cars-expenses/car-expense-upsert/car-expense-upsert.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { AddinventoryComponent } from './components/inventory/addinventory/addinventory.component';
+import { AssigntechtoinventoryComponent } from './components/inventory/assigntechtoinventory/assigntechtoinventory.component';
+import { AddstocktechComponent } from './components/inventory/addstocktech/addstocktech.component';
+import { AddinternaldivisionComponent } from './components/Internaldivisionstock/addinternaldivision/addinternaldivision.component';
+import { InternaldivisionstockComponent } from './components/Internaldivisionstock/Internaldivisionstock.component';
+import { InternaldivisiontreeComponent } from './components/Internaldivisionstock/internaldivisiontree/internaldivisiontree.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +47,14 @@ import { CarExpenseUpsertComponent } from './components/cars-expenses/car-expens
     CarsModelsListContentComponent,
     CarExpensesComponent,
     CarExpenseListContentComponent,
-    CarExpenseUpsertComponent
+    CarExpenseUpsertComponent,
+    InventoryComponent,
+    AddinventoryComponent,
+    AssigntechtoinventoryComponent,
+    AddstocktechComponent,
+    AddinternaldivisionComponent,
+    InternaldivisionstockComponent,
+    InternaldivisiontreeComponent
   ],
   imports: [
     CommonModule,

@@ -108,17 +108,21 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="openAssignDialog(element,'technician')">
-            <mat-icon>dialpad</mat-icon><span>تخصيص مندوب</span>
+            <!-- <mat-icon>dialpad</mat-icon> -->
+            <span>تخصيص مندوب</span>
           </button>
           <button *ngIf="element.technicianId" mat-menu-item (click)="openunAssignTechincian(element,'technician')">
-            <mat-icon>voicemail</mat-icon><span>ايقاف تخصيص مندوب</span>
+            <!-- <mat-icon>voicemail</mat-icon> -->
+            <span>ايقاف تخصيص مندوب</span>
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="openAssignDialog(element,'driver')">
-            <mat-icon>notifications_off</mat-icon><span>تخصيص سائق</span>
+            <!-- <mat-icon>notifications_off</mat-icon> -->
+            <span>تخصيص سائق</span>
           </button>
           <button *ngIf="element.driverId" mat-menu-item (click)="openunAssignTechincian(element,'driver')">
-            <mat-icon>notifications_off</mat-icon><span>ايقاف تخصيص سائق</span>
+            <!-- <mat-icon>notifications_off</mat-icon> -->
+            <span>ايقاف تخصيص سائق</span>
           </button>
         </mat-menu>
 

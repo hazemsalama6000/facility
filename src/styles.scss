@@ -404,6 +404,8 @@ app-pathroute ng-select ,app-addpathroute ng-select {
     width:auto !important;
 }
 
+app-assigntechtoinventory .mat-dialog-content,app-addstocktech .mat-dialog-content{    max-height: 80vh;}
+
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {
 		margin-inline-end: 21px !important;
