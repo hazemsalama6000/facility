@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DialogPosition, MatDialog } from "@angular/material/dialog";
 import { Subscription} from "rxjs";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
+import { CarTransactionUpsertComponent } from "src/app/modules/car/components/carexpensetransactions/expense-transaction-upsert/expense-transaction-upsert.component";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { UnitConversionService } from "../../../services/unitconversion.service";
 
@@ -40,7 +42,7 @@ export class UnitConversionUpsertComponent {
 		}
 	}
 
-	constructor(private fb: FormBuilder, private toaster: toasterService, private service: UnitConversionService, private auth: AuthService) { }
+	constructor(private fb: FormBuilder, private toaster: toasterService, private dialog: MatDialog,private service: UnitConversionService, private auth: AuthService) { }
 
 
 	ngOnInit(): void {
@@ -71,55 +73,32 @@ export class UnitConversionUpsertComponent {
 	reset() {
 		this.UpsertForm.setValue({ Id: 0, Name: '' });
 	}
-	addNewRow() {
-		this.service.addFlag.next(true);
+	
+	
+	
+	openDialogAddingUnitConversion() {
+
+		const dialogPosition: DialogPosition = {
+			top: '0px',
+			right: '0px'
+		};
+
+		const dialogRef = this.dialog.open(CarTransactionUpsertComponent,
+			{
+				maxHeight: '100vh',
+				height: '100%',
+				position: dialogPosition
+						});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+
 	}
 
 	// for Insert And Delete distingush them with model.id
 
-	Submit(model: LookUpModel) {
-
-		model.company_Id = this.userdata.companyId;
-
-		if (model.Id == 0) {
-
-			model.Id = 0;
-
-			this.service.PostLookupData(model).
-				subscribe(
-					(data: HttpReponseModel) => {
-
-						if (data.isSuccess) {
-							this.toaster.openSuccessSnackBar(data.message);
-							this.service.bSubject.next(true);
-							this.reset();
-						}
-						else if (data.isExists) {
-							this.toaster.openWarningSnackBar(data.message);
-						}
-						this.messageErrors = "";
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error);
-					}
-				);
-
-		}
-
-		else {
-			this.service.UpdateLookupData(model).subscribe(
-				(data: any) => {
-					this.toaster.openSuccessSnackBar(data.message);
-					this.service.bSubject.next(true);
-				},
-				(error: any) => {
-					this.toaster.openWarningSnackBar(error);
-				});
-
-		}
-
-	}
-
+	
 	ngOnDestroy() {
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}

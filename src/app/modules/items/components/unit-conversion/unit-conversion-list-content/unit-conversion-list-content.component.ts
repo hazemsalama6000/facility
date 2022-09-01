@@ -9,6 +9,7 @@ import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
 import { ConfirmationDialogService } from "src/app/shared-module/Components/confirm-dialog/confirmDialog.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import { IUnitConverionResponse } from "../../../models/unit-converion/IUnitConverionResponse.interface";
 import { UnitConversionService } from "../../../services/unitconversion.service";
 
 @Component({
@@ -24,7 +25,7 @@ export class UnitConversionListContentComponent {
 	NameForAdd: string;
 	@Output() edit: EventEmitter<LookUpModel> = new EventEmitter();
 
-	displayedColumns: string[] = ['name', 'action'];
+	displayedColumns: string[] = ['itemName','convertedUnitName','mainUnitName','factor','barcode', 'isActive','action'];
 
 	dataSource: any;
 
@@ -66,9 +67,7 @@ export class UnitConversionListContentComponent {
 		this.dataSource.data = this.dataSource.data.filter((a: LookUpModel) => a.Id != 0);
 	}
 
-	toggleActiveDeactive(element: LookUpModel) {
-		this.service.addFlag.next(false);
-
+	toggleActiveDeactive(element:any) {
 		this.service.toggleActiveDeactive(element).subscribe(
 			(data: HttpReponseModel) => {
 				this.toaster.openSuccessSnackBar(data.message);
@@ -105,55 +104,28 @@ export class UnitConversionListContentComponent {
 
 		}
 
-		else {
-			this.service.UpdateLookupData(model).subscribe(
-				(data: any) => {
-					this.toaster.openSuccessSnackBar(data.message);
-					//this.service.bSubject.next(true);
-				},
-				(error: any) => {
-					this.toaster.openWarningSnackBar(error.toString().replace("Error:",""));
-				});
-
-		}
-
-	}
-
-	Remove(model: LookUpModel) {
-		this.service.addFlag.next(false);
-
-		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${model.Name} ? `)
-		.then((confirmed) => {
-			if (confirmed) {
-				this.service.DeleteLookupData(model.Id).subscribe(
-					(data: HttpReponseModel) => {
-						this.service.emitStateIdSubject.next({Id:0,company_Id:0,Name:''});
-
-						this.toaster.openSuccessSnackBar(data.message);
-						this.getallData();
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
-			}
-		})
-		.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
 
 	}
 
 
-	rowClicked(model: LookUpModel) {
-		this.regionService.addFlag.next(false);
-		if (model.Id != 0) {
-			this.dataSource.data = this.dataSource.data.filter((a: LookUpModel) => a.Id != 0);
-		}
-		this.currentSelected = model;
-		this.edit.emit(model);
-		this.service.emitStateIdSubject.next(model);
-		this.dataSource.data.filter((a: LookUpModel) => a.Id != model.Id).forEach( (element:LookUpModel) => {
-			element.isAdd=false;
-			element.isEdit=false;
-		});
+	
+	Remove(element:any) {
+
+		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف  ? `)
+			.then((confirmed) => {
+				if (confirmed) {
+					this.service.DeleteLookupData(element.id).subscribe(
+						(data: HttpReponseModel) => {
+							this.toaster.openSuccessSnackBar(data.message);
+							this.getallData();
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						});
+				}
+			})
+			.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+
 	}
 
 
@@ -161,21 +133,12 @@ export class UnitConversionListContentComponent {
 	// getting data and initialize data Source and Paginator
 	getallData() {
 		this.service.getLookupData().subscribe(
-			(data: LookUpModel[]) => {
-				this.dataSource = new MatTableDataSource<LookUpModel>(data);
+			(data: IUnitConverionResponse[]) => {
+				this.dataSource = new MatTableDataSource<IUnitConverionResponse>(data);
 				this.dataSource.paginator = this.paginator;
-				setTimeout(()=>{
-					this.service.addFlag.subscribe((data) => {
-						if (data == true) {
-							this.addNewRow();
-						}
-					});
-	
-				},500);
 			}
 		);
 	}
-
 
 
 

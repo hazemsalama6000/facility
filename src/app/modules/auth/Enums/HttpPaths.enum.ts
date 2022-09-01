@@ -72,7 +72,6 @@ export enum HttpPaths {
 
 	// unit Conversion
 
-	
 	API_UNIT_CONVERSION_ADD = "/api/v1/invt/addunitofconversion",
 	API_UNIT_CONVERSION_GETALL = "/api/v1/invt/getallunitsofconversion",
 	API_UNIT_CONVERSION_DELETE = "/api/v1/invt/deleteunitofconversion/",
@@ -82,6 +81,9 @@ export enum HttpPaths {
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
 	API_GET_MAIN_UNITS="api/v1/invt/getmainunit",
 
+	//Items
+
+	API_GET_ITEMS_LOOKUP="/api/v1/invt/listofinvitems/",
 
 	//Region APIS
 

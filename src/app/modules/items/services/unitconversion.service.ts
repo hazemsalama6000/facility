@@ -4,6 +4,7 @@ import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpSe
 import { HttpPaths } from "src/app/modules/auth/Enums/HttpPaths.enum";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { AuthService } from "../../auth";
+import { IUnitConverionResponse } from "../models/unit-converion/IUnitConverionResponse.interface";
 
 @Injectable({
 	providedIn: 'root'
@@ -25,13 +26,13 @@ export class UnitConversionService {
 		});
 	}
 
-	getLookupData(): Observable<LookUpModel[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_GETALL}${this.companyId}`)
-			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as LookUpModel)));
+	getLookupData(): Observable<IUnitConverionResponse[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_GETALL}?companyId=${this.companyId}`)
+			.pipe(map(Items => Items.data));
 	}
 
 	DeleteLookupData(id: number): Observable<any> {
-		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_DELETE}${id}`);
+		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_DELETE}${id}`);
 	}
 
 	PostLookupData(model: LookUpModel): Observable<any> {
@@ -42,8 +43,8 @@ export class UnitConversionService {
 		return this.http.CommonPutRequests({name:model.Name,companyId:model.company_Id}, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_UPDATE}${model.Id}`);
 	}
 
-	toggleActiveDeactive(model: LookUpModel): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_TRANSFERINGCOMPANY_UACTIVEDEACTIVE}${model.Id}`);
+	toggleActiveDeactive(element:any): Observable<any> {
+		return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_UACTIVEDEACTIVE}${element.id}`);
 	}
 
 
