@@ -247,7 +247,28 @@ export class AsideMenuComponent implements OnInit {
           "route": "",
           "permission": "",
           "icon": "",
-          "childNode": [
+          "childNode": [  {
+              "id": 41,
+              "name": "المخازن",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/declarations/inventory",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            },
+            {
+              "id": 41,
+              "name": "التقسيم الداخلى للمخازن",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/declarations/internaldivision",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
+            }  ,
             {
               "id": 41,
               "name": "تصنيف المخازن",

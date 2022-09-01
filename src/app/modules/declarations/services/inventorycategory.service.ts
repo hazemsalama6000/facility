@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
+import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IInventoryCatecory } from '../models/IInventoryCatecory.interface';
 
@@ -17,6 +18,11 @@ export class InventorycategoryService {
   getInventoryCategory(companyId: Number): Observable<IInventoryCatecory[]> {
     return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_INVENTORY_CATEGORY}${companyId}`)
       .pipe(map((Items: any) => Items.data as IInventoryCatecory[]));
+  }
+
+  getLookUpInventoryCategory(companyId:number): Observable<LookUpModel[]> {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_INVENTORY_CATEGORY}${companyId}`)
+      .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
   }
 
   addInventoryCategory(model: any) {
