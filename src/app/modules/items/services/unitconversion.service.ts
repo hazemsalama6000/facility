@@ -35,12 +35,8 @@ export class UnitConversionService {
 		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_DELETE}${id}`);
 	}
 
-	PostLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPostRequests({name:model.Name,companyId:model.company_Id}, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_ADD}`);
-	}
-
-	UpdateLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPutRequests({name:model.Name,companyId:model.company_Id}, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_UPDATE}${model.Id}`);
+	PostLookupData(model: any): Observable<any> {
+		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_ADD}`);
 	}
 
 	toggleActiveDeactive(element:any): Observable<any> {

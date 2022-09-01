@@ -8,6 +8,8 @@ import { AuthService } from "src/app/modules/auth";
 import { DatePipe } from "@angular/common";
 import { ItemService } from "src/app/modules/items/services/item.service";
 import { UnitService } from "src/app/modules/items/services/units.service";
+import { UnitConversionService } from "src/app/modules/items/services/unitconversion.service";
+import { IUnitConversionForm } from "src/app/modules/items/models/unit-converion/IUnitConversionForm.interface";
 
 @Component({
 	selector: "unit-converion-popup",
@@ -18,14 +20,13 @@ import { UnitService } from "src/app/modules/items/services/units.service";
 export class UnitConverionPopupComponent implements OnInit {
 
 	saveButtonClickedFlag = false;
-	branchId: number;
+	companyId: number;
 	isEdit = false;
 	attachment: File;
 	isEditable: boolean = false;
-
+	baseUnitName: string="";
 	dropdownItems: LookUpModel[] = [];
 	dropdownRelatedUnits: LookUpModel[] = [];
-
 
 	panelOpenState: boolean = true;
 
@@ -36,32 +37,39 @@ export class UnitConverionPopupComponent implements OnInit {
 		private toaster: toasterService,
 		private auth: AuthService,
 		private itemService: ItemService,
-		private unitService: UnitService, private datePipe: DatePipe
+		private unitService: UnitService,
+		private unitConversionService:UnitConversionService, private datePipe: DatePipe
 	) { }
 
 
 	setDefaultForForm() {
 		this.unitConversionDataForm = this.fb.group({
 			unit_Id: ['', Validators.compose([Validators.required])],
-			itemData_Id: ['',Validators.compose([Validators.required])],
+			itemData_Id: ['', Validators.compose([Validators.required])],
 			barcode: [''],
-			factor: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+			factor: [0, Validators.compose([Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 		});
 	}
 
 
 	fillDropDowns() {
 		this.auth.userData.subscribe((data: IUserData) => {
+			this.companyId=data.companyId
 			this.itemService.getLookUpItems(data.companyId).subscribe((data: LookUpModel[]) => {
 				this.dropdownItems = data;
 			});
 		});
 	}
 
-	filterItemRelatedUnits(itemId:number){
-		this.unitService.getLookUpItemsRelatedUnits(itemId).subscribe((data: LookUpModel[]) => {
-			this.dropdownRelatedUnits = data;
+	filterItemRelatedUnits(ele: any) {
+		this.unitService.getLookUpItemsRelatedUnits(ele.Id).subscribe((data: LookUpModel[]) => {
+				this.dropdownRelatedUnits = data;
+		},(err)=>{this.dropdownRelatedUnits=[];});
+
+		this.unitService.getItemsBaseUnit(ele.Id).subscribe((data: string) => {
+			this.baseUnitName = data;
 		});
+
 	}
 
 	ngOnInit() {
@@ -70,34 +78,19 @@ export class UnitConverionPopupComponent implements OnInit {
 	}
 
 
-	/*Submit(ExpenseTransactionDataForm: any) {
+	Submit(unitConversionDataForm: IUnitConversionForm) {
 
-		console.log(ExpenseTransactionDataForm);
+		unitConversionDataForm.company_Id=this.companyId;
+		unitConversionDataForm.isActive=true;
+		if (this.unitConversionDataForm.valid) {
 
-		if (this.expenseTransactionDataForm.valid) {
-
-			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
-
-			const fd = new FormData();
-			
-			if (this.attachment != null) {
-				fd.append('Attachments', this.attachment, this.attachment.name);
-			}
-
-			fd.append('CarDataId', ExpenseTransactionDataForm.CarDataId.toString());
-			fd.append('ExpenseDate', ExpenseTransactionDataForm.ExpenseDate);
-			fd.append('ExpenseId', ExpenseTransactionDataForm.ExpenseId);
-			fd.append('ExpenseValue', ExpenseTransactionDataForm.ExpenseValue);
-			fd.append('Notes', ExpenseTransactionDataForm.Notes);
-
-			this.carExpenseTransactionService.PostExpenseTransactionData(fd).
+			this.unitConversionService.PostLookupData(unitConversionDataForm).
 				subscribe(
 					(data: HttpReponseModel) => {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
-							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
-
+							this.unitConversionService.bSubject.next(true);
 						}
 						else if (data.isExists) {
 							this.toaster.openWarningSnackBar(data.message);
@@ -112,7 +105,7 @@ export class UnitConverionPopupComponent implements OnInit {
 		}
 
 	}
-*/
+
 
 
 }

@@ -2,13 +2,11 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogPosition, MatDialog } from "@angular/material/dialog";
 import { Subscription} from "rxjs";
-import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
-import { CarTransactionUpsertComponent } from "src/app/modules/car/components/carexpensetransactions/expense-transaction-upsert/expense-transaction-upsert.component";
-import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { UnitConversionService } from "../../../services/unitconversion.service";
+import { UnitConverionPopupComponent } from "./unit-converion-popup/unit-converion-popup.component";
 
 
 interface ClientError {
@@ -83,7 +81,7 @@ export class UnitConversionUpsertComponent {
 			right: '0px'
 		};
 
-		const dialogRef = this.dialog.open(CarTransactionUpsertComponent,
+		const dialogRef = this.dialog.open(UnitConverionPopupComponent,
 			{
 				maxHeight: '100vh',
 				height: '100%',

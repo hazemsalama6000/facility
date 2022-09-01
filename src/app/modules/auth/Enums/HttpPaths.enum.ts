@@ -79,7 +79,7 @@ export enum HttpPaths {
 
 	// units
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
-	API_GET_MAIN_UNITS="api/v1/invt/getmainunit",
+	API_GET_MAIN_UNITS="/api/v1/invt/getmainunit",
 
 	//Items
 

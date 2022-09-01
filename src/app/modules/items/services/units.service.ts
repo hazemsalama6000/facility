@@ -17,4 +17,9 @@ export class UnitService{
 		  .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	  }
 	
+	  
+	getItemsBaseUnit(itemId:Number): Observable<string> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_MAIN_UNITS}?itemDataId=${itemId}`)
+		  .pipe(map(Items => Items.data));
+	  }
 }

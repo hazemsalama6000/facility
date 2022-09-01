@@ -60,7 +60,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="isActive">
-				<th mat-header-cell *matHeaderCellDef> معامل التحويل </th>
+				<th mat-header-cell *matHeaderCellDef> الحالة </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span *ngIf="element.isActive==true;else notActive;">
 						<mat-icon>check_circle_outline</mat-icon>
@@ -75,23 +75,25 @@
 			<ng-container matColumnDef="action">
 				<th mat-header-cell *matHeaderCellDef> </th>
 				<td mat-cell *matCellDef="let element">
-					
-					<button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn"
-						(click)="Remove(element)" class="mx-md-1"
-						aria-label="Example icon button with a filter list icon">
-						<mat-icon>close</mat-icon>
-					</button>
+					<span *ngIf="element.factor != 1">
+						<button matTooltip="{{'SHARE.BUTTONS.DELETE'|translate}}" mat-mini-fab color="warn"
+							(click)="Remove(element)" class="mx-md-1"
+							aria-label="Example icon button with a filter list icon">
+							<mat-icon>close</mat-icon>
+						</button>
 
-					<button *ngIf="element.isActive==true" (click)="toggleActiveDeactive(element)" matTooltip="ايقاف التفعيل" mat-mini-fab color="warn"
-						class="mx-md-1" aria-label="Example icon button with a filter list icon">
-						<mat-icon>stop</mat-icon>
-					</button>
+						<button *ngIf="element.isActive==true" (click)="toggleActiveDeactive(element)"
+							matTooltip="ايقاف التفعيل" mat-mini-fab color="warn" class="mx-md-1"
+							aria-label="Example icon button with a filter list icon">
+							<mat-icon>stop</mat-icon>
+						</button>
 
-					<button *ngIf="element.isActive==false" (click)="toggleActiveDeactive(element)" matTooltip="ايقاف التفعيل" mat-mini-fab color="primary"
-						class="mx-md-1" aria-label="Example icon button with a filter list icon">
-						<mat-icon>play_arrow</mat-icon>
-					</button>
-
+						<button *ngIf="element.isActive==false" (click)="toggleActiveDeactive(element)"
+							matTooltip="ايقاف التفعيل" mat-mini-fab color="primary" class="mx-md-1"
+							aria-label="Example icon button with a filter list icon">
+							<mat-icon>play_arrow</mat-icon>
+						</button>
+					</span>
 				</td>
 			</ng-container>
 
