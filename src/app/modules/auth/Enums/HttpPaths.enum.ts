@@ -28,7 +28,11 @@ export enum HttpPaths {
 	API_STATE_DELETE = "/api/v1/shared/deletestate/",
 	API_STATE_UACTIVEDEACTIVE = "/api/v1/shared/changstateactiveornot/",
 
+	//militaryStatus
+	API_MILITARYSTATUS_GETLIST = "/api/v1/hr/listofmilitarystatus",
 
+	//maritalStatus
+	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
 
 	//Transfering Company APIS
 

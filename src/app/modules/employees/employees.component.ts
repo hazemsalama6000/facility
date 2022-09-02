@@ -5,6 +5,7 @@ import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { AuthService } from '../auth';
+import { EmployeeUpsertComponent } from './employee-upsert/employee-upsert.component';
 import { IEmployee } from './models/employee.interface';
 import { ITechnitianLog } from './models/ITechnitianLog.interface';
 import { EmployeeService } from './services/employee.service';
@@ -130,6 +131,29 @@ this.auth.userData.subscribe((userData)=>{
 
 	}
 
+
+	openDialogUpsertEmployee() {
+
+		const dialogPosition: DialogPosition = {
+			top: '0px',
+			right: '0px'
+		};
+
+		const dialogRef = this.dialog.open(EmployeeUpsertComponent,
+			{
+				maxHeight: '100vh',
+				height: '100%',
+
+				position: dialogPosition,
+				data: { employeeId: 0 }
+			});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+
+	}
+	
 
 
 	openDialog() {
