@@ -24,7 +24,7 @@
 		<div class="d-flex justify-content-start align-content-center">
 			<mat-icon class="text-primary">home</mat-icon>
 			<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
-				{{'HR.TITLES.COMPANYDATA1'|translate}}
+				بيانات شخصية
 			</h1>
 		</div>
 
@@ -63,7 +63,33 @@
 			</div>
 
 			<div class="row  mt-5">
+				<div class="col-md-4">
 
+					<mat-form-field appearance="outline">
+						<mat-label> Name </mat-label>
+						<input matInput placeholder="Placeholder" name="Name" formControlName="Name">
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+										  control: EmployeeDataForm.controls['Name']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'minlength',
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
+										  control: EmployeeDataForm.controls['Name']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'maxlength',
+											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
+											control: EmployeeDataForm.controls['Name']
+										 }"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
 				<div class="col-md-4">
 
 					<mat-form-field appearance="outline">
@@ -87,6 +113,93 @@
 											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
 											control: EmployeeDataForm.controls['Code']
 										 }"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+				<div class="col-md-4">
+
+					<mat-form-field appearance="outline">
+						<mat-label> Address </mat-label>
+						<input matInput placeholder="Placeholder" name="Address" formControlName="Address">
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+										  control: EmployeeDataForm.controls['Address']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'minlength',
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
+										  control: EmployeeDataForm.controls['Address']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'maxlength',
+											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
+											control: EmployeeDataForm.controls['Address']
+										 }"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> {{'HR.INPUTS.STATE' | translate}} </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
+								name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)">
+							</ng-select>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> {{'HR.INPUTS.REGION' | translate}} </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
+								name="Region_Id" id="Region_Id" formControlName="Region_Id">
+							</ng-select>
+
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											  validation: 'required',
+											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
+											  control: EmployeeDataForm.controls['Region_Id']
+											}"></ng-container>
+
+							</mat-hint>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<mat-form-field style="width:100%" color="accent" appearance="fill">
+						<mat-label> التاريخ </mat-label>
+						<input matInput [matDatepicker]="picker1" formControlName="BirthDate">
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+						<mat-datepicker #picker1></mat-datepicker>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'التاريخ ',
+								  control: EmployeeDataForm.controls['BirthDate']
+								}"></ng-container>
 						</mat-hint>
 					</mat-form-field>
 
@@ -118,228 +231,6 @@
 						</mat-hint>
 					</mat-form-field>
 
-				</div>
-
-
-				<div class="col-md-4">
-
-					<mat-form-field appearance="outline">
-						<mat-label> University </mat-label>
-						<input matInput placeholder="Placeholder" name="University" formControlName="University">
-						<mat-hint>
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
-										  control: EmployeeDataForm.controls['University']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
-										  control: EmployeeDataForm.controls['University']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											validation: 'maxlength',
-											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
-											control: EmployeeDataForm.controls['University']
-										 }"></ng-container>
-						</mat-hint>
-					</mat-form-field>
-
-				</div>
-
-
-				<div class="col-md-4">
-
-					<mat-form-field appearance="outline">
-						<mat-label> Qualification </mat-label>
-						<input matInput placeholder="Placeholder" name="Qualification" formControlName="Qualification">
-						<mat-hint>
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
-										  control: EmployeeDataForm.controls['Qualification']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
-										  control: EmployeeDataForm.controls['Qualification']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											validation: 'maxlength',
-											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
-											control: EmployeeDataForm.controls['Qualification']
-										 }"></ng-container>
-						</mat-hint>
-					</mat-form-field>
-
-				</div>
-
-
-
-
-
-
-
-
-				<div class="col-md-4">
-
-					<mat-form-field appearance="outline">
-						<mat-label> {{'HR.INPUTS.COMPANYNAME' | translate}}</mat-label>
-						<input matInput placeholder="Placeholder" name="Name" formControlName="Name">
-						<mat-hint>
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.COMPANYNAME' | translate},
-										  control: EmployeeDataForm.controls['Name']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.COMPANYNAME' | translate , min:3},
-										  control: EmployeeDataForm.controls['Name']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											validation: 'maxlength',
-											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMPANYNAME' | translate , max:100},
-											control: EmployeeDataForm.controls['Name']
-										 }"></ng-container>
-						</mat-hint>
-					</mat-form-field>
-
-				</div>
-
-				<div class="col-md-4">
-
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> {{'HR.INPUTS.STATE' | translate}} </label>
-						</div>
-
-						<div class="col-md-9">
-
-							<ng-select [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
-								name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)">
-							</ng-select>
-
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-
-
-			<div class="row">
-
-				<div class="col-md-4">
-
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> {{'HR.INPUTS.REGION' | translate}} </label>
-						</div>
-
-						<div class="col-md-9">
-
-							<ng-select [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
-								name="Region_Id" id="Region_Id" formControlName="Region_Id">
-							</ng-select>
-
-							<mat-hint>
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											  validation: 'required',
-											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
-											  control: EmployeeDataForm.controls['Region_Id']
-											}"></ng-container>
-
-							</mat-hint>
-
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
-
-			<div class="row">
-
-
-				<div class="col-md-8">
-
-					<mat-form-field appearance="outline">
-						<mat-label>{{'HR.INPUTS.ADDRESS' | translate}}</mat-label>
-						<input matInput placeholder="Placeholder" name="Address" formControlName="Address">
-						<mat-hint>
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.ADDRESS' | translate},
-										  control: EmployeeDataForm.controls['Address']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , min:3},
-										  control: EmployeeDataForm.controls['Address']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											validation: 'maxlength',
-											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , max:100},
-											control: EmployeeDataForm.controls['Address']
-										 }"></ng-container>
-						</mat-hint>
-					</mat-form-field>
-
-				</div>
-
-				
-			</div>
-
-		</div>
-
-
-		<br>
-
-		<div class="d-flex justify-content-start align-content-center">
-			<mat-icon class="text-primary">perm_phone_msg</mat-icon>
-			<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
-				{{'HR.TITLES.COMAPNYCONTACTDATA'|translate}}
-			</h1>
-		</div>
-
-		<div class="mb-5 border-bottom">
-		</div>
-
-		<div class="col-md-12">
-
-			<div class="row mt-5">
-
-
-				<div class="col-md-4">
-					<mat-form-field appearance="outline">
-						<mat-label>{{'HR.INPUTS.EMAIL' | translate}}</mat-label>
-						<input matInput placeholder="Placeholder" name="Email" formControlName="Email">
-						<mat-hint>
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.EMAIL' | translate},
-										  control: EmployeeDataForm.controls['Email']
-										}"></ng-container>
-
-							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-											validation: 'pattern',
-											message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.EMAIL' | translate},
-											control: EmployeeDataForm.controls['Email']
-										  }"></ng-container>
-
-						</mat-hint>
-
-					</mat-form-field>
 				</div>
 
 				<div class="col-md-4">
@@ -375,6 +266,271 @@
 						</mat-hint>
 
 					</mat-form-field>
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> MilitaryStatus_Id </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForMilitary" bindLabel="Name" bindValue="Id"
+								name="MilitaryStatus_Id" id="MilitaryStatus_Id" formControlName="MilitaryStatus_Id">
+							</ng-select>
+
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											  validation: 'required',
+											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
+											  control: EmployeeDataForm.controls['MilitaryStatus_Id']
+											}"></ng-container>
+
+							</mat-hint>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> MaritalStatus_Id </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForMarital" bindLabel="Name" bindValue="Id"
+								name="MaritalStatus_Id" id="MaritalStatus_Id" formControlName="MaritalStatus_Id">
+							</ng-select>
+
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											  validation: 'required',
+											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
+											  control: EmployeeDataForm.controls['MaritalStatus_Id']
+											}"></ng-container>
+
+							</mat-hint>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="d-flex justify-content-start align-content-center">
+			<mat-icon class="text-primary">perm_phone_msg</mat-icon>
+			<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">
+				بيانات المؤهل والوظيفة
+			</h1>
+		</div>
+
+		<div class="mb-5 border-bottom">
+		</div>
+
+		<div class="col-md-12">
+
+			<div class="row mt-5">
+
+				<div class="col-md-4">
+
+					<mat-form-field appearance="outline">
+						<mat-label> University </mat-label>
+						<input matInput placeholder="Placeholder" name="University" formControlName="University">
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+										  control: EmployeeDataForm.controls['University']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'minlength',
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
+										  control: EmployeeDataForm.controls['University']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'maxlength',
+											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
+											control: EmployeeDataForm.controls['University']
+										 }"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+
+				<div class="col-md-4">
+
+					<mat-form-field appearance="outline">
+						<mat-label> Qualification </mat-label>
+						<input matInput placeholder="Placeholder" name="Qualification" formControlName="Qualification">
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+										  control: EmployeeDataForm.controls['Qualification']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'minlength',
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
+										  control: EmployeeDataForm.controls['Qualification']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'maxlength',
+											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
+											control: EmployeeDataForm.controls['Qualification']
+										 }"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+
+				<div class="col-md-4">
+					<mat-form-field style="width:100%" color="accent" appearance="fill">
+						<mat-label> تاريخ التخرج </mat-label>
+						<input matInput [matDatepicker]="picker1" formControlName="GraduateDate">
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+						<mat-datepicker #picker1></mat-datepicker>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'التاريخ ',
+								  control: EmployeeDataForm.controls['GraduateDate']
+								}"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+
+				<div class="col-md-4">
+					<mat-form-field style="width:100%" color="accent" appearance="fill">
+						<mat-label> تاريخ التعيين </mat-label>
+						<input matInput [matDatepicker]="picker1" formControlName="HireDate">
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+						<mat-datepicker #picker1></mat-datepicker>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'التاريخ ',
+								  control: EmployeeDataForm.controls['HireDate']
+								}"></ng-container>
+						</mat-hint>
+					</mat-form-field>
+
+				</div>
+
+				<div class="col-md-4">
+					<mat-form-field appearance="outline">
+						<mat-label>{{'HR.INPUTS.EMAIL' | translate}}</mat-label>
+						<input matInput placeholder="Placeholder" name="Email" formControlName="Email">
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+										  control: EmployeeDataForm.controls['Email']
+										}"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'pattern',
+											message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+											control: EmployeeDataForm.controls['Email']
+										  }"></ng-container>
+
+						</mat-hint>
+
+					</mat-form-field>
+				</div>
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> Department_Id </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForDepartment" bindLabel="Name" bindValue="Id"
+								name="Department_Id" formControlName="Department_Id" (change)="onItemSelectDepartment($event)">
+							</ng-select>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> Section_Id </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForSecion" bindLabel="Name" bindValue="Id"
+								name="Section_Id" formControlName="Section_Id" (change)="onItemSelectSection($event)">
+							</ng-select>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> JobSection_Id </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForJobs" bindLabel="Name" bindValue="Id"
+								name="JobSection_Id" formControlName="JobSection_Id">
+							</ng-select>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-4">
+
+					<div class="row mt-2">
+						<div class="col-md-3">
+							<label class="fontForInputs mt-5"> {{'HR.INPUTS.REGION' | translate}} </label>
+						</div>
+
+						<div class="col-md-9">
+
+							<ng-select [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
+								name="Region_Id" id="Region_Id" formControlName="Region_Id">
+							</ng-select>
+
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											  validation: 'required',
+											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
+											  control: EmployeeDataForm.controls['Region_Id']
+											}"></ng-container>
+
+							</mat-hint>
+
+						</div>
+					</div>
 				</div>
 
 

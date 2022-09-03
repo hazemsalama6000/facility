@@ -12,6 +12,7 @@ import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { AuthService } from "../../auth";
 import { IUserData } from "../../auth/models/IUserData.interface";
+import { ISection } from "../../share/models/ISection.interface";
 import { DepartmentService } from "../../share/Services/department_section/department.service";
 import { SectionService } from "../../share/Services/department_section/section.service";
 import { JobService } from "../../share/Services/job.service";
@@ -87,6 +88,8 @@ export class EmployeeUpsertComponent implements OnInit {
 				state_Id: ['', Validators.compose([Validators.required])],
 				Region_Id: ['', Validators.compose([Validators.required])],
 				MilitaryStatus_Id: ['', Validators.compose([Validators.required])],
+				Department_Id: ['', Validators.compose([Validators.required])],
+				Section_Id: ['', Validators.compose([Validators.required])],
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MaritalStatus_Id: ['', Validators.compose([Validators.required])],
 				BirthDate: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
@@ -190,9 +193,25 @@ export class EmployeeUpsertComponent implements OnInit {
 				this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
 			}
 		);
-		this.selectedItemForRegion = {};
-		this.EmployeeDataForm.controls['region_Id'].setValue(this.selectedItemForRegion);
+		
+	}
 
+
+	onItemSelectDepartment(item: any) {
+		this.sectionService.getLookupData(item.Id).subscribe(
+			(data: ISection[]) => {
+				this.dropdownListDataForSecion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
+			}
+		);
+	}
+
+	
+	onItemSelectSection(item: any) {
+		this.jobService.getLookUpData(item.Id).subscribe(
+			(data: ISection[]) => {
+				this.dropdownListDataForJobs = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
+			}
+		);
 	}
 
 
