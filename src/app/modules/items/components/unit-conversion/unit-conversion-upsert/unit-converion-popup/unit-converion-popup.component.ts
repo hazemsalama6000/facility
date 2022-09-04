@@ -44,10 +44,10 @@ export class UnitConverionPopupComponent implements OnInit {
 
 	setDefaultForForm() {
 		this.unitConversionDataForm = this.fb.group({
-			unit_Id: ['', Validators.compose([Validators.required])],
-			itemData_Id: ['', Validators.compose([Validators.required])],
+			unit_Id: [, Validators.compose([Validators.required])],
+			itemData_Id: [, Validators.compose([Validators.required])],
 			barcode: [''],
-			factor: [0, Validators.compose([Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+			factor: [0, Validators.compose([Validators.required,Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 		});
 	}
 

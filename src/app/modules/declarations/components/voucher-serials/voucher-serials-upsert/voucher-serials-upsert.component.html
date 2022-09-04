@@ -4,7 +4,8 @@
 
 		<div class="d-flex justify-content-between align-items-center">
 
-			<span class="fontsection"> اضافة مصروف سيارة
+			<span class="fontsection"> اضافة دفتر جديد
+
 			</span>
 			<button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
 				<mat-icon>close</mat-icon>
@@ -17,7 +18,7 @@
 
 	<mat-divider></mat-divider>
 
-	<form [formGroup]="expenseTransactionDataForm" (ngSubmit)="Submit(expenseTransactionDataForm.value)">
+	<form [formGroup]="voucherSerialDataForm" (ngSubmit)="Submit(voucherSerialDataForm.value)">
 
 		<mat-dialog-content style="z-index: -1;" class="mat-typography">
 
@@ -26,46 +27,91 @@
 
 			<div class="col-md-12">
 
+				<div class="row">
 
+					<div class="col-md-6">
+						<ng-select class="customized" [items]="dropdownFinancialYearData"
+							formControlName="financialYear_Id" bindLabel="Name" bindValue="Id" name="financialYear_Id"
+							placeholder="السنة المالية">
+						</ng-select>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'اختر السنة المالية',
+								  control: voucherSerialDataForm.controls['financialYear_Id']
+								}"></ng-container>
+						</mat-hint>
+					</div>
 
-
-				<div class="row mt-5">
-
-					<ng-select style="width: 250px;" class="customized" [items]="dropdownFinancialYearData"
-						formControlName="FinancialYearId" bindLabel="Name" bindValue="Id" name="FinancialYearId"
-						placeholder="السنة المالية">
-					</ng-select>
-
-					<ng-select style="width: 250px;" class="customized" [items]="dropdownBillTypeData"
-						formControlName="BillTypeId" bindLabel="Name" bindValue="Id" name="BillTypeId"
-						placeholder="نوع الفاتوره">
-					</ng-select>
-
-					<ng-select style="width: 250px;" class="customized" [items]="dropdownEmloyeeTypeData"
-						formControlName="EmployeeId" bindLabel="Name" bindValue="Id" name="EmployeeId"
-						placeholder="الموظف">
-					</ng-select>
-
-
+					<div class="col-md-6">
+						<ng-select class="customized" [items]="dropdownBillTypeData" formControlName="billType_Id"
+							bindLabel="Name" bindValue="Id" name="billType_Id" placeholder="نوع الفاتوره">
+						</ng-select>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'اختر نوع الفاتوره',
+								  control: voucherSerialDataForm.controls['billType_Id']
+								}"></ng-container>
+						</mat-hint>
+					</div>
 
 				</div>
 
 
-				<div class="row">
+				<div class="row mt-2">
+
+					<ng-select class="customized" [items]="dropdownEmloyeeTypeData" formControlName="technician_Id"
+						bindLabel="Name" bindValue="Id" name="technician_Id" placeholder="الموظف">
+					</ng-select>
+					<mat-hint>
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+							  validation: 'required',
+							  message: 'اختر الموظف',
+							  control: voucherSerialDataForm.controls['technician_Id']
+							}"></ng-container>
+					</mat-hint>
+
+				</div>
+
+				<div class="row mt-2">
 
 					<div class="col-md-6">
 						<mat-form-field appearance="outline">
-							<mat-label> القيمة </mat-label>
-							<input matInput placeholder="Placeholder" name="ExpenseValue"
-								formControlName="ExpenseValue">
+							<mat-label> من سيريال </mat-label>
+							<input matInput placeholder="Placeholder" name="fromSerial" formControlName="fromSerial">
 							<mat-hint>
 
 								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 												validation: 'pattern',
 												message: 'القيمة تحتوي حروف' ,
-												control: expenseTransactionDataForm.controls['ExpenseValue']
+												control: voucherSerialDataForm.controls['fromSerial']
 											  }"></ng-container>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'required',
+												message: 'اكتب سيريال',
+												control: voucherSerialDataForm.controls['fromSerial']
+											  }"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+					</div>
 
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label> الى سيريال</mat-label>
+							<input matInput placeholder="Placeholder" name="toSerial" formControlName="toSerial">
+							<mat-hint>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'pattern',
+												message: 'القيمة تحتوي حروف' ,
+												control: voucherSerialDataForm.controls['toSerial']
+											  }"></ng-container>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'required',
+												message: 'اكتب سيريال',
+												control: voucherSerialDataForm.controls['toSerial']
+											  }"></ng-container>
 							</mat-hint>
 						</mat-form-field>
 					</div>

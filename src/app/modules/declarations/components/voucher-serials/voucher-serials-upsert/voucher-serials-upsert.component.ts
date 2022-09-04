@@ -32,7 +32,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 	panelOpenState: boolean = true;
 
-	expenseTransactionDataForm: FormGroup;
+	voucherSerialDataForm: FormGroup;
 
 	constructor(
 		private fb: FormBuilder,
@@ -45,13 +45,12 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 
 	setDefaultForForm() {
-		this.expenseTransactionDataForm = this.fb.group({
-			ExpenseId: ['', Validators.compose([Validators.required])],
-			CarDataId: ['', Validators.compose([Validators.required])],
-			Attachments: [''],
-			Notes: [''],
-			ExpenseDate: [new Date().toISOString(), Validators.compose([Validators.required])],
-			ExpenseValue: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+		this.voucherSerialDataForm = this.fb.group({
+			financialYear_Id: [, Validators.compose([Validators.required])],
+			billType_Id: [, Validators.compose([Validators.required])],
+			technician_Id: [, Validators.compose([Validators.required])],
+			fromSerial: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"),Validators.required])],
+			toSerial: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"),Validators.required])]
 		});
 	}
 
@@ -91,8 +90,8 @@ export class VoucherSerialUpsertComponent implements OnInit {
 	Submit(voucherSerialDataForm: any) {
 
 		console.log(voucherSerialDataForm);
-
-		if (this.expenseTransactionDataForm.valid) {
+		voucherSerialDataForm.company_Id=this.companyId;
+		if (this.voucherSerialDataForm.valid) {
 
 	
 			this.voucherSerialService.PostVoucherSerialData(voucherSerialDataForm).
@@ -107,8 +106,11 @@ export class VoucherSerialUpsertComponent implements OnInit {
 						else if (data.isExists) {
 							this.toaster.openWarningSnackBar(data.message);
 						}
+
+
 					},
 					(error: any) => {
+
 						console.log(error);
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 					}

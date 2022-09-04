@@ -58,7 +58,7 @@ export class VoucherSerialsDatatableComponent {
 					this.isLoadingResults = true;
 					this.currentSearchParameter.PageNumber = this.paginator.pageIndex + 1;
 					this.currentSearchParameter.PageSize = this.paginator.pageSize;
-
+					this.currentSearchParameter.CompanyId = this.companyId;
 					return this.service.searchVoucherSerial(this.currentSearchParameter);
 				}),
 				map((data: ItemsWithPages) => {

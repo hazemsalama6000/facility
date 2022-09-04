@@ -25,100 +25,106 @@
 			<br>
 
 
-			<div class="col-md-12">
 
-				<div class="row mt-5">
+			<div class="row">
 
-					<div class="col-md-12">
+				<div class="col-md-12">
 
-						<div class="row">
-							<div class="col-md-1">
-								<label class="fontForInputs mt-5"> الصنف </label>
-							</div>
-							<div class="col-md-11">
-								<ng-select [items]="dropdownItems" bindLabel="Name" bindValue="Id" name="itemData_Id"
-									(change)="filterItemRelatedUnits($event)" formControlName="itemData_Id">
-								</ng-select>
-								<mat-hint>
-									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+					<div class="row">
+						<div class="col-md-1">
+							<label class="fontForInputs mt-5"> الصنف </label>
+						</div>
+						<div class="col-md-11">
+							<ng-select class="customized" [items]="dropdownItems" bindLabel="Name" bindValue="Id"
+								name="itemData_Id" (change)="filterItemRelatedUnits($event)"
+								formControlName="itemData_Id">
+							</ng-select>
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
 										  message: 'اختر الصنف',
 										  control: unitConversionDataForm.controls['itemData_Id']
 										}"></ng-container>
-								</mat-hint>
-							</div>
-
-
+							</mat-hint>
 						</div>
+
+
 					</div>
-
-
 				</div>
 
 
-				<div class="row mt-4">
-					<div class="col-md-6">
+			</div>
 
-						<div class="row">
-							<div class="col-md-5">
-								<label class="fontForInputs mt-5"> الوحدة المنفذ بها </label>
-							</div>
 
-							<div class="col-md-7">
-								<ng-select [items]="dropdownRelatedUnits" bindLabel="Name" bindValue="Id" name="unit_Id"
-									formControlName="unit_Id">
-								</ng-select>
-								<mat-hint>
-									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+			<div class="row mt-2">
+
+				<div class="col-md-6">
+
+					<div class="row">
+						<div class="col-md-5">
+							<label class="fontForInputs mt-5"> الوحدة المنفذ بها </label>
+						</div>
+
+						<div class="col-md-7">
+							<ng-select class="customized" [items]="dropdownRelatedUnits" bindLabel="Name" bindValue="Id"
+								name="unit_Id" formControlName="unit_Id">
+							</ng-select>
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
 										  message: 'اختر الوحدة المنفذ بها',
 										  control: unitConversionDataForm.controls['unit_Id']
 										}"></ng-container>
-								</mat-hint>
-							</div>
+							</mat-hint>
 						</div>
-					</div>
-
-					<div class="col-md-6">
-						<mat-form-field appearance="outline">
-							<mat-label> الوحدة الرئيسية (الصغرى) </mat-label>
-							<input matInput placeholder="Placeholder" readonly [value]="baseUnitName">
-						</mat-form-field>
 					</div>
 				</div>
 
-				
-
-				<div class="row">
-
-					<div class="col-md-6">
-						<mat-form-field appearance="outline">
-							<mat-label> معامل التحويل </mat-label>
-							<input matInput placeholder="Placeholder" name="factor" formControlName="factor">
-							<mat-hint>
-
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-												validation: 'pattern',
-												message: 'القيمة تحتوي حروف' ,
-												control: unitConversionDataForm.controls['factor']
-											  }"></ng-container>
-
-							</mat-hint>
-						</mat-form-field>
-					</div>
-
-					<div class="col-md-6">
-						<mat-form-field appearance="outline">
-							<mat-label> الباركود </mat-label>
-							<input matInput placeholder="Placeholder" name="barcode" formControlName="barcode">
-						</mat-form-field>
-					</div>
+				<div class="col-md-6">
+					<mat-form-field appearance="outline">
+						<mat-label> الوحدة الرئيسية (الصغرى) </mat-label>
+						<input matInput placeholder="Placeholder" readonly [value]="baseUnitName">
+					</mat-form-field>
 				</div>
 
 			</div>
 
 
-			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+			<div class="row" style="margin-top: -15px;">
+
+				<div class="col-md-6">
+					<mat-form-field appearance="outline">
+						<mat-label> معامل التحويل </mat-label>
+						<input matInput placeholder="Placeholder" name="factor" formControlName="factor">
+						<mat-hint>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'pattern',
+												message: 'القيمة تحتوي حروف' ,
+												control: unitConversionDataForm.controls['factor']
+											  }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'required',
+												message: 'اكتب معامل التحويل',
+												control: unitConversionDataForm.controls['factor']
+											  }"></ng-container>
+
+						</mat-hint>
+					</mat-form-field>
+				</div>
+
+				<div class="col-md-6">
+					<mat-form-field appearance="outline">
+						<mat-label> الباركود </mat-label>
+						<input matInput placeholder="Placeholder" name="barcode" formControlName="barcode">
+					</mat-form-field>
+				</div>
+			</div>
+
+
+
+			<br><br><br><br><br><br><br><br><br><br><br>
 
 
 		</mat-dialog-content>
