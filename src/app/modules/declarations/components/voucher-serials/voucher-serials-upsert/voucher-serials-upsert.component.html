@@ -1,0 +1,161 @@
+<div style="width:700px">
+
+	<h2 mat-dialog-title>
+
+		<div class="d-flex justify-content-between align-items-center">
+
+			<span class="fontsection"> اضافة مصروف سيارة
+			</span>
+			<button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+				<mat-icon>close</mat-icon>
+			</button>
+
+		</div>
+
+	</h2>
+
+
+	<mat-divider></mat-divider>
+
+	<form [formGroup]="expenseTransactionDataForm" (ngSubmit)="Submit(expenseTransactionDataForm.value)">
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+			<br>
+			<br>
+
+			<div class="col-md-12">
+
+				<span class="mx-10">
+					<label class="fontForInputs">صور للصرفيات </label>
+					<input type="file" class="mx-2" (change)="logoPrintChange($event)" placeholder="Placeholder"
+						name="Attachments" formControlName="Attachments">
+				</span>
+
+
+				<div class="row mt-5">
+
+					<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-md-3">
+								<label class="fontForInputs mt-5"> المصروف </label>
+							</div>
+							<div class="col-md-9">
+								<ng-select [items]="dropdownCarExpenseTypesData" bindLabel="Name" bindValue="Id"
+									name="ExpenseId" formControlName="ExpenseId">
+								</ng-select>
+								<mat-hint>
+									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'اختر الصرف',
+										  control: expenseTransactionDataForm.controls['ExpenseId']
+										}"></ng-container>
+								</mat-hint>
+							</div>
+
+
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<mat-form-field style="width:100%" color="accent" appearance="fill">
+							<mat-label> التاريخ </mat-label>
+							<input matInput [matDatepicker]="picker1" formControlName="ExpenseDate">
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+									  validation: 'required',
+									  message: 'التاريخ ',
+									  control: expenseTransactionDataForm.controls['ExpenseId']
+									}"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+
+					</div>
+
+
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-md-3">
+								<label class="fontForInputs mt-5"> السيارة </label>
+							</div>
+
+							<div class="col-md-9">
+								<ng-select [items]="dropdownCarsData" bindLabel="Name" bindValue="Id" name="CarDataId"
+									formControlName="CarDataId">
+								</ng-select>
+								<mat-hint>
+									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										  validation: 'required',
+										  message: 'اختر السيارة',
+										  control: expenseTransactionDataForm.controls['CarDataId']
+										}"></ng-container>
+								</mat-hint>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label> القيمة </mat-label>
+							<input matInput placeholder="Placeholder" name="ExpenseValue"
+								formControlName="ExpenseValue">
+							<mat-hint>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'pattern',
+												message: 'القيمة تحتوي حروف' ,
+												control: expenseTransactionDataForm.controls['ExpenseValue']
+											  }"></ng-container>
+
+							</mat-hint>
+						</mat-form-field>
+					</div>
+					<div class="row">
+
+						<div class="col-md-12" style="margin-right:10px ;">
+							<mat-form-field appearance="outline">
+								<mat-label> ملاحظات </mat-label>
+								<input matInput placeholder="Placeholder" name="Notes" formControlName="Notes">
+							</mat-form-field>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+		</mat-dialog-content>
+
+
+		<mat-dialog-actions>
+			<div class="d-flex">
+				<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
+					color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			</div>
+		</mat-dialog-actions>
+	</form>
+
+	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+		<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+			<div class="fv-plugins-message-container">
+				<span role="alert" class="fontForHints">
+					{{ message }}
+				</span>
+			</div>
+		</ng-container>
+	</ng-template>
+</div>

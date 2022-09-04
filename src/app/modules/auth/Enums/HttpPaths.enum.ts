@@ -74,6 +74,12 @@ export enum HttpPaths {
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
 
 
+	//VoucherSerial APIS
+
+	API_VOUCHER_SERIAL_ADD = "/api/v1/bill/createbillsbook",
+	API_VOUCHER_SERIAL_GETALL_SEARCH = "/api/v1/bill/getbillsbooksbyfilteration",
+	API_VOUCHER_SERIAL_DELETE = "/api/v1/bill/deletebillsbook/",
+	API_GET_BILLS_TYPES = "/api/v1/bill/listofbillstypes",
 	// unit Conversion
 
 	API_UNIT_CONVERSION_ADD = "/api/v1/invt/addunitofconversion",
@@ -83,11 +89,11 @@ export enum HttpPaths {
 
 	// units
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
-	API_GET_MAIN_UNITS="/api/v1/invt/getmainunit",
+	API_GET_MAIN_UNITS = "/api/v1/invt/getmainunit",
 
 	//Items
 
-	API_GET_ITEMS_LOOKUP="/api/v1/invt/listofinvitems/",
+	API_GET_ITEMS_LOOKUP = "/api/v1/invt/listofinvitems/",
 
 	//Region APIS
 
@@ -284,7 +290,7 @@ export enum HttpPaths {
 	API_ADD_STOCK_TECHNIQUE = "/api/v1/invt/addstocktechniquelog",
 	API_DEACTIVE_STOCK_TECHNIQUE = "/api/v1/invt/stopstocktechniquelog",
 
-	
+
 
 
 
