@@ -41,7 +41,7 @@ export class VoucherSerialService {
 		model[key] != null && model[key] != ''&& model[key] != 0 && model[key] != undefined ? key + '=' + model[key] : null
 		).filter(x => x != null).join('&');
 
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_VOUCHER_SERIAL_GETALL_SEARCH}${queryString}`)
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_VOUCHER_SERIAL_GETALL_SEARCH}?${queryString}`)
 			.pipe(map(Items => Items.data as ItemsWithPages));
 		
 	}

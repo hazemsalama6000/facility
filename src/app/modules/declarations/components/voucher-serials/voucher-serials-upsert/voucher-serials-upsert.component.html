@@ -26,81 +26,32 @@
 
 			<div class="col-md-12">
 
-				<span class="mx-10">
-					<label class="fontForInputs">صور للصرفيات </label>
-					<input type="file" class="mx-2" (change)="logoPrintChange($event)" placeholder="Placeholder"
-						name="Attachments" formControlName="Attachments">
-				</span>
+
 
 
 				<div class="row mt-5">
 
-					<div class="col-md-6">
+					<ng-select style="width: 250px;" class="customized" [items]="dropdownFinancialYearData"
+						formControlName="FinancialYearId" bindLabel="Name" bindValue="Id" name="FinancialYearId"
+						placeholder="السنة المالية">
+					</ng-select>
 
-						<div class="row">
-							<div class="col-md-3">
-								<label class="fontForInputs mt-5"> المصروف </label>
-							</div>
-							<div class="col-md-9">
-								<ng-select [items]="dropdownCarExpenseTypesData" bindLabel="Name" bindValue="Id"
-									name="ExpenseId" formControlName="ExpenseId">
-								</ng-select>
-								<mat-hint>
-									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'اختر الصرف',
-										  control: expenseTransactionDataForm.controls['ExpenseId']
-										}"></ng-container>
-								</mat-hint>
-							</div>
+					<ng-select style="width: 250px;" class="customized" [items]="dropdownBillTypeData"
+						formControlName="BillTypeId" bindLabel="Name" bindValue="Id" name="BillTypeId"
+						placeholder="نوع الفاتوره">
+					</ng-select>
 
+					<ng-select style="width: 250px;" class="customized" [items]="dropdownEmloyeeTypeData"
+						formControlName="EmployeeId" bindLabel="Name" bindValue="Id" name="EmployeeId"
+						placeholder="الموظف">
+					</ng-select>
 
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<mat-form-field style="width:100%" color="accent" appearance="fill">
-							<mat-label> التاريخ </mat-label>
-							<input matInput [matDatepicker]="picker1" formControlName="ExpenseDate">
-							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-							<mat-datepicker #picker1></mat-datepicker>
-							<mat-hint>
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-									  validation: 'required',
-									  message: 'التاريخ ',
-									  control: expenseTransactionDataForm.controls['ExpenseId']
-									}"></ng-container>
-							</mat-hint>
-						</mat-form-field>
-
-					</div>
 
 
 				</div>
 
 
 				<div class="row">
-					<div class="col-md-6">
-
-						<div class="row">
-							<div class="col-md-3">
-								<label class="fontForInputs mt-5"> السيارة </label>
-							</div>
-
-							<div class="col-md-9">
-								<ng-select [items]="dropdownCarsData" bindLabel="Name" bindValue="Id" name="CarDataId"
-									formControlName="CarDataId">
-								</ng-select>
-								<mat-hint>
-									<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-										  validation: 'required',
-										  message: 'اختر السيارة',
-										  control: expenseTransactionDataForm.controls['CarDataId']
-										}"></ng-container>
-								</mat-hint>
-							</div>
-						</div>
-					</div>
 
 					<div class="col-md-6">
 						<mat-form-field appearance="outline">
@@ -118,16 +69,7 @@
 							</mat-hint>
 						</mat-form-field>
 					</div>
-					<div class="row">
 
-						<div class="col-md-12" style="margin-right:10px ;">
-							<mat-form-field appearance="outline">
-								<mat-label> ملاحظات </mat-label>
-								<input matInput placeholder="Placeholder" name="Notes" formControlName="Notes">
-							</mat-form-field>
-						</div>
-
-					</div>
 				</div>
 
 

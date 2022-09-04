@@ -6,6 +6,11 @@ import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { AuthService } from "src/app/modules/auth";
 import { DatePipe } from "@angular/common";
+import { VoucherSerialService } from "../../../services/voucherSerial.service";
+import { FinancialyearService } from "../../../services/financialyear.service";
+import { EmployeeService } from "src/app/modules/employees/services/employee.service";
+import { IFinancialYear } from "../../../models/IFinancialYear.interface";
+import { map } from "rxjs";
 
 @Component({
 	selector: "voucher-serials-upsert",
@@ -17,14 +22,13 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 	saveButtonClickedFlag = false;
 	branchId: number;
+	companyId:number;
 	isEdit = false;
-	expenseTransaction: IExpenseTransaction;
-	attachment: File;
-	isEditable: boolean = false;
+	
 
-	dropdownCarsData: LookUpModel[] = [];
-	dropdownCarExpenseTypesData: LookUpModel[] = [];
-
+	dropdownFinancialYearData: LookUpModel[] = [];
+	dropdownBillTypeData: LookUpModel[] = [];
+	dropdownEmloyeeTypeData: LookUpModel[] = [];
 
 	panelOpenState: boolean = true;
 
@@ -34,8 +38,9 @@ export class VoucherSerialUpsertComponent implements OnInit {
 		private fb: FormBuilder,
 		private toaster: toasterService,
 		private auth: AuthService,
-		private carExpenseTransactionService: CarExpenseTransactionService,
-		private carService: CarService, private datePipe: DatePipe
+		private voucherSerialService: VoucherSerialService,	private financialYearService: FinancialyearService,
+		private employeeService: EmployeeService,
+		 private datePipe: DatePipe
 	) { }
 
 
@@ -56,13 +61,19 @@ export class VoucherSerialUpsertComponent implements OnInit {
 		this.auth.userData.subscribe((data: IUserData) => {
 
 			this.branchId = data.branchId;
+			this.companyId = data.companyId;
 
-			this.carService.getLookupCarData(data.branchId).subscribe((data: LookUpModel[]) => {
-				this.dropdownCarsData = data;
+			this.employeeService.getLookupEmployeeData(data.companyId).subscribe((data: LookUpModel[]) => {
+				this.dropdownEmloyeeTypeData = data;
 			});
 
-			this.carExpenseTransactionService.getLookupCarExpenseTypesData(data.companyId).subscribe((data: LookUpModel[]) => {
-				this.dropdownCarExpenseTypesData = data;
+			this.financialYearService.GetFinancialYear(data.companyId)
+				.pipe(map((data: IFinancialYear[]) => { return data.map((dataa: IFinancialYear) => { return { Id: dataa.id, Name: dataa.year } as LookUpModel }) })).subscribe((data: LookUpModel[]) => {
+					this.dropdownFinancialYearData = data;
+				});
+
+			this.voucherSerialService.getLookupBillsTypesData().subscribe((data: LookUpModel[]) => {
+				this.dropdownBillTypeData = data;
 			});
 
 		});
@@ -76,39 +87,21 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 	}
 
+	
+	Submit(voucherSerialDataForm: any) {
 
-	logoPrintChange(event: any) {
-		this.attachment = <File>event.target.files[0];
-	}
-
-
-	Submit(ExpenseTransactionDataForm: any) {
-
-		console.log(ExpenseTransactionDataForm);
+		console.log(voucherSerialDataForm);
 
 		if (this.expenseTransactionDataForm.valid) {
 
-			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
-
-			const fd = new FormData();
-			
-			if (this.attachment != null) {
-				fd.append('Attachments', this.attachment, this.attachment.name);
-			}
-
-			fd.append('CarDataId', ExpenseTransactionDataForm.CarDataId.toString());
-			fd.append('ExpenseDate', ExpenseTransactionDataForm.ExpenseDate);
-			fd.append('ExpenseId', ExpenseTransactionDataForm.ExpenseId);
-			fd.append('ExpenseValue', ExpenseTransactionDataForm.ExpenseValue);
-			fd.append('Notes', ExpenseTransactionDataForm.Notes);
-
-			this.carExpenseTransactionService.PostExpenseTransactionData(fd).
+	
+			this.voucherSerialService.PostVoucherSerialData(voucherSerialDataForm).
 				subscribe(
 					(data: HttpReponseModel) => {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
-							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
+							this.voucherSerialService.searchUpdateUserManageAction.next(true);
 
 						}
 						else if (data.isExists) {

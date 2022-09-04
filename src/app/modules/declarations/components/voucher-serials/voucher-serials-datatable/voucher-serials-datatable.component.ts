@@ -72,6 +72,10 @@ export class VoucherSerialsDatatableComponent {
 				}),
 			)
 			.subscribe((data) => { this.data = data; });
+
+		this.service.searchUpdateUserManageAction.next(true);
+
+
 	}
 
 
