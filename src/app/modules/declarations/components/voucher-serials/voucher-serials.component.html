@@ -1,0 +1,50 @@
+<form [formGroup]="VoucherSerialsSearchForm"
+	(ngSubmit)="searchVoucherSerial(VoucherSerialsSearchForm.value)">
+
+	<mat-card class="col-md-12">
+		<div class="d-flex align-items-center justify-content-between">
+
+			<div class="d-flex align-items-center">
+				<mat-icon class="text-primary mx-5" style="font-size:30px ;">assignment_ind</mat-icon>
+
+				<span class="fontsection">بيانات الدفاتر
+				</span>
+
+			</div>
+
+			<button type="button" (click)="openDialogAddingTransactionVoucherSerial()"  matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+				 aria-label="Example icon button with a filter list icon">
+				<mat-icon>add</mat-icon>
+			</button>
+
+		</div>
+
+		<br>
+
+		<div class="row ">
+
+			<ng-select style="width: 250px;" class="customized" [items]="dropdownFinancialYearData" formControlName="FinancialYearId"
+				bindLabel="Name" bindValue="Id" name="FinancialYearId" placeholder="السنة المالية">
+			</ng-select>
+
+			<ng-select style="width: 250px;" class="customized" [items]="dropdownBillTypeData"
+				formControlName="BillTypeId" bindLabel="Name" bindValue="Id" name="BillTypeId" placeholder="نوع الفاتوره">
+			</ng-select>
+
+			<ng-select style="width: 250px;" class="customized" [items]="dropdownEmloyeeTypeData"
+				formControlName="EmployeeId" bindLabel="Name" bindValue="Id" name="EmployeeId" placeholder="الموظف">
+			</ng-select>
+
+			<button mat-mini-fab color="primary" id="search" type="submit" class="mx-10 mt-2">
+				<mat-icon  style="font-size: 25px;">search</mat-icon>
+			</button>
+
+		</div>
+
+	</mat-card>
+
+</form>
+
+<div class="mt-5">
+	<voucher-serials-datatable [companyId]="companyId"></voucher-serials-datatable>
+</div>

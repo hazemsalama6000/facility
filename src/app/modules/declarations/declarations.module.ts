@@ -29,6 +29,9 @@ import { AddstocktechComponent } from './components/inventory/addstocktech/addst
 import { AddinternaldivisionComponent } from './components/Internaldivisionstock/addinternaldivision/addinternaldivision.component';
 import { InternaldivisionstockComponent } from './components/Internaldivisionstock/Internaldivisionstock.component';
 import { InternaldivisiontreeComponent } from './components/Internaldivisionstock/internaldivisiontree/internaldivisiontree.component';
+import { VoucherSerialsComponent } from './components/voucher-serials/voucher-serials.component';
+import { VoucherSerialUpsertComponent } from './components/voucher-serials/voucher-serials-upsert/voucher-serials-upsert.component';
+import { VoucherSerialsDatatableComponent } from './components/voucher-serials/voucher-serials-datatable/voucher-serials-datatable.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { InternaldivisiontreeComponent } from './components/Internaldivisionstoc
     AddstocktechComponent,
     AddinternaldivisionComponent,
     InternaldivisionstockComponent,
-    InternaldivisiontreeComponent
+    InternaldivisiontreeComponent,
+	VoucherSerialsComponent,
+	VoucherSerialUpsertComponent,
+	VoucherSerialsDatatableComponent
   ],
   imports: [
     CommonModule,

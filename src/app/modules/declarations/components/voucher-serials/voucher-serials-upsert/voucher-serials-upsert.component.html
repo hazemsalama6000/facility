@@ -1,0 +1,149 @@
+<div style="width:700px">
+
+	<h2 mat-dialog-title>
+
+		<div class="d-flex justify-content-between align-items-center">
+
+			<span class="fontsection"> اضافة دفتر جديد
+
+			</span>
+			<button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+				<mat-icon>close</mat-icon>
+			</button>
+
+		</div>
+
+	</h2>
+
+
+	<mat-divider></mat-divider>
+
+	<form [formGroup]="voucherSerialDataForm" (ngSubmit)="Submit(voucherSerialDataForm.value)">
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+			<br>
+			<br>
+
+			<div class="col-md-12">
+
+				<div class="row">
+
+					<div class="col-md-6">
+						<ng-select class="customized" [items]="dropdownFinancialYearData"
+							formControlName="financialYear_Id" bindLabel="Name" bindValue="Id" name="financialYear_Id"
+							placeholder="السنة المالية">
+						</ng-select>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'اختر السنة المالية',
+								  control: voucherSerialDataForm.controls['financialYear_Id']
+								}"></ng-container>
+						</mat-hint>
+					</div>
+
+					<div class="col-md-6">
+						<ng-select class="customized" [items]="dropdownBillTypeData" formControlName="billType_Id"
+							bindLabel="Name" bindValue="Id" name="billType_Id" placeholder="نوع الفاتوره">
+						</ng-select>
+						<mat-hint>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								  validation: 'required',
+								  message: 'اختر نوع الفاتوره',
+								  control: voucherSerialDataForm.controls['billType_Id']
+								}"></ng-container>
+						</mat-hint>
+					</div>
+
+				</div>
+
+
+				<div class="row mt-2">
+
+					<ng-select class="customized" [items]="dropdownEmloyeeTypeData" formControlName="technician_Id"
+						bindLabel="Name" bindValue="Id" name="technician_Id" placeholder="الموظف">
+					</ng-select>
+					<mat-hint>
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+							  validation: 'required',
+							  message: 'اختر الموظف',
+							  control: voucherSerialDataForm.controls['technician_Id']
+							}"></ng-container>
+					</mat-hint>
+
+				</div>
+
+				<div class="row mt-2">
+
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label> من سيريال </mat-label>
+							<input matInput placeholder="Placeholder" name="fromSerial" formControlName="fromSerial">
+							<mat-hint>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'pattern',
+												message: 'القيمة تحتوي حروف' ,
+												control: voucherSerialDataForm.controls['fromSerial']
+											  }"></ng-container>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'required',
+												message: 'اكتب سيريال',
+												control: voucherSerialDataForm.controls['fromSerial']
+											  }"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label> الى سيريال</mat-label>
+							<input matInput placeholder="Placeholder" name="toSerial" formControlName="toSerial">
+							<mat-hint>
+
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'pattern',
+												message: 'القيمة تحتوي حروف' ,
+												control: voucherSerialDataForm.controls['toSerial']
+											  }"></ng-container>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+												validation: 'required',
+												message: 'اكتب سيريال',
+												control: voucherSerialDataForm.controls['toSerial']
+											  }"></ng-container>
+							</mat-hint>
+						</mat-form-field>
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+		</mat-dialog-content>
+
+
+		<mat-dialog-actions>
+			<div class="d-flex">
+				<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
+					color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			</div>
+		</mat-dialog-actions>
+	</form>
+
+	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+		<ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+			<div class="fv-plugins-message-container">
+				<span role="alert" class="fontForHints">
+					{{ message }}
+				</span>
+			</div>
+		</ng-container>
+	</ng-template>
+</div>

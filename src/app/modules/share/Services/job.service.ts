@@ -15,6 +15,10 @@ export class JobService {
     return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_GETPERSECTION}${Id}`);
   }
 
+  getListData(Id:number): Observable<any> {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_GET_LISTJOBPERSECTION}?SectionId=${Id}`);
+  }
+
   postLookUpData(model: IJob): Observable<any> {
     return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_UPDATEJOBPERSECTION}`);
   }

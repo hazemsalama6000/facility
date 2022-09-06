@@ -5,6 +5,7 @@ import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { AuthService } from '../auth';
+import { EmployeeUpsertComponent } from './employee-upsert/employee-upsert.component';
 import { IEmployee } from './models/employee.interface';
 import { ITechnitianLog } from './models/ITechnitianLog.interface';
 import { EmployeeService } from './services/employee.service';
@@ -19,19 +20,26 @@ import { AddTechnitianLogComponent } from './setting/Add-technitian-Log/add-tech
 export class EmployeesComponent implements OnInit {
 	imageFile: File;
 	companyId: number;
+	branch_Id = 0;
 	dropdownEmployeeData: LookUpModel[] = [];
-	employeeDsiaplay: IEmployee = {} as IEmployee;
+	employeeDsiaplay: IEmployee = { id: 0,imagePath:'',imagepathbase:'' } as IEmployee;
 	constructor(private service: EmployeeService,
-		private toaster: toasterService, public dialog: MatDialog,private auth:AuthService) {
-this.auth.userData.subscribe((userData)=>{
-	this.companyId = userData.companyId;
-});
+		private toaster: toasterService, public dialog: MatDialog, private auth: AuthService) {
+		this.auth.userData.subscribe((userData) => {
+			this.companyId = userData.companyId;
+			this.branch_Id = userData.branchId;
+		});
 	}
 
 	ngOnInit(): void {
-		this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
-			this.dropdownEmployeeData = data;
+		this.service.bSubjectStream.subscribe((data)=>{
+			this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
+				this.dropdownEmployeeData = data;
+			});
 		});
+		
+		this.service.bSubject.next(true);
+	
 	}
 
 	imageChange(event: any) {
@@ -67,13 +75,19 @@ this.auth.userData.subscribe((userData)=>{
 		this.service.getEmployeeById(selectedItem.Id)
 			.pipe(
 				map(
-					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}` }) as IEmployee
+					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`,imagepathbase:data.imagePath }) as IEmployee
 				)
 			)
 			.subscribe(
 				(data: IEmployee) => {
 					this.employeeDsiaplay = data;
 					console.log(this.employeeDsiaplay);
+					setTimeout(() => {
+						document.getElementById("blocksdisplay")?.click();		
+						document.getElementById("notfound")?.click();		
+						document.getElementById("blocksdisplay")?.click();		
+						
+					}, 1000);
 				}
 				, (error) => {
 					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
@@ -96,8 +110,6 @@ this.auth.userData.subscribe((userData)=>{
 	editActiveProp(value: boolean) {
 		this.employeeDsiaplay.isActive = value;
 	}
-
-
 
 
 	openDialogForEmployee() {
@@ -126,6 +138,34 @@ this.auth.userData.subscribe((userData)=>{
 			else {
 				this.employeeDsiaplay.isTechnician = false;
 			}
+		});
+
+	}
+
+
+	openDialogUpsertEmployee(value: 'ADD' | 'EDIT') {
+		
+		if (value == 'ADD') {
+			this.employeeDsiaplay = { id:0,imagePath:'',imagepathbase:'' } as IEmployee;
+		}
+
+		console.log(this.employeeDsiaplay.id);
+		const dialogPosition: DialogPosition = {
+			top: '0px',
+			right: '0px'
+		};
+
+		const dialogRef = this.dialog.open(EmployeeUpsertComponent,
+			{
+				maxHeight: '100vh',
+				height: '100%',
+
+				position: dialogPosition,
+				data: { employeeId: this.employeeDsiaplay.id, branch_Id: this.branch_Id }
+			});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
 		});
 
 	}

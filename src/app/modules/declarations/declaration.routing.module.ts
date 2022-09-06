@@ -8,6 +8,7 @@ import { InventoryComponent } from "./components/inventory/inventory.component";
 import { InventorycategoryComponent } from "./components/inventorycategory/inventorycategory.component";
 import { PathrouteComponent } from "./components/pathroute/pathroute.component";
 import { TransferingCompanyComponent } from "./components/transfering-company/transfering-company.component";
+import { VoucherSerialsComponent } from "./components/voucher-serials/voucher-serials.component";
 
 const route: Routes = [
 	{ path: 'invcategory', component: InventorycategoryComponent },
@@ -17,7 +18,8 @@ const route: Routes = [
 	{ path: 'pathroute', component: PathrouteComponent },
 	{ path: 'transferingcompany', component: TransferingCompanyComponent },
 	{ path: 'carsmodels', component: CarsModelsComponent },
-	{ path: 'carexpenses', component: CarExpensesComponent }
+	{ path: 'carexpenses', component: CarExpensesComponent },
+	{ path: 'voucherSerial', component: VoucherSerialsComponent }
 ]
 @NgModule({
 	imports: [RouterModule.forChild(route)],

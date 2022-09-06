@@ -19,6 +19,7 @@ export enum HttpPaths {
 
 	API_JOB_GETPERSECTION = "/api/v1/hr/GetJobsPerSection/",
 	API_JOB_UPDATEJOBPERSECTION = "/api/v1/hr/ManageJobSection",
+	API_JOB_GET_LISTJOBPERSECTION ="/api/v1/hr/listofjobspersection",
 
 	//State APIS
 
@@ -28,7 +29,11 @@ export enum HttpPaths {
 	API_STATE_DELETE = "/api/v1/shared/deletestate/",
 	API_STATE_UACTIVEDEACTIVE = "/api/v1/shared/changstateactiveornot/",
 
+	//militaryStatus
+	API_MILITARYSTATUS_GETLIST = "/api/v1/hr/listofmilitarystatus",
 
+	//maritalStatus
+	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
 
 	//Transfering Company APIS
 
@@ -70,8 +75,13 @@ export enum HttpPaths {
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
 
 
-	// unit Conversion
+	//VoucherSerial APIS
 
+	API_VOUCHER_SERIAL_ADD = "/api/v1/bill/createbillsbook",
+	API_VOUCHER_SERIAL_GETALL_SEARCH = "/api/v1/bill/getbillsbooksbyfilteration",
+	API_VOUCHER_SERIAL_DELETE = "/api/v1/bill/deletebillsbook/",
+	API_GET_BILLS_TYPES = "/api/v1/bill/listofbillstypes",
+	// unit Conversion
 
 	API_UNIT_CONVERSION_ADD = "/api/v1/invt/addunitofconversion",
 	API_UNIT_CONVERSION_GETALL = "/api/v1/invt/getallunitsofconversion",
@@ -82,9 +92,10 @@ export enum HttpPaths {
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
 	API_GET_MAIN_UNITS = "api/v1/invt/getmainunit",
 
+	//Items
+	API_GET_ITEMS_LOOKUP = "/api/v1/invt/listofinvitems/",
 
 	//Region APIS
-
 	API_REGION_ADD = "/api/v1/shared/addregion",
 	API_REGION_UPDATE = "/api/v1/shared/updateregion/",
 	API_REGION_GETALL = "/api/v1/shared/getallregionsbystateId",
@@ -136,11 +147,16 @@ export enum HttpPaths {
 	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/listOfEmployees",
 	API_GET_EMPLOYEES_DATA = "/api/v1/hr/listofallemployeeswithfilter",
 	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofileinfo",
+	API_GET_EMPLOYEEBY_UPDATE_ID = "/api/v1/hr/getemployeeprofile",
 	API_ADD_TECHNICIAN = "/api/v1/tech/addtechnicianlog",
 	API_GET_TECHNNICIAN_DATA = "/api/v1/tech/gettechnicianlogs",
 	API_TOGGLE_EMPLOYEE_ACTIVE = "/api/v1/hr/changeactiveornot",
 	API_TOGGLE_EMPLOYEE_TECHNICIAN = "/api/v1/tech/stoptechnician",
 	API_CHANGE_EMP_IMAGE = "/api/v1/hr/changeimage",
+	API_POST_ADD_EMPLOYEE = "/api/v1/hr/createemployee",
+	API_POST_UPDATE_EMPLOYEE = "/api/v1/hr/editemployee/",
+
+
 
 
 	// Online Users
@@ -280,12 +296,14 @@ export enum HttpPaths {
 	API_ADD_STOCK_TECHNIQUE = "/api/v1/invt/addstocktechniquelog",
 	API_DEACTIVE_STOCK_TECHNIQUE = "/api/v1/invt/stopstocktechniquelog",
 
+
 	//Stock shelfs
 	API_LIST_OF_STOCK_SHELFS = "/api/v1/invt/getinvstockshelfs?stockId=",
 	API_ADD_STOCK_SHELFS = "/api/v1/invt/addnewstockshelf",
 	API_UPDATE_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfname/",
 	API_UPDATE_PARENT_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfparentid/",
 	API_ACTIVE_DEACTIVE_STOCK_SHELFS = "/api/v1/invt/activateordeactivatestockshelf/",
+
 
 
 
