@@ -6,5 +6,5 @@ export interface IInventory {
     employeeName: string;
     address: string;
     isActive: boolean;
-    isDeleted: boolean;
+    hasStockTechnique: boolean;
 }

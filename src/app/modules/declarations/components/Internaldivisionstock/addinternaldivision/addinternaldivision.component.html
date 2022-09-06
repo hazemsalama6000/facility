@@ -1,3 +1,128 @@
-<p>
-  addinternaldivision works!
-</p>
+<form [formGroup]="stockTreeForm" (ngSubmit)="addStockShelf()" style="direction: rtl;">
+
+  <div mat-dialog-title>
+    <div class="row mx-0">
+      <div class="col"> {{"DECLARATIONS.TITLES.STOCKSHELF"|translate}}</div>
+      <div class="col-2">
+        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content class="overflow-auto py-2">
+    <div class="row mx-0">
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.NAME' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.NAME'  | translate},
+                  control: stockTreeForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.NAME'  | translate , min:3},
+                  control: stockTreeForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.NAME'  | translate , max:100},
+                  control: stockTreeForm.controls['name']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.CODE' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="code" formControlName="code">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate},
+                  control: stockTreeForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate , min:3},
+                  control: stockTreeForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE'  | translate , max:100},
+                  control: stockTreeForm.controls['code']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label> {{'DECLARATIONS.INPUTS.SHELF' | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="shelf" formControlName="shelf">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.SHELF'  | translate},
+                  control: stockTreeForm.controls['shelf']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.SHELF'  | translate , min:3},
+                  control: stockTreeForm.controls['shelf']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.SHELF'  | translate , max:100},
+                  control: stockTreeForm.controls['shelf']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-actions>
+    <div class="text-center col-md-6 d-flex">
+      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'DECLARATIONS.BUTTONS.CANCEL'|translate}}</button>
+
+      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
+        <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
+        <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </button>
+
+    </div>
+  </div>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

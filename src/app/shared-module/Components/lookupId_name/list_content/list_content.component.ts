@@ -72,9 +72,7 @@ export class ListContentComponent {
 			this.currentSelected = newRow;
 
 			document.getElementById("NameForAdd")?.focus();
-
 		}
-
 	}
 
 	deleteRow() {
@@ -190,7 +188,7 @@ export class ListContentComponent {
 					this.dataSource.paginator = this.paginator;
 				}
 			);
-		} 
+		}
 	}
 
 	//filter from search Box
@@ -202,7 +200,7 @@ export class ListContentComponent {
 	ngOnDestroy() {
 		if (this.pageName == 'jobs') {
 			this.jobService.addFlag.next(false);
-		} 
+		}
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}
 

@@ -35,6 +35,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DividerModule } from 'primeng/divider';
 import { MatTreeModule } from '@angular/material/tree';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 export const MaterialsModules=[
 
 
@@ -72,5 +74,6 @@ export const MaterialsModules=[
 	NgSelectModule,
 	MatNativeDateModule,
     DividerModule,
-    MatTreeModule
+    MatTreeModule,
+    DragDropModule
 ];
