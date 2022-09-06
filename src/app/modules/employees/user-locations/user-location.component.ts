@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Loader } from "@googlemaps/js-api-loader";
 import { google } from "google-maps";
 import { Subscription } from "rxjs";
+import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { ILocationXY } from "src/app/modules/permissions/models/ILocationXY.interface";
 import { OnlineUsersService } from "src/app/modules/permissions/services/onlineUsers.service";
 
@@ -250,7 +251,7 @@ export class UserLocationComponent implements OnDestroy {
 		}
 	];
 
-	constructor(private route: ActivatedRoute, private service: OnlineUsersService) {
+	constructor(private route: ActivatedRoute,private toaster:toasterService, private service: OnlineUsersService) {
 		this.route.paramMap.subscribe((data: ParamMap) => {
 			this.employeeId = +data.get('employeeId')!
 		});
@@ -274,28 +275,34 @@ export class UserLocationComponent implements OnDestroy {
 			apiKey: 'AIzaSyBTzs8GbolL8FJKZLWSZVn2xyb1jhoWLeo',
 		});
 
-		loader.load().then(() => {
+		this.subscribe = this.service.getOnlineUsersCurrentLocationData(this.employeeId).subscribe((data: ILocationXY[]) => {
+		
+			if (data) {
+				loader.load().then(() => {
 
-			this.idInterval = setInterval(() => {
+					this.idInterval = setInterval(() => {
 
-				this.subscribe = this.service.getOnlineUsersCurrentLocationData(this.employeeId).subscribe((data: ILocationXY[]) => {
 
-					let location = { lat: data[0].x, lng: data[0].y }
-					this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-						center: location,
-						zoom: 10,
-						styles: this.styles
-					});
+						let location = { lat: data[0].x, lng: data[0].y }
+						this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+							center: location,
+							zoom: 10,
+							styles: this.styles
+						});
 
-					const marker = new google.maps.Marker({
-						position: location,
-						map: this.map,
-						title: data[0].empName + "\n" + data[0].date
-					});
+						const marker = new google.maps.Marker({
+							position: location,
+							map: this.map,
+							title: data[0].empName + "\n" + data[0].date
+						});
+
+
+					}, 8000);
 
 				});
-
-			}, 8000);
+			}else{
+				this.toaster.openWarningSnackBar("لايوجد مواقع");
+			}
 
 		});
 

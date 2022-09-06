@@ -19,6 +19,7 @@ export enum HttpPaths {
 
 	API_JOB_GETPERSECTION = "/api/v1/hr/GetJobsPerSection/",
 	API_JOB_UPDATEJOBPERSECTION = "/api/v1/hr/ManageJobSection",
+	API_JOB_GET_LISTJOBPERSECTION ="/api/v1/hr/listofjobspersection",
 
 	//State APIS
 
@@ -148,11 +149,16 @@ export enum HttpPaths {
 	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/listOfEmployees",
 	API_GET_EMPLOYEES_DATA = "/api/v1/hr/listofallemployeeswithfilter",
 	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofileinfo",
+	API_GET_EMPLOYEEBY_UPDATE_ID = "/api/v1/hr/getemployeeprofile",
 	API_ADD_TECHNICIAN = "/api/v1/tech/addtechnicianlog",
 	API_GET_TECHNNICIAN_DATA = "/api/v1/tech/gettechnicianlogs",
 	API_TOGGLE_EMPLOYEE_ACTIVE = "/api/v1/hr/changeactiveornot",
 	API_TOGGLE_EMPLOYEE_TECHNICIAN = "/api/v1/tech/stoptechnician",
 	API_CHANGE_EMP_IMAGE = "/api/v1/hr/changeimage",
+	API_POST_ADD_EMPLOYEE = "/api/v1/hr/createemployee",
+	API_POST_UPDATE_EMPLOYEE = "/api/v1/hr/editemployee/",
+
+
 
 
 	// Online Users

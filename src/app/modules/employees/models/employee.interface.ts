@@ -1,6 +1,7 @@
 
 export interface IEmployee{
     imagePath: string,
+	imagepathbase:string,
     militery_Status: string,
     maritalStatus: string,
     hR_Status: string,
