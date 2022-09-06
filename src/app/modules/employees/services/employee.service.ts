@@ -35,7 +35,7 @@ export class EmployeeService {
 		let branchid:string=branchId!=undefined&&branchId!=null?('&BranchId='+branchId):'';
 		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}${branchid}`)
 		 	.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
-
+	}
 	// note
 	getEmployeeById(employeeId: number): Observable<IEmployee> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEEBY_ID}?employeeId=${employeeId}`).pipe(
