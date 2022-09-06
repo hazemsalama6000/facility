@@ -72,7 +72,7 @@ export enum HttpPaths {
 
 	// unit Conversion
 
-	
+
 	API_UNIT_CONVERSION_ADD = "/api/v1/invt/addunitofconversion",
 	API_UNIT_CONVERSION_GETALL = "/api/v1/invt/getallunitsofconversion",
 	API_UNIT_CONVERSION_DELETE = "/api/v1/invt/deleteunitofconversion/",
@@ -80,7 +80,7 @@ export enum HttpPaths {
 
 	// units
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
-	API_GET_MAIN_UNITS="api/v1/invt/getmainunit",
+	API_GET_MAIN_UNITS = "api/v1/invt/getmainunit",
 
 
 	//Region APIS
@@ -267,10 +267,12 @@ export enum HttpPaths {
 
 	//Inventory
 	API_GET_INVENTORY = "/api/v1/invt/getallstocks?companyBranchId=",
+	API_LIST_INVENTORY = "/api/v1/invt/listofstocks?companyBranchId=",
 	API_ADD_INVENTORY = "/api/v1/invt/addstock",
 	API_DELETE_INVENTORY = "/api/v1/invt/deletestock/",
 	API_ACTIVEDEACTIVE_INVENTORY = "/api/v1/invt/changestockactiveornot/",
 	API_ASSIGN_EMPLOYEE_TO_INVENTORY = "/api/v1/invt/assignemployeetostock?",
+	API_GET_STOCK_KEEPER = "/api/v1/invt/getallstocksKeeperslogs?stockId=",
 
 	//Stock Technkique
 	API_GET_STOCK_TECHNIQUE = "/api/v1/invt/getstocktechniquelogs?stockId=",
@@ -278,7 +280,13 @@ export enum HttpPaths {
 	API_ADD_STOCK_TECHNIQUE = "/api/v1/invt/addstocktechniquelog",
 	API_DEACTIVE_STOCK_TECHNIQUE = "/api/v1/invt/stopstocktechniquelog",
 
-	
+	//Stock shelfs
+	API_LIST_OF_STOCK_SHELFS = "/api/v1/invt/getinvstockshelfs?stockId=",
+	API_ADD_STOCK_SHELFS = "/api/v1/invt/addnewstockshelf",
+	API_UPDATE_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfname/",
+	API_UPDATE_PARENT_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfparentid/",
+	API_ACTIVE_DEACTIVE_STOCK_SHELFS = "/api/v1/invt/activateordeactivatestockshelf/",
+
 
 
 

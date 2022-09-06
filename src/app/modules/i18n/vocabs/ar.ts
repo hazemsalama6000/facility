@@ -440,7 +440,9 @@ export const locale = {
         STOCKNAME:"أسم المخزن",
         STOCKCATEGORY:"اختر تصنيف المخزن",
         ADDRESS:"العنوان",
-        STOCK:"اختر المخزن"
+        STOCK:"اختر المخزن",
+        SELECTTECHNIQUENAME:"اختر طريقة الصرف",
+        SHELF:"رف"
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -485,7 +487,9 @@ export const locale = {
         DEACTIVEDATE:"تاريخ الايقاف",
         DEACTIVEBY:"ايقاف بواسطة",
         ADDSTOCK:"أضافة مخزن",
-        INTERNALDIVISION:"التقسيم الداخلى للمخازن"
+        INTERNALDIVISION:"التقسيم الداخلى للمخازن",
+        ASSIGNKEEPER:"تخصيص امين مخزن",
+        STOCKSHELF:"أضافة قسم للمخزن"
 
       },
       MESSAGE: {

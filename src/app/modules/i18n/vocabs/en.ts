@@ -425,13 +425,16 @@ export const locale = {
         STATE: 'Select State',
         NAME: 'Name',
         TECHNICIAN: 'Select Technician',
+        SHELF:"Shelf",
 
         CODE:"Code",
         STOCKNAME:"Stock Name",
         EMPLOYEE:"Select Employee",
         STOCKCATEGORY:"Select Stock Category",
         ADDRESS:"Address",
-        STOCK:"Select Stock"
+        STOCK:"Select Stock",
+        SELECTTECHNIQUENAME:"Select Technique",
+
       },
       BUTTONS: {
         ADD: "Add",
@@ -473,7 +476,9 @@ export const locale = {
         DEACTIVEDATE:"Deactive Date",
         DEACTIVEBY:"Deactive By",
         ADDSTOCK:"Add Inventory",
-        INTERNALDIVISION:"Internal Division Stock"
+        INTERNALDIVISION:"Internal Division Stock",
+        ASSIGNKEEPER:"Assign Keeper",
+        STOCKSHELF:"Add Stock Shelf"
 
       },
       MESSAGE: {

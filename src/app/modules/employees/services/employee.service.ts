@@ -27,14 +27,9 @@ export class EmployeeService {
 			);
 	}
 
-	/*getLookupEmployeeDataForCustomerEditMange(model: ICustomerEditManageSearch): Observable<LookUpModel[]> {
-				return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
-					.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
-		//return of([{ Id: 1, Name: 'Zomm' } as LookUpModel, { Id: 1, Name: 'Ahmed' } as LookUpModel]);
-	}
-*/
-	getLookupEmployeeData(companyId: number): Observable<LookUpModel[]> {
-		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
+	getLookupEmployeeData(companyId: number,branchId?:number): Observable<LookUpModel[]> {
+		let branchid:string=branchId!=undefined&&branchId!=null?('&BranchId='+branchId):'';
+		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}${branchid}`)
 		 	.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 
@@ -43,32 +38,6 @@ export class EmployeeService {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEEBY_ID}?EmployeeId=${employeeId}`).pipe(
 			map((data: HttpReponseModel) => data.data)
 		);
-
-		/*return of(
-			{
-				id: 1,
-				employeeName: "zomm",
-				employeeJob: "ZZZ",
-				branchName: "zzzz",
-				userIsActive: true,
-				isTechnician: true,
-				blocks: [
-					{ areaName: "areaName", blockCode: "blockCode", blockName: "blockName" },
-					{ areaName: "areaName", blockCode: "blockCode", blockName: "blockName" }],
-				Technician: {
-					employee_Id: 1,
-					attachImageEditCustomer: true,
-					attachImageRead: true,
-					canCollect: true,
-					canComplain: true,
-					canEditCustomer: true,
-					canRead: true,
-					id: 0,
-					isActive: true,
-					maxOfflineWorkingBills: 200,
-					maxOfflineWorkingHours: 200
-				}
-			} as IEmployee);*/
 	}
 
 	toggleActive(employeeId: number): Observable<HttpReponseModel> {
