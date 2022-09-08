@@ -429,7 +429,7 @@ app-addstocktech .mat-dialog-content {
    * TREE DRAG AND DROP STYLING
    */
 
-.mat-tree-node {
+app-internaldivisiontree .mat-tree-node {
 	background-color: rgb(66, 157, 253);
 	color: white;
 	user-select: none;
@@ -447,21 +447,28 @@ app-addstocktech .mat-dialog-content {
 }
 
 /* items moving away to make room for drop */
-.cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
+app-internaldivisiontree .cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
 	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 /* item being dropped */
-.cdk-drag-animating {
+app-internaldivisiontree .cdk-drag-animating {
 	transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-app-internaldivisiontree .mat-form-field-appearance-outline .mat-form-field-infix{
+app-internaldivisiontree .mat-form-field-appearance-outline .mat-form-field-infix {
 	padding: 0.5rem 0 !important;
 }
+
 app-internaldivisiontree .mat-form-field-wrapper {
-     padding-bottom:0; 
+	padding-bottom: 0;
 }
+
+
+app-internaldivisiontree mat-tree-node {
+	padding-right: calc(attr(data-assigned-color)*40);
+}
+
 
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {
@@ -480,9 +487,8 @@ app-internaldivisiontree .mat-form-field-wrapper {
 	}
 }
 
-hr
-{
+hr {
 	border: 0;
 	height: 1px;
-    background-image: linear-gradient(to right , rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }

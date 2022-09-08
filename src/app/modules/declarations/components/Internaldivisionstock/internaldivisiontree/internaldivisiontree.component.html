@@ -1,7 +1,9 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)">
-  <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding cdkDrag
-    [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)" >
+
+  <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" *matTreeNodeDef="let node" matTreeNodeToggle
+    matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
     (cdkDragReleased)="dragEnd(node)">
+    <button mat-icon-button disabled></button>
 
     <div class="row w-100 align-items-center" *ngIf="node.isEdit">
 
@@ -50,14 +52,16 @@
 
   </mat-tree-node>
 
-  <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding cdkDrag
-    [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
+  <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" [style.paddingRight]="node.level*40"  *matTreeNodeDef="let node;when: hasChild"
+    matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
     (cdkDragReleased)="dragEnd(node)">
-    <button mat-icon-button matTreeNodeToggle (click)="expansionModel.toggle(node.id)" [attr.aria-label]="'toggle ' + node.name">
+
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
+
     <div class="row w-100 align-items-center" *ngIf="node.isEdit">
 
       <div class="col-md-3">
@@ -102,6 +106,7 @@
         <label *ngIf="node.isActive == true" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
       </button>
     </mat-menu>
+
 
   </mat-tree-node>
 </mat-tree>

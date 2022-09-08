@@ -14,36 +14,35 @@ import { LookUpModel } from "../models/lookup";
 })
 
 export class LookupService {
-
 	bSubject = new BehaviorSubject(true);
 	addFlag = new BehaviorSubject(false);
 
 	constructor(private http: CommonHttpService) { }
 
-	getLookupData(companyId:number): Observable<LookUpModel[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_GETALL}/${companyId}`)
-			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive ,isEdit:false , isAdd:false }) as LookUpModel)));
+	getLookupData(companyId: number,pagename: string ): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_GETALL`) as keyof typeof HttpPaths]}${companyId}`)
+			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as LookUpModel)));
 	}
 
-	DeleteLookupData(id: number): Observable<any> {
-		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_DELETE}${id}`);
+	DeleteLookupData(id: number,pagename: string): Observable<any> {
+		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_DELETE`) as keyof typeof HttpPaths]}${id}`);
 	}
 
-	PostLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_ADD}`);
+	PostLookupData(model: LookUpModel,pagename: string): Observable<any> {
+		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_ADD`) as keyof typeof HttpPaths]}`);
 	}
 
-	UpdateLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_UPDATE}${model.Id}`);
+	UpdateLookupData(model: LookUpModel,pagename: string): Observable<any> {
+		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_UPDATE`) as keyof typeof HttpPaths]}${model.Id}`);
 	}
 
-	toggleActiveDeactive(model: LookUpModel): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_UACTIVEDEACTIVE}${model.Id}`);
+	toggleActiveDeactive(model: LookUpModel,pagename: string): Observable<any> {
+		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_UACTIVEDEACTIVE`) as keyof typeof HttpPaths]}${model.Id}`);
 	}
 
 	selectFromStore(): Observable<any> {
 		return this.bSubject.asObservable();
 	}
 
-	
+
 }
