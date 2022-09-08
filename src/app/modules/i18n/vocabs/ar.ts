@@ -97,7 +97,8 @@ export const locale = {
         NOTACTIVE: "غير مفعل",
         SETACTIVE: "تفعيل",
         SETNOTACTIVE: "ايقاف التفعيل",
-        JOBS: "الوظائف",
+        JOB: "الوظائف",
+        CLIENT_CATEGORY:"تصنيف عميل",
         COMPANIESDATA: "بيانات الشركات",
         BRANCHDATA: "بيانات الفرع",
         BRANCHMAINDATA: "بيانات الاساسية",
@@ -442,7 +443,16 @@ export const locale = {
         ADDRESS:"العنوان",
         STOCK:"اختر المخزن",
         SELECTTECHNIQUENAME:"اختر طريقة الصرف",
-        SHELF:"رف"
+        SHELF:"رف",
+
+        BARCODE:"باركود",
+        DESCRIPTION:"الوصف",
+        UNIT:"الوحدة الصغرى",
+        CATEGORY:"نوع الصنف",
+        QUANTITY:"الكمية",
+        MAXLIMIT:"أكبر كمية",
+        MINLIMIT:"أقل كمية",
+        ORDERINGLIMIT:"الحد الادنى للطلب"
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -489,7 +499,9 @@ export const locale = {
         ADDSTOCK:"أضافة مخزن",
         INTERNALDIVISION:"التقسيم الداخلى للمخازن",
         ASSIGNKEEPER:"تخصيص امين مخزن",
-        STOCKSHELF:"أضافة قسم للمخزن"
+        STOCKSHELF:"أضافة قسم للمخزن",
+        EDITITEM:"تعديل صنف",
+        ADDITEM:"اضافة صنف جديد"
 
       },
       MESSAGE: {

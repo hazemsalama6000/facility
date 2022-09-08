@@ -16,7 +16,8 @@ export const locale = {
       DASHBOARD: 'Dashboard',
       GOVERNORATESANDREGIONS: "Governorats And Regions",
       DEPARTMENTS: "Departments",
-      JOBS: "Jobs",
+      JOB: "Jobs",
+      CLIENT_CATEGORY:"Client Category",
       COMPANIES: "Companies",
       ONLINEUSERS: "Online Users",
       LOGINUSERSDATA: "Users Login Information",
@@ -435,6 +436,15 @@ export const locale = {
         STOCK:"Select Stock",
         SELECTTECHNIQUENAME:"Select Technique",
 
+        BARCODE:"BarCode",
+        DESCRIPTION:"Description",
+        UNIT:"Small Unit",
+        CATEGORY:"Category",
+        QUANTITY:"Quantity",
+        MAXLIMIT:"Max Limit",
+        MINLIMIT:"Min Limit",
+        ORDERINGLIMIT:"Ordering Limit"
+
       },
       BUTTONS: {
         ADD: "Add",
@@ -478,7 +488,9 @@ export const locale = {
         ADDSTOCK:"Add Inventory",
         INTERNALDIVISION:"Internal Division Stock",
         ASSIGNKEEPER:"Assign Keeper",
-        STOCKSHELF:"Add Stock Shelf"
+        STOCKSHELF:"Add Stock Shelf",
+        EDITITEM:"Edit Item",
+        ADDITEM:"Add New Item"
 
       },
       MESSAGE: {

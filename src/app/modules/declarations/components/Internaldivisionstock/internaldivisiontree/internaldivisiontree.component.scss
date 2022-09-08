@@ -10,7 +10,8 @@
 }
 
 .checklist-leaf-node {
-  padding-left: 40px;
+  padding-inline-start: 40px;
+
 }
 
 .submit-button {
@@ -19,7 +20,7 @@
 
 
 
-mat-tree-node[aria-level="4"] {
+mat-tree-node[aria-level="6"] {
   display: inline-flex;
-  margin-inline-start: 40px !important;
+  padding-inline-start: 40px !important;
 }

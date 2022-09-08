@@ -14,12 +14,12 @@ export enum HttpPaths {
 	API_JOB_UPDATE = "/api/v1/hr/updatejob/",
 	API_JOB_UACTIVEDEACTIVE = "/api/v1/hr/changejobsactiveornot/",
 
-	API_JOB_GETALL = "/api/v1/hr/getjobs",
+	API_JOB_GETALL = "/api/v1/hr/getjobs/",
 	API_JOB_DELETE = "/api/v1/hr/deletejob/",
 
 	API_JOB_GETPERSECTION = "/api/v1/hr/GetJobsPerSection/",
 	API_JOB_UPDATEJOBPERSECTION = "/api/v1/hr/ManageJobSection",
-	API_JOB_GET_LISTJOBPERSECTION ="/api/v1/hr/listofjobspersection",
+	API_JOB_GET_LISTJOBPERSECTION = "/api/v1/hr/listofjobspersection",
 
 	//State APIS
 
@@ -304,7 +304,22 @@ export enum HttpPaths {
 	API_UPDATE_PARENT_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfparentid/",
 	API_ACTIVE_DEACTIVE_STOCK_SHELFS = "/api/v1/invt/activateordeactivatestockshelf/",
 
+	// CLIENT_CATEGORY_APIS
+	API_CLIENT_CATEGORY_ADD = "/api/v1/cust/addclientcategory",
+	API_CLIENT_CATEGORY_UPDATE = "/api/v1/cust/updateclientcategory/",
+	API_CLIENT_CATEGORY_UACTIVEDEACTIVE = "/api/v1/cust/changeclientcategoryactiveornot/",
+	API_CLIENT_CATEGORY_GETALL = "/api/v1/cust/getallclientcategories?companyId=",
+	API_CLIENT_CATEGORY_DELETE = "/api/v1/cust/deleteclientcategory/",
 
+	//items and category
+	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
+
+	API_CATEGORY_ADD = "/api/v1/invt/addnewinvitemcategory",
+	API_CATEGORY_UPDATE = "/api/v1/invt/updateinvitemcategory/",
+
+	API_ITEM_ADD = "",
+	API_GET_ITEM_BY_ID = "",
+	API_ITEM_UPDATE = "",
 
 
 
