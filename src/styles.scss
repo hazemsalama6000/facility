@@ -406,11 +406,69 @@ app-treepermission mat-tree-node[aria-level="4"] {
 	display: flex !important;
 }
 
-app-pathroute ng-select ,app-addpathroute ng-select {
-    width:auto !important;
+app-pathroute ng-select,
+app-addpathroute ng-select {
+	width: auto !important;
 }
 
-app-assigntechtoinventory .mat-dialog-content,app-addstocktech .mat-dialog-content{    max-height: 80vh;}
+app-assigntechtoinventory .mat-dialog-content,
+app-addstocktech .mat-dialog-content {
+	max-height: 80vh;
+}
+
+.basic-container {
+	padding: 30px;
+}
+
+.version-info {
+	font-size: 8pt;
+	float: right;
+}
+
+/**
+   * TREE DRAG AND DROP STYLING
+   */
+
+app-internaldivisiontree .mat-tree-node {
+	background-color: rgb(66, 157, 253);
+	color: white;
+	user-select: none;
+	cursor: move;
+
+	&.cdk-drag-preview {
+		// while dragging
+		//   @include mat-elevation(12);
+	}
+
+	&.cdk-drag-placeholder {
+		// potential drop area
+		opacity: 0;
+	}
+}
+
+/* items moving away to make room for drop */
+app-internaldivisiontree .cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* item being dropped */
+app-internaldivisiontree .cdk-drag-animating {
+	transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+app-internaldivisiontree .mat-form-field-appearance-outline .mat-form-field-infix {
+	padding: 0.5rem 0 !important;
+}
+
+app-internaldivisiontree .mat-form-field-wrapper {
+	padding-bottom: 0;
+}
+
+
+app-internaldivisiontree mat-tree-node {
+	padding-right: calc(attr(data-assigned-color)*40);
+}
+
 
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {
@@ -429,9 +487,8 @@ app-assigntechtoinventory .mat-dialog-content,app-addstocktech .mat-dialog-conte
 	}
 }
 
-hr
-{
+hr {
 	border: 0;
 	height: 1px;
-    background-image: linear-gradient(to right , rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }

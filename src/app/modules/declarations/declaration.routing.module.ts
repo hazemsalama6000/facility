@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { LookupIdNameComponent } from "src/app/shared-module/Components/lookupId_name/lookupId_name.component";
 import { CarExpensesComponent } from "./components/cars-expenses/car-expenses.component";
 import { CarsModelsComponent } from "./components/cars-models/cars-models.component";
 import { FinancialyearComponent } from "./components/financialyear/financialyear.component";
@@ -19,7 +20,9 @@ const route: Routes = [
 	{ path: 'transferingcompany', component: TransferingCompanyComponent },
 	{ path: 'carsmodels', component: CarsModelsComponent },
 	{ path: 'carexpenses', component: CarExpensesComponent },
-	{ path: 'voucherSerial', component: VoucherSerialsComponent }
+	{ path: 'voucherSerial', component: VoucherSerialsComponent },
+	{ path: 'clientcategory', component: LookupIdNameComponent, data: { page: 'CLIENT_CATEGORY' } },
+	
 ]
 @NgModule({
 	imports: [RouterModule.forChild(route)],

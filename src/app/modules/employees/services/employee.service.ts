@@ -31,22 +31,17 @@ export class EmployeeService {
 			);
 	}
 
-	/*getLookupEmployeeDataForCustomerEditMange(model: ICustomerEditManageSearch): Observable<LookUpModel[]> {
-				return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
-					.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
-		//return of([{ Id: 1, Name: 'Zomm' } as LookUpModel, { Id: 1, Name: 'Ahmed' } as LookUpModel]);
+	getLookupEmployeeData(companyId: number,branchId?:number): Observable<LookUpModel[]> {
+		let branchid:string=branchId!=undefined&&branchId!=null?('&BranchId='+branchId):'';
+		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}${branchid}`)
+		 	.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
-*/
-	getLookupEmployeeData(companyId: number): Observable<LookUpModel[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
-			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
-	}
-
 	// note
 	getEmployeeById(employeeId: number): Observable<IEmployee> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEEBY_ID}?employeeId=${employeeId}`).pipe(
 			map((data: HttpReponseModel) => data.data)
 		);
+
 	}
 
 	getEmployeeByIdForUpdate(employeeId: number): Observable<IEmployeeForm> {
@@ -61,7 +56,6 @@ export class EmployeeService {
 				} as IEmployeeForm;
 			})
 		);
-
 	}
 
 
