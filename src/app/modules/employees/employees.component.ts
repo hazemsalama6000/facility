@@ -16,7 +16,7 @@ import { AddTechnitianLogComponent } from './setting/Add-technitian-Log/add-tech
 	templateUrl: './employees.component.html',
 	styleUrls: ['./employees.component.scss'],
 
-})
+})//
 export class EmployeesComponent implements OnInit {
 	imageFile: File;
 	companyId: number;
