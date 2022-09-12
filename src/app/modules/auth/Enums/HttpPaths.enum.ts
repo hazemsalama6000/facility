@@ -14,12 +14,12 @@ export enum HttpPaths {
 	API_JOB_UPDATE = "/api/v1/hr/updatejob/",
 	API_JOB_UACTIVEDEACTIVE = "/api/v1/hr/changejobsactiveornot/",
 
-	API_JOB_GETALL = "/api/v1/hr/getjobs",
+	API_JOB_GETALL = "/api/v1/hr/getjobs/",
 	API_JOB_DELETE = "/api/v1/hr/deletejob/",
 
 	API_JOB_GETPERSECTION = "/api/v1/hr/GetJobsPerSection/",
 	API_JOB_UPDATEJOBPERSECTION = "/api/v1/hr/ManageJobSection",
-	API_JOB_GET_LISTJOBPERSECTION ="/api/v1/hr/listofjobspersection",
+	API_JOB_GET_LISTJOBPERSECTION = "/api/v1/hr/listofjobspersection",
 
 	//State APIS
 
@@ -34,10 +34,6 @@ export enum HttpPaths {
 
 	//maritalStatus
 	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
-
-	//Status
-	API_STATUS_GETLIST = "/api/v1/hr/listofhrstatus",
-
 
 	//Transfering Company APIS
 
@@ -94,14 +90,13 @@ export enum HttpPaths {
 
 	// units
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
-	API_GET_MAIN_UNITS = "/api/v1/invt/getmainunit",
+	API_GET_MAIN_UNITS = "api/v1/invt/getmainunit",
+	API_LIST_OF_UNITS = "/api/v1/invt/listofunits",
 
 	//Items
-
 	API_GET_ITEMS_LOOKUP = "/api/v1/invt/listofinvitems/",
 
 	//Region APIS
-
 	API_REGION_ADD = "/api/v1/shared/addregion",
 	API_REGION_UPDATE = "/api/v1/shared/updateregion/",
 	API_REGION_GETALL = "/api/v1/shared/getallregionsbystateId",
@@ -289,10 +284,12 @@ export enum HttpPaths {
 
 	//Inventory
 	API_GET_INVENTORY = "/api/v1/invt/getallstocks?companyBranchId=",
+	API_LIST_INVENTORY = "/api/v1/invt/listofstocks?companyBranchId=",
 	API_ADD_INVENTORY = "/api/v1/invt/addstock",
 	API_DELETE_INVENTORY = "/api/v1/invt/deletestock/",
 	API_ACTIVEDEACTIVE_INVENTORY = "/api/v1/invt/changestockactiveornot/",
 	API_ASSIGN_EMPLOYEE_TO_INVENTORY = "/api/v1/invt/assignemployeetostock?",
+	API_GET_STOCK_KEEPER = "/api/v1/invt/getallstocksKeeperslogs?stockId=",
 
 	//Stock Technkique
 	API_GET_STOCK_TECHNIQUE = "/api/v1/invt/getstocktechniquelogs?stockId=",
@@ -301,6 +298,33 @@ export enum HttpPaths {
 	API_DEACTIVE_STOCK_TECHNIQUE = "/api/v1/invt/stopstocktechniquelog",
 
 
+	//Stock shelfs
+	API_LIST_OF_STOCK_SHELFS = "/api/v1/invt/getinvstockshelfs?stockId=",
+	API_ADD_STOCK_SHELFS = "/api/v1/invt/addnewstockshelf",
+	API_UPDATE_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfname/",
+	API_UPDATE_PARENT_STOCK_SHELFS = "/api/v1/invt/updateinvstockshelfparentid/",
+	API_ACTIVE_DEACTIVE_STOCK_SHELFS = "/api/v1/invt/activateordeactivatestockshelf/",
+
+	// CLIENT_CATEGORY_APIS
+	API_CLIENT_CATEGORY_ADD = "/api/v1/cust/addclientcategory",
+	API_CLIENT_CATEGORY_UPDATE = "/api/v1/cust/updateclientcategory/",
+	API_CLIENT_CATEGORY_UACTIVEDEACTIVE = "/api/v1/cust/changeclientcategoryactiveornot/",
+	API_CLIENT_CATEGORY_GETALL = "/api/v1/cust/getallclientcategories?companyId=",
+	API_CLIENT_CATEGORY_DELETE = "/api/v1/cust/deleteclientcategory/",
+
+	//items and category
+	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
+
+	API_CATEGORY_ADD = "/api/v1/invt/addnewinvitemcategory",
+	API_CATEGORY_UPDATE = "/api/v1/invt/updateinvitemcategory/",
+	API_PARENT_CATEGORY_UPDATE = "/api/v1/invt/",
+	API_ACTIVE_DEACTIVE_CATEGORY = "/api/v1/invt/changecategoryisactiveornot/",
+
+	API_ITEM_ADD = "/api/v1/invt/addnewinvitems",
+	API_GET_ITEM_BY_ID = "/api/v1/invt/getinvitemprofile?itemId=",
+	API_ITEM_UPDATE = "/api/v1/invt/updateinvitems/",
+	API_PARENT_ITEM_UPDATE = "/api/v1/invt/",
+	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
 
 

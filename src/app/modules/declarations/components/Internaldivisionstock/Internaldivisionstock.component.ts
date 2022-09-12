@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
-import { IRolesProfile } from 'src/app/modules/permissions/models/IRolesProfile.interface';
-import { ITreeRoles } from 'src/app/modules/permissions/models/ITreeRoles.interface';
+import { AuthService } from 'src/app/modules/auth';
+import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
-import { InternaldivisionService } from '../../services/internaldivision.service';
+import { ITreeStockShelfs } from '../../models/ITreeStockShelfs.interface';
+import { InventoryService } from '../../services/inventory.service';
+import { StockShelfsService } from '../../services/StockShelfs.service';
 
 @Component({
   selector: 'app-Internaldivisionstock',
@@ -15,34 +16,42 @@ export class InternaldivisionstockComponent implements OnInit {
 
   saveButtonClickedFlag = false;
   dropdownStockData: LookUpModel[];
+  userdata: IUserData
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private internaldivisionService: InternaldivisionService,
+    private stockShelfsService: StockShelfsService,
+    private inventoryService: InventoryService,
+    private authService: AuthService
   ) {
-    this.getlistOfStock();
+    let data = authService.userData.subscribe(res => {
+      this.userdata = res;
+      this.getlistOfStock();
+    });
+    this.unsubscribe.push(data);
   }
 
   ngOnInit(): void { }
 
   getlistOfStock() {
-    this.internaldivisionService.getLookUpStock().subscribe(
+    this.inventoryService.getLookUpStocks(this.userdata.branchId).subscribe(
       (res: LookUpModel[]) => { this.dropdownStockData = res },
       (err) => console.log(err),
       () => { }
     )
   }
 
-  // removeParent(arr?: ITreeRoles[]) {
-  //   arr?.map(x => {
-  //     delete x.parent
-  //     if ((x?.children?.length ?? 0) > 0) {
-  //       this.removeParent(x?.children);
-  //     }
-  //   })
-  // }
-
-  onSelectStock(event: Event) { }
+  onSelectStock(event: any) {
+    this.stockShelfsService.StockId.next(event.Id);
+    let tree = this.stockShelfsService.bSubject.subscribe(res => {
+      this.stockShelfsService.getStockShelfsByStockId(event.Id).subscribe(
+        (res: ITreeStockShelfs[]) => this.stockShelfsService.stockShelfTree.next(res),
+        (err) => console.log(err),
+        () => { }
+      )
+    });
+    this.unsubscribe.push(tree)
+  }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

@@ -40,26 +40,26 @@
       </div>
 
       <div class="col-md-6 mb-3">
-        <ng-select #areaselect appendTo="body" class="customized" style="width:250px ;" [items]="dropdownRegionData" bindLabel="Name" bindValue="Id"
-          name="region_Id" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}" formControlName="region_Id">
+        <ng-select #areaselect [multiple]="true" appendTo="body" class="customized"  [items]="dropdownRegionData" bindLabel="Name" bindValue="Id"
+          name="region_Ids" id="region_Ids" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}" formControlName="region_Ids">
         </ng-select>
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
                 message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate},
-                control: pathRouteForm.controls['region_Id']
+                control: pathRouteForm.controls['region_Ids']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'minlength',
                 message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate , min:3},
-                control: pathRouteForm.controls['region_Id']
+                control: pathRouteForm.controls['region_Ids']
               }"></ng-container>
 
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'maxlength',
                   message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.REGION' | translate , max:100},
-                  control: pathRouteForm.controls['region_Id']
+                  control: pathRouteForm.controls['region_Ids']
                }"></ng-container>
 
         </mat-hint>
