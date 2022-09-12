@@ -7,7 +7,6 @@ import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { IItemsCategory } from '../../../../items/models/itemsCategory/IItemsCategory.interface';
-import { FinancialyearService } from '../../../services/financialyear.service';
 import { ItemsCategoryService } from '../../../../items/services/itemsCategory.service';
 
 @Component({

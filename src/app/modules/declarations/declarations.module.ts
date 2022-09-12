@@ -32,9 +32,6 @@ import { InternaldivisiontreeComponent } from './components/Internaldivisionstoc
 import { VoucherSerialsComponent } from './components/voucher-serials/voucher-serials.component';
 import { VoucherSerialUpsertComponent } from './components/voucher-serials/voucher-serials-upsert/voucher-serials-upsert.component';
 import { VoucherSerialsDatatableComponent } from './components/voucher-serials/voucher-serials-datatable/voucher-serials-datatable.component';
-import { ItemsAndCategoryComponent } from './components/itemsAndCategory/itemsAndCategory.component';
-import { UpsertitemComponent } from './components/itemsAndCategory/upsertitem/upsertitem.component';
-import { UpsertcategoryComponent } from './components/itemsAndCategory/upsertcategory/upsertcategory.component';
 
 @NgModule({
   declarations: [
