@@ -12,7 +12,7 @@ export class StatusService {
   constructor(private http: CommonHttpService) { }
 
   getLookUpData(Id:number): Observable<any> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_GETPERSECTION}${Id}`);
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_STATUS_GETLIST}${Id}`);
   }
 
 }

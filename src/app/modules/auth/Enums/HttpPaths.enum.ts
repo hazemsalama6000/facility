@@ -35,7 +35,7 @@ export enum HttpPaths {
 	//maritalStatus
 	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
 
-	//militaryStatus
+	//Status
 	API_STATUS_GETLIST = "/api/v1/hr/listofhrstatus",
 
 
