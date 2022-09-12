@@ -21,6 +21,7 @@ import { InventoryService } from '../../../services/inventory.service';
   styleUrls: ['./addstocktech.component.scss']
 })
 export class AddstocktechComponent {
+  canAdd: boolean = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['stockTechniqueName', 'activateDate', 'deactivateDate', 'deActivateBy', 'state'];
   dataSource: any;
@@ -44,7 +45,7 @@ export class AddstocktechComponent {
     @Inject(MAT_DIALOG_DATA) public data: { model: IInventory },
     public dialogRef: MatDialogRef<AddstocktechComponent>
   ) {
-    const udata = this.auth.userData.subscribe(res => {this.userData = res;console.log(res)});
+    const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
     this.getTechnique();
     this.getallData()
@@ -80,12 +81,10 @@ export class AddstocktechComponent {
       message: 'هل تريد ايقاف طريقة الصرف؟',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        let obj = { stock_Id: this.data.model.id, user_Id: this.userData.userId };
-        this.inventoryService.stopStockTechnique(obj).subscribe(
+        this.inventoryService.stopStockTechnique({ stock_Id: this.data.model.id, user_Id: this.userData.userId }).subscribe(
           (data: HttpReponseModel) => {
             this.inventoryService.bSubject.next(false);
-            this.data.model.hasStockTechnique = false;
-            this.getallData();
+            this.canAdd=false;
             this.toaster.openSuccessSnackBar(data.message);
           },
           (error: any) => { this.toaster.openWarningSnackBar(error.toString().replace("Error:", "")); }
@@ -107,6 +106,8 @@ export class AddstocktechComponent {
     this.inventoryService.getStockTechniqueLogs(this.data.model.id).subscribe((data: IStockTechnique[]) => {
       this.dataSource = new MatTableDataSource<IStockTechnique>(data);
       this.dataSource.paginator = this.paginator;
+      this.canAdd = data.filter((x) => x.isActive).length == 0;
+
     });
   }
 

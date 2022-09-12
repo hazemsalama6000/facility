@@ -35,7 +35,7 @@
 
 			<ng-container matColumnDef="state">
 				<th mat-header-cell *matHeaderCellDef>
-					{{"HR.INPUTS.STATUS" | translate}}
+					{{ pageName=='jobs'?("HR.INPUTS.STATUS" | translate):('HR.INPUTS.ISUPLOADIMAGE' |translate)}}
 				</th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"
 					(dblclick)="element.isEdit = true">

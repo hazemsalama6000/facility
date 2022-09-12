@@ -19,7 +19,6 @@ import { SectionService } from "../../share/Services/department_section/section.
 import { JobService } from "../../share/Services/job.service";
 import { MaritalStatusService } from "../../share/Services/maritalStatus.service";
 import { MilitaryStatusService } from "../../share/Services/militaryStatus.service";
-import { StatusService } from "../../share/Services/status.service";
 import { IEmployee } from "../models/employee.interface";
 import { IEmployeeForm } from "../models/IEmployeeForm.interface";
 import { EmployeeService } from "../services/employee.service";
@@ -44,7 +43,7 @@ export class EmployeeUpsertComponent implements OnInit {
 	dropdownListDataForDepartment: any = [];
 	dropdownListDataForSecion: any = [];
 	dropdownListDataForJobs: any = [];
-	dropdownListDataForStatus: any = [];
+
 	dropdownListDataForState: any = [];
 	selectedItemState: any = [];
 
@@ -74,7 +73,6 @@ export class EmployeeUpsertComponent implements OnInit {
 		private sectionService: SectionService,
 		private jobService: JobService,
 		private service: EmployeeService,
-		private statusService:StatusService,
 		private authService: AuthService
 	) {
 		//here get data of company and put data in the form
@@ -146,10 +144,6 @@ export class EmployeeUpsertComponent implements OnInit {
 
 		this.militaryStateService.getLookupData().subscribe((data: LookUpModel[]) => {
 			this.dropdownListDataForMilitary = data;
-		});
-
-		this.statusService.getLookUpData().subscribe((data: LookUpModel[]) => {
-			this.dropdownListDataForStatus = data;
 		});
 
 		this.maritalStateService.getLookupData().subscribe((data: LookUpModel[]) => {
@@ -266,6 +260,10 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.service.getEmployeeByIdForUpdate(this.data.employeeId).subscribe(
 				(data: IEmployeeForm) => {
 					this.employee = data;
+					this.employee.Code = '4545';
+					this.employee.Name = '4545ss';
+					this.employee.Address = 'asdasdasdas';
+					console.log(this.employee);
 
 					this.isEdit = true;
 					this.fillDropDowns();

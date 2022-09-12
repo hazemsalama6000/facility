@@ -44,21 +44,23 @@ export class ListContentComponent {
 	) {
 		this.currentSelected = { Id: 0, Name: '', company_Id: 0 };
 
-		let sub = this.activatedRoute.data.subscribe(v => {
-			 this.pageName = v.page });
+		let sub = this.activatedRoute.data.subscribe(v => { this.pageName = v.page });
 		this.unsubscribe.push(sub);
 
 		//subscribe here to invoke when insert done in upsert component
 		const udata = this.auth.userData.subscribe(res => {
 			this.userdata = res;
-			const datajob = this.jobService.selectFromStore().subscribe(data => { this.getallData(); });
-			this.unsubscribe.push(datajob);
+			if (this.pageName == 'jobs') {
+				const datajob = this.jobService.selectFromStore().subscribe(data => { this.getallData(); });
+				this.unsubscribe.push(datajob);
+			}
 		});
 		this.unsubscribe.push(udata);
 
 
-		this.jobService.addFlag.subscribe((data) => { if (data == true) this.addNewRow(); });
-
+		if (this.pageName == 'jobs') {
+			this.jobService.addFlag.subscribe((data) => { if (data == true) this.addNewRow(); });
+		}
 	}
 
 	addNewRow() {
@@ -70,7 +72,9 @@ export class ListContentComponent {
 			this.currentSelected = newRow;
 
 			document.getElementById("NameForAdd")?.focus();
+
 		}
+
 	}
 
 	deleteRow() {
@@ -98,49 +102,59 @@ export class ListContentComponent {
 
 			if (model.Id == 0) {
 				model.Id = 0;
-				this.jobService.PostLookupData(model,this.pageName).subscribe(
-					(data: HttpReponseModel) => {
 
-						if (data.isSuccess) {
-							this.toaster.openSuccessSnackBar(data.message);
-							this.jobService.bSubject.next(true);
-							this.jobService.addFlag.next(true);
+				if (this.pageName == 'jobs') {
+					this.jobService.PostLookupData(model).subscribe(
+						(data: HttpReponseModel) => {
 
+							if (data.isSuccess) {
+								this.toaster.openSuccessSnackBar(data.message);
+								this.jobService.bSubject.next(true);
+								this.jobService.addFlag.next(true);
+
+							}
+							else if (data.isExists) {
+								this.toaster.openWarningSnackBar(data.message);
+							}
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 						}
-						else if (data.isExists) {
-							this.toaster.openWarningSnackBar(data.message);
-						}
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
+					);
+				}
 			}
 
 			else {
-				this.jobService.UpdateLookupData(model,this.pageName).subscribe(
-					(data: any) => {
-						this.dataSource.data[index].isEdit = false;
-						this.dataSource.data = this.dataSource.data;
-						this.toaster.openSuccessSnackBar(data.message);
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
+
+				if (this.pageName == 'jobs') {
+					this.jobService.UpdateLookupData(model).subscribe(
+						(data: any) => {
+							this.dataSource.data[index].isEdit = false;
+							this.dataSource.data = this.dataSource.data;
+							this.toaster.openSuccessSnackBar(data.message);
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						});
+				}
+
 			}
 		}
 	}
 
 	toggleActiveDeactive(element: LookUpModel) {
-		this.jobService.addFlag.next(false);
-		this.jobService.toggleActiveDeactive(element,this.pageName).subscribe(
-			(data: HttpReponseModel) => {
-				this.toaster.openSuccessSnackBar(data.message);
-				this.getallData();
+		if (this.pageName == 'jobs') {
+			this.jobService.addFlag.next(false);
+			this.jobService.toggleActiveDeactive(element).subscribe(
+				(data: HttpReponseModel) => {
+					this.toaster.openSuccessSnackBar(data.message);
+					this.getallData();
 
-			},
-			(error: any) => {
-				console.log(error);
-			});
+				},
+				(error: any) => {
+					console.log(error);
+				});
+		}
 
 	}
 
@@ -150,14 +164,17 @@ export class ListContentComponent {
 		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${model.Name} ? `)
 			.then((confirmed) => {
 				if (confirmed) {
-					this.jobService.DeleteLookupData(model.Id,this.pageName).subscribe(
-						(data: HttpReponseModel) => {
-							this.toaster.openSuccessSnackBar(data.message);
-							this.getallData();
-						},
-						(error: any) => {
-							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-						});
+					if (this.pageName == 'jobs') {
+						this.jobService.DeleteLookupData(model.Id).subscribe(
+							(data: HttpReponseModel) => {
+								this.toaster.openSuccessSnackBar(data.message);
+								this.getallData();
+							},
+							(error: any) => {
+								this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+							});
+					}
+
 				}
 			})
 			.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
@@ -166,12 +183,14 @@ export class ListContentComponent {
 
 	// getting data and initialize data Source and Paginator
 	getallData() {
-		this.jobService.getLookupData(this.userdata.companyId,this.pageName).subscribe(
-			(data: LookUpModel[]) => {
-				this.dataSource = new MatTableDataSource<LookUpModel>(data);
-				this.dataSource.paginator = this.paginator;
-			}
-		);
+		if (this.pageName == 'jobs') {
+			this.jobService.getLookupData(this.userdata.companyId).subscribe(
+				(data: LookUpModel[]) => {
+					this.dataSource = new MatTableDataSource<LookUpModel>(data);
+					this.dataSource.paginator = this.paginator;
+				}
+			);
+		} 
 	}
 
 	//filter from search Box
@@ -181,7 +200,9 @@ export class ListContentComponent {
 	}
 
 	ngOnDestroy() {
-		this.jobService.addFlag.next(false);
+		if (this.pageName == 'jobs') {
+			this.jobService.addFlag.next(false);
+		} 
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}
 

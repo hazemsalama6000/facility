@@ -5,7 +5,7 @@ import { BranchComponent } from './components/branches/branch.component';
 import { CompanyComponent } from './components/companyProfile/company.component';
 
 const routes: Routes = [
-	{path:'jobs' , component:LookupIdNameComponent,data:{page:'JOB'}},
+	{path:'jobs' , component:LookupIdNameComponent,data:{page:'jobs'}},
 	{path:'company',component:CompanyComponent },
 ];
 

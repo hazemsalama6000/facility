@@ -10,22 +10,13 @@ import { UnitConversionComponent } from './components/unit-conversion/unit-conve
 import { UnitConversionUpsertComponent } from './components/unit-conversion/unit-conversion-upsert/unit-conversion-upsert.component';
 import { UnitConversionListContentComponent } from './components/unit-conversion/unit-conversion-list-content/unit-conversion-list-content.component';
 import { UnitConverionPopupComponent } from './components/unit-conversion/unit-conversion-upsert/unit-converion-popup/unit-converion-popup.component';
-import { UpsertitemComponent } from './components/itemsAndCategory/upsertitem/upsertitem.component';
-import { UpsertcategoryComponent } from './components/itemsAndCategory/upsertcategory/upsertcategory.component';
-import { ItemsAndCategoryComponent } from './components/itemsAndCategory/itemsAndCategory.component';
-
 
 
 @NgModule({
-	declarations: [
-		UnitConversionComponent,
+	declarations: [UnitConversionComponent,
 		UnitConversionUpsertComponent,
 		UnitConversionListContentComponent,
-		UnitConverionPopupComponent,
-		ItemsAndCategoryComponent,
-		UpsertitemComponent,
-		UpsertcategoryComponent
-	],
+		UnitConverionPopupComponent],
 	imports: [
 		CommonModule,
 		FormsModule,

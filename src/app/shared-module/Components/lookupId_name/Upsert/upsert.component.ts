@@ -84,7 +84,9 @@ export class UpsertComponent {
 	}
 
 	addNewRow() {
+		if (this.pageName == 'jobs') {
 			this.jobService.addFlag.next(true);
+		} 
 	}
 
 	// for Insert And Delete distingush them with model.id
@@ -95,32 +97,41 @@ export class UpsertComponent {
 		model.isActive = true;
 		if (model.Id == 0) {
 			model.Id = 0;
-			this.jobService.PostLookupData(model,this.pageName).
-				subscribe(
-					(data: HttpReponseModel) => {
 
-						if (data.isSuccess) {
-							this.toaster.openSuccessSnackBar(data.message);
-							this.jobService.bSubject.next(true);
+			if (this.pageName == 'jobs') {
+				this.jobService.PostLookupData(model).
+					subscribe(
+						(data: HttpReponseModel) => {
+
+							if (data.isSuccess) {
+								this.toaster.openSuccessSnackBar(data.message);
+								this.jobService.bSubject.next(true);
+							}
+							else if (data.isExists) {
+								this.toaster.openWarningSnackBar(data.message);
+							}
+							this.messageErrors = "";
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error);
 						}
-						else if (data.isExists) {
-							this.toaster.openWarningSnackBar(data.message);
-						}
-						this.messageErrors = "";
+					);
+			} 
+		}
+
+		else {
+			if (this.pageName == 'jobs') {
+				this.jobService.UpdateLookupData(model).subscribe(
+					(data: any) => {
+						this.toaster.openSuccessSnackBar(data.message);
+						this.jobService.bSubject.next(true);
 					},
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error);
 					});
-		} else {
-			this.jobService.UpdateLookupData(model,this.pageName).subscribe(
-				(data: any) => {
-					this.toaster.openSuccessSnackBar(data.message);
-					this.jobService.bSubject.next(true);
-				},
-				(error: any) => {
-					this.toaster.openWarningSnackBar(error);
-				});
+			} 
 		}
+
 	}
 
 	ngOnDestroy() {

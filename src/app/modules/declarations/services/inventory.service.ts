@@ -5,7 +5,6 @@ import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IInventory } from '../models/IInventory.interface';
-import { IStockKeeper } from '../models/IStockKeeper.interface';
 import { IStockTechnique } from '../models/IStockTechnique.interface';
 
 @Injectable({
@@ -36,11 +35,11 @@ export class InventoryService {
 
   AssignTechnicianToInventory(StockId: number, EmployeeId: number) {
     return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ASSIGN_EMPLOYEE_TO_INVENTORY}StockId=${StockId}&EmployeeId=${EmployeeId}`);
-  }
-
-  GetInventoryTechnicianLogs(StockId: number): Observable<IStockKeeper[]> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_STOCK_KEEPER}${StockId}`)
-      .pipe(map((Items: HttpReponseModel) => Items.data as IStockKeeper[]));
+  } 
+  
+  GetInventoryTechnicianLogs(StockId: number) {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_STOCK_TECHNIQUE}${StockId}`)
+      .pipe(map((Items: HttpReponseModel) => Items.data as any[]));
   }
 
   //stock 
@@ -60,11 +59,6 @@ export class InventoryService {
 
   stopStockTechnique(model: any) {
     return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_DEACTIVE_STOCK_TECHNIQUE}`);
-  }
-
-  getLookUpStocks(companyBranchId:number): Observable<LookUpModel[]> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_INVENTORY}${companyBranchId}`)
-      .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
   }
 
 }

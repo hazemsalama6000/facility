@@ -31,17 +31,22 @@ export class EmployeeService {
 			);
 	}
 
-	getLookupEmployeeData(companyId: number,branchId?:number): Observable<LookUpModel[]> {
-		let branchid:string=branchId!=undefined&&branchId!=null?('&BranchId='+branchId):'';
-		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}${branchid}`)
-		 	.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+	/*getLookupEmployeeDataForCustomerEditMange(model: ICustomerEditManageSearch): Observable<LookUpModel[]> {
+				return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
+					.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+		//return of([{ Id: 1, Name: 'Zomm' } as LookUpModel, { Id: 1, Name: 'Ahmed' } as LookUpModel]);
 	}
+*/
+	getLookupEmployeeData(companyId: number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}`)
+			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+	}
+
 	// note
 	getEmployeeById(employeeId: number): Observable<IEmployee> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEEBY_ID}?employeeId=${employeeId}`).pipe(
 			map((data: HttpReponseModel) => data.data)
 		);
-
 	}
 
 	getEmployeeByIdForUpdate(employeeId: number): Observable<IEmployeeForm> {
@@ -52,10 +57,11 @@ export class EmployeeService {
 					, Branch_Id: data.data.branch_Id, Code: data.data.code, Department_Id: data.data.department_Id, Email: data.data.email, GraduateDate: data.data.graduateDate
 					, HireDate: data.data.hireDate, id: data.data.id, IsTechnician: data.data.isTechnician, JobSection_Id: data.data.jobSection_Id, MartialStatus_Id: data.data.martialStatus_Id,
 					MilitaryStatus_Id: data.data.militaryStatus_Id, Mobile: data.data.mobile, Name: data.data.name, NId: data.data.nId
-					, Qualification: data.data.qualification, Region_Id: data.data.region_Id,Status_Id:data.data.status_Id , Section_Id: data.data.section_Id, state_Id: data.data.state_Id, University: data.data.university
+					, Qualification: data.data.qualification, Region_Id: data.data.region_Id, Section_Id: data.data.section_Id, state_Id: data.data.state_Id, University: data.data.university
 				} as IEmployeeForm;
 			})
 		);
+
 	}
 
 

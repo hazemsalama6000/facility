@@ -11,8 +11,8 @@ export class StatusService {
 
   constructor(private http: CommonHttpService) { }
 
-  getLookUpData(): Observable<any> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_STATUS_GETLIST}`);
+  getLookUpData(Id:number): Observable<any> {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_JOB_GETPERSECTION}${Id}`);
   }
 
 }

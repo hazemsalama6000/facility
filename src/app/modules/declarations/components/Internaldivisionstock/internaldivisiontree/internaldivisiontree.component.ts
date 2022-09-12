@@ -1,189 +1,164 @@
+import { NestedTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of, Subscription } from 'rxjs';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Subscription } from 'rxjs';
+import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AddmenuComponent } from 'src/app/modules/permissions/components/managesidemenu/addmenu/addmenu.component';
-import { ITreeStockShelfs, StockShelfsFlatNode } from 'src/app/modules/declarations/models/ITreeStockShelfs.interface';
+import { ITreeMenu } from 'src/app/modules/permissions/models/ITreeMenu.interface';
+import { MenuService } from 'src/app/modules/permissions/services/menu.service';
 import { ConfirmationDialogService } from 'src/app/shared-module/Components/confirm-dialog/confirmDialog.service';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
-import { SelectionModel } from '@angular/cdk/collections';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { StockShelfsService } from '../../../services/StockShelfs.service';
-import { AddinternaldivisionComponent } from '../addinternaldivision/addinternaldivision.component';
-import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 
 @Component({
   selector: 'app-internaldivisiontree',
   templateUrl: './internaldivisiontree.component.html',
   styleUrls: ['./internaldivisiontree.component.scss']
 })
-export class InternaldivisiontreeComponent {
-  treeControl: FlatTreeControl<StockShelfsFlatNode>;
-  treeFlattener: MatTreeFlattener<ITreeStockShelfs, StockShelfsFlatNode>;
-  dataSource: MatTreeFlatDataSource<ITreeStockShelfs, StockShelfsFlatNode>;
-  expansionModel = new SelectionModel<number>(true);
-  dragging = false;
-  expandTimeout: any;
-  expandDelay = 1000;
-  objHover: any;
-  stockShelfsTree: ITreeStockShelfs[];
-  stockId: number = 0;
+export class InternaldivisiontreeComponent implements OnInit {
+
+  menuTree: ITreeMenu[];
   private unsubscribe: Subscription[] = [];
 
+  public treeControl = new NestedTreeControl<ITreeMenu>((node: any) => node.childNode);
+  public dataSource = new MatTreeNestedDataSource<ITreeMenu>();
+
   constructor(
-    private stockShelfsService: StockShelfsService,
     public dialog: MatDialog,
     private toaster: toasterService,
+    private menuService: MenuService,
     private confirmationDialogService: ConfirmationDialogService
   ) {
+    let updateTree = menuService.bSubject.subscribe(res => { this.getMenu(); });
+    this.unsubscribe.push(updateTree);
 
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
-    this.treeControl = new FlatTreeControl<StockShelfsFlatNode>(this._getLevel, this._isExpandable);
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    stockShelfsService.stockShelfTree.subscribe(res => this.rebuildTreeForData(res));
-
-    const stockIddata = this.stockShelfsService.StockId.subscribe(res => this.stockId = res);
-    this.unsubscribe.push(stockIddata);
-  }
-
-  transformer = (node: ITreeStockShelfs, level: number) => { return new StockShelfsFlatNode(!!node.children, node.name, level, node.id, node.parent_Id ?? 0, node.isActive ?? true, false); };
-  private _getLevel = (node: StockShelfsFlatNode) => node.level;
-  private _isExpandable = (node: StockShelfsFlatNode) => node.expandable;
-  private _getChildren = (node: ITreeStockShelfs): Observable<ITreeStockShelfs[]> => of(node.children ?? []);
-  hasChild = (_: number, _nodeData: StockShelfsFlatNode) => _nodeData.expandable;
-
-  visibleNodes(): ITreeStockShelfs[] {
-    const result: any = [];
-
-    function addExpandedChildren(node: ITreeStockShelfs, expanded: number[]) {
-      result.push(node);
-      expanded.includes(node.id) ? node.children?.map((child: any) => addExpandedChildren(child, expanded)) : null;
-    }
-
-    this.dataSource.data.forEach((node) => { addExpandedChildren(node, this.expansionModel.selected); });
-    return result;
-  }
-
-  drop(event: CdkDragDrop<string[]>) {
-    let movedObj: any = event.item.data;
-
-    if (this.objHover.level > movedObj.level) {
-      alert('bbb')
-    } else {
-      console.log(movedObj, "======>", this.objHover)
-      this.visibleNodes();
-      this.stockShelfsService.updateParentShelf({ stockShelfId: movedObj.id, parentId: this.objHover.id, stock_Id: this.stockId }).subscribe(
-        (data: HttpReponseModel) => {
-          this.toaster.openSuccessSnackBar(data.message);
-          this.stockShelfsService.bSubject.next(true);
-        },
-        (error: any) => console.log(error)
-      );
-    }
-  }
-
-  dragStart = () => this.dragging = true;
-  dragEnd = (node: any) => this.dragging = false;
-  dragHover(node: any) {
-    if (this.dragging) {
-      this.objHover = node;
-      clearTimeout(this.expandTimeout);
-      this.expandTimeout = setTimeout(() => {
-        this.treeControl.expand(node);
-      }, this.expandDelay);
-    }
-  }
-  dragHoverEnd = () => { this.dragging ? clearTimeout(this.expandTimeout) : null; }
-
-
-  rebuildTreeForData(data: any) {
-    this.dataSource.data = data;
-    this.expansionModel.selected.forEach((id) => {
-      const node = this.treeControl.dataNodes.find((n) => n.id === id) as StockShelfsFlatNode;
-      this.treeControl.expand(node);
+    let getTree = menuService.menuTree.subscribe(res => {
+      this.menuTree = res
+      this.dataSource.data = test//res;
+      Object.keys(this.dataSource.data).forEach((key: any) => { this.setParent(this.dataSource.data[key]); });
     });
+    this.unsubscribe.push(getTree);
   }
 
+  ngOnInit(): void { }
 
-  getNodesIds(node: ITreeStockShelfs, Ids: number[]) {
+  hasChild = (_: number, node: ITreeMenu) => !!node.childNode && node.childNode.length > 0;
+
+  setParent(node: ITreeMenu, parent?: ITreeMenu) {
+    node.parent = parent;
+    let level: number = node.parent ? (parent?.level ?? 0) : 0;
+    node.level = level + 1;
+    if (node.childNode) {
+      node.childNode.forEach((childNode) => { this.setParent(childNode, node); });
+    }
+  }
+
+  getNodesIds(node: ITreeMenu, Ids: number[]) {
     Ids.push(node.id)
-    if (node.children) {
-      node.children.forEach((child: any) => {
+    if (node.childNode) {
+      node.childNode.forEach((child: any) => {
         this.getNodesIds(child, Ids);
       });
     }
   }
 
-  addItem(node: any) {
-    console.log(node)
-    const dialogRef = this.dialog.open(AddinternaldivisionComponent,
+  toggleActiveDeactive(node: ITreeMenu) {
+    console.log(this.menuTree)
+
+    let ids: number[] = [];
+    if (node.isDeleted) {
+      if (node.parent?.isDeleted) {
+        this.toaster.openWarningSnackBar('لا يمكن تفعيل هذا العنصر قبل تفعيل العنصر الاعلى له');
+        return;
+      } else
+        ids.push(node.id);
+    } else {
+      this.getNodesIds(node, ids);
+    }
+
+    if (ids.length > 0) {
+      this.menuService.toggleItemsActiveDeactive(ids).subscribe(
+        (data: HttpReponseModel) => {
+          this.toaster.openSuccessSnackBar(data.message);
+          this.getMenu();
+        },
+        (error: any) => console.log(error)
+      );
+    }
+
+  }
+
+
+  ngOnDestroy() {
+    this.menuService.menuTree.next([]);
+    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
+
+
+  addItem(node: ITreeMenu) {
+    this.openDialog({ node: node, type: 'add' })
+  }
+
+  updateItem(node: ITreeMenu) {
+
+    this.openDialog({ node: node, type: 'edit' })
+  }
+
+  openDialog(data: any) {
+    const dialogRef = this.dialog.open(AddmenuComponent,
       {
         maxHeight: '100vh',
         minHeight: '50%',
         minWidth: '50%',
-        data: { node: node }
+        data: data
       });
   }
 
-  updateItem(node: any) {
-    if (node.name == '' || node.name == null) {
-      this.toaster.openWarningSnackBar("برجاء ادخال الاسم");
-      return;
-    }
 
-    if (node.name.length < 3) {
-      this.toaster.openWarningSnackBar("يجب ان لايقل الاسم عن 3 احرف");
-      return;
-    }
+  deleteItem(node: ITreeMenu) {
+    this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${node.name} ? `)
+      .then((confirmed) => {
+        if (confirmed) {
 
-    this.stockShelfsService.updateStockShelf({ stockShelfId: node.id, stock_Id: this.stockId, name: node.name }).subscribe(
-      (data: HttpReponseModel) => {
-        if (data.isSuccess) {
-          this.stockShelfsService.bSubject.next(false);
-          this.toaster.openSuccessSnackBar(data.message);
+          this.menuService.DeleteMenu(node.id).subscribe(
+            (data: HttpReponseModel) => {
+              this.menuService.bSubject.next(true);
+              this.toaster.openSuccessSnackBar(data.message);
+            },
+            (error: any) => {
+              this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+            });
+
         }
-        else {
-          this.toaster.openWarningSnackBar(data.message);
-        }
+      })
+      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+
+
+  getMenu() {
+    this.menuService.GetMenu().subscribe(
+      (res: ITreeMenu[]) => {
+        this.menuService.menuTree.next(res);
       },
-      (error: any) => { this.toaster.openWarningSnackBar(error); console.log(error) }
-    );
+      (err: any) => console.log(err),
+      () => { }
+    )
   }
 
-  toggleActiveDeactive(node: any) {
 
-    // let ids: number[] = [];
-    // if (node.isActive) {
-    //   if (node.parent?.isActive) {
-    //     this.toaster.openWarningSnackBar('لا يمكن تفعيل هذا العنصر قبل تفعيل العنصر الاعلى له');
-    //     return;
-    //   } else
-    //     ids.push(node.id);
-    // } else {
-    //   this.getNodesIds(node, ids);
-    // }
-
-    // if (ids.length > 0) {
-    this.stockShelfsService.toggleItemsActiveDeactive(node.id).subscribe(
-      (data: HttpReponseModel) => {
-        if (data.isSuccess) {
-          this.stockShelfsService.bSubject.next(false);
-          this.toaster.openSuccessSnackBar(data.message);
-        }
-        else if (data.isExists) {
-          this.toaster.openWarningSnackBar(data.message);
-        }
-      },
-      (error: any) => { this.toaster.openWarningSnackBar(error); console.log(error) }
-    );
-    // }
-
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
-  }
 
 }
+
+const test:ITreeMenu[]=[
+  {
+    id:1,
+    name:'kk',
+    childNode:[
+      {
+        id:2,
+        name:'ss',
+        parentId:1
+      }
+    ]
+  }
+]
