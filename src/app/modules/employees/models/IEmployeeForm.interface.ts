@@ -19,6 +19,7 @@ export interface IEmployeeForm {
 	Department_Id:number,
 	Section_Id:number,
 	JobSection_Id: number,
+	Status_Id:number,
 	HireDate: string,
 	Branch_Id: number,
 	IsTechnician: boolean
