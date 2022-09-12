@@ -22,7 +22,7 @@ export class EmployeesComponent implements OnInit {
 	companyId: number;
 	branch_Id = 0;
 	dropdownEmployeeData: LookUpModel[] = [];
-	employeeDsiaplay: IEmployee = { id: 0,imagePath:'',imagepathbase:'' } as IEmployee;
+	employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 	constructor(private service: EmployeeService,
 		private toaster: toasterService, public dialog: MatDialog, private auth: AuthService) {
 		this.auth.userData.subscribe((userData) => {
@@ -32,14 +32,38 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.service.bSubjectStream.subscribe((data)=>{
+		this.service.bSubjectStream.subscribe((data) => {
 			this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
 				this.dropdownEmployeeData = data;
 			});
 		});
-		
+
+		this.service.bSubjectStreamEdit.subscribe((data) => {
+			this.service.getEmployeeById(this.employeeDsiaplay.id)
+				.pipe(
+					map(
+						(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
+					)
+				)
+				.subscribe(
+					(data: IEmployee) => {
+						this.employeeDsiaplay = data;
+						console.log(this.employeeDsiaplay);
+						setTimeout(() => {
+							document.getElementById("blocksdisplay")?.click();
+							document.getElementById("notfound")?.click();
+							document.getElementById("blocksdisplay")?.click();
+
+						}, 1000);
+					}
+					, (error) => {
+						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+					}
+				);
+		});
+
 		this.service.bSubject.next(true);
-	
+
 	}
 
 	imageChange(event: any) {
@@ -75,7 +99,7 @@ export class EmployeesComponent implements OnInit {
 		this.service.getEmployeeById(selectedItem.Id)
 			.pipe(
 				map(
-					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`,imagepathbase:data.imagePath }) as IEmployee
+					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
 				)
 			)
 			.subscribe(
@@ -83,10 +107,10 @@ export class EmployeesComponent implements OnInit {
 					this.employeeDsiaplay = data;
 					console.log(this.employeeDsiaplay);
 					setTimeout(() => {
-						document.getElementById("blocksdisplay")?.click();		
-						document.getElementById("notfound")?.click();		
-						document.getElementById("blocksdisplay")?.click();		
-						
+						document.getElementById("blocksdisplay")?.click();
+						document.getElementById("notfound")?.click();
+						document.getElementById("blocksdisplay")?.click();
+
 					}, 1000);
 				}
 				, (error) => {
@@ -144,9 +168,9 @@ export class EmployeesComponent implements OnInit {
 
 
 	openDialogUpsertEmployee(value: 'ADD' | 'EDIT') {
-		
+
 		if (value == 'ADD') {
-			this.employeeDsiaplay = { id:0,imagePath:'',imagepathbase:'' } as IEmployee;
+			this.employeeDsiaplay = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 		}
 
 		console.log(this.employeeDsiaplay.id);

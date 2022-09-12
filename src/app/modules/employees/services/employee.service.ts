@@ -15,6 +15,10 @@ export class EmployeeService {
 	employees: LookUpModel[];
 	bSubject = new BehaviorSubject(true);
 	bSubjectStream = this.bSubject.asObservable();
+
+	bSubjectEdit = new BehaviorSubject(true);
+	bSubjectStreamEdit = this.bSubject.asObservable();
+
 	subjectEmployeeChanged = new BehaviorSubject(false);
 	currentEmployeeSelected: IEmployee = {} as IEmployee;
 

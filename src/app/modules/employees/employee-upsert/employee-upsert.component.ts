@@ -75,7 +75,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		private sectionService: SectionService,
 		private jobService: JobService,
 		private service: EmployeeService,
-		private statusService:StatusService,
+		private statusService: StatusService,
 		private authService: AuthService
 	) {
 		//here get data of company and put data in the form
@@ -90,12 +90,12 @@ export class EmployeeUpsertComponent implements OnInit {
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: ['', Validators.compose([Validators.required])],
 				Region_Id: ['', Validators.compose([Validators.required])],
-				MilitaryStatus_Id: ['', Validators.compose([Validators.required])],
+				MilitaryStatus_Id: [''],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
 				JobSection_Id: ['', Validators.compose([Validators.required])],
-				MartialStatus_Id: ['', Validators.compose([Validators.required])],
-				Status_Id:[''],
+				MartialStatus_Id: [''],
+				Status_Id: [''],
 				BirthDate: ['', Validators.compose([])],
 				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
 				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
@@ -120,12 +120,12 @@ export class EmployeeUpsertComponent implements OnInit {
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: ['', Validators.compose([Validators.required])],
 				Region_Id: ['', Validators.compose([Validators.required])],
-				MilitaryStatus_Id: ['', Validators.compose([])],
+				MilitaryStatus_Id: [''],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
-				Status_Id:[''],
+				Status_Id: [''],
 				JobSection_Id: ['', Validators.compose([Validators.required])],
-				MartialStatus_Id: ['', Validators.compose([Validators.required])],
+				MartialStatus_Id: [''],
 				BirthDate: [''],
 				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
 				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
@@ -154,7 +154,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		this.statusService.getLookUpData().subscribe((data: LookUpModel[]) => {
 			this.dropdownListDataForStatus = data;
 		});
-		
+
 		this.maritalStateService.getLookupData().subscribe((data: LookUpModel[]) => {
 			this.dropdownListDataForMarital = data;
 		});
@@ -250,6 +250,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			Code: '',
 			Address: '',
 			state_Id: 0,
+			Status_Id: 0,
 			Region_Id: 0,
 			Image: '', Mobile: '0',
 			Email: '', BirthDate: '',
@@ -269,7 +270,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.service.getEmployeeByIdForUpdate(this.data.employeeId).subscribe(
 				(data: IEmployeeForm) => {
 					this.employee = data;
-				
+
 					console.log(this.employee);
 
 					this.isEdit = true;
@@ -290,7 +291,7 @@ export class EmployeeUpsertComponent implements OnInit {
 
 
 	Submit(model: any) {
-
+		console.log(model);
 		if (this.EmployeeDataForm.valid) {
 
 			this.isEditable = true;
@@ -317,6 +318,8 @@ export class EmployeeUpsertComponent implements OnInit {
 				fd.append('NId', model.NId);
 				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id);
 				fd.append('MartialStatus_Id', model.MartialStatus_Id);
+				fd.append('Status_Id', model.Status_Id);
+
 				fd.append('University', model.University);
 
 				fd.append('Qualification', model.Qualification);
@@ -354,6 +357,7 @@ export class EmployeeUpsertComponent implements OnInit {
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
 						this.service.bSubject.next(true);
+						this.service.bSubjectEdit.next(true);
 					},
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
@@ -368,3 +372,4 @@ export class EmployeeUpsertComponent implements OnInit {
 
 
 }
+
