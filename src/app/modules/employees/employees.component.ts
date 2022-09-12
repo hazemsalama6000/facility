@@ -39,27 +39,31 @@ export class EmployeesComponent implements OnInit {
 		});
 
 		this.service.bSubjectStreamEdit.subscribe((data) => {
-			this.service.getEmployeeById(this.employeeDsiaplay.id)
-				.pipe(
-					map(
-						(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
-					)
-				)
-				.subscribe(
-					(data: IEmployee) => {
-						this.employeeDsiaplay = data;
-						console.log(this.employeeDsiaplay);
-						setTimeout(() => {
-							document.getElementById("blocksdisplay")?.click();
-							document.getElementById("notfound")?.click();
-							document.getElementById("blocksdisplay")?.click();
 
-						}, 1000);
-					}
-					, (error) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					}
-				);
+			if (this.employeeDsiaplay.id != 0) {
+				this.service.getEmployeeById(this.employeeDsiaplay.id)
+					.pipe(
+						map(
+							(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
+						)
+					)
+					.subscribe(
+						(data: IEmployee) => {
+							this.employeeDsiaplay = data;
+							console.log(this.employeeDsiaplay);
+							setTimeout(() => {
+								document.getElementById("blocksdisplay")?.click();
+								document.getElementById("notfound")?.click();
+								document.getElementById("blocksdisplay")?.click();
+
+							}, 1000);
+						}
+						, (error) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						}
+					);
+			}
+
 		});
 
 		this.service.bSubject.next(true);
