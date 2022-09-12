@@ -9,13 +9,15 @@ import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { IItemsCategory } from '../../../../items/models/itemsCategory/IItemsCategory.interface';
 import { ItemsCategoryService } from '../../../../items/services/itemsCategory.service';
+import { IItem } from '../../../models/itemsCategory/IItem.interface';
+import { UnitService } from '../../../services/units.service';
 
 @Component({
   selector: 'app-upsertitem',
   templateUrl: './upsertitem.component.html',
   styleUrls: ['./upsertitem.component.scss']
 })
-export class UpsertitemComponent implements OnInit {
+export class UpsertitemComponent  {
 
   saveButtonClickedFlag = false;
   userData: IUserData;
@@ -52,6 +54,7 @@ export class UpsertitemComponent implements OnInit {
 
   constructor(
     private itemsCategoryService: ItemsCategoryService,
+    private unitService:UnitService,
     private auth: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
@@ -60,29 +63,30 @@ export class UpsertitemComponent implements OnInit {
   ) {
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
+    this.fillDropdown();
 
     if (data.type != 'add') {
-      itemsCategoryService.getItemById(data.node.id).subscribe((res: any) => {
+      itemsCategoryService.getItemById(data.node.id).subscribe((res: IItem) => {
 
         this.ItemForm.patchValue({
-          itemId: [0],
-          code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-          name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-          barCode: [''],
-          description: [''],
-          hasVatTax: [false],
-          vatTaxValue: [0],
-          quantity: [0],
-          hasExpireDate: [0],
-          expirationDate: [''],
-          convertedUnitOfMeasure: [false],
-          maxLimit: [0],
-          minLimit: [0],
-          orderingLimit: [0],
-          nature: [false],
-          itemCategory_Id: [0],
-          unit_Id: [0],
-          company_Id: [0]
+          itemId: res.id,
+          code: res.code,
+          name: res.name,
+          barCode: res.barCode,
+          description: res.description,
+          hasVatTax: res.hasVatTax,
+          vatTaxValue: res.vatTaxValue,
+          quantity: res.quantity,
+          hasExpireDate: res.hasExpireDate,
+          expirationDate: res.expirationDate,
+          convertedUnitOfMeasure: res.convertedUnitOfMeasure,
+          maxLimit: res.maxLimit,
+          minLimit: res.minLimit,
+          orderingLimit: res.orderingLimit,
+          nature: res.nature,
+          itemCategory_Id: res.itemCategory_Id,
+          unit_Id: res.unit_Id,
+          company_Id: res.company_Id
         });
 
       }, (err) => console.log(err))
@@ -90,8 +94,6 @@ export class UpsertitemComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
 
   addItem() {
     console.log(this.ItemForm.value)
@@ -169,7 +171,7 @@ export class UpsertitemComponent implements OnInit {
 
   fillDropdown() {
     // this.itemsCategoryService.getItemById(1).subscribe((res: LookUpModel[]) => this.dropdownCategoryData = res, (err) => console.log(err));
-    // this.itemsCategoryService.getItemById(1).subscribe((res: LookUpModel[]) => this.dropdownUnitData = res, (err) => console.log(err));
+    this.unitService.getLookUpUnits(this.userData.companyId).subscribe((res: LookUpModel[]) => this.dropdownUnitData = res, (err) => console.log(err));
 
     this.dropdownNatureData = [{ name: "أصل", value: true }, { name: "مستهلك", value: false }];
 

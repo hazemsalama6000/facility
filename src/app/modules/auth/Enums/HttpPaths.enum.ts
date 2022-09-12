@@ -91,6 +91,7 @@ export enum HttpPaths {
 	// units
 	API_GET_UNITS_RELATEDTO_ITEM_CRITERIA = "/api/v1/invt/getallconvertedunits",
 	API_GET_MAIN_UNITS = "api/v1/invt/getmainunit",
+	API_LIST_OF_UNITS = "/api/v1/invt/listofunits",
 
 	//Items
 	API_GET_ITEMS_LOOKUP = "/api/v1/invt/listofinvitems/",
@@ -316,10 +317,14 @@ export enum HttpPaths {
 
 	API_CATEGORY_ADD = "/api/v1/invt/addnewinvitemcategory",
 	API_CATEGORY_UPDATE = "/api/v1/invt/updateinvitemcategory/",
+	API_PARENT_CATEGORY_UPDATE = "/api/v1/invt/",
+	API_ACTIVE_DEACTIVE_CATEGORY = "/api/v1/invt/changecategoryisactiveornot/",
 
-	API_ITEM_ADD = "",
-	API_GET_ITEM_BY_ID = "",
-	API_ITEM_UPDATE = "",
+	API_ITEM_ADD = "/api/v1/invt/addnewinvitems",
+	API_GET_ITEM_BY_ID = "/api/v1/invt/getinvitemprofile?itemId=",
+	API_ITEM_UPDATE = "/api/v1/invt/updateinvitems/",
+	API_PARENT_ITEM_UPDATE = "/api/v1/invt/",
+	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
 
 

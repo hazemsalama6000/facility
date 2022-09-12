@@ -3,9 +3,9 @@ export interface IItemsCategory {
     name: string;
     type: string;
     isActive: boolean;
-    parentId: number;
-    company_Id: number;
-    children: IItemsCategory[];
+    parentId?: number;
+    company_Id?: number;
+    children?: IItemsCategory[];
 
 }
 

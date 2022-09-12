@@ -7,24 +7,22 @@
       <ng-template pTemplate="caption">
         <div class="d-flex justify-content-end">
 
-          <p-multiSelect [options]="columns" optionLabel=" " [(ngModel)]="selectedColumns" appendTo="body"
-            class="HeaderColumns">
+          <p-multiSelect [options]="columns" optionLabel=" " [(ngModel)]="selectedColumns" appendTo="body" class="HeaderColumns">
             <ng-template let-option pTemplate="item">
               <span>{{'EMPLOYEE.TITLES.'+option.translateKey|translate}}</span>
             </ng-template>
           </p-multiSelect>
 
-          <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1"
-            (click)="exportExcel()" pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1" (click)="exportExcel()" pTooltip="XLS"
+            tooltipPosition="bottom"></button>
 
           <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
             class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
 
           <p-divider layout="vertical"></p-divider>
 
-          <a type="button" pButton pRipple icon="pi pi-user-plus" class="p-button-primary mx-1"
-            pTooltip="{{ 'HR.BUTTONS.ADD' | translate }}" tooltipPosition="bottom" appendTo="body"
-            routerLink="/employee/"></a>
+          <a type="button" (click)="openDialogUpsertEmployee('ADD')" pButton pRipple icon="pi pi-user-plus" class="p-button-primary mx-1"
+            pTooltip="{{ 'HR.BUTTONS.ADD' | translate }}" tooltipPosition="bottom" appendTo="body"></a>
         </div>
       </ng-template>
 
@@ -39,7 +37,7 @@
 
             <th *ngIf="col.propName=='name'">
 
-              <p-multiSelect [options]="employeeDropdown" optionLabel="Name" #employee appendTo="body"
+              <p-multiSelect [options]="employeeDropdown" optionLabel="Name" #employee appendTo="body" placeholder="أختر الموظفين"
                 (onChange)="myfilter(employee.value,'employee')">
                 <ng-template let-option pTemplate="item">
                   <span>{{option.Name}}</span>
@@ -50,7 +48,7 @@
 
             <th *ngIf="col.propName=='branch'">
 
-              <p-dropdown [options]="branchDropdown" #branch appendTo="body" optionLabel="branchName"
+              <p-dropdown [options]="branchDropdown" #branch appendTo="body" optionLabel="branchName" placeholder="أختر الفرع"
                 (onChange)="myfilter(branch.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
 
               <!-- <p-multiSelect [options]="branchDropdown" optionLabel="branchName" #branch appendTo="body"
@@ -64,7 +62,7 @@
 
 
             <th *ngIf="col.propName=='department'">
-              <p-dropdown [options]="departmentDropdown" #department appendTo="body" optionLabel="Name"
+              <p-dropdown [options]="departmentDropdown" #department appendTo="body" optionLabel="Name" placeholder="أختر الادارة"
                 (onChange)="myfilter(department.value,'department')" placeholder=" " [showClear]="true"></p-dropdown>
 
               <!-- <p-multiSelect [options]="departmentDropdown" optionLabel="Name" appendTo="body"
@@ -78,7 +76,7 @@
 
             <th *ngIf="col.propName=='section'">
 
-              <p-dropdown [options]="sectionDropdown" #section appendTo="body" optionLabel="Name"
+              <p-dropdown [options]="sectionDropdown" #section appendTo="body" optionLabel="Name" placeholder="أختر القسم"
                 (onChange)="myfilter(section.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
 
               <!-- <p-multiSelect [options]="sectionDropdown" optionLabel="Name" appendTo="body"
@@ -92,8 +90,8 @@
 
             <th *ngIf="col.propName=='job'">
 
-              <p-multiSelect [options]="jobDropdown" optionLabel="displayValue"
-                (onChange)="myfilter($event.value,'job')" appendTo="body">
+              <p-multiSelect [options]="jobDropdown" optionLabel="displayValue" (onChange)="myfilter($event.value,'job')" appendTo="body"
+                placeholder="أختر الوظائف">
                 <ng-template let-option pTemplate="item">
                   <span>{{option.displayValue}</span>
                 </ng-template>
@@ -118,8 +116,8 @@
           </ng-container>
 
           <td>
-            <a mat-mini-fab color="primary" routerLink="/employee/overview" [queryParams]="{ id: employee.id}"
-              id="search" type="submit" class="mx-10">
+            <a mat-mini-fab color="primary" routerLink="/employee/employeeprofile/overview" [queryParams]="{ id: employee.id}" id="search"
+              type="submit" class="mx-10">
               <mat-icon style="font-size: 20px;">person</mat-icon>
             </a>
           </td>
@@ -130,8 +128,8 @@
       <ng-template pTemplate="footer">
         <tr>
           <td colspan="12">
-            <p-paginator dropdownAppendTo="body" [rows]="5" [totalRecords]="totalRecords"
-              (onPageChange)="changePage($event)" [rowsPerPageOptions]="[5,10,20,30]"></p-paginator>
+            <p-paginator dropdownAppendTo="body" [rows]="5" [totalRecords]="totalRecords" (onPageChange)="changePage($event)"
+              [rowsPerPageOptions]="[5,10,20,30]"></p-paginator>
           </td>
         </tr>
       </ng-template>

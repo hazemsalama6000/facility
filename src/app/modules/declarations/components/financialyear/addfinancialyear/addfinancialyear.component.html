@@ -42,7 +42,7 @@
       <div class="col-md-6 mb-3">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="picker" [max]="financialForm.controls['endDate'].value" formControlName="startDate">
+          <input matInput [matDatepicker]="picker"  (dateInput)="financialForm.patchValue({endDate:''})" [max]="financialForm.controls['endDate'].value" formControlName="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
 

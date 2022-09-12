@@ -32,7 +32,16 @@ export class ItemsAndCategoryComponent {
   expandTimeout: any;
   expandDelay = 1000;
   objHover: any;
-  stockShelfsTree: IItemsCategory[];
+  dnode: IItemsCategoryFlat = {
+    id: 0, isActive: true, name: '', type: '',
+    parentId: 0,
+    company_Id: 0,
+    children: [],
+    level: 0,
+    expandable: false
+  }
+  // stockShelfsTree: IItemsCategory[];
+  itemsCtegory: IItemsCategory[] = [];
   userDate: IUserData;
   private unsubscribe: Subscription[] = [];
 
@@ -62,7 +71,7 @@ export class ItemsAndCategoryComponent {
 
   isExpandable = (node: IItemsCategoryFlat) => node.expandable;
 
-  getChildren = (node: IItemsCategory): IItemsCategory[] => node.children;
+  getChildren = (node: IItemsCategory): IItemsCategory[] | null => node.children ?? null;
 
   hasChild = (_: number, _nodeData: IItemsCategoryFlat) => _nodeData.expandable;
 
@@ -75,24 +84,60 @@ export class ItemsAndCategoryComponent {
     flatNode.id = node.id;
     flatNode.name = node.name;
     flatNode.isActive = true;
-    flatNode.parentId = node.parentId;
-    flatNode.children = node.children;
+    flatNode.parentId = node.parentId as number;
+    flatNode.children = node.children ?? [];
     flatNode.type = node.type;
     flatNode.level = level;
-    flatNode.expandable = node.children && node.children.length > 0;
+    flatNode.expandable = !!node.children && node.children.length > 0;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
   }
 
-  // filterChanged(filterText: string) {
-  //   this.dataSource.data.filter(x => x.name.includes(filterText));
-  //   if (filterText) {
-  //     this.treeControl.expandAll();
-  //   } else {
-  //     this.treeControl.collapseAll();
-  //   }
-  // }
+  /** Whether all the descendants of the node are selected */
+  descendantsAllSelected(node: IItemsCategoryFlat): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    return descendants.every(child => this.expansionModel.isSelected(child.id));
+  }
+
+  /** Whether part of the descendants are selected */
+  descendantsPartiallySelected(node: IItemsCategoryFlat): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    const result = descendants.some(child => this.expansionModel.isSelected(child.id));
+    return result && !this.descendantsAllSelected(node);
+  }
+
+  filterChanged(filterText: string) {
+    this.filter(filterText);
+    if (filterText) {
+      this.treeControl.expandAll();
+    } else {
+      this.treeControl.collapseAll();
+    }
+  }
+
+  public filter(filterText: string) {
+    let filteredTreeData: IItemsCategory[];
+    if (filterText) {
+      filteredTreeData = this.itemsCtegory.filter(d => d.name.toLocaleLowerCase().indexOf(filterText.toLocaleLowerCase()) > -1);
+      Object.assign([], filteredTreeData).forEach((ftd: any) => {
+        let str = (<string>ftd.name);
+        while (str.lastIndexOf('.') > -1) {
+          const index = str.lastIndexOf('.');
+          str = str.substring(0, index);
+          if (filteredTreeData.findIndex(t => t.name === str) === -1) {
+            const obj = this.itemsCtegory.find(d => d.name === str);
+            if (obj)
+              filteredTreeData.push(obj);
+          }
+        }
+      });
+    } else {
+      filteredTreeData = this.itemsCtegory;
+    }
+
+    const data = this.rebuildTreeForData(filteredTreeData);
+  }
 
 
   visibleNodes(): IItemsCategory[] {
@@ -114,16 +159,27 @@ export class ItemsAndCategoryComponent {
     } else {
       console.log(movedObj, "======>", this.objHover)
       this.visibleNodes();
-      // this.stockShelfsService.updateParentShelf({}).subscribe(
-      //   (data: HttpReponseModel) => {
-      //     this.toaster.openSuccessSnackBar(data.message);
-      //     this.stockShelfsService.bSubject.next(true);
-      //   },
-      //   (error: any) => console.log(error)
-      // );
-    }
-  }
+      if (movedObj.type == "Category") {
+        this.itemsCategoryService.updateParentCategory({}).subscribe(
+          (data: HttpReponseModel) => {
+            this.toaster.openSuccessSnackBar(data.message);
+            this.itemsCategoryService.bSubject.next(true);
+          },
+          (error: any) => console.log(error)
+        );
+      } else {
+        this.itemsCategoryService.updateParentItem({}).subscribe(
+          (data: HttpReponseModel) => {
+            this.toaster.openSuccessSnackBar(data.message);
+            this.itemsCategoryService.bSubject.next(true);
+          },
+          (error: any) => console.log(error)
+        );
+      }
 
+    }
+    this.objHover = null;
+  }
   dragStart = () => this.dragging = true;
   dragEnd = (node: any) => this.dragging = false;
   dragHover(node: any) {
@@ -198,38 +254,41 @@ export class ItemsAndCategoryComponent {
 
   }
 
-  toggleActiveDeactive(node: any) {
+  toggleActiveDeactive(node: IItemsCategoryFlat) {
+    if (node.type == 'Item') {
+      this.itemsCategoryService.toggleItemsActiveDeactive(node.id).subscribe(
+        (data: HttpReponseModel) => {
+          if (data.isSuccess) {
+            this.itemsCategoryService.bSubject.next(false);
+            this.toaster.openSuccessSnackBar(data.message);
+          }
+          else if (data.isExists) {
+            this.toaster.openWarningSnackBar(data.message);
+          }
+        },
+        (error: any) => { this.toaster.openWarningSnackBar(error); console.log(error) }
+      );
 
-    // let ids: number[] = [];
-    // if (node.isActive) {
-    //   if (node.parent?.isActive) {
-    //     this.toaster.openWarningSnackBar('لا يمكن تفعيل هذا العنصر قبل تفعيل العنصر الاعلى له');
-    //     return;
-    //   } else
-    //     ids.push(node.id);
-    // } else {
-    //   this.getNodesIds(node, ids);
-    // }
+    } else {
+      this.itemsCategoryService.toggleCategotyActiveDeactive(node.id).subscribe(
+        (data: HttpReponseModel) => {
+          if (data.isSuccess) {
+            this.itemsCategoryService.bSubject.next(false);
+            this.toaster.openSuccessSnackBar(data.message);
+          }
+          else if (data.isExists) {
+            this.toaster.openWarningSnackBar(data.message);
+          }
+        },
+        (error: any) => { this.toaster.openWarningSnackBar(error); console.log(error) }
+      );
 
-    // if (ids.length > 0) {
-    // this.stockShelfsService.toggleItemsActiveDeactive(node.id).subscribe(
-    //   (data: HttpReponseModel) => {
-    //     if (data.isSuccess) {
-    //       this.stockShelfsService.bSubject.next(false);
-    //       this.toaster.openSuccessSnackBar(data.message);
-    //     }
-    //     else if (data.isExists) {
-    //       this.toaster.openWarningSnackBar(data.message);
-    //     }
-    //   },
-    //   (error: any) => { this.toaster.openWarningSnackBar(error); console.log(error) }
-    // );
-    // }
-
+    }
   }
 
   getItemAndCategoryTree() {
     this.itemsCategoryService.getItemsCategory(this.userDate.companyId).subscribe((res) => {
+      this.itemsCtegory = res;
       this.rebuildTreeForData(res)
     }, (err) => console.log(err))
   }

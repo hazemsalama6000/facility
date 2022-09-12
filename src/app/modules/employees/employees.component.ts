@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -21,10 +22,12 @@ export class EmployeesComponent implements OnInit {
 	imageFile: File;
 	companyId: number;
 	branch_Id = 0;
+	EmployeeId: any = 5;
 	dropdownEmployeeData: LookUpModel[] = [];
-	employeeDsiaplay: IEmployee = { id: 0,imagePath:'',imagepathbase:'' } as IEmployee;
+	employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
+	
 	constructor(private service: EmployeeService,
-		private toaster: toasterService, public dialog: MatDialog, private auth: AuthService) {
+		private toaster: toasterService, public dialog: MatDialog, private auth: AuthService, private route: ActivatedRoute) {
 		this.auth.userData.subscribe((userData) => {
 			this.companyId = userData.companyId;
 			this.branch_Id = userData.branchId;
@@ -32,18 +35,24 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.service.bSubjectStream.subscribe((data)=>{
+		this.service.bSubjectStream.subscribe((data) => {
 			this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
 				this.dropdownEmployeeData = data;
 			});
 		});
-		
+
 		this.service.bSubject.next(true);
-	
+	}
+
+	ngAfterViewInit() {
+		this.route.queryParams.subscribe(params => {
+			if (params)
+				this.EmployeeId = params.id;
+			console.log(params.id)
+		});
 	}
 
 	imageChange(event: any) {
-
 		this.imageFile = <File>event.target.files[0];
 
 		const fd = new FormData();
@@ -72,10 +81,11 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	employeeSelectListOnChange(selectedItem: LookUpModel) {
+		console.log(this.EmployeeId)
 		this.service.getEmployeeById(selectedItem.Id)
 			.pipe(
 				map(
-					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`,imagepathbase:data.imagePath }) as IEmployee
+					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
 				)
 			)
 			.subscribe(
@@ -83,10 +93,10 @@ export class EmployeesComponent implements OnInit {
 					this.employeeDsiaplay = data;
 					console.log(this.employeeDsiaplay);
 					setTimeout(() => {
-						document.getElementById("blocksdisplay")?.click();		
-						document.getElementById("notfound")?.click();		
-						document.getElementById("blocksdisplay")?.click();		
-						
+						document.getElementById("blocksdisplay")?.click();
+						document.getElementById("notfound")?.click();
+						document.getElementById("blocksdisplay")?.click();
+
 					}, 1000);
 				}
 				, (error) => {
@@ -95,7 +105,6 @@ export class EmployeesComponent implements OnInit {
 			);
 
 	}
-
 
 	editEmployeeTechnicialData(value: ITechnitianLog) {
 
@@ -110,7 +119,6 @@ export class EmployeesComponent implements OnInit {
 	editActiveProp(value: boolean) {
 		this.employeeDsiaplay.isActive = value;
 	}
-
 
 	openDialogForEmployee() {
 		const dialogPosition: DialogPosition = {
@@ -142,11 +150,10 @@ export class EmployeesComponent implements OnInit {
 
 	}
 
-
 	openDialogUpsertEmployee(value: 'ADD' | 'EDIT') {
-		
+
 		if (value == 'ADD') {
-			this.employeeDsiaplay = { id:0,imagePath:'',imagepathbase:'' } as IEmployee;
+			this.employeeDsiaplay = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 		}
 
 		console.log(this.employeeDsiaplay.id);
@@ -169,8 +176,6 @@ export class EmployeesComponent implements OnInit {
 		});
 
 	}
-
-
 
 	openDialog() {
 		const dialogPosition: DialogPosition = {

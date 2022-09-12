@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
@@ -15,29 +15,31 @@ import { TechnitianService } from './services/technitian.service';
 import { technicianLogComponent } from './technician-log/technician-log.component';
 import { UserLocationComponent } from './user-locations/user-location.component';
 import { EmployeeUpsertComponent } from './employee-upsert/employee-upsert.component';
+import { Employee_listComponent } from '../customers/employee-list/employee-list.component';
 
 @NgModule({
   declarations: [
     EmployeesComponent,
     SettingComponent,
     OverviewComponent,
-	AddTechnitianLogComponent,
-	technicianLogComponent,
-	UserLocationComponent,
-	EmployeeUpsertComponent
+    AddTechnitianLogComponent,
+    technicianLogComponent,
+    UserLocationComponent,
+    EmployeeUpsertComponent,
+    Employee_listComponent
   ],
   imports: [
     CommonModule,
     EmployeesRoutingModule,
     InlineSVGModule,
     NgApexchartsModule,
-	SharedModule,
-	TranslationModule,
+    SharedModule,
+    TranslationModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers:[TechnitianService]
- 
+  providers: [TechnitianService,DatePipe]
+
 })
 export class EmployeesModule { }

@@ -111,7 +111,7 @@
                 <label *ngIf="element.isActive == true" class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>
                 <label *ngIf="element.isActive == false" class="badge badge-danger"> {{"DECLARATIONS.TITLES.NOTACTIVE"|translate}}</label>
                 <span class="mx-2" *ngIf="element.isActive == true">
-                  <section
+                  <section *ngIf="data.model.isActive"
                     matTooltip="{{element.isActive === true? ('DECLARATIONS.TITLES.NOTACTIVE' | translate): ('DECLARATIONS.TITLES.ACTIVE' | translate)}}"
                     class="example-section">
                     <button mat-mini-fab color="warn" class="mx-md-1" (click)="stopStockTech($event,element)">

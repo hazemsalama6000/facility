@@ -1,81 +1,110 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)" style="direction: ltr;">
+<div class="row mx-0">
 
-    <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" *matTreeNodeDef="let node" matTreeNodeToggle
-        matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
-        (cdkDragReleased)="dragEnd(node)">
-        <button mat-icon-button disabled></button>
+    <mat-card class="col-md-7 mb-5">
+        <div class="d-flex align-items-center mb-2 fontsection">
+            <!-- {{"DECLARATIONS.TITLES.INTERNALDIVISION"|translate}} -->
+            <span class="fontForInputs fs-3">التصنيفات والاصناف</span>
+        </div>
 
-        <label *ngIf="!node.isEdit" [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
-            style="user-select: none;">
-            <mat-icon *ngIf="node.type=='Item'">description</mat-icon>
-            <mat-icon *ngIf="node.type=='Category'">folder</mat-icon>
-            {{node.name }}
-        </label>
+        <mat-divider></mat-divider>
 
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Category')"
-                class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
-            </button>
-            <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Item')"
-                class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
-            </button>
-            <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="toggleActiveDeactive(node)"
-                matTooltip="{{node.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
-                class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon *ngIf="node.isActive == false" class="m-0 {{node.isActive == false?'text-primary':''}}">toggle_off</mat-icon>
-                <label *ngIf="node.isActive == false" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
+        <div class="align-items-baseline mt-4 mx-0 row">
+            <div class="col-md-6 pt-2">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="بحث " (input)="filterChanged(x.value)" #x>
+                </mat-form-field>
+            </div>
+        </div>
 
-                <mat-icon *ngIf="node.isActive == true" class="m-0 {{node.isActive == false?'text-danger':''}}">toggle_on</mat-icon>
-                <label *ngIf="node.isActive == true" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
-            </button>
-        </mat-menu>
+    </mat-card>
 
-    </mat-tree-node>
+    <mat-card class="col-md-7">
+        <div cdkDropList (cdkDropListDropped)="drop($event)">
+            <div class="w-100 bg-danger p-5 mb-1" cdkDrag [cdkDragData]="dnode" (mouseenter)="dragHover(dnode)" (mouseleave)="dragHoverEnd()"
+                (cdkDragStarted)="dragStart()" (cdkDragReleased)="dragEnd(dnode)"></div>
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="direction: rtl;">
 
-    <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-gray-300 text-dark':''}}" *matTreeNodeDef="let node;when: hasChild"
-        matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
-        (cdkDragReleased)="dragEnd(node)">
+                <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-hover-tree text-white':''}}"
+                    [style.padding-right]="(node.level*40)+'px'" style="direction: rtl;" *matTreeNodeDef="let node" matTreeNodeToggle
+                    matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()"
+                    (cdkDragStarted)="dragStart()" (cdkDragReleased)="dragEnd(node)" matTooltip="يمكنك السحب والاسقاط على تصنيف أخر">
+                    <button mat-icon-button disabled></button>
 
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_left'}}
-            </mat-icon>
-        </button>
+                    <label *ngIf="!node.isEdit" [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
+                        style="user-select: none;">
+                        <mat-icon *ngIf="node.type=='Item'">description</mat-icon>
+                        <mat-icon *ngIf="node.type=='Category'">folder</mat-icon>
+                        {{node.name }}
+                    </label>
 
-        <label *ngIf="!node.isEdit" [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
-            style="user-select: none;">
-            <mat-icon *ngIf="node.type=='Item'">description</mat-icon>
-            <mat-icon *ngIf="node.type=='Category'">folder</mat-icon>
-            {{node.name }}
-        </label>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Category')"
+                            class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
+                        </button>
+                        <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Item')"
+                            class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
+                        </button>
+                        <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="toggleActiveDeactive(node)"
+                            matTooltip="{{node.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+                            class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon *ngIf="node.isActive == false" class="m-0 {{node.isActive == false?'text-primary':''}}">toggle_off</mat-icon>
+                            <label *ngIf="node.isActive == false" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
 
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="addItem(node,'Category')" class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
-            </button>
-            <button mat-menu-item (click)="addItem(node,'Item')" class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
-            </button>
-            <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="toggleActiveDeactive(node)"
-                matTooltip="{{node.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
-                class="align-items-center d-flex justify-content-between px-2">
-                <mat-icon *ngIf="node.isActive == false" class="m-0 {{node.isActive == false?'text-primary':''}}">toggle_off</mat-icon>
-                <label *ngIf="node.isActive == false" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
+                            <mat-icon *ngIf="node.isActive == true" class="m-0 {{node.isActive == false?'text-danger':''}}">toggle_on</mat-icon>
+                            <label *ngIf="node.isActive == true" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
+                        </button>
+                    </mat-menu>
 
-                <mat-icon *ngIf="node.isActive == true" class="m-0 {{node.isActive == false?'text-danger':''}}">toggle_on</mat-icon>
-                <label *ngIf="node.isActive == true" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
-            </button>
-        </mat-menu>
+                </mat-tree-node>
 
-    </mat-tree-node>
-</mat-tree>
+                <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-hover-tree text-white':''}}"
+                    [style.padding-right]="(node.level*40)+'px'" style="direction: rtl;" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+                    cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)" (mouseleave)="dragHoverEnd()" (cdkDragStarted)="dragStart()"
+                    (cdkDragReleased)="dragEnd(node)" matTooltip="يمكنك السحب والاسقاط على تصنيف أخر">
+
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                    </button>
+
+                    <label *ngIf="!node.isEdit" [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
+                        style="user-select: none;">
+                        <mat-icon *ngIf="node.type=='Item'">description</mat-icon>
+                        <mat-icon *ngIf="node.type=='Category'">folder</mat-icon>
+                        {{node.name }}
+                    </label>
+
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="addItem(node,'Category')" class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
+                        </button>
+                        <button mat-menu-item (click)="addItem(node,'Item')" class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
+                        </button>
+                        <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="toggleActiveDeactive(node)"
+                            matTooltip="{{node.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+                            class="align-items-center d-flex justify-content-between px-2">
+                            <mat-icon *ngIf="node.isActive == false" class="m-0 {{node.isActive == false?'text-primary':''}}">toggle_off</mat-icon>
+                            <label *ngIf="node.isActive == false" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
+
+                            <mat-icon *ngIf="node.isActive == true" class="m-0 {{node.isActive == false?'text-danger':''}}">toggle_on</mat-icon>
+                            <label *ngIf="node.isActive == true" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
+                        </button>
+                    </mat-menu>
+
+                </mat-tree-node>
+            </mat-tree>
+        </div>
+    </mat-card>
+</div>

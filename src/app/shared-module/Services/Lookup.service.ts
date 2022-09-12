@@ -21,7 +21,7 @@ export class LookupService {
 
 	getLookupData(companyId: number,pagename: string ): Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths[(`API_${pagename}_GETALL`) as keyof typeof HttpPaths]}${companyId}`)
-			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as LookUpModel)));
+			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as LookUpModel)));
 	}
 
 	DeleteLookupData(id: number,pagename: string): Observable<any> {

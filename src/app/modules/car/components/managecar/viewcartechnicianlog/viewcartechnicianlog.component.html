@@ -3,7 +3,7 @@
   <section>
     <mat-card>
       <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
-        <span class="fontForInputs fs-3">الفنين </span>
+        <span class="fontForInputs fs-3">سجل تخصيص المندوبين و السائقين </span>
         <span class="badge badge-danger">سيارة رقم : {{model.plateCar}}</span>
       </div>
     </mat-card>
@@ -73,9 +73,10 @@
           <mat-icon>download</mat-icon>
         </button> -->
         <ng-container *ngFor="let file of element.attachments">
-          <a [href]="url+file.path" [download]="'test.jpg'" rel="noopener noreferrer" (click)="$event.stopPropagation()">
+          <a [href]="url+file.path" [download]="'test.jpg'" target="_blank"  rel="noopener noreferrer" (click)="$event.stopPropagation()">
             <mat-icon>download</mat-icon>
           </a>
+
         </ng-container>
       </td>
     </ng-container>

@@ -27,7 +27,8 @@ export class InternaldivisiontreeComponent {
   expandTimeout: any;
   expandDelay = 1000;
   objHover: any;
-  stockShelfsTree: ITreeStockShelfs[];
+  dnode: ITreeStockShelfs = { id: 0, isActive: true, level: 0, name: '', parent_Id: 0 }
+  stockShelfsTree: ITreeStockShelfs[] = [];
   stockId: number = 0;
   private unsubscribe: Subscription[] = [];
 
@@ -48,10 +49,19 @@ export class InternaldivisiontreeComponent {
     this.unsubscribe.push(stockIddata);
   }
 
-  transformer = (node: ITreeStockShelfs, level: number) => { return new StockShelfsFlatNode(!!node.children, node.name, level, node.id, node.parent_Id ?? 0, node.isActive ?? true, false); };
+  transformer = (node: ITreeStockShelfs, level: number) => {
+    return new StockShelfsFlatNode(
+      !!node.children && node.children.length > 0,
+      node.name,
+      level,
+      node.id,
+      node.parent_Id ?? 0,
+      node.isActive ?? true,
+      false);
+  };
   private _getLevel = (node: StockShelfsFlatNode) => node.level;
   private _isExpandable = (node: StockShelfsFlatNode) => node.expandable;
-  private _getChildren = (node: ITreeStockShelfs): Observable<ITreeStockShelfs[]> => of(node.children ?? []);
+  private _getChildren = (node: ITreeStockShelfs): ITreeStockShelfs[] | null => node.children ?? null;
   hasChild = (_: number, _nodeData: StockShelfsFlatNode) => _nodeData.expandable;
 
   visibleNodes(): ITreeStockShelfs[] {
@@ -70,9 +80,8 @@ export class InternaldivisiontreeComponent {
     let movedObj: any = event.item.data;
 
     if (this.objHover.level > movedObj.level) {
-      alert('bbb')
+      this.toaster.openWarningSnackBar('لايمكن اضافة العنصر تحت نفسه')
     } else {
-      console.log(movedObj, "======>", this.objHover)
       this.visibleNodes();
       this.stockShelfsService.updateParentShelf({ stockShelfId: movedObj.id, parentId: this.objHover.id, stock_Id: this.stockId }).subscribe(
         (data: HttpReponseModel) => {
@@ -82,6 +91,7 @@ export class InternaldivisiontreeComponent {
         (error: any) => console.log(error)
       );
     }
+    this.objHover = null;
   }
 
   dragStart = () => this.dragging = true;
@@ -97,15 +107,14 @@ export class InternaldivisiontreeComponent {
   }
   dragHoverEnd = () => { this.dragging ? clearTimeout(this.expandTimeout) : null; }
 
-
   rebuildTreeForData(data: any) {
+    this.stockShelfsTree = data;
     this.dataSource.data = data;
     this.expansionModel.selected.forEach((id) => {
       const node = this.treeControl.dataNodes.find((n) => n.id === id) as StockShelfsFlatNode;
       this.treeControl.expand(node);
     });
   }
-
 
   getNodesIds(node: ITreeStockShelfs, Ids: number[]) {
     Ids.push(node.id)

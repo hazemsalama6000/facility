@@ -2,7 +2,7 @@
 
   <div mat-dialog-title>
     <div class="row mx-0">
-      <div class="col"> {{data.type=='Add'?"DECLARATIONS.TITLES.ADDCATEGORY":"DECLARATIONS.TITLES.EDITCATEGORY"|translate}}</div>
+      <div class="col"> {{data.type=='add'?("DECLARATIONS.TITLES.ADDCATEGORY"|translate):("DECLARATIONS.TITLES.EDITCATEGORY"|translate)}}</div>
       <div class="col-2">
         <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
       </div>

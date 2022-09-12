@@ -489,6 +489,8 @@ export const locale = {
         INTERNALDIVISION:"Internal Division Stock",
         ASSIGNKEEPER:"Assign Keeper",
         STOCKSHELF:"Add Stock Shelf",
+        ADDCATEGORY:"Add Category",
+        EDITCATEGORY:"Edit Category",
         EDITITEM:"Edit Item",
         ADDITEM:"Add New Item"
 

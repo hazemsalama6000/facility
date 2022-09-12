@@ -500,6 +500,8 @@ export const locale = {
         INTERNALDIVISION:"التقسيم الداخلى للمخازن",
         ASSIGNKEEPER:"تخصيص امين مخزن",
         STOCKSHELF:"أضافة قسم للمخزن",
+        ADDCATEGORY:"اضافة تصنيف جديد",
+        EDITCATEGORY:"تعديل تصنيف",
         EDITITEM:"تعديل صنف",
         ADDITEM:"اضافة صنف جديد"
 
