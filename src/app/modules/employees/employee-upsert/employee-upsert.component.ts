@@ -19,6 +19,7 @@ import { SectionService } from "../../share/Services/department_section/section.
 import { JobService } from "../../share/Services/job.service";
 import { MaritalStatusService } from "../../share/Services/maritalStatus.service";
 import { MilitaryStatusService } from "../../share/Services/militaryStatus.service";
+import { StatusService } from "../../share/Services/status.service";
 import { IEmployee } from "../models/employee.interface";
 import { IEmployeeForm } from "../models/IEmployeeForm.interface";
 import { EmployeeService } from "../services/employee.service";
@@ -43,6 +44,7 @@ export class EmployeeUpsertComponent implements OnInit {
 	dropdownListDataForDepartment: any = [];
 	dropdownListDataForSecion: any = [];
 	dropdownListDataForJobs: any = [];
+	dropdownListDataForStatus: any = [];
 
 	dropdownListDataForState: any = [];
 	selectedItemState: any = [];
@@ -73,6 +75,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		private sectionService: SectionService,
 		private jobService: JobService,
 		private service: EmployeeService,
+		private statusService:StatusService,
 		private authService: AuthService
 	) {
 		//here get data of company and put data in the form
@@ -92,6 +95,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				Section_Id: ['', Validators.compose([Validators.required])],
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MartialStatus_Id: ['', Validators.compose([Validators.required])],
+				Status_Id:[''],
 				BirthDate: ['', Validators.compose([])],
 				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
 				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
@@ -119,6 +123,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				MilitaryStatus_Id: ['', Validators.compose([])],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
+				Status_Id:[''],
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MartialStatus_Id: ['', Validators.compose([Validators.required])],
 				BirthDate: [''],
@@ -146,6 +151,10 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.dropdownListDataForMilitary = data;
 		});
 
+		this.statusService.getLookUpData().subscribe((data: LookUpModel[]) => {
+			this.dropdownListDataForStatus = data;
+		});
+		
 		this.maritalStateService.getLookupData().subscribe((data: LookUpModel[]) => {
 			this.dropdownListDataForMarital = data;
 		});
@@ -260,9 +269,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.service.getEmployeeByIdForUpdate(this.data.employeeId).subscribe(
 				(data: IEmployeeForm) => {
 					this.employee = data;
-					this.employee.Code = '4545';
-					this.employee.Name = '4545ss';
-					this.employee.Address = 'asdasdasdas';
+				
 					console.log(this.employee);
 
 					this.isEdit = true;
