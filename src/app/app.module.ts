@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './modules/auth/services/auth.service';
-
 // #fake-start#
 import { AuthInterceptor } from './modules/auth/Interceptors/AuthInterceptor.interceptor';
 import { LoggingInterceptor } from './modules/auth/Interceptors/LoggingInterceptor.interceptor';
