@@ -33,7 +33,7 @@ export class ItemsCategoryService {
   }
 
   updateParentCategory(model: any): Observable<HttpReponseModel> {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_PARENT_CATEGORY_UPDATE}${model.itemCategoryId}`)
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_PARENT_CATEGORY_UPDATE}`)
   }
 
   toggleCategotyActiveDeactive(CategoryId: number): Observable<HttpReponseModel> {
@@ -49,7 +49,7 @@ export class ItemsCategoryService {
   }
 
   updateParentItem(model: any): Observable<HttpReponseModel> {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_PARENT_ITEM_UPDATE}${model.itemId}`)
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_PARENT_ITEM_UPDATE}`)
   }
 
   toggleItemsActiveDeactive(ItemId: number): Observable<HttpReponseModel> {

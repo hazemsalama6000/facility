@@ -2,7 +2,9 @@
 
   <div cdkDropList (cdkDropListDropped)="drop($event)">
     <div class="w-100 bg-danger p-5 mb-1" cdkDrag [cdkDragData]="dnode" (mouseenter)="dragHover(dnode)" (mouseleave)="dragHoverEnd()"
-      (cdkDragStarted)="dragStart()" (cdkDragReleased)="dragEnd(dnode)"></div>
+      (cdkDragStarted)="dragStart()" (cdkDragReleased)="dragEnd(dnode)">
+      <label class="fontForInputs fs-4"> يمكنك سحب التصنيف إلى هنا لتحويلة لتصنيف رئيسي</label>
+    </div>
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node class="{{node.id==objHover?.id||node.isEdit?'bg-light-warning text-dark':''}}" [style.padding-right]="(node.level*40)+'px'"
         *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding cdkDrag [cdkDragData]="node" (mouseenter)="dragHover(node)"

@@ -46,7 +46,6 @@ export class ItemsAndCategoryComponent {
   private unsubscribe: Subscription[] = [];
 
   constructor(
-
     private itemsCategoryService: ItemsCategoryService,
     private authService: AuthService,
     public dialog: MatDialog,
@@ -155,28 +154,34 @@ export class ItemsAndCategoryComponent {
     let movedObj: any = event.item.data;
 
     if (this.objHover.level > movedObj.level) {
-      alert('bbb')
+      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت نفسه')
     } else {
-      console.log(movedObj, "======>", this.objHover)
-      this.visibleNodes();
-      if (movedObj.type == "Category") {
-        this.itemsCategoryService.updateParentCategory({}).subscribe(
-          (data: HttpReponseModel) => {
-            this.toaster.openSuccessSnackBar(data.message);
-            this.itemsCategoryService.bSubject.next(true);
-          },
-          (error: any) => console.log(error)
-        );
-      } else {
-        this.itemsCategoryService.updateParentItem({}).subscribe(
-          (data: HttpReponseModel) => {
-            this.toaster.openSuccessSnackBar(data.message);
-            this.itemsCategoryService.bSubject.next(true);
-          },
-          (error: any) => console.log(error)
-        );
-      }
+      if (this.objHover.type != "Item") {
 
+        console.log(movedObj, "======>", this.objHover)
+
+        this.visibleNodes();
+        if (movedObj.type == "Category") {
+          this.itemsCategoryService.updateParentCategory({ categoryId: movedObj.id, parentId: this.objHover.id }).subscribe(
+            (data: HttpReponseModel) => {
+              this.toaster.openSuccessSnackBar(data.message);
+              this.itemsCategoryService.bSubject.next(true);
+            },
+            (error: any) => console.log(error)
+          );
+        } else {
+
+          this.itemsCategoryService.updateParentItem({ item_Id: movedObj.id, category_Id: this.objHover.id }).subscribe(
+            (data: HttpReponseModel) => {
+              this.toaster.openSuccessSnackBar(data.message);
+              this.itemsCategoryService.bSubject.next(true);
+            },
+            (error: any) => console.log(error)
+          );
+        }
+
+      }else
+      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت صنف')
     }
     this.objHover = null;
   }
