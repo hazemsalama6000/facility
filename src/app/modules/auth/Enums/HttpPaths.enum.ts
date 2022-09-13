@@ -317,13 +317,13 @@ export enum HttpPaths {
 
 	API_CATEGORY_ADD = "/api/v1/invt/addnewinvitemcategory",
 	API_CATEGORY_UPDATE = "/api/v1/invt/updateinvitemcategory/",
-	API_PARENT_CATEGORY_UPDATE = "/api/v1/invt/",
+	API_PARENT_CATEGORY_UPDATE = "/api/v1/invt/changecategoryparentid",
 	API_ACTIVE_DEACTIVE_CATEGORY = "/api/v1/invt/changecategoryisactiveornot/",
 
 	API_ITEM_ADD = "/api/v1/invt/addnewinvitems",
 	API_GET_ITEM_BY_ID = "/api/v1/invt/getinvitemprofile?itemId=",
 	API_ITEM_UPDATE = "/api/v1/invt/updateinvitems/",
-	API_PARENT_ITEM_UPDATE = "/api/v1/invt/",
+	API_PARENT_ITEM_UPDATE = "/api/v1/invt/changeitemcategory",
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
 
