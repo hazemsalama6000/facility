@@ -355,17 +355,6 @@ p-paginator button {
 	background-color: #bde0ff;
 }
 
-// list_content input {
-// 	font-family: Arial, Helvetica, sans-serif !important;
-// 	font-size: 16px !important;
-// 	font-weight: 600 !important;
-// }
-
-// list_content .mat-table {
-// 	font-family: Arial, Helvetica, sans-serif !important;
-// 	font-size: 16px !important;
-// 	font-weight: 600 !important;
-// }
 
 mat-nested-tree-node[aria-level="1"] {
 	margin-bottom: 10px !important;
@@ -419,18 +408,8 @@ app-addstocktech .mat-dialog-content {
 	max-height: 80vh;
 }
 
-.basic-container {
-	padding: 30px;
-}
 
-.version-info {
-	font-size: 8pt;
-	float: right;
-}
 
-/**
-   * TREE DRAG AND DROP STYLING
-   */
 
 app-itemsandcategory .mat-tree-node,
 app-internaldivisiontree .mat-tree-node {
@@ -439,14 +418,7 @@ app-internaldivisiontree .mat-tree-node {
 	user-select: none;
 	cursor: move;
 	margin-bottom: 2px;
-
-	&.cdk-drag-preview {
-		// while dragging
-		//   @include mat-elevation(12);
-	}
-
 	&.cdk-drag-placeholder {
-		// potential drop area
 		opacity: 0;
 	}
 }
@@ -463,18 +435,11 @@ app-internaldivisiontree .cdk-drag-animating {
 	transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-app-internaldivisiontree .mat-form-field-appearance-outline .mat-form-field-infix {
-	padding: 0.5rem 0 !important;
-}
-
-app-internaldivisiontree .mat-form-field-wrapper {
-	padding-bottom: 0;
-}
+// app-internaldivisiontree mat-tree-node {
+// 	padding-right: calc(attr(data-assigned-color)*40);
+// }
 
 
-app-internaldivisiontree mat-tree-node {
-	padding-right: calc(attr(data-assigned-color)*40);
-}
 
 
 @media only screen and (max-width: 991.98px) {

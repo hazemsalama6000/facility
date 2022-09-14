@@ -17,16 +17,16 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   Currentlang: string;
   CurrentLangImage: string;
-
   url: string = localStorage.getItem('companyLink') as string;
-
   language: LanguageFlag;
-  userdata: IUserData;
+  // userdata: IUserData;
+  user$: Observable<IUserData>;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
   constructor(private auth: AuthService, private translationService: TranslationService, private router: Router) {
-    auth.userData.subscribe(res => this.userdata = res);
+    // auth.userData.subscribe(res => this.userdata = res);
+    this.user$ = this.auth.userData.asObservable();
 
   }
 
@@ -41,13 +41,12 @@ export class UserInnerComponent implements OnInit, OnDestroy {
       lang: this.Currentlang == 'English' ? 'en' : 'ar',
       active: true
     };
+    // console.log(this.Currentlang,this.language)
   }
 
   logout() {
-
     localStorage.removeItem(this.TOKENIN_LOCALSTORAGE);
     this.router.navigate(['/auth']);
-
   }
 
   setDirection = () => {
@@ -63,6 +62,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
     this.CurrentLangImage = CurrentLangInfoObject.CurrentLangImage;
     this.setDirection();
   }
+  
   // selectLanguage(lang: string) {
   //   this.translationService.setLanguage(lang);
   //   this.setLanguage(lang);

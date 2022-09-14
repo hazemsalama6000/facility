@@ -541,6 +541,7 @@ export const locale = {
         TECHNICIAN:"Technician",
         TYPE:"Type",
         DOWNLOADFILES:"Download Files",
+        NAME:"Name"
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
