@@ -1,0 +1,356 @@
+<h2 mat-dialog-title>
+
+  <div class="d-flex justify-content-between align-items-center">
+
+    <span class="fontsection">{{data.type=='add'?("DECLARATIONS.TITLES.ADDITEM"|translate):("DECLARATIONS.TITLES.EDITITEM"|translate)}}</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+<form [formGroup]="ItemForm" (ngSubmit)="addItem()">
+
+  <mat-dialog-content style="z-index: -1;" class="mat-typography"  >
+    <div class="row mx-0">
+
+      <!-- code -->
+      <div class="col-md-4 mb-3" >
+        <mat-form-field appearance="outline" >
+          <mat-label> {{"DECLARATIONS.INPUTS.CODE" | translate}}</mat-label>
+          <input matInput placeholder="Placeholder" name="code" formControlName="code">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.CODE' | translate},
+                  control: ItemForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE' | translate , min:3},
+                  control: ItemForm.controls['code']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE' | translate , max:100},
+                  control: ItemForm.controls['code']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- name -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.NAME" | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.NAME' | translate},
+                  control: ItemForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.NAME' | translate , min:3},
+                  control: ItemForm.controls['name']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.NAME' | translate , max:100},
+                  control: ItemForm.controls['name']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- barCode -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.BARCODE" | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="barCode" formControlName="barCode">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.BARCODE' | translate},
+                  control: ItemForm.controls['barCode']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.BARCODE' | translate , min:3},
+                  control: ItemForm.controls['barCode']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.BARCODE' | translate , max:100},
+                  control: ItemForm.controls['barCode']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- description -->
+      <div class="col-md-12 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.DESCRIPTION" | translate}} </mat-label>
+          <input matInput placeholder="" name="description" formControlName="description">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.DESCRIPTION' | translate},
+                  control: ItemForm.controls['description']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.DESCRIPTION' | translate , min:3},
+                  control: ItemForm.controls['description']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.DESCRIPTION' | translate , max:100},
+                  control: ItemForm.controls['description']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- unit_Id -->
+      <div class="col-md-4 mb-3">
+
+        <ng-select appendTo="body" class="customized" [items]="dropdownUnitData" bindLabel="Name" bindValue="Id"
+          placeholder="{{'DECLARATIONS.INPUTS.UNIT' | translate}}" name="unit_Id" id="unit_Id" formControlName="unit_Id">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate},
+                  control: ItemForm.controls['unit_Id']
+                }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , min:3},
+                  control: ItemForm.controls['unit_Id']
+                }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , max:100},
+                  control: ItemForm.controls['unit_Id']
+                 }"></ng-container>
+        </mat-hint>
+
+      </div>
+
+      <!-- nature -->
+      <div class="col-md-4 mb-3">
+
+        <ng-select appendTo="body" class="customized" [items]="dropdownNatureData" bindLabel="name" bindValue="value" placeholder="طبيعة الصنف"
+          name="nature" id="nature" formControlName="nature">
+        </ng-select>
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate},
+                      control: ItemForm.controls['nature']
+                    }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'minlength',
+                      message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , min:3},
+                      control: ItemForm.controls['nature']
+                    }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'maxlength',
+                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , max:100},
+                      control: ItemForm.controls['nature']
+                     }"></ng-container>
+        </mat-hint>
+
+      </div>
+
+      <!-- quantity -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.QUANTITY" | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="quantity" formControlName="quantity">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate},
+                  control: ItemForm.controls['quantity']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate , min:3},
+                  control: ItemForm.controls['quantity']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate , max:100},
+                  control: ItemForm.controls['quantity']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- maxLimit -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.MAXLIMIT" | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="maxLimit" formControlName="maxLimit">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.MAXLIMIT' | translate},
+                  control: ItemForm.controls['maxLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.MAXLIMIT' | translate , min:3},
+                  control: ItemForm.controls['maxLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.MAXLIMIT' | translate , max:100},
+                  control: ItemForm.controls['maxLimit']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- minLimit -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.MINLIMIT" | translate}} </mat-label>
+          <input matInput placeholder="" name="minLimit" formControlName="minLimit">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.MINLIMIT' | translate},
+                  control: ItemForm.controls['minLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.MINLIMIT' | translate , min:3},
+                  control: ItemForm.controls['minLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.MINLIMIT' | translate , max:100},
+                  control: ItemForm.controls['minLimit']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- orderingLimit -->
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label> {{"DECLARATIONS.INPUTS.ORDERINGLIMIT" | translate}} </mat-label>
+          <input matInput placeholder="Placeholder" name="orderingLimit" formControlName="orderingLimit">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.ORDERINGLIMIT' | translate},
+                  control: ItemForm.controls['orderingLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.ORDERINGLIMIT' | translate , min:3},
+                  control: ItemForm.controls['orderingLimit']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.ORDERINGLIMIT' | translate , max:100},
+                  control: ItemForm.controls['orderingLimit']
+                 }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- expirationDate {{'DECLARATIONS.INPUTS.DATE'|translate}}-->
+      <div class="col-md-6 mb-3">
+        <mat-checkbox formControlName="hasExpireDate" color="primary" (ngModelChange)="hasExpireDate()" class="mb-2">
+          له صلاحية
+        </mat-checkbox>
+
+        <mat-form-field appearance="outline">
+          <mat-label>التاريخ</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="expirationDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate},
+                control: ItemForm.controls['expirationDate']
+              }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- vatTaxValue -->
+      <div class="col-md-6 mb-3">
+        <mat-checkbox formControlName="hasVatTax" color="primary" (ngModelChange)="hasVatTax()" class="mb-2">
+          خاضع لضريبة القيمة
+        </mat-checkbox>
+        <mat-form-field appearance="outline">
+          <mat-label> النسبة</mat-label>
+          <input matInput placeholder="Placeholder" name="vatTaxValue" formControlName="vatTaxValue">
+          <mat-hint>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.NAME' | translate},
+                  control: ItemForm.controls['vatTaxValue']
+                }"></ng-container>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </mat-dialog-content>
+
+ 
+  <mat-dialog-actions>
+		<div class="d-flex">
+			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
+				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+		</div>
+	</mat-dialog-actions>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>
+

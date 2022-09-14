@@ -9,19 +9,16 @@
 
     <div class="align-items-baseline mt-4 mx-0 row">
       <div class="col-md-4">
-        <ng-select class="customized"  [items]="dropdownStockData" bindLabel="Name" bindValue="Id" name="pathroute"
-          id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.STOCK' | translate}}" (change)="onSelectStock($event)">
+        <ng-select class="customized" [items]="dropdownStockData" bindLabel="Name" bindValue="Id"
+          placeholder="{{'DECLARATIONS.INPUTS.STOCK' | translate}}" (change)="onSelectStock($event)">
         </ng-select>
       </div>
     </div>
 
   </mat-card>
 
-
-
-
   <div class="col-md-7 mt-10">
-<app-internaldivisiontree></app-internaldivisiontree>
+    <app-internaldivisiontree></app-internaldivisiontree>
   </div>
 
 </section>

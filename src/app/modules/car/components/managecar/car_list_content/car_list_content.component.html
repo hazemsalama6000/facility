@@ -85,6 +85,7 @@
             <a [href]="url+file.path" [download]="file.id" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
               <mat-icon>download</mat-icon>
             </a>
+            
           </ng-container>
         </div>
       </td>
@@ -107,21 +108,21 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openAssignDialog(element,'technician')">
-            <!-- <mat-icon>dialpad</mat-icon> -->
+          <button mat-menu-item (click)="openAssignDialog(element,'technician')" class="align-items-center d-flex justify-content-between px-2">
+            <mat-icon class="m-0">person_add</mat-icon>
             <span>تخصيص مندوب</span>
           </button>
-          <button *ngIf="element.technicianId" mat-menu-item (click)="openunAssignTechincian(element,'technician')">
-            <!-- <mat-icon>voicemail</mat-icon> -->
+          <button *ngIf="element.technicianId" mat-menu-item (click)="openunAssignTechincian(element,'technician')" class="align-items-center d-flex justify-content-between px-2">
+            <mat-icon class="m-0">person_off</mat-icon>
             <span>ايقاف تخصيص مندوب</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="openAssignDialog(element,'driver')">
-            <!-- <mat-icon>notifications_off</mat-icon> -->
+          <button mat-menu-item (click)="openAssignDialog(element,'driver')" class="align-items-center d-flex justify-content-between px-2">
+            <mat-icon class="m-0">person_add</mat-icon>
             <span>تخصيص سائق</span>
           </button>
-          <button *ngIf="element.driverId" mat-menu-item (click)="openunAssignTechincian(element,'driver')">
-            <!-- <mat-icon>notifications_off</mat-icon> -->
+          <button *ngIf="element.driverId" mat-menu-item (click)="openunAssignTechincian(element,'driver')" class="align-items-center d-flex justify-content-between px-2">
+            <mat-icon class="m-0">person_off</mat-icon>
             <span>ايقاف تخصيص سائق</span>
           </button>
         </mat-menu>

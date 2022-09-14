@@ -1,9 +1,50 @@
+<section *ngIf="model.id>0">
+  <mat-card class=" mb-5">
+
+    <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
+      <span class="fontForInputs fs-3">السائق والمندوب الحاليين </span>
+      <span class="badge badge-danger">سيارة رقم : {{model.plateCar}}</span>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
+      <div class="col-md-6 fontForInputs">
+        <h2 class="m-0">المندوب</h2>
+        <span class="d-block fs-4 mb-1">الاسم:{{carLogs.techLastLog.personName}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs.techLastLog.startDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs.techLastLog.endDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">
+          <div class="d-flex align-items-center">
+            الحالة: <label class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>
+          </div>
+        </span>
+      </div>
+      <div class="col-md-6 fontForInputs">
+        <h2 class="m-0">السائق</h2>
+        <span class="d-block fs-4 mb-1">الاسم:{{carLogs.driverLastLog.personName}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs.driverLastLog.startDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs.driverLastLog.endDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">
+          <div class="d-flex align-items-center">
+            الحالة: <label class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>
+          </div>
+        </span>
+      </div>
+    </div>
+
+  </mat-card>
+</section>
+
 <section style="width:100%;" *ngIf="model.id>0">
+
+
+
   <!-- {{"CARS.TITLES.CARSTABLE"|translate}} {{"OPERATION.TITLES.ISSUENAME" | translate}}-->
   <section>
     <mat-card>
       <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
-        <span class="fontForInputs fs-3">الفنين </span>
+        <span class="fontForInputs fs-3">الحركات على السيارة</span>
         <span class="badge badge-danger">سيارة رقم : {{model.plateCar}}</span>
       </div>
     </mat-card>
@@ -11,17 +52,13 @@
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="techname">
-      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.TECHNICIANNAME" | translate}}</th>
-      <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
-        <span>{{element.technicianName}}</span>
-      </td>
-    </ng-container> 
-    
-    <ng-container matColumnDef="drivername">
-      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.DRIVERNAME" | translate}}</th>
-      <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
-        <span>{{element.driverName}}</span>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>{{"CARS.TITLES.TYPE"|translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index">
+        <div class="d-flex justify-content-center align-items-center">
+          <label *ngIf="element.isTechnicianUpdated == true" class="badge badge-primary"> {{"CARS.TITLES.TECHNICIAN"|translate}}</label>
+          <label *ngIf="element.isTechnicianUpdated == false" class="badge badge-secondary"> {{"CARS.TITLES.DRIVER"|translate}}</label>
+        </div>
       </td>
     </ng-container>
 
@@ -39,20 +76,17 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="personname">
+      <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.NAME" | translate}}</th>
+      <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <span>{{element.personName}}</span>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="notes">
       <th mat-header-cell *matHeaderCellDef> {{"CARS.TITLES.NOTES" | translate}}</th>
       <td mat-cell *matCellDef="let element; let x=index">
         <span>{{element.notes}}</span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>{{"CARS.TITLES.TYPE"|translate}}</th>
-      <td mat-cell *matCellDef="let element; let x=index">
-        <div class="d-flex justify-content-center align-items-center">
-          <label *ngIf="element.isTechnicianUpdated == true" class="badge badge-primary"> {{"CARS.TITLES.TECHNICIAN"|translate}}</label>
-          <label *ngIf="element.isTechnicianUpdated == false" class="badge badge-secondary"> {{"CARS.TITLES.DRIVER"|translate}}</label>
-        </div>
       </td>
     </ng-container>
 
@@ -73,9 +107,10 @@
           <mat-icon>download</mat-icon>
         </button> -->
         <ng-container *ngFor="let file of element.attachments">
-          <a [href]="url+file.path" [download]="'test.jpg'" rel="noopener noreferrer" (click)="$event.stopPropagation()">
+          <a [href]="url+file.path" [download]="'test.jpg'" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">
             <mat-icon>download</mat-icon>
           </a>
+
         </ng-container>
       </td>
     </ng-container>

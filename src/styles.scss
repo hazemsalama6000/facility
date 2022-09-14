@@ -352,17 +352,10 @@ p-paginator button {
 	text-align: right !important;
 }
 
-// list_content input {
-// 	font-family: Arial, Helvetica, sans-serif !important;
-// 	font-size: 16px !important;
-// 	font-weight: 600 !important;
-// }
+.bg-hover-tree{
+	background-color: #bde0ff;
+}
 
-// list_content .mat-table {
-// 	font-family: Arial, Helvetica, sans-serif !important;
-// 	font-size: 16px !important;
-// 	font-weight: 600 !important;
-// }
 
 mat-nested-tree-node[aria-level="1"] {
 	margin-bottom: 10px !important;
@@ -411,7 +404,44 @@ app-pathroute ng-select ,app-addpathroute ng-select {
     width:auto !important;
 }
 
-app-assigntechtoinventory .mat-dialog-content,app-addstocktech .mat-dialog-content{    max-height: 80vh;}
+app-assigntechtoinventory .mat-dialog-content,
+app-addstocktech .mat-dialog-content {
+	max-height: 80vh;
+}
+
+
+
+
+app-itemsandcategory .mat-tree-node,
+app-internaldivisiontree .mat-tree-node {
+	background-color: #e7e7e7;
+    color: black;
+	user-select: none;
+	cursor: move;
+	margin-bottom: 2px;
+	&.cdk-drag-placeholder {
+		opacity: 0;
+	}
+}
+
+/* items moving away to make room for drop */
+app-itemsandcategory .cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder),
+app-internaldivisiontree .cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* item being dropped */
+app-itemsandcategory .cdk-drag-animating,
+app-internaldivisiontree .cdk-drag-animating {
+	transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// app-internaldivisiontree mat-tree-node {
+// 	padding-right: calc(attr(data-assigned-color)*40);
+// }
+
+
+
 
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {

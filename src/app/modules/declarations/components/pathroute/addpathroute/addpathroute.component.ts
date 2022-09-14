@@ -31,16 +31,16 @@ export class AddpathrouteComponent {
   pathRouteForm: FormGroup = this.fb.group({
     id: [0],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    region_Id: [null, Validators.compose([Validators.required])],
+    region_Ids: [null, Validators.compose([Validators.required])],
     state_Id: [null, Validators.compose([Validators.required])],
-    technician_Id: [null, Validators.compose([Validators.required])],
+    technician_Id: [null],
     companyBranch_Id: [0],
     isActive: [true]
   });
 
   constructor(
     private pathrouteService: PathrouteService,
-    private technicianService:TechnicianService,
+    private technicianService: TechnicianService,
     private stateService: StateService,
     private regionService: RegionService,
     private auth: AuthService,
@@ -57,24 +57,24 @@ export class AddpathrouteComponent {
   }
 
   addPathRoute() {
-    
     if (this.pathRouteForm.valid && this.saveButtonClickedFlag) {
-      this.pathRouteForm.patchValue({ companyBranch_Id: this.userData.branchId });
-      this.pathrouteService.addPathRoute(this.pathRouteForm.value).subscribe(
-        (data: HttpReponseModel) => {
-          if (data.isSuccess) {
-            this.pathrouteService.bSubject.next(false);
-            this.dialogRef.close();
-            this.toaster.openSuccessSnackBar(data.message);
-          }
-          else if (data.isExists) {
-            this.toaster.openWarningSnackBar(data.message);
-          }
-        },
-        (error: any) => {
-          this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-        }
-      );
+      console.log(this.pathRouteForm.value)
+      // this.pathRouteForm.patchValue({ companyBranch_Id: this.userData.branchId });
+      // this.pathrouteService.addPathRoute(this.pathRouteForm.value).subscribe(
+      //   (data: HttpReponseModel) => {
+      //     if (data.isSuccess) {
+      //       this.pathrouteService.bSubject.next(false);
+      //       this.dialogRef.close();
+      //       this.toaster.openSuccessSnackBar(data.message);
+      //     }
+      //     else if (data.isExists) {
+      //       this.toaster.openWarningSnackBar(data.message);
+      //     }
+      //   },
+      //   (error: any) => {
+      //     this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+      //   }
+      // );
     }
 
   }

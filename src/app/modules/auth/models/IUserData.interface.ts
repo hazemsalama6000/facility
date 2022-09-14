@@ -10,8 +10,8 @@ export interface IUserData {
     fullName: string;
     imgPath: string;
     isAuthenticated: boolean;
-    jobId: number;
-    refreshToken: string;
+    jobId?: number;
+    refreshToken?: string;
     roles: string[];
     technician_Id: number;
     userCode: string;

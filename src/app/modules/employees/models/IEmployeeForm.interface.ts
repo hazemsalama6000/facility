@@ -18,7 +18,6 @@ export interface IEmployeeForm {
 	GraduateDate: string,
 	Department_Id:number,
 	Section_Id:number,
-	Status_Id:number,
 	JobSection_Id: number,
 	HireDate: string,
 	Branch_Id: number,

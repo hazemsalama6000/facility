@@ -3,7 +3,7 @@
 
   <section>
     <!-- {{"HR.TITLES.JOBS" | translate}} *ngIf="addButton"-->
-    <mat-card class="col-md-7">
+    <mat-card class="col-md-8">
       <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
         <span class="fontForInputs fs-3"> {{"DECLARATIONS.TITLES.PATHROUTETABLE"|translate}}</span>
         <button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openAddDialog()"
@@ -21,7 +21,7 @@
         <div class="col-md-4">
           <ng-select class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" name="region_Id" id="state"
             placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" [(ngModel)]="searchModel.StateId"
-            (change)="getRegion($event);region.handleClearClick()" 
+            (change)="getRegion($event);region.handleClearClick()"
             (clear)="dropdownRegionData=[];dropdownPathRouteData=[];region.handleClearClick();this.getallData();">
           </ng-select>
         </div>
@@ -29,8 +29,7 @@
         <div class="col-md-4">
           <ng-select #region class="customized" style="width:250px ;" [(ngModel)]="searchModel.RegionId" [items]="dropdownRegionData" bindLabel="Name"
             bindValue="Id" name="region" id="region_Id" placeholder="{{'DECLARATIONS.INPUTS.REGION' | translate}}"
-            (change)="getPathRoute();pathRoute.handleClearClick()" 
-            (clear)="dropdownPathRouteData=[];pathRoute.handleClearClick()">
+            (change)="getPathRoute();pathRoute.handleClearClick()" (clear)="dropdownPathRouteData=[];pathRoute.handleClearClick()">
           </ng-select>
         </div>
 
@@ -49,7 +48,7 @@
 
 
 
-  <div class="col-md-7 mt-10">
+  <div class="col-md-8 mt-10">
 
 
     <!-- <div class="col-md-4">
@@ -83,7 +82,10 @@
       <ng-container matColumnDef="region">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.REGION" | translate}} </th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <span>{{element.region}}</span>
+          <ng-container *ngFor="let reg of element.region.split(',')">
+            <label *ngIf="reg" class="badge badge-primary me-1"> {{reg}}</label>
+          </ng-container>
+          <!-- <span>{{element.region}}</span> -->
         </td>
       </ng-container>
 
@@ -127,12 +129,12 @@
 
           <button matTooltip="{{'DECLARATIONS.BUTTONS.REASSIGN' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
             (click)="openAssignDialog(element)">
-            <mat-icon>replay</mat-icon>
+            <mat-icon>person_add</mat-icon>
           </button>
 
           <button *ngIf="element.technician!=''&&element.technician!=null" matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}"
             mat-mini-fab color="warn" class="mx-md-1" (click)="stopAssignTechincian(element)">
-            <mat-icon>refresh</mat-icon>
+            <mat-icon>person_off</mat-icon>
           </button>
 
         </td>

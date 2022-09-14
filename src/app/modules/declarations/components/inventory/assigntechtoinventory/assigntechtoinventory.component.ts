@@ -9,6 +9,7 @@ import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
+import { EmployeeService } from 'src/app/modules/employees/services/employee.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { IInventory } from '../../../models/IInventory.interface';
 import { InventoryService } from '../../../services/inventory.service';
@@ -21,7 +22,7 @@ import { InventoryService } from '../../../services/inventory.service';
 export class AssigntechtoinventoryComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'date', 'state'];
+  displayedColumns: string[] = ['employeeName', 'startDate','endData','deActiveBy', 'state'];
   dataSource: any;
 
   saveButtonClickedFlag = false;
@@ -30,33 +31,29 @@ export class AssigntechtoinventoryComponent {
   private unsubscribe: Subscription[] = [];
 
   stockAssignForm: FormGroup = this.fb.group({
-    StockId : [0],
-    EmployeeId : [null, [Validators.required]],
+    StockId: [0],
+    EmployeeId: [null, [Validators.required]],
   });
 
   constructor(
     private inventoryService: InventoryService,
-    private technicianService: TechnicianService,
+    private employeeService: EmployeeService,
     private auth: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: { model: IInventory, isTechnician: boolean },
+    @Inject(MAT_DIALOG_DATA) public data: { model: IInventory },
     public dialogRef: MatDialogRef<AssigntechtoinventoryComponent>
   ) {
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
-    this.stockAssignForm.patchValue({
-      invid: this.data.model.id,
-    });
 
-    this.getTechnicianOrDriver();
+    this.getEmployee();
     this.getallData()
   }
 
-
   addAssignToStock() {
     if (this.stockAssignForm.valid && this.saveButtonClickedFlag) {
-
+      this.stockAssignForm.patchValue({ StockId: this.data.model.id });
       this.inventoryService.AssignTechnicianToInventory(this.stockAssignForm.get('StockId')?.value, this.stockAssignForm.get('EmployeeId')?.value).subscribe(
         (data: HttpReponseModel) => {
           if (data.isSuccess) {
@@ -74,8 +71,8 @@ export class AssigntechtoinventoryComponent {
     }
   }
 
-  getTechnicianOrDriver() {
-    this.technicianService.getLookUpTechnician(this.userData.branchId).subscribe(
+  getEmployee() {
+    this.employeeService.getLookupEmployeeData(this.userData.companyId,this.userData.branchId).subscribe(
       (res: LookUpModel[]) => this.dropdownTechnicianData = res,
       (err) => console.log(err),
       () => { });

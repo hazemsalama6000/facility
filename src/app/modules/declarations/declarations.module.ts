@@ -58,9 +58,10 @@ import { VoucherSerialsDatatableComponent } from './components/voucher-serials/v
     AddinternaldivisionComponent,
     InternaldivisionstockComponent,
     InternaldivisiontreeComponent,
-	VoucherSerialsComponent,
-	VoucherSerialUpsertComponent,
-	VoucherSerialsDatatableComponent
+    VoucherSerialsComponent,
+    VoucherSerialUpsertComponent,
+    VoucherSerialsDatatableComponent,
+
   ],
   imports: [
     CommonModule,

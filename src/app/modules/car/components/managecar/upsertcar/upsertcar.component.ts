@@ -18,7 +18,7 @@ import { CarService } from '../../../services/car.service';
 })
 export class UpsertcarComponent {
 
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   isEdit: boolean = false;
   userData: IUserData;
@@ -32,8 +32,8 @@ export class UpsertcarComponent {
     id: [0],
     carNumber: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     carModel_Id: [null, Validators.compose([Validators.required])],
-    driver_Id: [null],
-    technician_Id: [null],
+    driver_Id: [0],
+    technician_Id: [0],
     branch_Id: [0]
   });
 
@@ -67,7 +67,8 @@ export class UpsertcarComponent {
 
     if (this.carForm.valid && this.saveButtonClickedFlag) {
       this.carForm.patchValue({ branch_Id: this.userData.branchId });
-      console.log(this.carForm.value)
+      this.loading = true;
+
       if (this.isEdit) {
         let model: any = {
           carDataId: this.carForm.get('id')?.value,
@@ -76,6 +77,7 @@ export class UpsertcarComponent {
         };
         this.carService.updateCar(model).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
               this.dialogRef.close();
@@ -86,12 +88,14 @@ export class UpsertcarComponent {
             }
           },
           (error: any) => {
+            this.loading = false;
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
         );
       } else {
         this.carService.addCar(this.carForm.value).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
               this.dialogRef.close();
@@ -102,6 +106,7 @@ export class UpsertcarComponent {
             }
           },
           (error: any) => {
+            this.loading = false;
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
         );

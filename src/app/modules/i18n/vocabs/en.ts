@@ -16,7 +16,8 @@ export const locale = {
       DASHBOARD: 'Dashboard',
       GOVERNORATESANDREGIONS: "Governorats And Regions",
       DEPARTMENTS: "Departments",
-      JOBS: "Jobs",
+      JOB: "Jobs",
+      CLIENT_CATEGORY:"Client Category",
       COMPANIES: "Companies",
       ONLINEUSERS: "Online Users",
       LOGINUSERSDATA: "Users Login Information",
@@ -425,13 +426,25 @@ export const locale = {
         STATE: 'Select State',
         NAME: 'Name',
         TECHNICIAN: 'Select Technician',
+        SHELF:"Shelf",
 
         CODE:"Code",
         STOCKNAME:"Stock Name",
         EMPLOYEE:"Select Employee",
         STOCKCATEGORY:"Select Stock Category",
         ADDRESS:"Address",
-        STOCK:"Select Stock"
+        STOCK:"Select Stock",
+        SELECTTECHNIQUENAME:"Select Technique",
+
+        BARCODE:"BarCode",
+        DESCRIPTION:"Description",
+        UNIT:"Small Unit",
+        CATEGORY:"Category",
+        QUANTITY:"Quantity",
+        MAXLIMIT:"Max Limit",
+        MINLIMIT:"Min Limit",
+        ORDERINGLIMIT:"Ordering Limit"
+
       },
       BUTTONS: {
         ADD: "Add",
@@ -473,7 +486,13 @@ export const locale = {
         DEACTIVEDATE:"Deactive Date",
         DEACTIVEBY:"Deactive By",
         ADDSTOCK:"Add Inventory",
-        INTERNALDIVISION:"Internal Division Stock"
+        INTERNALDIVISION:"Internal Division Stock",
+        ASSIGNKEEPER:"Assign Keeper",
+        STOCKSHELF:"Add Stock Shelf",
+        ADDCATEGORY:"Add Category",
+        EDITCATEGORY:"Edit Category",
+        EDITITEM:"Edit Item",
+        ADDITEM:"Add New Item"
 
       },
       MESSAGE: {
@@ -522,6 +541,7 @@ export const locale = {
         TECHNICIAN:"Technician",
         TYPE:"Type",
         DOWNLOADFILES:"Download Files",
+        NAME:"Name"
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"

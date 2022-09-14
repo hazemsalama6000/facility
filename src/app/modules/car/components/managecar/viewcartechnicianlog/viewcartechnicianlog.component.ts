@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { Icar } from '../../../models/ICar.interface';
-import { ICarLogs } from '../../../models/ICarLogs.interface';
+import { ICarLog, ICarLogs } from '../../../models/ICarLogs.interface';
 import { CarService } from '../../../services/car.service';
 
 @Component({
@@ -16,9 +16,10 @@ import { CarService } from '../../../services/car.service';
 export class ViewcartechnicianlogComponent implements OnInit {
   searchModel: any = { branchId: 0 };
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['techname', 'drivername', 'fromDate', 'toDate', 'notes', 'type', 'state', 'action'];
+  displayedColumns: string[] = ['type', 'fromDate', 'toDate','personname', 'notes',  'state', 'action'];
   dataSource: any;
   userData: IUserData;
+  carLogs:ICarLogs;
   model: Icar;
   url: string = localStorage.getItem('companyLink') as string;
   unsubscribe: Subscription[] = [];
@@ -35,8 +36,9 @@ export class ViewcartechnicianlogComponent implements OnInit {
   }
 
   getallData(carId: number) {
-    this.carService.getHistoryCar(carId).subscribe((data: ICarLogs[]) => {
-      this.dataSource = new MatTableDataSource<ICarLogs>(data);
+    this.carService.getHistoryCar(carId).subscribe((data: ICarLogs) => {
+      this.carLogs=data;
+      this.dataSource = new MatTableDataSource<ICarLog>(data.allLogs);
       this.dataSource.paginator = this.paginator;
     });
   }

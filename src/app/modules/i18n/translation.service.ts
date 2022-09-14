@@ -20,15 +20,15 @@ const LOCALIZATION_LOCAL_STORAGE_KEY = 'language';
 })
 export class TranslationService {
   // Private properties
-   private langIds: any = [];
-   CurrentLangInfo:ICurrentLangInfo={Currentlang:'',CurrentLangImage:''};
-   subject = new Subject<string>(); // a subject to notify
-   myObservable = this.subject.asObservable();
+  private langIds: any = [];
+  CurrentLangInfo: ICurrentLangInfo = { Currentlang: '', CurrentLangImage: '' };
+  subject = new Subject<string>(); // a subject to notify
+  myObservable = this.subject.asObservable();
 
 
   constructor(private translate: TranslateService) {
     // add new langIds to the list
-    this.translate.addLangs(['en']);
+    this.translate.addLangs(['en', 'ar']);
 
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('ar');
@@ -49,30 +49,30 @@ export class TranslationService {
     this.translate.use(this.getSelectedLanguage());
   }
 
-changeLang(lang:'ar'|'en'){
-	this.setLanguage(lang);
-}
+  changeLang(lang: 'ar' | 'en') {
+    this.setLanguage(lang);
+  }
 
-getCurrentLangInfo(){
-	let lang:string = this.getSelectedLanguage();	
-	this.CurrentLangInfo.Currentlang = lang =='ar' ? LangName["ar"] as string:LangName["en"] as string;
-	this.CurrentLangInfo.CurrentLangImage = lang =='ar'?'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg':'https://cdn-icons-png.flaticon.com/512/197/197374.png';
-	return {Currentlang:this.CurrentLangInfo.Currentlang , CurrentLangImage:this.CurrentLangInfo.CurrentLangImage}
-}
+  getCurrentLangInfo() {
+    let lang: string = this.getSelectedLanguage();
+    this.CurrentLangInfo.Currentlang = lang == 'ar' ? LangName["ar"] as string : LangName["en"] as string;
+    this.CurrentLangInfo.CurrentLangImage = lang == 'ar' ? 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg' : 'https://cdn-icons-png.flaticon.com/512/197/197374.png';
+    return { Currentlang: this.CurrentLangInfo.Currentlang, CurrentLangImage: this.CurrentLangInfo.CurrentLangImage }
+  }
 
-getHtmlDirection(){
-	let lang:string = this.getSelectedLanguage();	
-	let Dir = lang =='ar' ? 'rtl':'ltr';
-	this.subject.next(Dir);
-	return Dir;
-}
+  getHtmlDirection() {
+    let lang: string = this.getSelectedLanguage();
+    let Dir = lang == 'ar' ? 'rtl' : 'ltr';
+    this.subject.next(Dir);
+    return Dir;
+  }
 
   setLanguage(lang: string) {
     if (lang) {
       this.translate.use(this.translate.getDefaultLang());
       this.translate.use(lang);
       localStorage.setItem(LOCALIZATION_LOCAL_STORAGE_KEY, lang);
-	  let Dir = lang =='ar' ? 'rtl':'ltr';
+      let Dir = lang == 'ar' ? 'rtl' : 'ltr';
     }
   }
 

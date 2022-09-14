@@ -18,7 +18,7 @@ import { CarService } from '../../../services/car.service';
   styleUrls: ['./assgincar.component.scss']
 })
 export class AssgincarComponent {
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   files: string[] = [];
   userData: IUserData;
@@ -26,10 +26,10 @@ export class AssgincarComponent {
   private unsubscribe: Subscription[] = [];
 
   carAssignForm: FormGroup = this.fb.group({
-    driverOrTechId: [null,[Validators.required]],
+    driverOrTechId: [null],
     carId: [0],
-    notes: ['',[Validators.required]],
-    file: ['',[Validators.required]]
+    notes: [''],
+    file: ['']
   });
 
   constructor(
@@ -56,27 +56,29 @@ export class AssgincarComponent {
   addAssignToCar() {
 
     if (this.carAssignForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
       if (this.data.isTechnician) {
         this.carService.AssignCarToTechincian(this.createFormData()).subscribe(
           (data: HttpReponseModel) => {
             if (data.isSuccess) {
-              // this.carService.bSubject.next(false);
+
               this.dialogRef.close();
               this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
             }
             else if (data.isExists) {
               this.toaster.openWarningSnackBar(data.message);
-            }
+            } this.loading = false;
           },
           (error: any) => {
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+            this.loading = false;
           });
       } else {
         this.carService.AssignCarToDriver(this.createFormData()).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
-              // this.carService.bSubject.next(false);
               this.dialogRef.close();
               this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
@@ -86,6 +88,7 @@ export class AssgincarComponent {
             }
           },
           (error: any) => {
+            this.loading = false;
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           });
       }

@@ -16,6 +16,9 @@ import { DatePipe } from '@angular/common';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { EmployeeService } from '../../employees/services/employee.service';
+import { IEmployee } from '../../employees/models/employee.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeUpsertComponent } from '../../employees/employee-upsert/employee-upsert.component';
 
 
 @Component({
@@ -36,6 +39,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
 
   employees: IEmployeeList[];
   userData: IUserData;
+  employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 
   selectedColumns: any[] = [
     { propName: 'name', translateKey: "NAME" },
@@ -68,15 +72,16 @@ export class Employee_listComponent implements OnInit, OnDestroy {
     private departmentService: DepartmentService,
     private sectionService: SectionService,
     private jobService: JobService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public dialog: MatDialog
   ) {
 
     this.searchObject = {
-      branchesIds: [],
-      departmentsIds: [],
-      employeesIds: [],
-      jobsIds: [],
-      sectionsIds: [],
+      // branchesIds: null,
+      // departmentsIds: [],
+      // employeesIds: [],
+      // jobsIds: [],
+      // sectionsIds: [],
       pageSize: 5,
       pageNumber: 1
     };
@@ -157,6 +162,19 @@ export class Employee_listComponent implements OnInit, OnDestroy {
       },
       err => { console.log(err); this.loading = false },
       () => { this.loading = false });
+  }
+
+  openDialogUpsertEmployee(value: 'ADD' | 'EDIT') {
+
+    const dialogRef = this.dialog.open(EmployeeUpsertComponent,
+      {
+        maxHeight: '100vh',
+        height: '100%',
+
+        position: { top: '0px', right: '0px' },
+        data: { employeeId: 0, branch_Id: this.userData.branchId }
+      });
+
   }
 
   // start Export Functions
@@ -250,11 +268,11 @@ export class Employee_listComponent implements OnInit, OnDestroy {
 }
 
 export interface IEmployeeSearch {
-  branchesIds: number[];
-  employeesIds: number[];
-  departmentsIds: number[];
-  sectionsIds: number[];
-  jobsIds: number[];
+  branchesIds?: number[];
+  employeesIds?: number[];
+  departmentsIds?: number[];
+  sectionsIds?: number[];
+  jobsIds?: number[];
   pageNumber: number;
   pageSize: number;
 }
