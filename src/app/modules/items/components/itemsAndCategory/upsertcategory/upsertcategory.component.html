@@ -19,7 +19,7 @@
       <div class="col-md-6 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.NAME" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="Name" formControlName="Name">
+          <input matInput placeholder="" name="name" formControlName="name">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -47,7 +47,7 @@
 
   <mat-dialog-actions>
     <div class="d-flex">
-      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
     </div>
   </mat-dialog-actions>

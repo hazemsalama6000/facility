@@ -15,7 +15,7 @@ import { StockShelfsService } from '../../../services/StockShelfs.service';
 })
 export class AddinternaldivisionComponent {
 
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
@@ -48,10 +48,12 @@ export class AddinternaldivisionComponent {
   addStockShelf() {
 
     if (this.stockTreeForm.valid && this.saveButtonClickedFlag) {
-      this.stockTreeForm.patchValue({ parent_Id:this.data.node.id,level:this.data.node.level+1});
+      this.loading = true;
+      this.stockTreeForm.patchValue({ parent_Id: this.data.node.id, level: this.data.node.level + 1 });
       console.log(this.stockTreeForm.value)
       this.stockShelfsService.addStockShelf(this.stockTreeForm.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.stockShelfsService.bSubject.next(false);
             this.dialogRef.close();
@@ -62,6 +64,7 @@ export class AddinternaldivisionComponent {
           }
         },
         (error: any) => {
+          this.loading = false;
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }
       );

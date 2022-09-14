@@ -48,7 +48,7 @@
                             class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
                         </button>
-                        <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
+                        <button mat-menu-item *ngIf="node.isActive === true" (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
                         </button>
                         <mat-divider></mat-divider>
@@ -90,7 +90,7 @@
                         <button mat-menu-item (click)="addItem(node,'Item')" class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
                         </button>
-                        <button mat-menu-item (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
+                        <button mat-menu-item *ngIf="node.isActive === true" (click)="updateItem(node)" class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">edit</mat-icon><span>تعديل</span>
                         </button>
                         <mat-divider></mat-divider>

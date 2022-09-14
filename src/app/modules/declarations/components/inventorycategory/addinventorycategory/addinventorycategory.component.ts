@@ -16,15 +16,16 @@ import { InventorycategoryService } from '../../../services/inventorycategory.se
 })
 export class AddinventorycategoryComponent implements OnInit {
 
+  loading: boolean = false;
   saveButtonClickedFlag = false;
-  isEdit:boolean=false;
+  isEdit: boolean = false;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
 
   invForm: FormGroup = this.fb.group({
     stockcategoryId: [0],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    company_Id:[0],
+    company_Id: [0],
   });
 
   constructor(
@@ -32,8 +33,8 @@ export class AddinventorycategoryComponent implements OnInit {
     private auth: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<AddinventorycategoryComponent>, 
-       @Inject(MAT_DIALOG_DATA) public data: { inventoryModel: IInventoryCatecory },
+    public dialogRef: MatDialogRef<AddinventorycategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { inventoryModel: IInventoryCatecory },
   ) {
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
@@ -53,43 +54,48 @@ export class AddinventorycategoryComponent implements OnInit {
   UpsertInventoryCategory() {
     console.log(this.invForm.value)
     if (this.invForm.valid && this.saveButtonClickedFlag) {
-      this.invForm.patchValue({company_Id:this.userData.companyId});
+      this.loading = true;
+      this.invForm.patchValue({ company_Id: this.userData.companyId });
       if (this.isEdit) {
-             this.inventorycategoryService.updateInventoryCategory(this.invForm.value).subscribe(
-        (data: HttpReponseModel) => {
-          if (data.isSuccess) {
-            this.inventorycategoryService.bSubject.next(false);
-            this.dialogRef.close();
-            this.toaster.openSuccessSnackBar(data.message);
+        this.inventorycategoryService.updateInventoryCategory(this.invForm.value).subscribe(
+          (data: HttpReponseModel) => {
+            this.loading = false;
+            if (data.isSuccess) {
+              this.inventorycategoryService.bSubject.next(false);
+              this.dialogRef.close();
+              this.toaster.openSuccessSnackBar(data.message);
+            }
+            else if (data.isExists) {
+              this.toaster.openWarningSnackBar(data.message);
+            }
+          },
+          (error: any) => {
+            this.loading = false;
+            console.log(error);
+            this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
-          else if (data.isExists) {
-            this.toaster.openWarningSnackBar(data.message);
-          }
-        },
-        (error: any) => {
-          console.log(error);
-          this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-        }
-      );
+        );
       } else {
-            this.inventorycategoryService.addInventoryCategory(this.invForm.value).subscribe(
-        (data: HttpReponseModel) => {
-          if (data.isSuccess) {
-            this.inventorycategoryService.bSubject.next(false);
-            this.dialogRef.close();
-            this.toaster.openSuccessSnackBar(data.message);
+        this.inventorycategoryService.addInventoryCategory(this.invForm.value).subscribe(
+          (data: HttpReponseModel) => {
+            this.loading = false;
+            if (data.isSuccess) {
+              this.inventorycategoryService.bSubject.next(false);
+              this.dialogRef.close();
+              this.toaster.openSuccessSnackBar(data.message);
+            }
+            else if (data.isExists) {
+              this.toaster.openWarningSnackBar(data.message);
+            }
+          },
+          (error: any) => {
+            this.loading = false;
+            console.log(error);
+            this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
-          else if (data.isExists) {
-            this.toaster.openWarningSnackBar(data.message);
-          }
-        },
-        (error: any) => {
-          console.log(error);
-          this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-        }
-      ); 
+        );
       }
- 
+
     }
 
   }

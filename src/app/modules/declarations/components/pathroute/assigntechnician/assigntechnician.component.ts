@@ -17,7 +17,7 @@ import { PathrouteService } from '../../../services/pathroute.service';
   styleUrls: ['./assigntechnician.component.scss']
 })
 export class AssigntechnicianComponent {
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   dropdownTechnicianData: LookUpModel[] = [];
@@ -30,7 +30,7 @@ export class AssigntechnicianComponent {
 
   constructor(
     private pathrouteService: PathrouteService,
-    private technicianService:TechnicianService,
+    private technicianService: TechnicianService,
     private auth: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
@@ -45,11 +45,13 @@ export class AssigntechnicianComponent {
 
 
   addPathRoute() {
-    
+
     if (this.pathRouteForm.valid && this.saveButtonClickedFlag) {
-      this.pathRouteForm.patchValue({pathRouteId:this.data.pathRoute.id});
-      this.pathrouteService.AssignPathRouteToTechnician(this.pathRouteForm.get('pathRouteId')?.value,this.pathRouteForm.get('technician_Id')?.value).subscribe(
+      this.loading = true;
+      this.pathRouteForm.patchValue({ pathRouteId: this.data.pathRoute.id });
+      this.pathrouteService.AssignPathRouteToTechnician(this.pathRouteForm.get('pathRouteId')?.value, this.pathRouteForm.get('technician_Id')?.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.pathrouteService.bSubject.next(false);
             this.dialogRef.close();
@@ -60,6 +62,7 @@ export class AssigntechnicianComponent {
           }
         },
         (error: any) => {
+          this.loading = false;
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }
       );

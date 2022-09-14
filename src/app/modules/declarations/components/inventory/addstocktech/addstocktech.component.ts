@@ -24,7 +24,7 @@ export class AddstocktechComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['stockTechniqueName', 'activateDate', 'deactivateDate', 'deActivateBy', 'state'];
   dataSource: any;
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   dropdownTechniqueData: LookUpModel[] = [];
@@ -44,7 +44,7 @@ export class AddstocktechComponent {
     @Inject(MAT_DIALOG_DATA) public data: { model: IInventory },
     public dialogRef: MatDialogRef<AddstocktechComponent>
   ) {
-    const udata = this.auth.userData.subscribe(res => {this.userData = res;console.log(res)});
+    const udata = this.auth.userData.subscribe(res => { this.userData = res; console.log(res) });
     this.unsubscribe.push(udata);
     this.getTechnique();
     this.getallData()
@@ -53,9 +53,11 @@ export class AddstocktechComponent {
 
   addAssignToStock() {
     if (this.carAssignForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
       this.carAssignForm.patchValue({ stock_Id: this.data.model.id });
       this.inventoryService.AddStockTechnique(this.carAssignForm.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.inventoryService.bSubject.next(false);
             this.dialogRef.close();
@@ -66,6 +68,7 @@ export class AddstocktechComponent {
           }
         },
         (error: any) => {
+          this.loading = false;
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         });
     }
