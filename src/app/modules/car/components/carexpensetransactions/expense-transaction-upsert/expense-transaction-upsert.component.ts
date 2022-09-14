@@ -93,7 +93,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
 
-			this.carExpenseTransactionService.PostExpenseTransactionData(this.expenseTransactionDataForm).
+			this.carExpenseTransactionService.PostExpenseTransactionData(ExpenseTransactionDataForm).
 				subscribe(
 					(data: HttpReponseModel) => {
 
@@ -102,19 +102,20 @@ export class CarTransactionUpsertComponent implements OnInit {
 							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 							const fd = new FormData();
 
-							if (this.attachment != null) {
+							if (this.attachment != null && this.attachment != undefined) {
 								fd.append('Attachments', this.attachment, data.data.id+"_"+this.attachment.name);
+								this.carExpenseTransactionService.UploadImagesCarTransactions(this.fb).subscribe(
+									(data: HttpReponseModel) => {
+										this.toaster.openSuccessSnackBar(data.message);
+									},
+									(error: any) => {
+										console.log(error);
+										this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+									}
+								);
 							}
 
-							this.carExpenseTransactionService.UploadImagesCarTransactions(this.fb).subscribe(
-								(data: HttpReponseModel) => {
-									this.toaster.openSuccessSnackBar(data.message);
-								},
-								(error: any) => {
-									console.log(error);
-									this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-								}
-							);
+						
 
 						}
 						else if (data.isExists) {

@@ -69,7 +69,7 @@ export enum HttpPaths {
 
 	// cars expenses transactions
 
-	API_GET_CARS_EXPENSES_ADD = "/api/v1/Trans/addtranscarexpense?",
+	API_GET_CARS_EXPENSES_ADD = "/api/v1/Trans/addtranscarexpense",
 	API_GET_CARS_EXPENSES = "/api/v1/Trans/getcarsexpenses?",
 	API_CARS_EXPENSETRANSACTION_DELETE = "/api/v1/Trans/removetranscarexpense/",
 
