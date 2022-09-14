@@ -15,8 +15,8 @@ import { CarService } from '../../../services/car.service';
   templateUrl: './unassigncar.component.html',
   styleUrls: ['./unassigncar.component.scss']
 })
-export class UnassigncarComponent  {
-
+export class UnassigncarComponent {
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   files: string[] = [];
   userData: IUserData;
@@ -25,8 +25,8 @@ export class UnassigncarComponent  {
 
   carUnAssignForm: FormGroup = this.fb.group({
     carId: [0],
-    notes: ['',[Validators.required]],
-    file: ['',[Validators.required]]
+    notes: [''],
+    file: ['']
   });
 
   constructor(
@@ -47,9 +47,12 @@ export class UnassigncarComponent  {
   addAssignToCar() {
 
     if (this.carUnAssignForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
+
       if (this.data.isTechnician) {
         this.carService.UnAssignCarToTechincian(this.createFormData()).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
               this.carService.refreshHistoryData();
@@ -61,11 +64,13 @@ export class UnassigncarComponent  {
             }
           },
           (error: any) => {
+            this.loading = false;
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           });
       } else {
         this.carService.UnAssignCarToDriver(this.createFormData()).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
               this.carService.refreshHistoryData();
@@ -77,6 +82,7 @@ export class UnassigncarComponent  {
             }
           },
           (error: any) => {
+            this.loading = false;
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           });
       }

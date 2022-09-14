@@ -1,22 +1,25 @@
-<form [formGroup]="categoryForm" (ngSubmit)="addCategory()" style="direction: rtl;">
+<h2 mat-dialog-title>
 
-  <div mat-dialog-title>
-    <div class="row mx-0">
-      <div class="col"> {{data.type=='add'?("DECLARATIONS.TITLES.ADDCATEGORY"|translate):("DECLARATIONS.TITLES.EDITCATEGORY"|translate)}}</div>
-      <div class="col-2">
-        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
-      </div>
-    </div>
+  <div class="d-flex justify-content-between align-items-center">
+
+    <span class="fontsection">{{data.type=='add'?("DECLARATIONS.TITLES.ADDCATEGORY"|translate):("DECLARATIONS.TITLES.EDITCATEGORY"|translate)}}</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+
   </div>
-  <mat-divider></mat-divider>
 
-  <div mat-dialog-content class="overflow-auto py-2">
+</h2>
+<mat-divider></mat-divider>
+
+<form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
     <div class="row mx-0">
-
       <div class="col-md-6 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.NAME" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <input matInput placeholder="Placeholder" name="Name" formControlName="Name">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -38,25 +41,16 @@
           </mat-hint>
         </mat-form-field>
       </div>
-
     </div>
+  </mat-dialog-content>
 
-  </div>
 
-  <mat-divider></mat-divider>
-  <div mat-dialog-actions>
-    <div class="text-center col-md-6 d-flex">
-      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'DECLARATIONS.BUTTONS.CANCEL'|translate}}</button>
-
-      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
-        <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
-        <span class="indicator-progress">Please wait...
-          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-      </button>
+  <mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
     </div>
-    <!-- <button >No</button>
-    <button mat-button cdkFocusInitial>Ok</button> -->
-  </div>
+  </mat-dialog-actions>
 
 </form>
 

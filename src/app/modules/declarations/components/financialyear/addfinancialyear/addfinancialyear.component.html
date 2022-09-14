@@ -1,40 +1,41 @@
-<form [formGroup]="financialForm" (ngSubmit)="addFinancialYear()" style="direction: rtl;">
+<h2 mat-dialog-title>
 
-  <div mat-dialog-title>
-    <div class="row mx-0">
-      <div class="col"> {{"DECLARATIONS.TITLES.ADDFINANCIALYEAR"|translate}}</div>
-      <div class="col-2">
-        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
-      </div>
-    </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection">{{"DECLARATIONS.TITLES.ADDFINANCIALYEAR"|translate}}</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
-  <mat-divider></mat-divider>
 
-  <div mat-dialog-content class="overflow-auto py-2">
+</h2>
+<mat-divider></mat-divider>
+
+<form [formGroup]="financialForm" (ngSubmit)="addFinancialYear()">
+
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
     <div class="row mx-0">
-
       <div class="col-md-12 mb-3">
-          <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.YEAR" | translate}} </mat-label>
           <input matInput placeholder="Placeholder" name="year" formControlName="year">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'required',
-                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate},
-                  control: financialForm.controls['year']
-                }"></ng-container>
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate},
+                control: financialForm.controls['year']
+              }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'minlength',
-                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate , min:3},
-                  control: financialForm.controls['year']
-                }"></ng-container>
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate , min:3},
+                control: financialForm.controls['year']
+              }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate , max:100},
-                  control: financialForm.controls['year']
-                 }"></ng-container>
+                validation: 'maxlength',
+                message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.YEAR' | translate , max:100},
+                control: financialForm.controls['year']
+               }"></ng-container>
           </mat-hint>
         </mat-form-field>
       </div>
@@ -42,28 +43,29 @@
       <div class="col-md-6 mb-3">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="picker"  (dateInput)="financialForm.patchValue({endDate:''})" [max]="financialForm.controls['endDate'].value" formControlName="startDate">
+          <input matInput [matDatepicker]="picker" (dateInput)="financialForm.patchValue({endDate:''})"
+            [max]="financialForm.controls['endDate'].value" formControlName="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
 
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'required',
-                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate},
-                control: financialForm.controls['startDate']
-              }"></ng-container>
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate},
+              control: financialForm.controls['startDate']
+            }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'minlength',
-                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate , min:3},
-                control: financialForm.controls['startDate']
-              }"></ng-container>
+              validation: 'minlength',
+              message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate , min:3},
+              control: financialForm.controls['startDate']
+            }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate , max:100},
-                  control: financialForm.controls['startDate']
-               }"></ng-container>
+                validation: 'maxlength',
+                message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate , max:100},
+                control: financialForm.controls['startDate']
+             }"></ng-container>
 
           </mat-hint>
         </mat-form-field>
@@ -78,44 +80,36 @@
 
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'required',
-                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate},
-                control: financialForm.controls['endDate']
-              }"></ng-container>
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate},
+              control: financialForm.controls['endDate']
+            }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'minlength',
-                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate , min:3},
-                control: financialForm.controls['endDate']
-              }"></ng-container>
+              validation: 'minlength',
+              message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate , min:3},
+              control: financialForm.controls['endDate']
+            }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate , max:100},
-                  control: financialForm.controls['endDate']
-               }"></ng-container>
+                validation: 'maxlength',
+                message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate , max:100},
+                control: financialForm.controls['endDate']
+             }"></ng-container>
 
           </mat-hint>
         </mat-form-field>
       </div>
     </div>
+  </mat-dialog-content>
 
-  </div>
 
-  <mat-divider></mat-divider>
-  <div mat-dialog-actions>
-    <div class="text-center col-md-6 d-flex">
-      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'DECLARATIONS.BUTTONS.CANCEL'|translate}}</button>
-
-      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
-        <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
-        <span class="indicator-progress">Please wait...
-          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-      </button>
+  <mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
     </div>
-    <!-- <button >No</button>
-    <button mat-button cdkFocusInitial>Ok</button> -->
-  </div>
+  </mat-dialog-actions>
 
 </form>
 

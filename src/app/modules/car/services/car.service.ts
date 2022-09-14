@@ -61,9 +61,9 @@ export class CarService {
       .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
   }
 
-  getHistoryCar(carId: number): Observable<ICarLogs[]> {
+  getHistoryCar(carId: number): Observable<ICarLogs> {
     return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_OF_CAR_LOGS}carId=${carId}`)
-      .pipe(map((Items: HttpReponseModel) => Items.data as ICarLogs[]));
+      .pipe(map((Items: HttpReponseModel) => Items.data as ICarLogs));
   }
 
   refreshHistoryData(){

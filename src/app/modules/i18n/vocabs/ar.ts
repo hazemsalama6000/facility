@@ -551,6 +551,7 @@ export const locale = {
         TECHNICIAN: "مندوب",
         TYPE: "النوع",
         DOWNLOADFILES: "تنزيل الملفات",
+        NAME:"الاسم"
 
       },
       MESSAGE: {

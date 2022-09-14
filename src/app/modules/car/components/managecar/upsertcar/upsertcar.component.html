@@ -1,4 +1,4 @@
-<form [formGroup]="carForm" (ngSubmit)="addOrUpdateCar()" style="direction: rtl;">
+<form [formGroup]="carForm" (ngSubmit)="addOrUpdateCar()" >
 
   <div mat-dialog-title>
     <div class="row mx-0">
@@ -132,7 +132,7 @@
     <div class="text-center col-md-6 d-flex">
       <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'CARS.BUTTONS.CANCEL'|translate}}</button>
 
-      <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
+      <button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" class="btn btn-primary">
         <span class="indicator-label">{{'CARS.BUTTONS.SAVE'|translate}}</span>
         <span class="indicator-progress">Please wait...
           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

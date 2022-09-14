@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
+import { TranslationService } from 'src/app/modules/i18n';
 import { ConfirmationDialogService } from 'src/app/shared-module/Components/confirm-dialog/confirmDialog.service';
 import { IFinancialYear } from '../../models/IFinancialYear.interface';
 import { FinancialyearService } from '../../services/financialyear.service';
@@ -19,10 +21,12 @@ import { AddfinancialyearComponent } from './addfinancialyear/addfinancialyear.c
 })
 export class FinancialyearComponent implements OnInit {
   addButton: boolean = true;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'dateFrom', 'dateTo', 'state'];
   dataSource: any;
-  userdata: IUserData
+  userdata: IUserData;
+  LastFinancialYearId: number;
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -38,6 +42,7 @@ export class FinancialyearComponent implements OnInit {
       this.unsubscribe.push(datajob);
     });
     this.unsubscribe.push(udata);
+
   }
 
   ngOnInit() {
@@ -48,11 +53,11 @@ export class FinancialyearComponent implements OnInit {
       {
         maxHeight: '100vh',
         minHeight: '50%',
-        width: '50%',
+        width: '50%'
       });
   }
 
-  stopFinancialYear(model: IFinancialYear) {
+  toggleActiveDeactive(model: IFinancialYear) {
     this.confirmationDialogService.confirm('من فضلك اكد ايقاف التفعيل', `هل تريد ايقاف تفعيل ${model.year} ? `)
       .then((confirmed) => {
         if (confirmed) {
@@ -77,6 +82,7 @@ export class FinancialyearComponent implements OnInit {
       this.dataSource = new MatTableDataSource<IFinancialYear>(data);
       this.dataSource.paginator = this.paginator;
       this.addButton = data.filter((x) => x.isActive).length == 0;
+      this.LastFinancialYearId = data.sort(function (a, b) { return b.id - a.id; })[0].id;
     });
   }
 

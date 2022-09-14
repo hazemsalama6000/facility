@@ -82,7 +82,7 @@ export class ItemsAndCategoryComponent {
     const flatNode = existingNode && existingNode.id === node.id ? existingNode : new IItemsCategoryFlat();
     flatNode.id = node.id;
     flatNode.name = node.name;
-    flatNode.isActive = true;
+    flatNode.isActive = node.isActive;
     flatNode.parentId = node.parentId as number;
     flatNode.children = node.children ?? [];
     flatNode.type = node.type;
@@ -154,35 +154,45 @@ export class ItemsAndCategoryComponent {
     let movedObj: any = event.item.data;
 
     if (this.objHover.level > movedObj.level) {
-      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت نفسه')
-    } else {
-      if (this.objHover.type != "Item") {
-
-        console.log(movedObj, "======>", this.objHover)
-
-        this.visibleNodes();
-        if (movedObj.type == "Category") {
-          this.itemsCategoryService.updateParentCategory({ categoryId: movedObj.id, parentId: this.objHover.id }).subscribe(
-            (data: HttpReponseModel) => {
-              this.toaster.openSuccessSnackBar(data.message);
-              this.itemsCategoryService.bSubject.next(true);
-            },
-            (error: any) => console.log(error)
-          );
-        } else {
-
-          this.itemsCategoryService.updateParentItem({ item_Id: movedObj.id, category_Id: this.objHover.id }).subscribe(
-            (data: HttpReponseModel) => {
-              this.toaster.openSuccessSnackBar(data.message);
-              this.itemsCategoryService.bSubject.next(true);
-            },
-            (error: any) => console.log(error)
-          );
-        }
-
-      }else
-      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت صنف')
+      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت نفسه');
+      return;
     }
+
+    if (this.objHover.type == "Item") {
+      this.toaster.openWarningSnackBar('لايمكن اضافة صنف او تصنيف تحت صنف');
+      return;
+    }
+
+    if (movedObj.type == "Item" && this.objHover.id == 0) {
+      this.toaster.openWarningSnackBar('لايمكن اضافة صنف كتصنيف رئيسى');
+      return;
+    }
+
+
+    if (movedObj.type == "Category") {
+      this.itemsCategoryService.updateParentCategory({ categoryId: movedObj.id, parentId: this.objHover.id }).subscribe(
+        (data: HttpReponseModel) => {
+          this.toaster.openSuccessSnackBar(data.message);
+          this.itemsCategoryService.bSubject.next(true);
+        },
+        (error: any) => {
+          console.log(error);
+          this.toaster.openErrorSnackBar(error);
+        });
+    } else {
+
+      this.itemsCategoryService.updateParentItem({ item_Id: movedObj.id, category_Id: this.objHover.id }).subscribe(
+        (data: HttpReponseModel) => {
+          this.toaster.openSuccessSnackBar(data.message);
+          this.itemsCategoryService.bSubject.next(true);
+        },
+        (error: any) => {
+          console.log(error);
+          this.toaster.openErrorSnackBar(error);
+        });
+    }
+
+    this.visibleNodes();
     this.objHover = null;
   }
   dragStart = () => this.dragging = true;
@@ -245,14 +255,16 @@ export class ItemsAndCategoryComponent {
           maxHeight: '100vh',
           minHeight: '50%',
           minWidth: '50%',
+          
           data: { node: node, type: 'edit' }
         });
     } else {
       const dialogRef = this.dialog.open(UpsertitemComponent,
         {
           maxHeight: '100vh',
-          minHeight: '50%',
+          minHeight: '100vh',
           minWidth: '50%',
+          position:{right:'0'},
           data: { node: node, type: 'edit' }
         });
     }
