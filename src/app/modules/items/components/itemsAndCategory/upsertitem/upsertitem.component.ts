@@ -28,7 +28,7 @@ export class UpsertitemComponent {
   private unsubscribe: Subscription[] = [];
 
   ItemForm: FormGroup = this.fb.group({
-    itemId: [0],
+    Id: [0],
     code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     description: [''],
@@ -70,7 +70,7 @@ export class UpsertitemComponent {
       itemsCategoryService.getItemById(data.node.id).subscribe((res: IItem) => {
 
         this.ItemForm.patchValue({
-          itemId: res.id,
+          Id: res.id,
           code: res.code,
           name: res.name,
           barCode: res.barCode,
@@ -101,7 +101,7 @@ export class UpsertitemComponent {
     if (this.ItemForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
       if (this.data.type == 'add') {
-        this.ItemForm.patchValue({ itemCategory_Id: this.data.node.id, company_Id: this.userData.companyId });
+        this.ItemForm.patchValue({ Id: this.data.node.id, company_Id: this.userData.companyId });
         this.itemsCategoryService.AddItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;

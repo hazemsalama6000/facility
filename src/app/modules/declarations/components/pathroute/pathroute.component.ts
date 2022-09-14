@@ -101,20 +101,24 @@ export class PathrouteComponent implements OnInit {
     let stmt = model.isActive ? 'ايقاف تفعيل' : 'تفعيل';
     this.confirmationDialogService.confirm(`من فضلك اكد ${stmt}`, `هل تريد ${stmt} ${model.name} ? `)
       .then((confirmed) => {
+
+        console.log(confirmed)
         if (confirmed) {
 
           this.pathrouteService.toggelIsActivePathRoute(model.id).subscribe(
             (data: HttpReponseModel) => {
-              this.toaster.openSuccessSnackBar(data.message);
               this.getallData();
+              this.toaster.openSuccessSnackBar(data.message);
             },
             (error: any) => {
               this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
             });
 
-        }
+        } else
+          this.getallData();
+
       })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+      .catch(() =>{ this.getallData();console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')});
   }
 
   stopAssignTechincian(model: IPathRoute) {

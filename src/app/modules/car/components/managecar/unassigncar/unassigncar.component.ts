@@ -102,6 +102,9 @@ export class UnassigncarComponent {
     for (var i = 0; i < this.files.length; i++)
       formData.append("File", this.files[i]);
 
+    if (this.files.length == 0)
+      formData.append("File", new Blob(), 'test');
+
     formData.append("carId", this.carUnAssignForm.get('carId')?.value);
     formData.append("Notes", this.carUnAssignForm.get('notes')?.value);
 

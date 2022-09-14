@@ -31,7 +31,7 @@ export class AssigntechtoinventoryComponent {
   private unsubscribe: Subscription[] = [];
 
   stockAssignForm: FormGroup = this.fb.group({
-    StockId: [0],
+    Id: [0],
     EmployeeId: [null, [Validators.required]],
   });
 
@@ -54,8 +54,8 @@ export class AssigntechtoinventoryComponent {
   addAssignToStock() {
     if (this.stockAssignForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
-      this.stockAssignForm.patchValue({ StockId: this.data.model.id });
-      this.inventoryService.AssignTechnicianToInventory(this.stockAssignForm.get('StockId')?.value, this.stockAssignForm.get('EmployeeId')?.value).subscribe(
+      this.stockAssignForm.patchValue({ Id: this.data.model.id });
+      this.inventoryService.AssignTechnicianToInventory(this.stockAssignForm.get('Id')?.value, this.stockAssignForm.get('EmployeeId')?.value).subscribe(
         (data: HttpReponseModel) => {
           this.loading = false;
           if (data.isSuccess) {

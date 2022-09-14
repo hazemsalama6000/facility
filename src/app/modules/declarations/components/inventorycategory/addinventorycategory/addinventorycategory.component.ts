@@ -23,7 +23,7 @@ export class AddinventorycategoryComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   invForm: FormGroup = this.fb.group({
-    stockcategoryId: [0],
+   Id: [0],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     company_Id: [0],
   });
@@ -42,7 +42,7 @@ export class AddinventorycategoryComponent implements OnInit {
     if (data.inventoryModel) {
       this.isEdit = true;
       this.invForm.patchValue({
-        stockcategoryId: data.inventoryModel.id,
+        Id: data.inventoryModel.id,
         name: data.inventoryModel.name,
       });
     }
