@@ -20,7 +20,7 @@ import { CarService } from '../../../services/car.service';
 export class AssgincarComponent {
   loading: boolean = false;
   saveButtonClickedFlag = false;
-  files: string[] = [];
+  files: File[] = [];
   userData: IUserData;
   dropdownTechnicianData: LookUpModel[] = [];
   private unsubscribe: Subscription[] = [];
@@ -121,10 +121,10 @@ export class AssgincarComponent {
     const formData = new FormData();
 
     for (var i = 0; i < this.files.length; i++)
-      formData.append("File", this.files[i]);
+      formData.append("File", '');
+      
     if (this.files.length == 0)
-      formData.append("File",'k');
-
+      formData.append("File", new Blob(), 'test');
 
     if (this.data.isTechnician)
       formData.append("technicianId", this.carAssignForm.get('driverOrTechId')?.value);

@@ -62,8 +62,8 @@
         <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.employeeName}}</span>
         </td>
-      </ng-container>  
-      
+      </ng-container>
+
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.ADDRESS" | translate}} </th>
         <td mat-cell *matCellDef="let element; let x=index">
@@ -97,17 +97,18 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let x=index">
           <p-confirmPopup></p-confirmPopup>
-          <button matTooltip="{{'DECLARATIONS.BUTTONS.DELETE' | translate}}" mat-mini-fab color="warn" class="mx-md-1" (click)="deleteInventory($event,element)" >
+          <button *ngIf="element.isActive==false" matTooltip="{{'DECLARATIONS.BUTTONS.DELETE' | translate}}" mat-mini-fab color="warn" class="mx-md-1"
+            (click)="deleteInventory($event,element)">
             <mat-icon>close</mat-icon>
-          </button> 
+          </button>
 
           <button matTooltip="{{'DECLARATIONS.BUTTONS.REASSIGN' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
             (click)="openAssignDialog(element)">
             <mat-icon>person_add</mat-icon>
           </button>
 
-          <button  matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}"
-            mat-mini-fab color="warn" class="mx-md-1" (click)="openStockTechDialog(element)">
+          <button matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}" mat-mini-fab color="warn" class="mx-md-1"
+            (click)="openStockTechDialog(element)">
             <mat-icon>refresh</mat-icon>
           </button>
 

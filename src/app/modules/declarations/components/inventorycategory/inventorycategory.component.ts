@@ -54,7 +54,7 @@ export class InventorycategoryComponent implements OnInit {
   }
 
   deleteInventoryCategory(model: IInventoryCatecory) {
-    this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${model} ? `)
+    this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${model.name} ? `)
       .then((confirmed) => {
         if (confirmed) {
 

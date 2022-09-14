@@ -93,9 +93,10 @@ export class InventoryComponent implements OnInit {
               this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
             });
 
-        }
+        }else
+        this.getallData();
       })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+      .catch(() => {this.getallData();console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')});
   }
 
   openAddDialog(model?: IInventory) {

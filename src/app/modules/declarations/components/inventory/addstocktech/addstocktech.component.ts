@@ -46,7 +46,8 @@ export class AddstocktechComponent {
   ) {
     const udata = this.auth.userData.subscribe(res => { this.userData = res; console.log(res) });
     this.unsubscribe.push(udata);
-    this.getTechnique();
+    inventoryService.bSubject.subscribe(res=>{this.getTechnique();})
+    
     this.getallData()
   }
 
