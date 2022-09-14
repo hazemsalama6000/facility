@@ -92,6 +92,8 @@ export class EmployeeUpsertComponent implements OnInit {
 				MilitaryStatus_Id: ['', Validators.compose([Validators.required])],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
+				Status_Id: [],
+
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MartialStatus_Id: ['', Validators.compose([Validators.required])],
 				BirthDate: ['', Validators.compose([])],
@@ -250,7 +252,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			state_Id: 0,
 			Region_Id: 0,
 			Image: '', Mobile: '0',
-			Email: '', BirthDate: '',
+			Email: '', BirthDate: '', Status_Id:0,
 			NId: '', MilitaryStatus_Id: 0, MartialStatus_Id: 0,
 			University: '',
 			Qualification: '',
@@ -267,9 +269,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.service.getEmployeeByIdForUpdate(this.data.employeeId).subscribe(
 				(data: IEmployeeForm) => {
 					this.employee = data;
-					this.employee.Code = '4545';
-					this.employee.Name = '4545ss';
-					this.employee.Address = 'asdasdasdas';
+					
 					console.log(this.employee);
 
 					this.isEdit = true;
@@ -316,6 +316,8 @@ export class EmployeeUpsertComponent implements OnInit {
 
 				fd.append('NId', model.NId);
 				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id);
+				fd.append('Status_Id', model.Status_Id);
+
 				fd.append('MartialStatus_Id', model.MartialStatus_Id);
 				fd.append('University', model.University);
 
@@ -349,7 +351,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			}
 
 			else {
-				console.log(model);
+				
 				this.service.UpdateLookupData(model).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
