@@ -87,6 +87,11 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 	Submit(ExpenseTransactionDataForm: any) {
 
+		if (ExpenseTransactionDataForm.ExpenseValue < 0) {
+			this.toaster.openWarningSnackBar("القيمة اقل من 0");
+			return;
+		}
+		
 		console.log(ExpenseTransactionDataForm);
 
 		if (this.expenseTransactionDataForm.valid) {
@@ -103,7 +108,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 							const fd = new FormData();
 
 							if (this.attachment != null && this.attachment != undefined) {
-								fd.append('Attachments', this.attachment, data.data.id+"_"+this.attachment.name);
+								fd.append('Attachments', this.attachment, data.data.id + "_" + this.attachment.name);
 								this.carExpenseTransactionService.UploadImagesCarTransactions(this.fb).subscribe(
 									(data: HttpReponseModel) => {
 										this.toaster.openSuccessSnackBar(data.message);
@@ -115,7 +120,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 								);
 							}
 
-						
+
 
 						}
 						else if (data.isExists) {
