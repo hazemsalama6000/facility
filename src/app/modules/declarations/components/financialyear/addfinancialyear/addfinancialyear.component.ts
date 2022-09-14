@@ -15,7 +15,7 @@ import { FinancialyearService } from '../../../services/financialyear.service';
   styleUrls: ['./addfinancialyear.component.scss']
 })
 export class AddfinancialyearComponent implements OnInit {
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
@@ -25,8 +25,8 @@ export class AddfinancialyearComponent implements OnInit {
     year: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     startDate: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     endDate: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    company_Id:[0],
-    isActive:[true]
+    company_Id: [0],
+    isActive: [true]
   });
 
   constructor(
@@ -46,9 +46,11 @@ export class AddfinancialyearComponent implements OnInit {
   addFinancialYear() {
     console.log(this.financialForm.value)
     if (this.financialForm.valid && this.saveButtonClickedFlag) {
-      this.financialForm.patchValue({company_Id:this.userData.companyId});
+      this.loading = true;
+      this.financialForm.patchValue({ company_Id: this.userData.companyId });
       this.financial.AddFinancialYear(this.financialForm.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.financial.bSubject.next(false);
             this.dialogRef.close();
@@ -59,6 +61,7 @@ export class AddfinancialyearComponent implements OnInit {
           }
         },
         (error: any) => {
+          this.loading = false;
           console.log(error);
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }

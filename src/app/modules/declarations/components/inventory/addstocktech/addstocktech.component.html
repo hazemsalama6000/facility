@@ -45,7 +45,7 @@
         </div>
         <div class="col-6 mb-3 d-flex ">
           <div class="row mx-0">
-            <button type="submit" (click)="saveButtonClickedFlag = true" id="kt_modal_new_target_submit" class="btn btn-primary">
+            <button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" class="btn btn-primary">
               <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
               <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

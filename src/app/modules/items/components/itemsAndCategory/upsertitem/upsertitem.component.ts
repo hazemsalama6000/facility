@@ -17,8 +17,9 @@ import { UnitService } from '../../../services/units.service';
   templateUrl: './upsertitem.component.html',
   styleUrls: ['./upsertitem.component.scss']
 })
-export class UpsertitemComponent  {
+export class UpsertitemComponent {
 
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   dropdownUnitData: LookUpModel[] = [];
@@ -33,10 +34,10 @@ export class UpsertitemComponent  {
     description: [''],
     barCode: [''],
 
-    quantity: [null],
-    maxLimit: [null],
-    minLimit: [null],
-    orderingLimit: [null],
+    quantity: [null, Validators.compose([Validators.required])],
+    maxLimit: [null, Validators.compose([Validators.required])],
+    minLimit: [null, Validators.compose([Validators.required])],
+    orderingLimit: [null, Validators.compose([Validators.required])],
 
     hasVatTax: [false],
     vatTaxValue: [{ value: null, disabled: true }],
@@ -45,16 +46,16 @@ export class UpsertitemComponent  {
     expirationDate: [{ value: null, disabled: true }],
 
     convertedUnitOfMeasure: [false],
-    nature: [null],
+    nature: [null, Validators.compose([Validators.required])],
 
-    itemCategory_Id: [null],
-    unit_Id: [null],
+    itemCategory_Id: [null, Validators.compose([Validators.required])],
+    unit_Id: [null, Validators.compose([Validators.required])],
     company_Id: [0]
   });
 
   constructor(
     private itemsCategoryService: ItemsCategoryService,
-    private unitService:UnitService,
+    private unitService: UnitService,
     private auth: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
@@ -98,11 +99,12 @@ export class UpsertitemComponent  {
   addItem() {
     console.log(this.ItemForm.value)
     if (this.ItemForm.valid && this.saveButtonClickedFlag) {
-
+      this.loading = true;
       if (this.data.type == 'add') {
         this.ItemForm.patchValue({ itemCategory_Id: this.data.node.id, company_Id: this.userData.companyId });
         this.itemsCategoryService.AddItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.itemsCategoryService.bSubject.next(false);
               this.dialogRef.close();
@@ -113,6 +115,7 @@ export class UpsertitemComponent  {
             }
           },
           (error: any) => {
+            this.loading = false;
             console.log(error);
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
@@ -121,6 +124,7 @@ export class UpsertitemComponent  {
 
         this.itemsCategoryService.updateItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.itemsCategoryService.bSubject.next(false);
               this.dialogRef.close();
@@ -131,6 +135,7 @@ export class UpsertitemComponent  {
             }
           },
           (error: any) => {
+            this.loading = false;
             console.log(error);
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }

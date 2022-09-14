@@ -22,9 +22,9 @@ import { InventoryService } from '../../../services/inventory.service';
 export class AssigntechtoinventoryComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['employeeName', 'startDate','endData','deActiveBy', 'state'];
+  displayedColumns: string[] = ['employeeName', 'startDate', 'endData', 'deActiveBy', 'state'];
   dataSource: any;
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   dropdownTechnicianData: LookUpModel[] = [];
@@ -53,9 +53,11 @@ export class AssigntechtoinventoryComponent {
 
   addAssignToStock() {
     if (this.stockAssignForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
       this.stockAssignForm.patchValue({ StockId: this.data.model.id });
       this.inventoryService.AssignTechnicianToInventory(this.stockAssignForm.get('StockId')?.value, this.stockAssignForm.get('EmployeeId')?.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.inventoryService.bSubject.next(false);
             this.dialogRef.close();
@@ -66,13 +68,14 @@ export class AssigntechtoinventoryComponent {
           }
         },
         (error: any) => {
+          this.loading = false;
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         });
     }
   }
 
   getEmployee() {
-    this.employeeService.getLookupEmployeeData(this.userData.companyId,this.userData.branchId).subscribe(
+    this.employeeService.getLookupEmployeeData(this.userData.companyId, this.userData.branchId).subscribe(
       (res: LookUpModel[]) => this.dropdownTechnicianData = res,
       (err) => console.log(err),
       () => { });

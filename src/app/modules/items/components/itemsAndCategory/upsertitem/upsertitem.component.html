@@ -21,7 +21,7 @@
       <div class="col-md-4 mb-3" >
         <mat-form-field appearance="outline" >
           <mat-label> {{"DECLARATIONS.INPUTS.CODE" | translate}}</mat-label>
-          <input matInput placeholder="Placeholder" name="code" formControlName="code">
+          <input matInput placeholder="" name="code" formControlName="code">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -48,7 +48,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.NAME" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <input matInput placeholder="" name="name" formControlName="name">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -75,7 +75,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.BARCODE" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="barCode" formControlName="barCode">
+          <input matInput placeholder="" name="barCode" formControlName="barCode">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -185,7 +185,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.QUANTITY" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="quantity" formControlName="quantity">
+          <input matInput placeholder="" name="quantity" formControlName="quantity">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -212,7 +212,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.MAXLIMIT" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="maxLimit" formControlName="maxLimit">
+          <input matInput placeholder="" name="maxLimit" formControlName="maxLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -266,7 +266,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.ORDERINGLIMIT" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="orderingLimit" formControlName="orderingLimit">
+          <input matInput placeholder="" name="orderingLimit" formControlName="orderingLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -318,7 +318,7 @@
         </mat-checkbox>
         <mat-form-field appearance="outline">
           <mat-label> النسبة</mat-label>
-          <input matInput placeholder="Placeholder" name="vatTaxValue" formControlName="vatTaxValue">
+          <input matInput placeholder="" name="vatTaxValue" formControlName="vatTaxValue">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -336,7 +336,7 @@
  
   <mat-dialog-actions>
 		<div class="d-flex">
-			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
+			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading"
 				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
 			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
 		</div>

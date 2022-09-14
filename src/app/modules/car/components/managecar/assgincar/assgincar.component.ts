@@ -122,6 +122,9 @@ export class AssgincarComponent {
 
     for (var i = 0; i < this.files.length; i++)
       formData.append("File", this.files[i]);
+    if (this.files.length == 0)
+      formData.append("File",'k');
+
 
     if (this.data.isTechnician)
       formData.append("technicianId", this.carAssignForm.get('driverOrTechId')?.value);

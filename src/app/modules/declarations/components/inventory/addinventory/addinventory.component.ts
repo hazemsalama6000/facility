@@ -19,7 +19,7 @@ import { InventorycategoryService } from '../../../services/inventorycategory.se
 })
 export class AddinventoryComponent {
 
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
@@ -56,9 +56,11 @@ export class AddinventoryComponent {
   addStock() {
 
     if (this.stockForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
       this.stockForm.patchValue({ branch_Id: this.userData.branchId });
       this.inventoryService.addInventory(this.stockForm.value).subscribe(
         (data: HttpReponseModel) => {
+          this.loading = false;
           if (data.isSuccess) {
             this.inventoryService.bSubject.next(false);
             this.dialogRef.close();
@@ -69,6 +71,7 @@ export class AddinventoryComponent {
           }
         },
         (error: any) => {
+          this.loading = false;
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }
       );
