@@ -90,18 +90,56 @@ export class AuthService implements OnDestroy {
     if (!auth || !auth.userId)
       return of(undefined);
 
-    this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserByToken(auth.token).pipe(
-      map((user: any) => {
-        user ? this.userData.next(user.data) : this.logout();
-        return user;
-      }), catchError(err => {
-        this.logout();
-        return throwError(err)
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    let obj: IUserData = {
+      userName: "aligntech_SuperAdmin",
+      fullName: "Tarek",
+      email: "Align@align.com",
+      userId: "c2881ee6-ead9-477c-86a8-07ec27ab1402",
+      isAuthenticated: true,
+      roles: [],
+      companyId: 1,
+      branchId: 1,
+      technician_Id: 3,
+      appHasTutorial: false,
+      companyCode: "aligntech",
+      userCode: "1",
+      imgPath: "/FilesServer/images/Employees/1290822145202.jpg",
+      employeeId: 1,
+      menu: []
+    };
+    this.userData.next(obj);
+    return of(obj);
+
+
+    // this.isLoadingSubject.next(true);
+    // return this.authHttpService.getUserByToken(auth.token).pipe(
+    //   map((user: any) => {
+    //      user ? this.userData.next(user.data) : this.logout();
+    //      return user.data ;
+    //   }), catchError(err => {
+    //     this.logout();
+    //     return throwError(err)
+    //   }),
+    //   finalize(() => this.isLoadingSubject.next(false))
+    // );
   }
+
+  // getUserData(): Observable<any> {
+  //   const auth = this.getAuthFromLocalStorage();
+  //   if (!auth || !auth.userId)
+  //     return of({} as IUserData);
+
+  //   this.isLoadingSubject.next(true);
+  //   return this.authHttpService.getUserByToken(auth.token).pipe(
+  //     map((user: any) => {
+  //       user ? this.userData.next(user.data) : this.logout();
+  //     }), catchError(err => {
+  //       this.logout();
+  //       return throwError(err)
+  //     }),
+  //     finalize(() => this.isLoadingSubject.next(false))
+  //   );
+  // }
 
   // getUserByToken1(): Observable<any> {
 
