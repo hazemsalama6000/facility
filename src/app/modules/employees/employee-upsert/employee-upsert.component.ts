@@ -19,6 +19,7 @@ import { SectionService } from "../../share/Services/department_section/section.
 import { JobService } from "../../share/Services/job.service";
 import { MaritalStatusService } from "../../share/Services/maritalStatus.service";
 import { MilitaryStatusService } from "../../share/Services/militaryStatus.service";
+import { StatusService } from "../../share/Services/status.service";
 import { IEmployee } from "../models/employee.interface";
 import { IEmployeeForm } from "../models/IEmployeeForm.interface";
 import { EmployeeService } from "../services/employee.service";
@@ -51,7 +52,7 @@ export class EmployeeUpsertComponent implements OnInit {
 	selectedItemForRegion: any = [];
 
 	selectedItemForEmployee: any = [];
-
+	dropdownListDataForStatus: any = [];
 	dropdownListDataForResponsible: any = [];
 	selectedItemForResponsible: any = [];
 
@@ -71,6 +72,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		private regionService: RegionService,
 		private departmentService: DepartmentService,
 		private sectionService: SectionService,
+		private statusService: StatusService,
 		private jobService: JobService,
 		private service: EmployeeService,
 		private authService: AuthService
@@ -121,7 +123,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				Section_Id: [, Validators.compose([Validators.required])],
 				Status_Id: [],
 				JobSection_Id: [, Validators.compose([Validators.required])],
-				MartialStatus_Id:[],
+				MartialStatus_Id: [],
 				BirthDate: [''],
 				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
 				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
@@ -145,6 +147,10 @@ export class EmployeeUpsertComponent implements OnInit {
 
 		this.militaryStateService.getLookupData().subscribe((data: LookUpModel[]) => {
 			this.dropdownListDataForMilitary = data;
+		});
+
+		this.statusService.getLookUpData().subscribe((data: LookUpModel[]) => {
+			this.dropdownListDataForStatus = data;
 		});
 
 		this.maritalStateService.getLookupData().subscribe((data: LookUpModel[]) => {
