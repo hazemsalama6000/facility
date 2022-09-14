@@ -15,7 +15,7 @@ import { ItemsCategoryService } from '../../../../items/services/itemsCategory.s
   styleUrls: ['./upsertcategory.component.scss']
 })
 export class UpsertcategoryComponent implements OnInit {
-
+  loading: boolean = false;
   saveButtonClickedFlag = false;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
@@ -55,11 +55,12 @@ export class UpsertcategoryComponent implements OnInit {
   addCategory() {
     console.log(this.categoryForm.value)
     if (this.categoryForm.valid && this.saveButtonClickedFlag) {
-
+      this.loading = true;
       if (this.data.type == 'add') {
         this.categoryForm.patchValue({ parentId: this.data.node.id, company_Id: this.userData.companyId });
         this.itemsCategoryService.Addcategory(this.categoryForm.value).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.itemsCategoryService.bSubject.next(false);
               this.dialogRef.close();
@@ -70,6 +71,7 @@ export class UpsertcategoryComponent implements OnInit {
             }
           },
           (error: any) => {
+            this.loading = false;
             console.log(error);
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
@@ -78,6 +80,7 @@ export class UpsertcategoryComponent implements OnInit {
 
         this.itemsCategoryService.updateCategory(this.categoryForm.value).subscribe(
           (data: HttpReponseModel) => {
+            this.loading = false;
             if (data.isSuccess) {
               this.itemsCategoryService.bSubject.next(false);
               this.dialogRef.close();
@@ -88,6 +91,7 @@ export class UpsertcategoryComponent implements OnInit {
             }
           },
           (error: any) => {
+            this.loading = false;
             console.log(error);
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }
