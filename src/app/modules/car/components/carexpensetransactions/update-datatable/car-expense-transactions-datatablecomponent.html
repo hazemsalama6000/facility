@@ -87,7 +87,7 @@
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> </th>
 				<td mat-cell class="text-center" *matCellDef="let element">
 
-					<button *ngIf="element.isRecievedMobile==true" [matMenuTriggerFor]="menu"
+					<button *ngIf="element.isWaiting==true" [matMenuTriggerFor]="menu"
 						matTooltip="موافقة او رفض الطلب" mat-mini-fab color="accent"
 						class="justify-content-center align-items-center"
 						aria-label="Example icon button with a filter list icon">
