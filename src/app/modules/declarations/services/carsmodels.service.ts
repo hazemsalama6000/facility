@@ -35,11 +35,11 @@ export class CarsModelsService {
 	}
 
 	PostLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPostRequests({name:model.Name,companyId:model.company_Id}, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_ADD}`);
+		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_ADD}`);
 	}
 
 	UpdateLookupData(model: LookUpModel): Observable<any> {
-		return this.http.CommonPutRequests({name:model.Name,companyId:model.company_Id}, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_UPDATE}${model.Id}`);
+		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_MODELS_UPDATE}${model.Id}`);
 	}
 
 	toggleActiveDeactive(model: LookUpModel): Observable<any> {

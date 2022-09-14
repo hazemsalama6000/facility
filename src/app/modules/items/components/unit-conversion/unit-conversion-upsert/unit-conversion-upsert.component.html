@@ -1,15 +1,18 @@
-
 <section class="fontsection">
 
 	<mat-card>
 		<div style="width:100%" class="d-flex justify-content-between align-items-center">
 
-			<span class="fontForInputs">
-				 تنسيب الوحدات 
-			</span>
+			<div class="d-flex align-items-center">
+				<mat-icon class="text-primary mx-5" style="font-size:30px ;">group_work</mat-icon>
+				<span class="fontsection">
+					تنسيب الوحدات
+				</span>
+			</div>
 
-			<button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialogAddingUnitConversion()"
-				aria-label="Example icon button with a filter list icon">
+
+			<button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+				(click)="openDialogAddingUnitConversion()" aria-label="Example icon button with a filter list icon">
 				<mat-icon>add</mat-icon>
 			</button>
 

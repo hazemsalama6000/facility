@@ -44,12 +44,12 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 	setDefaultForForm() {
 		this.expenseTransactionDataForm = this.fb.group({
-			ExpenseId: ['', Validators.compose([Validators.required])],
-			CarDataId: ['', Validators.compose([Validators.required])],
+			ExpenseId: [, Validators.compose([Validators.required])],
+			CarDataId: [, Validators.compose([Validators.required])],
 			Attachments: [''],
 			Notes: [''],
 			ExpenseDate: [new Date().toISOString(), Validators.compose([Validators.required])],
-			ExpenseValue: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+			ExpenseValue: [0, Validators.compose([Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 		});
 	}
 
@@ -93,25 +93,28 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
 
-			const fd = new FormData();
-			
-			if (this.attachment != null) {
-				fd.append('Attachments', this.attachment, this.attachment.name);
-			}
-
-			fd.append('CarDataId', ExpenseTransactionDataForm.CarDataId.toString());
-			fd.append('ExpenseDate', ExpenseTransactionDataForm.ExpenseDate);
-			fd.append('ExpenseId', ExpenseTransactionDataForm.ExpenseId);
-			fd.append('ExpenseValue', ExpenseTransactionDataForm.ExpenseValue);
-			fd.append('Notes', ExpenseTransactionDataForm.Notes);
-
-			this.carExpenseTransactionService.PostExpenseTransactionData(fd).
+			this.carExpenseTransactionService.PostExpenseTransactionData(this.expenseTransactionDataForm).
 				subscribe(
 					(data: HttpReponseModel) => {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
 							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
+							const fd = new FormData();
+
+							if (this.attachment != null) {
+								fd.append('Attachments', this.attachment, data.data.id+"_"+this.attachment.name);
+							}
+
+							this.carExpenseTransactionService.UploadImagesCarTransactions(this.fb).subscribe(
+								(data: HttpReponseModel) => {
+									this.toaster.openSuccessSnackBar(data.message);
+								},
+								(error: any) => {
+									console.log(error);
+									this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+								}
+							);
 
 						}
 						else if (data.isExists) {

@@ -19,6 +19,11 @@ export class FinancialyearService {
       .pipe(map((Items: any) => Items as IFinancialYear[]));
   }
 
+  GetActiveFinancialYear(companyId: Number): Observable<IFinancialYear[]> {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ACTIVE_FINANCIAL_YEAR}${companyId}`)
+      .pipe(map((Items: IFinancialYear) => [Items] as IFinancialYear[]));
+  }
+
   AddFinancialYear(model: IFinancialYear) {
     return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_ADD_FINANCIAL_YEAR}`);
   }

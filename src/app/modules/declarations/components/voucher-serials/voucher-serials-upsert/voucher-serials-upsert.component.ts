@@ -66,7 +66,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 				this.dropdownEmloyeeTypeData = data;
 			});
 
-			this.financialYearService.GetFinancialYear(data.companyId)
+			this.financialYearService.GetActiveFinancialYear(data.companyId)
 				.pipe(map((data: IFinancialYear[]) => { return data.map((dataa: IFinancialYear) => { return { Id: dataa.id, Name: dataa.year } as LookUpModel }) })).subscribe((data: LookUpModel[]) => {
 					this.dropdownFinancialYearData = data;
 				});
@@ -97,6 +97,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 			this.voucherSerialService.PostVoucherSerialData(voucherSerialDataForm).
 				subscribe(
 					(data: HttpReponseModel) => {
+						this.toaster.openSuccessSnackBar(data.message);
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);

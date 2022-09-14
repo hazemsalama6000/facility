@@ -31,12 +31,10 @@
 				<div class="col-md-12">
 
 					<div class="row">
-						<div class="col-md-1">
-							<label class="fontForInputs mt-5"> الصنف </label>
-						</div>
-						<div class="col-md-11">
+						
+						<div class="col-md-12">
 							<ng-select class="customized" [items]="dropdownItems" bindLabel="Name" bindValue="Id"
-								name="itemData_Id" (change)="filterItemRelatedUnits($event)"
+								name="itemData_Id" (change)="filterItemRelatedUnits($event)" placeholder="الصنف"
 								formControlName="itemData_Id">
 							</ng-select>
 							<mat-hint>
@@ -56,18 +54,12 @@
 			</div>
 
 
-			<div class="row mt-2">
+			<div class="row mt-3">
 
 				<div class="col-md-6">
 
-					<div class="row">
-						<div class="col-md-5">
-							<label class="fontForInputs mt-5"> الوحدة المنفذ بها </label>
-						</div>
-
-						<div class="col-md-7">
 							<ng-select class="customized" [items]="dropdownRelatedUnits" bindLabel="Name" bindValue="Id"
-								name="unit_Id" formControlName="unit_Id">
+								name="unit_Id" formControlName="unit_Id" placeholder="الوحدة المنفذ بها ">
 							</ng-select>
 							<mat-hint>
 								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -76,8 +68,7 @@
 										  control: unitConversionDataForm.controls['unit_Id']
 										}"></ng-container>
 							</mat-hint>
-						</div>
-					</div>
+						
 				</div>
 
 				<div class="col-md-6">
@@ -124,7 +115,9 @@
 
 
 
-			<br><br><br><br><br><br><br><br><br><br><br>
+			<br><br>
+			<mat-divider></mat-divider>
+			<br><br><br><br><br><br><br><br><br>
 
 
 		</mat-dialog-content>

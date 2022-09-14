@@ -34,7 +34,18 @@ export class CarExpenseTransactionService {
 		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSETRANSACTION_DELETE}${id}`);
 	}
 
-	
+	acceptCarTransactions(id: number): Observable<any> {
+		return this.http.CommonPutRequests(null,`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSES_ACCEPT}${id}`);
+	}
+
+	rejectCarTransactions(id: number): Observable<any> {
+		return this.http.CommonPutRequests(null,`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSES_REJECT}${id}`);
+	}
+
+	UploadImagesCarTransactions(model:any): Observable<any> {
+		return this.http.CommonPostRequests(model,`${localStorage.getItem("companyLink")}${HttpPaths.API_CARS_EXPENSES_IMAGES}`);
+	}
+
 	searchCarTransactions(model: any) {
 		
 		let queryString = Object.keys(model).map((key: string) =>
@@ -43,7 +54,6 @@ export class CarExpenseTransactionService {
 
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_CARS_EXPENSES}${queryString}`)
 			.pipe(map(Items => Items.data as ItemsWithPages));
-		
 	}
 
 
