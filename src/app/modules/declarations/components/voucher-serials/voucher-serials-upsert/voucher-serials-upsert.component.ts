@@ -61,12 +61,6 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 
 	fillDropDowns() {
-		
-		let obj = { id: 0, fromSerial: 601, toSerial: 699, financialYear_Id: 21, billType_Id: 1, technician_Id: 4, company_Id: 1 };
-		this.http.CommonPostRequests(obj, `${localStorage.getItem("companyLink")}/api/v1/bill/addbillsbook`).subscribe(
-			(res) => { console.log(res) },
-			(err) => { console.log(err) }
-		);
 
 		this.auth.userData.subscribe((data: IUserData) => {
 
@@ -110,7 +104,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 		
 		if (this.voucherSerialDataForm.valid) {
 			
-			/*this.voucherSerialService.PostVoucherSerialData(voucherSerialDataFormModel).
+			this.voucherSerialService.PostVoucherSerialData(voucherSerialDataFormModel).
 				subscribe(
 					(data: HttpReponseModel) => {
 						this.toaster.openSuccessSnackBar(data.message);
@@ -131,7 +125,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 						console.log(error);
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 					}
-				);*/
+				);
 
 		}
 
