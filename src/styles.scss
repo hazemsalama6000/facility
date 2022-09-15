@@ -213,6 +213,17 @@ app-reading-list .p-dropdown.p-component {
 	width: 200px !important;
 }
 
+.p-multiselect-clear-icon {
+    right: 6px !important;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
+    margin-left: 0.5rem;
+}
+.p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-inputtext {
+    padding-right: 2.2rem;
+}
+
 .p-datatable .p-datatable-thead>tr>th,
 .p-datatable .p-datatable-tbody>tr>td {
 	text-align: center !important;

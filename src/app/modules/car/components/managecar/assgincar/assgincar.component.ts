@@ -64,7 +64,6 @@ export class AssgincarComponent {
 
               this.dialogRef.close();
               this.carService.bSubject.next(false)
-              this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
             }
             else if (data.isExists) {
@@ -82,7 +81,6 @@ export class AssgincarComponent {
             if (data.isSuccess) {
               this.dialogRef.close();
               this.carService.bSubject.next(false)
-              this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
             }
             else if (data.isExists) {
