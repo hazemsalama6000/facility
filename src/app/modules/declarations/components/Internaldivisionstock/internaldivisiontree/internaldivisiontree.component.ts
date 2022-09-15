@@ -147,7 +147,7 @@ export class InternaldivisiontreeComponent {
       return;
     }
 
-    this.stockShelfsService.updateStockShelf({ stockShelfId: node.id, stock_Id: this.stockId, name: node.name }).subscribe(
+    this.stockShelfsService.updateStockShelf({ Id: node.id, stock_Id: this.stockId, name: node.name }).subscribe(
       (data: HttpReponseModel) => {
         if (data.isSuccess) {
           this.stockShelfsService.bSubject.next(false);

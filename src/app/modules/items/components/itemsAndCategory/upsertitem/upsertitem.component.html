@@ -14,12 +14,12 @@
 
 <form [formGroup]="ItemForm" (ngSubmit)="addItem()">
 
-  <mat-dialog-content style="z-index: -1;" class="mat-typography"  >
-    <div class="row mx-0">
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
+    <div class="row mx-0 my-2">
 
       <!-- code -->
-      <div class="col-md-4 mb-3" >
-        <mat-form-field appearance="outline" >
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.CODE" | translate}}</mat-label>
           <input matInput placeholder="" name="code" formControlName="code">
           <mat-hint>
@@ -183,7 +183,7 @@
 
       <!-- quantity -->
       <div class="col-md-4 mb-3">
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.QUANTITY" | translate}} </mat-label>
           <input matInput placeholder="" name="quantity" formControlName="quantity">
           <mat-hint>
@@ -205,7 +205,7 @@
                   control: ItemForm.controls['quantity']
                  }"></ng-container>
           </mat-hint>
-        </mat-form-field>
+        </mat-form-field> -->
       </div>
 
       <!-- maxLimit -->
@@ -295,20 +295,30 @@
           له صلاحية
         </mat-checkbox>
 
-        <mat-form-field appearance="outline">
-          <mat-label>التاريخ</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="expirationDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-
+        <!-- <mat-form-field appearance="outline">
+          <mat-label> التاريخ </mat-label>
+          <input matInput placeholder="" name="orderingLimit" formControlName="expirationDate">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'required',
-                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.FROMDATE' | translate},
-                control: ItemForm.controls['expirationDate']
-              }"></ng-container>
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'التاريخ' },
+                  control: ItemForm.controls['expirationDate']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'التاريخ'  , min:3},
+                  control: ItemForm.controls['expirationDate']
+                }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'التاريخ'  , max:100},
+                  control: ItemForm.controls['expirationDate']
+                 }"></ng-container>
           </mat-hint>
-        </mat-form-field>
+        </mat-form-field> -->
+
       </div>
 
       <!-- vatTaxValue -->
@@ -333,14 +343,14 @@
 
   </mat-dialog-content>
 
- 
+
   <mat-dialog-actions>
-		<div class="d-flex">
-			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading"
-				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
-		</div>
-	</mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading"
+        color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+    </div>
+  </mat-dialog-actions>
 
 </form>
 
@@ -353,4 +363,3 @@
     </div>
   </ng-container>
 </ng-template>
-

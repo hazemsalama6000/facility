@@ -34,7 +34,6 @@ export class UpsertitemComponent {
     description: [''],
     barCode: [''],
 
-    quantity: [null, Validators.compose([Validators.required])],
     maxLimit: [null, Validators.compose([Validators.required])],
     minLimit: [null, Validators.compose([Validators.required])],
     orderingLimit: [null, Validators.compose([Validators.required])],
@@ -43,7 +42,6 @@ export class UpsertitemComponent {
     vatTaxValue: [{ value: null, disabled: true }],
 
     hasExpireDate: [false],
-    expirationDate: [{ value: null, disabled: true }],
 
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],
@@ -77,9 +75,9 @@ export class UpsertitemComponent {
           description: res.description,
           hasVatTax: res.hasVatTax,
           vatTaxValue: res.vatTaxValue,
-          quantity: res.quantity,
+          // quantity: res.quantity,
           hasExpireDate: res.hasExpireDate,
-          expirationDate: res.expirationDate,
+          // expirationDate: res.expirationDate,
           convertedUnitOfMeasure: res.convertedUnitOfMeasure,
           maxLimit: res.maxLimit,
           minLimit: res.minLimit,
