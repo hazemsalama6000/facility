@@ -13,6 +13,7 @@ import { AuthService } from "src/app/modules/auth";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { TechnitianService } from "../services/technitian.service";
 import { ITechnitianLog } from "../models/ITechnitianLog.interface";
+import { EmployeeService } from "../services/employee.service";
 @Component({
 	selector: 'technician-log',
 	templateUrl: './technician-log.component.html',
@@ -25,7 +26,7 @@ export class technicianLogComponent {
 	NameForAdd: string;
 	currentSelected: LookUpModel;
 
-	displayedColumns: string[] = ['useGps', 'returnFromBill'];
+	displayedColumns: string[] = ['useGps', 'returnFromBill','startDate','endDate'];
 
 	dataSource: any;
 
@@ -36,12 +37,18 @@ export class technicianLogComponent {
 
 	constructor(
 		private service: TechnitianService,
+		private employeeService:EmployeeService,
 		public dialog: MatDialog,
 		private route: ActivatedRoute
 	) {
 
 		this.route.paramMap.subscribe((data: ParamMap) => {
 			this.getallData(+data.get('employeeId')!);
+
+			this.employeeService.subjectEmployeeChangedStream.subscribe(()=>{
+				this.getallData(+data.get('employeeId')!);
+			});
+
 		});
 
 	}

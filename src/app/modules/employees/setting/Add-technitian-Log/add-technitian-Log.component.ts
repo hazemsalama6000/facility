@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { ITechnitianLog } from "../../models/ITechnitianLog.interface";
+import { EmployeeService } from "../../services/employee.service";
 import { TechnitianService } from "../../services/technitian.service";
 
 @Component({
@@ -19,6 +20,7 @@ export class AddTechnitianLogComponent implements OnInit {
 
 	constructor(@Inject(MAT_DIALOG_DATA) public data: any,
 		private service: TechnitianService,
+		private employeeService:EmployeeService,
 		private toaster: toasterService,
 		private fb: FormBuilder,
 		private dialogRef: MatDialogRef<AddTechnitianLogComponent>) { }
@@ -34,8 +36,12 @@ export class AddTechnitianLogComponent implements OnInit {
 	saveTechnitian(model: ITechnitianLog) {
 		this.service.addTechnicianLog(model).subscribe(
 			(data: HttpReponseModel) => {
+				this.employeeService.subjectEmployeeChanged.next(true);
+
 				this.toaster.openSuccessSnackBar(data.message);
 				this.dialogRef.close(model);
+				document.getElementById('closeme')?.click();
+
 			}, (error) => {
 				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 			}

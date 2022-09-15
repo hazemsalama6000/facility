@@ -11,6 +11,9 @@ import { FinancialyearService } from "../../../services/financialyear.service";
 import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { IFinancialYear } from "../../../models/IFinancialYear.interface";
 import { map } from "rxjs";
+import { TechnitianService } from "src/app/modules/employees/services/technitian.service";
+import { IVoucherSerialUpsert } from "../../../models/voucher-serials/IVoucherSerialUpsert.interface";
+import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 
 @Component({
 	selector: "voucher-serials-upsert",
@@ -22,9 +25,9 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 	saveButtonClickedFlag = false;
 	branchId: number;
-	companyId:number;
+	companyId: number;
 	isEdit = false;
-	
+
 
 	dropdownFinancialYearData: LookUpModel[] = [];
 	dropdownBillTypeData: LookUpModel[] = [];
@@ -38,9 +41,11 @@ export class VoucherSerialUpsertComponent implements OnInit {
 		private fb: FormBuilder,
 		private toaster: toasterService,
 		private auth: AuthService,
-		private voucherSerialService: VoucherSerialService,	private financialYearService: FinancialyearService,
+		private voucherSerialService: VoucherSerialService, private financialYearService: FinancialyearService,
 		private employeeService: EmployeeService,
-		 private datePipe: DatePipe
+		private technitianService: TechnitianService,
+		private datePipe: DatePipe,
+		private http: CommonHttpService
 	) { }
 
 
@@ -49,8 +54,8 @@ export class VoucherSerialUpsertComponent implements OnInit {
 			financialYear_Id: [, Validators.compose([Validators.required])],
 			billType_Id: [, Validators.compose([Validators.required])],
 			technician_Id: [, Validators.compose([Validators.required])],
-			fromSerial: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"),Validators.required])],
-			toSerial: [0, Validators.compose([ Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"),Validators.required])]
+			fromSerial: [0, Validators.compose([Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"), Validators.required])],
+			toSerial: [0, Validators.compose([Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$"), Validators.required])]
 		});
 	}
 
@@ -62,7 +67,12 @@ export class VoucherSerialUpsertComponent implements OnInit {
 			this.branchId = data.branchId;
 			this.companyId = data.companyId;
 
-			this.employeeService.getLookupEmployeeData(data.companyId).subscribe((data: LookUpModel[]) => {
+			/*	this.employeeService.getLookupEmployeeData(data.companyId).subscribe((data: LookUpModel[]) => {
+					this.dropdownEmloyeeTypeData = data;
+				});
+	*/
+
+			this.technitianService.getLookupTechnician(this.branchId).subscribe((data: LookUpModel[]) => {
 				this.dropdownEmloyeeTypeData = data;
 			});
 
@@ -86,15 +96,18 @@ export class VoucherSerialUpsertComponent implements OnInit {
 
 	}
 
-	
-	Submit(voucherSerialDataForm: any) {
 
-		console.log(voucherSerialDataForm);
-		voucherSerialDataForm.company_Id=this.companyId;
+	Submit(voucherSerialDataFormModel: any) {
+
+		console.log(voucherSerialDataFormModel);
+		voucherSerialDataFormModel.company_Id = this.companyId;
 		if (this.voucherSerialDataForm.valid) {
-
-	
-			this.voucherSerialService.PostVoucherSerialData(voucherSerialDataForm).
+			let obj = { id: 0, fromSerial: 601, toSerial: 699, financialYear_Id: 21, billType_Id: 1, technician_Id: 4, company_Id: 1 };
+			this.http.CommonPostRequests(obj, `${localStorage.getItem("companyLink")}/api/v1/bill/addbillsbook`).subscribe(
+				(res) => { console.log(res) },
+				(err) => { console.log(err) }
+			);
+			/*this.voucherSerialService.PostVoucherSerialData(voucherSerialDataFormModel).
 				subscribe(
 					(data: HttpReponseModel) => {
 						this.toaster.openSuccessSnackBar(data.message);
@@ -115,7 +128,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 						console.log(error);
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 					}
-				);
+				);*/
 
 		}
 

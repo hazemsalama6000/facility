@@ -25,7 +25,7 @@ export class EmployeesComponent implements OnInit {
 	EmployeeId: any = 5;
 	dropdownEmployeeData: LookUpModel[] = [];
 	employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
-	
+
 	constructor(private service: EmployeeService,
 		private toaster: toasterService, public dialog: MatDialog, private auth: AuthService, private route: ActivatedRoute) {
 		this.auth.userData.subscribe((userData) => {
@@ -35,6 +35,28 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
+		this.service.subjectEmployeeChangedStream.subscribe((data) => {
+			if (this.employeeDsiaplay.id > 0) {
+				this.service.getEmployeeById(this.employeeDsiaplay.id)
+					.pipe(
+						map(
+							(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
+						)
+					)
+					.subscribe(
+						(data: IEmployee) => {
+							this.employeeDsiaplay = data;
+						}
+						, (error) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						}
+					);
+			}
+		});
+
+
+
 		this.service.bSubjectStream.subscribe((data) => {
 			this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
 				this.dropdownEmployeeData = data;
@@ -90,19 +112,20 @@ export class EmployeesComponent implements OnInit {
 			)
 			.subscribe(
 				(data: IEmployee) => {
-					this.employeeDsiaplay = data;
-					console.log(this.employeeDsiaplay);
+
 					setTimeout(() => {
 						document.getElementById("blocksdisplay")?.click();
 						document.getElementById("notfound")?.click();
 						document.getElementById("blocksdisplay")?.click();
-
-					}, 1000);
+					}, 200);
+					this.employeeDsiaplay = data;
 				}
 				, (error) => {
 					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 				}
 			);
+
+
 
 	}
 

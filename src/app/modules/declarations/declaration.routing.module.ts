@@ -9,6 +9,7 @@ import { InventoryComponent } from "./components/inventory/inventory.component";
 import { InventorycategoryComponent } from "./components/inventorycategory/inventorycategory.component";
 import { PathrouteComponent } from "./components/pathroute/pathroute.component";
 import { TransferingCompanyComponent } from "./components/transfering-company/transfering-company.component";
+import { UnitsComponent } from "./components/Units/units.component";
 import { VoucherSerialsComponent } from "./components/voucher-serials/voucher-serials.component";
 
 const route: Routes = [
@@ -18,11 +19,11 @@ const route: Routes = [
 	{ path: 'financialyear', component: FinancialyearComponent },
 	{ path: 'pathroute', component: PathrouteComponent },
 	{ path: 'transferingcompany', component: TransferingCompanyComponent },
+	{ path: 'units', component: UnitsComponent },
 	{ path: 'carsmodels', component: CarsModelsComponent },
 	{ path: 'carexpenses', component: CarExpensesComponent },
 	{ path: 'voucherSerial', component: VoucherSerialsComponent },
 	{ path: 'clientcategory', component: LookupIdNameComponent, data: { page: 'CLIENT_CATEGORY' } },
-	
 ]
 @NgModule({
 	imports: [RouterModule.forChild(route)],

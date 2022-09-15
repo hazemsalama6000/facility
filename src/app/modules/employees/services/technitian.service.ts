@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
+import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { HttpPaths } from "../../auth/Enums/HttpPaths.enum";
 import { ITechnitianLog } from "../models/ITechnitianLog.interface";
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class TechnitianService {
 
 	constructor(private http: CommonHttpService){}
@@ -23,6 +24,14 @@ export class TechnitianService {
 			map((data: ITechnitianLog[]) => data)
 		);
 	}
+
+	getLookupTechnician(companyBranchId: number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LISTOF_TECHNITIANS}?companyBranchId=${companyBranchId}`)
+			.pipe(
+				map((Items: HttpReponseModel) => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
+			);
+	}
+	
 	///
 	
 }

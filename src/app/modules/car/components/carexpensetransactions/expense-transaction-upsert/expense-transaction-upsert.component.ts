@@ -87,8 +87,8 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 	Submit(ExpenseTransactionDataForm: any) {
 
-		if (ExpenseTransactionDataForm.ExpenseValue < 0) {
-			this.toaster.openWarningSnackBar("القيمة اقل من 0");
+		if (ExpenseTransactionDataForm.ExpenseValue <= 0) {
+			this.toaster.openWarningSnackBar("القيمة اقل من 1 ");
 			return;
 		}
 		

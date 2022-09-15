@@ -32,6 +32,9 @@ import { InternaldivisiontreeComponent } from './components/Internaldivisionstoc
 import { VoucherSerialsComponent } from './components/voucher-serials/voucher-serials.component';
 import { VoucherSerialUpsertComponent } from './components/voucher-serials/voucher-serials-upsert/voucher-serials-upsert.component';
 import { VoucherSerialsDatatableComponent } from './components/voucher-serials/voucher-serials-datatable/voucher-serials-datatable.component';
+import { UnitsListContentComponent } from './components/Units/units_list_content/units_list_content.component';
+import { UnitsUpsertComponent } from './components/Units/units_upsert/unitsupsert.component';
+import { UnitsComponent } from './components/Units/units.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,9 @@ import { VoucherSerialsDatatableComponent } from './components/voucher-serials/v
     VoucherSerialsComponent,
     VoucherSerialUpsertComponent,
     VoucherSerialsDatatableComponent,
-
+	UnitsListContentComponent,
+	UnitsUpsertComponent,
+	UnitsComponent
   ],
   imports: [
     CommonModule,

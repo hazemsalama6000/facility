@@ -45,6 +45,14 @@ export enum HttpPaths {
 	API_TRANSFERINGCOMPANY_DELETE = "/api/v1/bill/deletepaymentgateway/",
 	API_TRANSFERINGCOMPANY_UACTIVEDEACTIVE = "/api/v1/bill/changepaymentgatewayactiveornot/",
 
+	//UNITS
+	API_UNITS_ADD = "/api/v1/invt/addunit",
+	API_UNITS_UPDATE = "/api/v1/invt/updateunit/",
+	API_UNITS_GETALL = "/api/v1/invt/getallunits",
+	API_UNITS_DELETE = "/api/v1/invt/deleteunit/",
+	API_UNITS_UACTIVEDEACTIVE = "/api/v1/invt/changeunitactiveornot/",
+
+	API_LIST_OF_UNITTYPES="/api/v1/invt/listofunitstypes",
 
 	//Cars Models APIS
 
@@ -81,9 +89,11 @@ export enum HttpPaths {
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
 
 
+	API_LISTOF_TECHNITIANS="/api/v1/tech/listoftechnicians",
+
 	//VoucherSerial APIS
 
-	API_VOUCHER_SERIAL_ADD = "/api/v1/bill/createbillsbook",
+	API_VOUCHER_SERIAL_ADD = "/api/v1/bill/addbillsbook",
 	API_VOUCHER_SERIAL_GETALL_SEARCH = "/api/v1/bill/getbillsbooksbyfilteration",
 	API_VOUCHER_SERIAL_DELETE = "/api/v1/bill/deletebillsbook/",
 	API_GET_BILLS_TYPES = "/api/v1/bill/listofbillstypes",

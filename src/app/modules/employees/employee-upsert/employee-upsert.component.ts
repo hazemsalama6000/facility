@@ -254,6 +254,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			Image: '', Mobile: '0',
 			Email: '', BirthDate: '', Status_Id:0,
 			NId: '', MilitaryStatus_Id: 0, MartialStatus_Id: 0,
+
 			University: '',
 			Qualification: '',
 			GraduateDate: '',
@@ -315,10 +316,10 @@ export class EmployeeUpsertComponent implements OnInit {
 				fd.append('BirthDate', model.BirthDate);
 
 				fd.append('NId', model.NId);
-				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id);
-				fd.append('Status_Id', model.Status_Id);
+				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id==null?'':model.MilitaryStatus_Id);
+				fd.append('Status_Id', model.Status_Id==null?'':model.Status_Id);
 
-				fd.append('MartialStatus_Id', model.MartialStatus_Id);
+				fd.append('MartialStatus_Id', model.MartialStatus_Id==null?'':model.MartialStatus_Id);
 				fd.append('University', model.University);
 
 				fd.append('Qualification', model.Qualification);
@@ -337,6 +338,7 @@ export class EmployeeUpsertComponent implements OnInit {
 								this.toaster.openSuccessSnackBar(data.message);
 								// console.log(data.message);
 								this.service.bSubject.next(true);
+								document.getElementById('closeme')?.click();
 							}
 							else if (data.isExists) {
 								this.toaster.openWarningSnackBar(data.message);
@@ -356,6 +358,8 @@ export class EmployeeUpsertComponent implements OnInit {
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
 						this.service.bSubject.next(true);
+						this.service.subjectEmployeeChanged.next(true);
+						document.getElementById('closeme')?.click();
 					},
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));

@@ -29,21 +29,21 @@ export class VoucherSerialService {
 			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 
-	
+
 	DeleteVoucherSerial(id: number): Observable<any> {
 		return this.http.CommonDeleteRequest(`${localStorage.getItem("companyLink")}${HttpPaths.API_VOUCHER_SERIAL_DELETE}${id}`);
 	}
 
-	
+
 	searchVoucherSerial(model: any) {
-		
+
 		let queryString = Object.keys(model).map((key: string) =>
-		model[key] != null && model[key] != ''&& model[key] != 0 && model[key] != undefined ? key + '=' + model[key] : null
+			model[key] != null && model[key] != '' && model[key] != 0 && model[key] != undefined ? key + '=' + model[key] : null
 		).filter(x => x != null).join('&');
 
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_VOUCHER_SERIAL_GETALL_SEARCH}?${queryString}`)
 			.pipe(map(Items => Items.data as ItemsWithPages));
-		
+
 	}
 
 

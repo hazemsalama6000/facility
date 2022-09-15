@@ -64,7 +64,7 @@
 					<!--begin::Name-->
 					<div class="d-flex flex-column" *ngIf="employeeDsiaplay.id">
 
-						<a href="#"
+						<a 
 							title="get data from endpoint:/api/v1/hr/getemployeeprofileinfo , when click name open edit employee profile"
 							class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">{{employeeDsiaplay.name}}</a>
 						<!--end::Name-->
@@ -174,7 +174,7 @@
 					<!--begin::Details item-->
 					<div class="fw-bolder mt-5"> تفاصيل الوظيفة </div>
 					<div class="text-gray-600">
-						<a href="#" class="text-gray-600 text-hover-primary">{{employeeDsiaplay.job}} ,
+						<a  class="text-gray-600 text-hover-primary">{{employeeDsiaplay.job}} ,
 							{{employeeDsiaplay.section}} ,{{employeeDsiaplay.department}}</a>
 					</div>
 
@@ -219,7 +219,7 @@
 
 						<!--begin::Details item-->
 						<!--begin::Details item-->
-						<div class="fw-bolder mt-5">return From Bill</div>
+						<div class="fw-bolder mt-5">مرتجع من فواتير  </div>
 						<a *ngIf="employeeDsiaplay.techTechnician.returnFromBill == true; else inActiveForReturnBill"
 							class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
 							data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
@@ -284,11 +284,11 @@
 						</ng-template>
 					</mat-tab>
 
-					<mat-tab style="width:250px !important; " id="notfound" [hidden]="true">
+					<mat-tab style="width:250px !important; "  >
 						<ng-template mat-tab-label>
 							<a id="notfound" class="nav-link text-hover-primary me-6 fontForInputs"
 								style="color:rgb(71, 71, 71); font-weight: bold;"
-								[routerLink]="['/employee/employeeprofile/technicianlog/', employeeDsiaplay.id ]"
+								[routerLink]="['/employee/employeeprofile/technician/', employeeDsiaplay.id ]"
 								routerLinkActive="text-primary">
 
 							</a>
