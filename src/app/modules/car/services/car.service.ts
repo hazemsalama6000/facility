@@ -66,8 +66,5 @@ export class CarService {
       .pipe(map((Items: HttpReponseModel) => Items.data as ICarLogs));
   }
 
-  refreshHistoryData(){
-    this.carModel.subscribe(res=>this.carModel.next(res));
-  }
 
 }

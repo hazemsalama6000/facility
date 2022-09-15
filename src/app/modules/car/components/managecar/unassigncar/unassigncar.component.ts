@@ -55,7 +55,6 @@ export class UnassigncarComponent {
             this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
-              this.carService.refreshHistoryData();
               this.dialogRef.close();
               this.toaster.openSuccessSnackBar(data.message);
             }
@@ -73,7 +72,6 @@ export class UnassigncarComponent {
             this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
-              this.carService.refreshHistoryData();
               this.dialogRef.close();
               this.toaster.openSuccessSnackBar(data.message);
             }

@@ -5,24 +5,31 @@
     <p-table [columns]="selectedColumns" [value]="employees" responsiveLayout="scroll" [loading]="loading">
 
       <ng-template pTemplate="caption">
-        <div class="d-flex justify-content-end">
+        <label class="fontsection fs-2">قائمة الموظفين </label>
 
-          <p-multiSelect [options]="columns" optionLabel=" " [(ngModel)]="selectedColumns" appendTo="body" class="HeaderColumns">
-            <ng-template let-option pTemplate="item">
-              <span>{{'EMPLOYEE.TITLES.'+option.translateKey|translate}}</span>
-            </ng-template>
-          </p-multiSelect>
+        <div class="d-flex justify-content-between mt-2">
 
-          <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1" (click)="exportExcel()" pTooltip="XLS"
-            tooltipPosition="bottom"></button>
+          <div class="d-flex align-items-center">
 
-          <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
-            class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
+            <input type="text" pInputText  class="me-2" placeholder="بحث بالهاتف او الايميل"/>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-primary mr-2"></button>
 
-          <p-divider layout="vertical"></p-divider>
+          </div>
 
-          <a type="button" (click)="openDialogUpsertEmployee('ADD')" pButton pRipple icon="pi pi-user-plus" class="p-button-primary mx-1"
-            pTooltip="{{ 'HR.BUTTONS.ADD' | translate }}" tooltipPosition="bottom" appendTo="body"></a>
+          <div class="d-flex">
+            <p-multiSelect [options]="columns" optionLabel="propName" [(ngModel)]="selectedColumns" appendTo="body" class="HeaderColumns" [displaySelectedLabel]="false" defaultLabel="فلترة بالاعمدة">
+              <ng-template let-option pTemplate="item">
+                <span>{{'EMPLOYEE.TITLES.'+option.translateKey|translate}}</span>
+              </ng-template>
+            </p-multiSelect>
+            <p-divider layout="vertical"></p-divider>
+            <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mx-1" (click)="exportExcel()" pTooltip="XLS"
+              tooltipPosition="bottom"></button>
+          </div>
+
+
+          <!-- <a type="button" (click)="openDialogUpsertEmployee('ADD')" pButton pRipple icon="pi pi-user-plus" class="p-button-primary mx-1"
+            pTooltip="{{ 'HR.BUTTONS.ADD' | translate }}" tooltipPosition="bottom" appendTo="body"></a> -->
         </div>
       </ng-template>
 
@@ -37,8 +44,8 @@
 
             <th *ngIf="col.propName=='name'">
 
-              <p-multiSelect [options]="employeeDropdown" optionLabel="Name" #employee appendTo="body" placeholder="أختر الموظفين"
-                (onChange)="myfilter(employee.value,'employee')">
+              <p-multiSelect [options]="employeeDropdown" optionLabel="Name" #employee appendTo="body" placeholder="أختر الموظفين" [showClear]="true"
+                (onChange)="myfilter(employee.value,'employee')" (onClear)="searchObject.employeesIds=[];getEmployeeData();">
                 <ng-template let-option pTemplate="item">
                   <span>{{option.Name}}</span>
                 </ng-template>
@@ -91,7 +98,7 @@
             <th *ngIf="col.propName=='job'">
 
               <p-multiSelect [options]="jobDropdown" optionLabel="displayValue" (onChange)="myfilter($event.value,'job')" appendTo="body"
-                placeholder="أختر الوظائف">
+                [showClear]="true" placeholder="أختر الوظائف">
                 <ng-template let-option pTemplate="item">
                   <span>{{option.displayValue}</span>
                 </ng-template>
