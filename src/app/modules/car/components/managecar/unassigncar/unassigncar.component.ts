@@ -55,7 +55,6 @@ export class UnassigncarComponent {
             this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
-              this.carService.refreshHistoryData();
               this.dialogRef.close();
               this.toaster.openSuccessSnackBar(data.message);
             }
@@ -73,7 +72,6 @@ export class UnassigncarComponent {
             this.loading = false;
             if (data.isSuccess) {
               this.carService.bSubject.next(false);
-              this.carService.refreshHistoryData();
               this.dialogRef.close();
               this.toaster.openSuccessSnackBar(data.message);
             }
@@ -101,6 +99,9 @@ export class UnassigncarComponent {
 
     for (var i = 0; i < this.files.length; i++)
       formData.append("File", this.files[i]);
+
+    if (this.files.length == 0)
+      formData.append("File", new Blob(), 'test');
 
     formData.append("carId", this.carUnAssignForm.get('carId')?.value);
     formData.append("Notes", this.carUnAssignForm.get('notes')?.value);

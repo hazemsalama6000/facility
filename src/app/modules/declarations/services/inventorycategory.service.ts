@@ -30,7 +30,7 @@ export class InventorycategoryService {
   }
 
   updateInventoryCategory(model:any) {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_INVENTORY_CATEGORY}${model.stockcategoryId}`);
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_INVENTORY_CATEGORY}${model.Id}`);
   }
 
   deleteInventoryCategory(invCatId:number) {

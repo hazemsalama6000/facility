@@ -11,9 +11,9 @@
     <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
       <div class="col-md-6 fontForInputs">
         <h2 class="m-0">المندوب</h2>
-        <span class="d-block fs-4 mb-1">الاسم:{{carLogs.techLastLog.personName}}</span>
-        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs.techLastLog.startDate| date:'dd/MM/yyyy'}}</span>
-        <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs.techLastLog.endDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">الاسم:{{carLogs?.techLastLog?.personName}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs?.techLastLog?.startDate| date:'dd/MM/yyyy'}}</span>
+        <!-- <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs?.techLastLog?.endDate| date:'dd/MM/yyyy'}}</span> -->
         <span class="d-block fs-4 mb-1">
           <div class="d-flex align-items-center">
             الحالة: <label class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>
@@ -22,9 +22,9 @@
       </div>
       <div class="col-md-6 fontForInputs">
         <h2 class="m-0">السائق</h2>
-        <span class="d-block fs-4 mb-1">الاسم:{{carLogs.driverLastLog.personName}}</span>
-        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs.driverLastLog.startDate| date:'dd/MM/yyyy'}}</span>
-        <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs.driverLastLog.endDate| date:'dd/MM/yyyy'}}</span>
+        <span class="d-block fs-4 mb-1">الاسم:{{carLogs.driverLastLog?.personName}}</span>
+        <span class="d-block fs-4 mb-1">تاريخ من :{{carLogs.driverLastLog?.startDate| date:'dd/MM/yyyy'}}</span>
+        <!-- <span class="d-block fs-4 mb-1">تاريخ إلى :{{carLogs.driverLastLog?.endDate| date:'dd/MM/yyyy'}}</span> -->
         <span class="d-block fs-4 mb-1">
           <div class="d-flex align-items-center">
             الحالة: <label class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>

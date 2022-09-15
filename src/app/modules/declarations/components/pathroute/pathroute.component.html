@@ -3,7 +3,7 @@
 
   <section>
     <!-- {{"HR.TITLES.JOBS" | translate}} *ngIf="addButton"-->
-    <mat-card class="col-md-8">
+    <mat-card class="col-md-9">
       <div style="width:100%" class="d-flex justify-content-between align-items-center mb-2 fontsection">
         <span class="fontForInputs fs-3"> {{"DECLARATIONS.TITLES.PATHROUTETABLE"|translate}}</span>
         <button matTooltip="{{'SHARE.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openAddDialog()"
@@ -48,7 +48,7 @@
 
 
 
-  <div class="col-md-8 mt-10">
+  <div class="col-md-9 mt-10">
 
 
     <!-- <div class="col-md-4">
@@ -65,7 +65,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}}</th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"  class="px-5">
           <span>{{element.name}}</span>
         </td>
       </ng-container>
@@ -73,7 +73,7 @@
       <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.STATE" | translate}}</th>
-        <td mat-cell *matCellDef="let element; let x=index">
+        <td mat-cell *matCellDef="let element; let x=index" class="px-5">
           <span>{{element.state}}</span>
         </td>
       </ng-container>
@@ -81,9 +81,9 @@
       <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
       <ng-container matColumnDef="region">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.REGION" | translate}} </th>
-        <td mat-cell *matCellDef="let element; let x=index">
+        <td mat-cell *matCellDef="let element; let x=index" style="width: 350px;"  class="px-5">
           <ng-container *ngFor="let reg of element.region.split(',')">
-            <label *ngIf="reg" class="badge badge-primary me-1"> {{reg}}</label>
+            <label *ngIf="reg" class="badge badge-primary me-1 mt-1"> {{reg}}</label>
           </ng-container>
           <!-- <span>{{element.region}}</span> -->
         </td>
@@ -92,14 +92,14 @@
       <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
       <ng-container matColumnDef="technician">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.TECHNICIAN" | translate}} </th>
-        <td mat-cell *matCellDef="let element; let x=index">
+        <td mat-cell *matCellDef="let element; let x=index"  class="px-5">
           <span>{{element.technician}}</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>{{"DECLARATIONS.TITLES.STATUS" | translate}}</th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;"  class="px-5">
 
           <div class="d-flex justify-content-center align-items-center">
             <label *ngIf="element.isActive == true" class="badge badge-primary"> {{"DECLARATIONS.TITLES.ACTIVE" |translate}}</label>

@@ -28,13 +28,12 @@ export class UpsertitemComponent {
   private unsubscribe: Subscription[] = [];
 
   ItemForm: FormGroup = this.fb.group({
-    itemId: [0],
+    Id: [0],
     code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     description: [''],
     barCode: [''],
 
-    quantity: [null, Validators.compose([Validators.required])],
     maxLimit: [null, Validators.compose([Validators.required])],
     minLimit: [null, Validators.compose([Validators.required])],
     orderingLimit: [null, Validators.compose([Validators.required])],
@@ -43,7 +42,6 @@ export class UpsertitemComponent {
     vatTaxValue: [{ value: null, disabled: true }],
 
     hasExpireDate: [false],
-    expirationDate: [{ value: null, disabled: true }],
 
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],
@@ -70,16 +68,16 @@ export class UpsertitemComponent {
       itemsCategoryService.getItemById(data.node.id).subscribe((res: IItem) => {
 
         this.ItemForm.patchValue({
-          itemId: res.id,
+          Id: res.id,
           code: res.code,
           name: res.name,
           barCode: res.barCode,
           description: res.description,
           hasVatTax: res.hasVatTax,
           vatTaxValue: res.vatTaxValue,
-          quantity: res.quantity,
+          // quantity: res.quantity,
           hasExpireDate: res.hasExpireDate,
-          expirationDate: res.expirationDate,
+          // expirationDate: res.expirationDate,
           convertedUnitOfMeasure: res.convertedUnitOfMeasure,
           maxLimit: res.maxLimit,
           minLimit: res.minLimit,
@@ -101,7 +99,7 @@ export class UpsertitemComponent {
     if (this.ItemForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
       if (this.data.type == 'add') {
-        this.ItemForm.patchValue({ itemCategory_Id: this.data.node.id, company_Id: this.userData.companyId });
+        this.ItemForm.patchValue({ Id: this.data.node.id, company_Id: this.userData.companyId });
         this.itemsCategoryService.AddItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;

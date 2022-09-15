@@ -7,12 +7,16 @@
 
     <mat-divider></mat-divider>
 
-    <div class="align-items-baseline mt-4 mx-0 row">
+    <div class="row mt-4 mx-0 align-items-baseline justify-content-between ">
       <div class="col-md-4">
         <ng-select class="customized" [items]="dropdownStockData" bindLabel="Name" bindValue="Id"
-          placeholder="{{'DECLARATIONS.INPUTS.STOCK' | translate}}" (change)="onSelectStock($event)">
+          placeholder="{{'DECLARATIONS.INPUTS.STOCK' | translate}}" (change)="onSelectStock($event)" (clear)="stockId=0">
         </ng-select>
       </div>
+      <button *ngIf="data.length==0&&stockId>0" matTooltip="{{'DECLARATIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="addItem()"
+        aria-label="Example icon button with a filter list icon">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 
   </mat-card>

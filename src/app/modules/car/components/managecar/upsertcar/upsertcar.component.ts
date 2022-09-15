@@ -32,8 +32,8 @@ export class UpsertcarComponent {
     id: [0],
     carNumber: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     carModel_Id: [null, Validators.compose([Validators.required])],
-    driver_Id: [0],
-    technician_Id: [0],
+    driver_Id: [null],
+    technician_Id: [null],
     branch_Id: [0]
   });
 
@@ -66,12 +66,16 @@ export class UpsertcarComponent {
   addOrUpdateCar() {
 
     if (this.carForm.valid && this.saveButtonClickedFlag) {
-      this.carForm.patchValue({ branch_Id: this.userData.branchId });
+      this.carForm.patchValue({
+        branch_Id: this.userData.branchId,
+        technician_Id: this.carForm.get('technician_Id')?.value == null ? 0 : this.carForm.get('technician_Id')?.value,
+        driver_Id: this.carForm.get('driver_Id')?.value == null ? 0 : this.carForm.get('driver_Id')?.value
+      });
       this.loading = true;
 
       if (this.isEdit) {
         let model: any = {
-          carDataId: this.carForm.get('id')?.value,
+          id: this.carForm.get('id')?.value,
           carModel_Id: this.carForm.get('carModel_Id')?.value,
           carNumber: this.carForm.get('carNumber')?.value
         };

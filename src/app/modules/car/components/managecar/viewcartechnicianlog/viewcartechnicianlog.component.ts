@@ -16,18 +16,21 @@ import { CarService } from '../../../services/car.service';
 export class ViewcartechnicianlogComponent implements OnInit {
   searchModel: any = { branchId: 0 };
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['type', 'fromDate', 'toDate','personname', 'notes',  'state', 'action'];
+  displayedColumns: string[] = ['type', 'fromDate', 'toDate', 'personname', 'notes', 'state', 'action'];
   dataSource: any;
   userData: IUserData;
-  carLogs:ICarLogs;
+  carLogs: ICarLogs;
   model: Icar;
   url: string = localStorage.getItem('companyLink') as string;
   unsubscribe: Subscription[] = [];
 
   constructor(private carService: CarService) {
-    const selected = this.carService.carModel.subscribe(res => {
+    let selected = this.carService.carModel.subscribe(res => {
       this.model = res;
-      this.model.id > 0 ? this.getallData(res.id) : null;
+      if (this.model.id > 0 ) {
+       let x= carService.bSubject.subscribe(res=> this.getallData(this.model.id));
+       this.unsubscribe.push(x);
+      }
     });
     this.unsubscribe.push(selected);
   }
@@ -36,8 +39,9 @@ export class ViewcartechnicianlogComponent implements OnInit {
   }
 
   getallData(carId: number) {
+    console.log(carId)
     this.carService.getHistoryCar(carId).subscribe((data: ICarLogs) => {
-      this.carLogs=data;
+      this.carLogs = data;
       this.dataSource = new MatTableDataSource<ICarLog>(data.allLogs);
       this.dataSource.paginator = this.paginator;
     });
