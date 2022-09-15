@@ -143,56 +143,39 @@
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> {{'HR.INPUTS.STATE' | translate}} </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
+						name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)"
+						placeholder="{{'HR.INPUTS.STATE' | translate}}">
+					</ng-select>
 
-						<div class="col-md-9">
-
-							<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name"
-								bindValue="Id" name="state_Id" formControlName="state_Id"
-								(change)="onItemSelectState($event)">
-							</ng-select>
-
-						</div>
-					</div>
 				</div>
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> {{'HR.INPUTS.REGION' | translate}} </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
+						name="Region_Id" id="Region_Id" formControlName="Region_Id"
+						placeholder="{{'HR.INPUTS.REGION' | translate}}">
+					</ng-select>
 
-						<div class="col-md-9">
-
-							<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name"
-								bindValue="Id" name="Region_Id" id="Region_Id" formControlName="Region_Id">
-							</ng-select>
-
-							<mat-hint>
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+					<mat-hint>
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 											  validation: 'required',
 											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.REGION' | translate},
 											  control: EmployeeDataForm.controls['Region_Id']
 											}"></ng-container>
 
-							</mat-hint>
+					</mat-hint>
 
-						</div>
-					</div>
 				</div>
 
 				<div class="col-md-4">
-					<mat-form-field style="width:100%" color="accent" appearance="fill">
+					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ الميلاد </mat-label>
 						<input matInput [matDatepicker]="picker1" formControlName="BirthDate">
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
 						<mat-hint>
-						<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+							<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 								  validation: 'required',
 								  message: 'التاريخ ',
 								  control: EmployeeDataForm.controls['BirthDate']
@@ -206,7 +189,7 @@
 
 					<mat-form-field appearance="outline">
 						<mat-label> الرقم القومى </mat-label>
-						<input matInput placeholder="Placeholder" name="NId" formControlName="NId">
+						<input matInput minlength="14" maxlength="14" placeholder="Placeholder" name="NId" formControlName="NId">
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
@@ -236,7 +219,7 @@
 						<input matInput placeholder="01147785..." minlength="3" maxlength="11" name="Mobile"
 							formControlName="Mobile">
 						<mat-hint>
-						<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+							<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
 										  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
 										  control: EmployeeDataForm.controls['Mobile']
@@ -267,56 +250,38 @@
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-4">
-							<label class="fontForInputs mt-5"> موقف التجنيد </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForMilitary" bindLabel="Name" bindValue="Id"
+						name="MilitaryStatus_Id" id="MilitaryStatus_Id" formControlName="MilitaryStatus_Id"
+						placeholder="موقف التجنيد">
+					</ng-select>
 
-						<div class="col-md-8">
-
-							<ng-select class="customized" [items]="dropdownListDataForMilitary" bindLabel="Name"
-								bindValue="Id" name="MilitaryStatus_Id" id="MilitaryStatus_Id"
-								formControlName="MilitaryStatus_Id">
-							</ng-select>
-
-							<mat-hint>
-								<!--<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+					<mat-hint>
+						<!--<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 											  validation: 'required',
 											  message: 'موقف التجنيد  مطلوب',
 								    		  control: EmployeeDataForm.controls['MilitaryStatus_Id']
 											}"></ng-container>-->
 
-							</mat-hint>
+					</mat-hint>
 
-						</div>
-					</div>
 				</div>
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-4">
-							<label class="fontForInputs mt-5"> الحالة الاجتماعية </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForMarital" bindLabel="Name" bindValue="Id"
+						name="MartialStatus_Id" id="MartialStatus_Id" formControlName="MartialStatus_Id"
+						placeholder="الحالة الاجتماعية">
+					</ng-select>
 
-						<div class="col-md-8">
-
-							<ng-select class="customized" [items]="dropdownListDataForMarital" bindLabel="Name"
-								bindValue="Id" name="MartialStatus_Id" id="MartialStatus_Id"
-								formControlName="MartialStatus_Id">
-							</ng-select>
-
-							<mat-hint>
-							<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+					<mat-hint>
+						<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 											  validation: 'required',
 											  message: 'الحالة الاجتماعية مطلوب',
 											  control: EmployeeDataForm.controls['MartialStatus_Id']
 											}"></ng-container>-->
 
-							</mat-hint>
+					</mat-hint>
 
-						</div>
-					</div>
 				</div>
 
 			</div>
@@ -345,7 +310,7 @@
 						<mat-label> الجامعة </mat-label>
 						<input matInput placeholder="Placeholder" name="University" formControlName="University">
 						<mat-hint>
-						<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+							<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
 										  message: 'الجامعة مطلوب',			
 										  control: EmployeeDataForm.controls['University']
@@ -396,7 +361,7 @@
 				</div>
 
 				<div class="col-md-4">
-					<mat-form-field style="width:100%" color="accent" appearance="fill">
+					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التخرج </mat-label>
 						<input matInput [matDatepicker]="picker3" formControlName="GraduateDate">
 						<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -413,7 +378,7 @@
 				</div>
 
 				<div class="col-md-4">
-					<mat-form-field style="width:100%" color="accent" appearance="fill">
+					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التعيين </mat-label>
 						<input matInput [matDatepicker]="picker2" formControlName="HireDate">
 						<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -453,67 +418,46 @@
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> الادارة </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForDepartment" bindLabel="Name"
+						bindValue="Id" name="Department_Id" formControlName="Department_Id"
+						(change)="onItemSelectDepartment($event)" placeholder="الادارة">
+					</ng-select>
 
-						<div class="col-md-9">
-
-							<ng-select class="customized" [items]="dropdownListDataForDepartment" bindLabel="Name"
-								bindValue="Id" name="Department_Id" formControlName="Department_Id"
-								(change)="onItemSelectDepartment($event)">
-							</ng-select>
-
-						</div>
-					</div>
 				</div>
 
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> القسم </label>
-						</div>
+					<ng-select class="customized" [items]="dropdownListDataForSecion" bindLabel="Name" bindValue="Id"
+						name="Section_Id" formControlName="Section_Id" (change)="onItemSelectSection($event)"
+						placeholder="القسم">
+					</ng-select>
 
-						<div class="col-md-9">
-
-							<ng-select class="customized" [items]="dropdownListDataForSecion" bindLabel="Name"
-								bindValue="Id" name="Section_Id" formControlName="Section_Id"
-								(change)="onItemSelectSection($event)">
-							</ng-select>
-
-						</div>
-					</div>
 				</div>
 
 
 				<div class="col-md-4">
 
-					<div class="row mt-2">
-						<div class="col-md-3">
-							<label class="fontForInputs mt-5"> الوظيفة </label>
-						</div>
-
-						<div class="col-md-9">
-
-							<ng-select class="customized" [items]="dropdownListDataForJobs" bindLabel="Name"
-								bindValue="Id" name="JobSection_Id" formControlName="JobSection_Id">
-							</ng-select>
-							<mat-hint>
-								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+					<ng-select class="customized" [items]="dropdownListDataForJobs" bindLabel="Name" bindValue="Id"
+						name="JobSection_Id" formControlName="JobSection_Id" placeholder="الوظيفة">
+					</ng-select>
+					<mat-hint>
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 											  validation: 'required',
 											  message: 'الوظيفة مطلوب',			
 											  control: EmployeeDataForm.controls['JobSection_Id']
 											}"></ng-container>
 
-							</mat-hint>
-						</div>
-					</div>
+					</mat-hint>
 				</div>
 
+				<div class="col-md-4">
 
+					<ng-select class="customized" [items]="dropdownListDataForStatus" bindLabel="Name" bindValue="Id"
+						name="Status_Id" formControlName="Status_Id" placeholder="الحالة">
+					</ng-select>
+
+				</div>
 
 
 			</div>

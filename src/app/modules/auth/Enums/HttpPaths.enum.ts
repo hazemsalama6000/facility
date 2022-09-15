@@ -35,6 +35,8 @@ export enum HttpPaths {
 	//maritalStatus
 	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
 
+	API_STATUS_GETLIST="/api/v1/hr/listofhrstatus",
+
 	//Transfering Company APIS
 
 	API_TRANSFERINGCOMPANY_ADD = "/api/v1/bill/addpaymentgateway",
@@ -62,14 +64,18 @@ export enum HttpPaths {
 
 	API_CARS_EXPENSE_DELETE = "/api/v1/Trans/removetranscarexpensetypes/",
 
-	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactive/",
+	API_CARS_EXPENSE_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetypeactiveandenactiv/",
 	API_CARS_EXPENSE_ASSIGN_SALES_UACTIVEDEACTIVE = "/api/v1/Trans/changeexpensetechnicianactiveandenactive/",
 
 	// cars expenses transactions
 
-	API_GET_CARS_EXPENSES_ADD = "/api/v1/Trans/addtranscarexpense?",
+	API_GET_CARS_EXPENSES_ADD = "/api/v1/Trans/addtranscarexpense",
 	API_GET_CARS_EXPENSES = "/api/v1/Trans/getcarsexpenses?",
 	API_CARS_EXPENSETRANSACTION_DELETE = "/api/v1/Trans/removetranscarexpense/",
+
+    API_CARS_EXPENSES_IMAGES="/api/v1/Trans/uploadcarexpensesimages",
+	API_CARS_EXPENSES_ACCEPT="/api/v1/Trans/acceptcarexpense/",
+    API_CARS_EXPENSES_REJECT="/api/v1/Trans/rejectcarexpense/",
 
 	// cars 
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
@@ -247,6 +253,7 @@ export enum HttpPaths {
 
 	//financial year
 	API_GET_FINANCIAL_YEAR = "/api/v1/shared/getfinancialyears/",
+	API_GET_ACTIVE_FINANCIAL_YEAR = "/api/v1/shared/getactivefinancialyear/",
 	API_ADD_FINANCIAL_YEAR = "/api/v1/shared/addfinancialyear",
 	API_DEACTIVE_FINANCIAL_YEAR = "/api/v1/shared/changefinancialyearactiveornot?",
 

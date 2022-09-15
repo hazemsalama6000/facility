@@ -15,6 +15,9 @@ export interface IReponseExpenseCar{
 	y: number,
 	expenseLocationPhone: string,
 	notes: string,
+	isRecievedMobile:boolean,
+	isWaiting:boolean,
+	isRejected:boolean,
 	attachments: [
 	  {
 		id: number,

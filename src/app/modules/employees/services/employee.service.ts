@@ -51,7 +51,7 @@ export class EmployeeService {
 					Address: data.data.address, BirthDate: data.data.birthDate
 					, Branch_Id: data.data.branch_Id, Code: data.data.code, Department_Id: data.data.department_Id, Email: data.data.email, GraduateDate: data.data.graduateDate
 					, HireDate: data.data.hireDate, id: data.data.id, IsTechnician: data.data.isTechnician, JobSection_Id: data.data.jobSection_Id, MartialStatus_Id: data.data.martialStatus_Id,
-					MilitaryStatus_Id: data.data.militaryStatus_Id, Mobile: data.data.mobile, Name: data.data.name, NId: data.data.nId
+					MilitaryStatus_Id: data.data.militaryStatus_Id, Mobile: data.data.mobile, Name: data.data.name, NId: data.data.nId,Status_Id:data.data.status_Id
 					, Qualification: data.data.qualification, Region_Id: data.data.region_Id, Section_Id: data.data.section_Id, state_Id: data.data.state_Id, University: data.data.university
 				} as IEmployeeForm;
 			})

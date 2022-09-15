@@ -13,6 +13,7 @@ export interface IEmployeeForm {
 	NId: string,
 	MilitaryStatus_Id: number,
 	MartialStatus_Id: number,
+	Status_Id:number,
 	University: string,
 	Qualification: string,
 	GraduateDate: string,

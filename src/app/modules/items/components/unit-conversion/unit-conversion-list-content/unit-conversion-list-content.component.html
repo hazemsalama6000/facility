@@ -16,7 +16,7 @@
 
 			<!-- Name Column -->
 			<ng-container matColumnDef="itemName">
-				<th mat-header-cell *matHeaderCellDef> الصنف </th>
+				<th class="stylingHeader" style="text-align: right;" mat-header-cell *matHeaderCellDef> الصنف </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span>
 						{{element.itemName}}
@@ -25,7 +25,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="convertedUnitName">
-				<th mat-header-cell *matHeaderCellDef> الوحدة المنسب اليها </th>
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> الوحدة المنسب اليها </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span class="badge badge-dark">
 						{{element.convertedUnitName}}
@@ -34,7 +34,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="mainUnitName">
-				<th mat-header-cell *matHeaderCellDef> الوحدة الصغرى </th>
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> الوحدة الصغرى </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span class="badge badge-secondary">
 						{{element.mainUnitName}}
@@ -42,7 +42,7 @@
 				</td>
 			</ng-container>
 			<ng-container matColumnDef="factor">
-				<th mat-header-cell *matHeaderCellDef> معامل التحويل </th>
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> معامل التحويل </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span class="badge badge-danger">
 						{{element.factor}}
@@ -51,7 +51,7 @@
 			</ng-container>
 
 			<ng-container matColumnDef="barcode">
-				<th mat-header-cell *matHeaderCellDef> باركود</th>
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> باركود</th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span>
 						{{element.barcode}}
@@ -60,13 +60,13 @@
 			</ng-container>
 
 			<ng-container matColumnDef="isActive">
-				<th mat-header-cell *matHeaderCellDef> الحالة </th>
+				<th class="stylingHeader"  mat-header-cell *matHeaderCellDef> الحالة </th>
 				<td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
 					<span *ngIf="element.isActive==true;else notActive;">
-						<mat-icon>check_circle_outline</mat-icon>
+						<mat-icon class="text-primary">check_circle_outline</mat-icon>
 					</span>
 					<ng-template #notActive>
-						<mat-icon>highlight_off</mat-icon>
+						<mat-icon class="text-danger">highlight_off</mat-icon>
 					</ng-template>
 				</td>
 			</ng-container>
@@ -89,7 +89,7 @@
 						</button>
 
 						<button *ngIf="element.isActive==false" (click)="toggleActiveDeactive(element)"
-							matTooltip="ايقاف التفعيل" mat-mini-fab color="primary" class="mx-md-1"
+							matTooltip=" تفعيل" mat-mini-fab color="primary" class="mx-md-1"
 							aria-label="Example icon button with a filter list icon">
 							<mat-icon>play_arrow</mat-icon>
 						</button>

@@ -26,7 +26,8 @@ export class CarExpenseTransactionDatatableComponent {
 		'expenseDate',
 		'carNumber',
 		'expenseValue',
-		'approvedOrRejectBy',
+		'status',
+		'Notes',
 		'actions'
 	];
 
@@ -40,7 +41,7 @@ export class CarExpenseTransactionDatatableComponent {
 	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(private _httpClient: HttpClient, private service: CarExpenseTransactionService
-		, public dialog: MatDialog,private toaster:toasterService, private confirmationDialogService: ConfirmationDialogService ) {
+		, public dialog: MatDialog, private toaster: toasterService, private confirmationDialogService: ConfirmationDialogService) {
 		this.currentSearchParameter = { pageNumber: 0, expense_Id: 0, pageSize: 0, branchId: 0, carPlat: 0, endDate: '', startDate: '' };
 	}
 
@@ -100,30 +101,48 @@ export class CarExpenseTransactionDatatableComponent {
 	removeCarExpenseTransaction(element: IReponseExpenseCar) {
 
 		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ? `)
-		.then((confirmed) => {
-			if (confirmed) {
-				this.service.DeleteCarTransactions(element.id).subscribe(
-					(data: HttpReponseModel) => {
-						this.toaster.openSuccessSnackBar(data.message);
-						this.service.searchUpdateUserManageAction.next(true);
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
-			}
-		})
-		.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+			.then((confirmed) => {
+				if (confirmed) {
+					this.service.DeleteCarTransactions(element.id).subscribe(
+						(data: HttpReponseModel) => {
+							this.toaster.openSuccessSnackBar(data.message);
+							this.service.searchUpdateUserManageAction.next(true);
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						});
+				}
+			})
+			.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
 
 	}
 
-
-
-
+	acceptMobileOrder(id:number) {
+		this.service.acceptCarTransactions(id).subscribe(
+			(data: HttpReponseModel) => {
+				this.toaster.openSuccessSnackBar(data.message);
+				this.service.searchUpdateUserManageAction.next(true);
+			},
+			(error: any) => {
+				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+			});
+		}
+		
+	RejectMobileOrder(id:number) {
+		this.service.rejectCarTransactions(id).subscribe(
+			(data: HttpReponseModel) => {
+				this.toaster.openSuccessSnackBar(data.message);
+				this.service.searchUpdateUserManageAction.next(true);
+			},
+			(error: any) => {
+				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+			});
+	}
 
 	openDialogDisplayImages(attachments: { id: number, path: string }) {
 
-		 console.log(attachments);
-	
+		console.log(attachments);
+
 
 		const dialogRef = this.dialog.open(ViewimagesForCustomerComponent,
 			{
