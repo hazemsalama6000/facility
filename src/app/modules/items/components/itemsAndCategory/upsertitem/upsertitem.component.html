@@ -181,31 +181,8 @@
 
       </div>
 
-      <!-- quantity -->
       <div class="col-md-4 mb-3">
-        <!-- <mat-form-field appearance="outline">
-          <mat-label> {{"DECLARATIONS.INPUTS.QUANTITY" | translate}} </mat-label>
-          <input matInput placeholder="" name="quantity" formControlName="quantity">
-          <mat-hint>
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'required',
-                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate},
-                  control: ItemForm.controls['quantity']
-                }"></ng-container>
 
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'minlength',
-                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate , min:3},
-                  control: ItemForm.controls['quantity']
-                }"></ng-container>
-
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.QUANTITY' | translate , max:100},
-                  control: ItemForm.controls['quantity']
-                 }"></ng-container>
-          </mat-hint>
-        </mat-form-field> -->
       </div>
 
       <!-- maxLimit -->
@@ -291,34 +268,9 @@
 
       <!-- expirationDate {{'DECLARATIONS.INPUTS.DATE'|translate}}-->
       <div class="col-md-6 mb-3">
-        <mat-checkbox formControlName="hasExpireDate" color="primary" (ngModelChange)="hasExpireDate()" class="mb-2">
+        <mat-checkbox formControlName="hasExpireDate" color="primary"  class="mb-2">
           له صلاحية
         </mat-checkbox>
-
-        <!-- <mat-form-field appearance="outline">
-          <mat-label> التاريخ </mat-label>
-          <input matInput placeholder="" name="orderingLimit" formControlName="expirationDate">
-          <mat-hint>
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'required',
-                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'التاريخ' },
-                  control: ItemForm.controls['expirationDate']
-                }"></ng-container>
-
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'minlength',
-                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'التاريخ'  , min:3},
-                  control: ItemForm.controls['expirationDate']
-                }"></ng-container>
-
-            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'التاريخ'  , max:100},
-                  control: ItemForm.controls['expirationDate']
-                 }"></ng-container>
-          </mat-hint>
-        </mat-form-field> -->
-
       </div>
 
       <!-- vatTaxValue -->

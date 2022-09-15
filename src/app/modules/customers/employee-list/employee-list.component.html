@@ -11,8 +11,8 @@
 
           <div class="d-flex align-items-center">
 
-            <input type="text" pInputText  class="me-2" placeholder="بحث بالهاتف او الايميل"/>
-            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-primary mr-2"></button>
+            <input type="text" pInputText  class="me-2" placeholder="بحث بالهاتف او الايميل" #inputSearch/>
+            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-primary mr-2" (click)="myfilter(inputSearch.value,'inputSearch')"></button>
 
           </div>
 

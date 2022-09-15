@@ -29,25 +29,20 @@ export class UpsertitemComponent {
 
   ItemForm: FormGroup = this.fb.group({
     Id: [0],
-    code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+    code: ['', Validators.compose([Validators.required])],
+    name: ['', Validators.compose([Validators.required])],
     description: [''],
     barCode: [''],
-
     maxLimit: [null, Validators.compose([Validators.required])],
     minLimit: [null, Validators.compose([Validators.required])],
     orderingLimit: [null, Validators.compose([Validators.required])],
-
     hasVatTax: [false],
     vatTaxValue: [{ value: null, disabled: true }],
-
     hasExpireDate: [false],
-
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],
-
-    itemCategory_Id: [null, Validators.compose([Validators.required])],
-    unit_Id: [null, Validators.compose([Validators.required])],
+    itemCategory_Id: [null],
+    unit_Id: [null],
     company_Id: [0]
   });
 
@@ -75,9 +70,7 @@ export class UpsertitemComponent {
           description: res.description,
           hasVatTax: res.hasVatTax,
           vatTaxValue: res.vatTaxValue,
-          // quantity: res.quantity,
           hasExpireDate: res.hasExpireDate,
-          // expirationDate: res.expirationDate,
           convertedUnitOfMeasure: res.convertedUnitOfMeasure,
           maxLimit: res.maxLimit,
           minLimit: res.minLimit,
@@ -95,11 +88,12 @@ export class UpsertitemComponent {
 
 
   addItem() {
-    console.log(this.ItemForm.value)
+    console.log(this.ItemForm.value, this.ItemForm.valid)
     if (this.ItemForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
       if (this.data.type == 'add') {
-        this.ItemForm.patchValue({ Id: this.data.node.id, company_Id: this.userData.companyId });
+        this.ItemForm.patchValue({ Id: this.data.node.id, itemCategory_Id: this.data.node.id, company_Id: this.userData.companyId });
+        console.log(this.ItemForm.value)
         this.itemsCategoryService.AddItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
@@ -144,19 +138,6 @@ export class UpsertitemComponent {
 
   }
 
-  hasExpireDate() {
-    let hasDate = this.ItemForm.get('hasExpireDate')?.value;
-    if (hasDate) {
-      this.ItemForm.get('expirationDate')?.addValidators([Validators.required]);
-      this.ItemForm.get('expirationDate')?.enable();
-      this.ItemForm.get('expirationDate')?.updateValueAndValidity();
-    } else {
-      this.ItemForm.patchValue({ expirationDate: null })
-      this.ItemForm.get('expirationDate')?.removeValidators([Validators.required]);
-      this.ItemForm.get('expirationDate')?.disable();
-      this.ItemForm.get('expirationDate')?.updateValueAndValidity();
-    }
-  }
 
   hasVatTax() {
     let hasDate = this.ItemForm.get('hasVatTax')?.value;
