@@ -63,6 +63,7 @@ export class AssgincarComponent {
             if (data.isSuccess) {
 
               this.dialogRef.close();
+              this.carService.bSubject.next(false)
               this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
             }
@@ -80,6 +81,7 @@ export class AssgincarComponent {
             this.loading = false;
             if (data.isSuccess) {
               this.dialogRef.close();
+              this.carService.bSubject.next(false)
               this.carService.refreshHistoryData();
               this.toaster.openSuccessSnackBar(data.message);
             }
@@ -122,7 +124,7 @@ export class AssgincarComponent {
 
     for (var i = 0; i < this.files.length; i++)
       formData.append("File", '');
-      
+
     if (this.files.length == 0)
       formData.append("File", new Blob(), 'test');
 

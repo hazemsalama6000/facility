@@ -11,7 +11,7 @@ import { ITreeStockShelfs } from '../models/ITreeStockShelfs.interface';
 export class StockShelfsService {
   stockShelfTree = new BehaviorSubject<ITreeStockShelfs[]>([]);
   bSubject = new BehaviorSubject<boolean>(false);
-  StockId = new BehaviorSubject<number>(9);
+  StockId = new BehaviorSubject<number>(0);
 
 
   constructor(private http: CommonHttpService) { }
@@ -27,7 +27,7 @@ export class StockShelfsService {
 
   updateStockShelf(model: any): Observable<HttpReponseModel> {
     console.log(model)
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_STOCK_SHELFS}${model.stockShelfId}`)
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_STOCK_SHELFS}${model.Id}`)
   }
 
   updateParentShelf(model: any): Observable<HttpReponseModel> {

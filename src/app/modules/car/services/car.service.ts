@@ -31,7 +31,7 @@ export class CarService {
   }  
   
   updateCar(model: any) {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_CAR}${model.Id}`);
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_CAR}${model.id}`);
   }
 
   AssignCarToTechincian(model:FormData) {

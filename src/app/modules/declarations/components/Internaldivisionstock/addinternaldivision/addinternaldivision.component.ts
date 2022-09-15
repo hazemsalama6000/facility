@@ -27,7 +27,7 @@ export class AddinternaldivisionComponent {
     name: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     code: [null, Validators.compose([Validators.required])],
     parent_Id: [0],
-    shelf: [null, Validators.compose([Validators.required])],
+    shelf: [null],
     stock_Id: [0],
   });
 
