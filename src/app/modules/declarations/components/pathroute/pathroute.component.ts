@@ -56,8 +56,7 @@ export class PathrouteComponent implements OnInit {
     this.getstate();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   getallData() {
     this.pathrouteService.getPathRoute(this.searchModel).subscribe((data: IPathRoutePaginantion) => {
@@ -66,6 +65,13 @@ export class PathrouteComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.totalRecord = data.totalRecords
     });
+  }
+
+  pageEvent(event: any) {
+    console.log(event);
+    this.searchModel.PageSize = event.pageSize;
+    this.searchModel.PageNumber = event.pageIndex + 1;
+    this.getallData();
   }
 
   getstate() {
@@ -118,7 +124,7 @@ export class PathrouteComponent implements OnInit {
           this.getallData();
 
       })
-      .catch(() =>{ this.getallData();console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')});
+      .catch(() => { this.getallData(); console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)') });
   }
 
   stopAssignTechincian(model: IPathRoute) {
@@ -139,13 +145,6 @@ export class PathrouteComponent implements OnInit {
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
 
-  }
-
-  pageEvent(event: any) {
-    console.log(event);
-    this.searchModel.PageSize = event.pageSize;
-    this.searchModel.PageNumber = event.pageIndex + 1;
-    this.getallData();
   }
 
   openAddDialog(model?: IPathRoute) {

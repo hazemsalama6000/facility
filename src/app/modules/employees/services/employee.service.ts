@@ -29,8 +29,7 @@ export class EmployeeService {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?
 				BranchId=${model?.branchId == undefined ? '' : model?.branchId}&areaId=${model?.AreaId == undefined ? '' : model?.AreaId}&blockId=${model?.Block == undefined ? '' : model.Block}`)
 			.pipe(
-				tap(data => console.log(data)),
-				map((Items: HttpReponseModel) => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
+				map((Items:any) => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
 			);
 	}
 

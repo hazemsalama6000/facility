@@ -132,6 +132,10 @@ export class Employee_listComponent implements OnInit, OnDestroy {
       case "job":
         this.searchObject.jobsIds = ids.map((a: any) => a.Id);
         break;
+      case "inputSearch":
+       this.searchObject.Contact= ids.length>0?ids:null
+        console.log(this.searchObject)
+        break;
       default:
         break;
     }
@@ -273,6 +277,7 @@ export interface IEmployeeSearch {
   departmentsIds?: number[];
   sectionsIds?: number[];
   jobsIds?: number[];
+  Contact?: string;
   pageNumber: number;
   pageSize: number;
 }

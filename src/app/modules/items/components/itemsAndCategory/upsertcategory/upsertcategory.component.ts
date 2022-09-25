@@ -21,7 +21,7 @@ export class UpsertcategoryComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   categoryForm: FormGroup = this.fb.group({
-    itemCategoryId: [0],
+    id: [0],
     name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     company_Id: [0],
     parentId: [0]
@@ -40,7 +40,7 @@ export class UpsertcategoryComponent implements OnInit {
 
     if (data.type != 'add') {
       this.categoryForm.patchValue({
-        itemCategoryId: data.node.id,
+        id: data.node.id,
         name: data.node.name,
         company_Id: this.userData.companyId,
         parentId: data.node.parentId

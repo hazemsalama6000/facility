@@ -336,6 +336,18 @@ export class AsideMenuComponent implements OnInit {
             }
           ]
         }
+
+        ,
+        {
+          "id": 55,
+          "name": "إدارة المستخدمين",
+          "parentId": 1,
+          "isLast": false, "isDeleted": false,
+          "route": "",
+          "permission": "",
+          "icon": "",
+          "childNode": []
+        }
       ]
     }
   ];

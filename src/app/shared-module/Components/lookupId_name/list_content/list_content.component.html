@@ -42,11 +42,8 @@
 					<div [hidden]="element.isAdd == true">
 
 						<div class="d-flex justify-content-center align-items-center">
-							<label *ngIf="element.isActive == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |
-								translate}}
-							</label>
-							<label *ngIf="element.isActive == false" class="badge badge-danger">
-								{{"HR.TITLES.NOTACTIVE"|translate}}</label>
+							<label *ngIf="element.isActive == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
+							<label *ngIf="element.isActive == false" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
 							<span class="mx-2">
 								<section
 									matTooltip="{{element.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
