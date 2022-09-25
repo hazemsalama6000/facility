@@ -37,6 +37,11 @@ const Routing: Routes = [
 			import('../modules/car/car.module').then(m => m.CarModule)
 	},
 	{
+		path: 'vendor',
+		loadChildren: () =>
+			import('../modules/vendor/vendor.module').then(m => m.VendorModule)
+	},
+	{
 		path: 'items',
 		loadChildren: () => import('../modules/items/item.module').then(m => m.ItemModule)
 	},

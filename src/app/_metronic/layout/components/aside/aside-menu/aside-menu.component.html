@@ -15,8 +15,7 @@
 
 		<ng-container *ngFor="let item of item.childNode">
 			<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
-				<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span
-						class="menu-icon">
+				<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
 						<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
 					</span><span class="menu-title"> {{item.name}} </span>
 				</a>
@@ -117,7 +116,7 @@
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
-		<span class="menu-title"> الوحدات الفرعية  </span>
+		<span class="menu-title"> الوحدات الفرعية </span>
 	</a>
 </div>
 
@@ -130,6 +129,49 @@
 	</a>
 </div>
 
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="vendor/activity" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> تعريف نشاط الموردين</span>
+	</a>
+</div>
+
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="vendor/classification" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> تصنيف الموردين</span>
+	</a>
+</div>
+
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="vendor/maincompany" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title">تعريف شركات الموردين</span>
+	</a>
+</div>
+
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="vendor/vendorlist" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title"> تعريف الموردين</span>
+	</a>
+</div>
+
 <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="/items/itemcategory" routerLinkActive="active">
 		<span class="menu-icon">
@@ -139,10 +181,11 @@
 	</a>
 </div>
 
-
-
-
-
-
-
-
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLinkActive="active" routerLink="/permissions/managemenu">
+		<span class="menu-icon">
+			<mat-icon style="font-size:25px;">admin_panel_settings</mat-icon>
+		</span>
+		<span class="menu-title">اعدادات القائمة</span>
+	</a>
+</div>

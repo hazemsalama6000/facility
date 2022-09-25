@@ -1,0 +1,215 @@
+<section style="width:100%;">
+  <!-- 
+  <section class="fontsection">
+    <mat-card class="col-md-6">
+      <div style="width:100%" class="d-flex justify-content-between align-items-center">
+        <span class="fontForInputs fs-3"> تعريف الموردين</span>
+        <button  matTooltip="{{'DECLARATIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+          (click)="openDialog()" aria-label="Example icon button with a filter list icon">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </section> -->
+
+  <section>
+    <!-- {{"HR.TITLES.JOBS" | translate}} *ngIf="addButton"-->
+    <mat-card class="col-md-12">
+      <div style="width:100%" class="d-flex justify-content-between align-items-center pb-3">
+        <span class="fontForInputs fs-3"> تعريف الموردين</span>
+        <button matTooltip="{{'DECLARATIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialog()"
+          aria-label="Example icon button with a filter list icon">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- <span class="fontForInputs"> بيانات خطوط السير </span> -->
+      <div class="align-items-baseline justify-content-center mt-4 mx-0 row">
+
+        <!-- <div class="col-md-4">
+          <ng-select class="customized" style="width:250px ;" [items]="dropdownStateData" bindLabel="Name" bindValue="Id" name="region_Id" id="state"
+            placeholder="{{'DECLARATIONS.INPUTS.STATE' | translate}}" [(ngModel)]="searchModel.StateId"
+            (change)="getRegion($event);region.handleClearClick()"
+            (clear)="dropdownRegionData=[];dropdownPathRouteData=[];region.handleClearClick();this.getallData();">
+          </ng-select>
+        </div> -->
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="vendors" bindLabel="Name" bindValue="Id" name="vendor" id="vendor"
+            placeholder="الموردين" (change)="onSelectVendor($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="branchs" bindLabel="Name" bindValue="Id" name="branchs" id="branchs"
+            placeholder="الفروع" (change)="onSelectBranch($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="classification" bindLabel="Name" bindValue="Id" name="classification"
+            id="classification" placeholder="التصنيفات" (change)="onSelectClassification($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="activity" bindLabel="Name" bindValue="Id" name="activity" id="activity"
+            placeholder="النشاط" (change)="onSelectActivity($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="mainCompany" bindLabel="Name" bindValue="Id" name="mainCompany" id="mainCompany"
+            placeholder="الشركة" (change)="onSelectMainCompany($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+        <div class="col">
+          <ng-select class="customized" [multiple]="true" [items]="taxOffice" bindLabel="Name" bindValue="Id" name="taxOffice" id="taxOffice"
+            placeholder="مأمورية الضرائب" (change)="onSelectTaxOffice($event);" (clear)="getallData();">
+          </ng-select>
+        </div>
+
+      </div>
+
+    </mat-card>
+
+  </section>
+
+
+
+  <div class="col-md-12 mt-5">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.name}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.CODE" | translate}} </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.code}}</span>
+        </td>
+      </ng-container>
+
+      <!-- mainCompany Column -->
+      <ng-container matColumnDef="mainCompany">
+        <th mat-header-cell *matHeaderCellDef> الاسم التجارى </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.mainCompany}}</span>
+        </td>
+      </ng-container>
+
+      <!-- email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> ايميل </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.email}}</span>
+        </td>
+      </ng-container>
+
+      <!-- site Column -->
+      <ng-container matColumnDef="site">
+        <th mat-header-cell *matHeaderCellDef> موقع إلكترونى</th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.site}}</span>
+        </td>
+      </ng-container>
+
+      <!-- mobile Column -->
+      <ng-container matColumnDef="mobile">
+        <th mat-header-cell *matHeaderCellDef> رقم الموبايل </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.mobile}}</span>
+        </td>
+      </ng-container>
+
+      <!-- isWithHoldTaxActive Column -->
+      <ng-container matColumnDef="isWithHoldTaxActive">
+        <th mat-header-cell *matHeaderCellDef> خاضع لضريبة القيمة المضافة </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <mat-icon *ngIf="element.isWithHoldTaxActive == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="element.isWithHoldTaxActive == false" class="text-danger">close</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- withHoldTax Column -->
+      <ng-container matColumnDef="withHoldTax">
+        <th mat-header-cell *matHeaderCellDef> نسبة القيمة المضافة </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.withHoldTax}}</span>
+        </td>
+      </ng-container>
+
+      <!-- isVatTaxActive Column -->
+      <ng-container matColumnDef="isVatTaxActive">
+        <th mat-header-cell *matHeaderCellDef> خاضع لضريبة الخصم </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <mat-icon *ngIf="element.isVatTaxActive == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="element.isVatTaxActive == false" class="text-danger">close</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- vatTax Column -->
+      <ng-container matColumnDef="vatTax">
+        <th mat-header-cell *matHeaderCellDef> نسبة ضريبة الخصم </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{element.vatTax}}</span>
+        </td>
+      </ng-container>
+
+      <!-- isActive Column -->
+      <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef> الحالة </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+           <mat-icon *ngIf="element.isActive == true" class="text-success">done</mat-icon>
+           <mat-icon *ngIf="element.isActive == false" class="text-danger">close</mat-icon>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let x=index">
+
+          <button matTooltip="" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialog(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button matTooltip="" mat-mini-fab color="warn" class="mx-md-1" (click)="deleteVendorClassification(element)">
+            <mat-icon>close</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let entry">
+
+      </tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}} </td>
+      </tr>
+    </table>
+
+
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+
+  </div>
+
+</section>

@@ -35,7 +35,7 @@ export class GetrolesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let changeData = this.rolesService.bSubject.subscribe(res => {this.getRolesData();});
+    let changeData = this.rolesService.bSubject.subscribe(res => { this.getRolesData(); });
     this.unsubscribe.push(changeData);
   }
 

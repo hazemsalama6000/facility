@@ -28,7 +28,13 @@
         <div cdkDropList (cdkDropListDropped)="drop($event)">
             <div class="w-100 bg-danger p-5 mb-1" cdkDrag [cdkDragData]="dnode" (mouseenter)="dragHover(dnode)" (mouseleave)="dragHoverEnd()"
                 (cdkDragStarted)="dragStart()" (cdkDragReleased)="dragEnd(dnode)">
-                <label class="fontForInputs fs-4"> يمكنك سحب التصنيف إلى هنا لتحويلة لتصنيف رئيسي</label>
+                <label class="fontForInputs fs-4" [matMenuTriggerFor]="menu"> يمكنك سحب التصنيف إلى هنا لتحويلة لتصنيف رئيسي</label>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item  (click)="addItem({id:0},'Category')"
+                        class="align-items-center d-flex justify-content-between px-2">
+                        <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
+                    </button>
+                </mat-menu>
             </div>
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
 
@@ -38,7 +44,7 @@
                     (cdkDragReleased)="dragEnd(node)" matTooltip="يمكنك السحب والاسقاط على تصنيف أخر">
                     <button mat-icon-button disabled></button>
 
-                    <label *ngIf="!node.isEdit" [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
+                    <label *ngIf="!node.isEdit"  class="d-flex justify-content-center align-items-end fontForInput fs-2"
                         style="user-select: none;">
                         <mat-icon *ngIf="node.type=='Item'" class="{{node.isActive == true?'text-success':'text-danger'}}">description</mat-icon>
                         <mat-icon *ngIf="node.type=='Category'" class="{{node.isActive == true?'text-success':'text-danger'}}">folder</mat-icon>

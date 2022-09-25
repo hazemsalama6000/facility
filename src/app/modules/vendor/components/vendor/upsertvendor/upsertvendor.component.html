@@ -1,0 +1,597 @@
+<form [formGroup]="vendorForm" (ngSubmit)="UpsertVendorActivity()">
+
+  <div mat-dialog-title>
+    <div class="row mx-0">
+      <div class="col"> {{(isEdit?"تعديل مورد":"اضافة مورد")}}</div>
+      <div class="col-2">
+        <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content class="overflow-auto py-2">
+    <div class="row mx-0 mt-5 ">
+
+      <div class="d-flex justify-content-start align-content-center">
+        <mat-icon class="text-primary">home</mat-icon>
+        <h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">بيانات المورد</h1>
+      </div>
+
+      <div class="mb-5 border-bottom"></div>
+
+      <div class="col-md-12">
+
+        <div class="row  mt-5">
+
+          <!-- code -->
+          <div class="col-md-4">
+
+            <mat-form-field appearance="outline">
+              <mat-label> {{"HR.INPUTS.CODE" | translate}} </mat-label>
+              <input matInput placeholder="Placeholder" name="code" formControlName="code">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+                        control: vendorForm.controls['code']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , min:3},
+                        control: vendorForm.controls['code']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
+                        control: vendorForm.controls['code']
+                       }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+
+          </div>
+
+          <!-- name -->
+          <div class="col-md-4">
+
+            <mat-form-field appearance="outline">
+              <mat-label> اسم المورد</mat-label>
+              <input matInput placeholder="Placeholder" name="name" formControlName="name">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.NAME' | translate},
+                        control: vendorForm.controls['name']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.NAME' | translate , min:3},
+                        control: vendorForm.controls['name']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.NAME' | translate , max:100},
+                        control: vendorForm.controls['name']
+                       }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+
+          </div>
+
+          <!-- taxOffice -->
+          <div class="col-md-4">
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <label class="fontForInputs mt-5"> مأمورية الضرائب </label>
+              </div>
+
+              <div class="col-md-9">
+
+                <ng-select [items]="taxOffice" bindLabel="Name" bindValue="Id" name="taxOffice_Id" formControlName="taxOffice_Id">
+                </ng-select>
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'required',
+                          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'مأمورية الضرائب'},
+                          control: vendorForm.controls['taxOffice_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'minlength',
+                          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'مأمورية الضرائب' , min:3},
+                          control: vendorForm.controls['taxOffice_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'maxlength',
+                          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'مأمورية الضرائب' , max:100},
+                          control: vendorForm.controls['taxOffice_Id']
+                         }"></ng-container>
+                </mat-hint>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="row">
+
+          <!-- classification -->
+          <div class="col-md-4">
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <label class="fontForInputs mt-5">تصنيف المورد</label>
+              </div>
+
+              <div class="col-md-9">
+
+                <ng-select [items]="classification" bindLabel="Name" bindValue="Id" name="classification_Id" formControlName="classification_Id">
+                </ng-select>
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'required',
+                          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'تصنيف المورد'},
+                          control: vendorForm.controls['classification_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'minlength',
+                          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'تصنيف المورد'  , min:3},
+                          control: vendorForm.controls['classification_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'maxlength',
+                          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'تصنيف المورد' , max:100},
+                          control: vendorForm.controls['classification_Id']
+                         }"></ng-container>
+                </mat-hint>
+              </div>
+            </div>
+          </div>
+
+          <!-- activity -->
+          <div class="col-md-4">
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <label class="fontForInputs mt-5">النشاط</label>
+              </div>
+
+              <div class="col-md-9">
+
+                <ng-select [items]="activity" bindLabel="Name" bindValue="Id" name="activity_Id" formControlName="activity_Id">
+                </ng-select>
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'required',
+                          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'النشاط' },
+                          control: vendorForm.controls['activity_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'minlength',
+                          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'النشاط'  , min:3},
+                          control: vendorForm.controls['activity_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'maxlength',
+                          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'النشاط'  , max:100},
+                          control: vendorForm.controls['activity_Id']
+                         }"></ng-container>
+                </mat-hint>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- mainCompany -->
+          <div class="col-md-4">
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <label class="fontForInputs mt-5"> الشركة </label>
+              </div>
+
+              <div class="col-md-9">
+
+                <ng-select [items]="mainCompany" bindLabel="Name" bindValue="Id" name="mainCompany_Id" formControlName="mainCompany_Id">
+                </ng-select>
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'required',
+                          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'الشركة' },
+                          control: vendorForm.controls['mainCompany_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'minlength',
+                          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'الشركة'  , min:3},
+                          control: vendorForm.controls['mainCompany_Id']
+                        }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                          validation: 'maxlength',
+                          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'الشركة'  , max:100},
+                          control: vendorForm.controls['mainCompany_Id']
+                         }"></ng-container>
+                </mat-hint>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row mt-5">
+
+          <!-- address -->
+          <div class="col-md-8">
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{'HR.INPUTS.ADDRESS' | translate}}</mat-label>
+              <input matInput placeholder="Placeholder" name="address" formControlName="address">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.ADDRESS' | translate},
+                        control: vendorForm.controls['address']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , min:3},
+                        control: vendorForm.controls['address']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.ADDRESS' | translate , max:100},
+                        control: vendorForm.controls['address']
+                       }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+
+          </div>
+
+          <!-- isActive -->
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <p> <span class="mx-2 fontForInputs"> {{'HR.INPUTS.ISACTIVE' | translate}} </span>
+              <mat-checkbox name="isActive" formControlName="isActive"></mat-checkbox>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+      <div class="d-flex justify-content-start align-content-center  mt-5">
+        <mat-icon class="text-primary">perm_phone_msg</mat-icon>
+        <h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">بيانات تواصل المورد</h1>
+      </div>
+
+      <div class="mb-5 border-bottom"></div>
+
+      <div class="col-md-12">
+
+        <div class="row mt-5">
+
+          <!-- site -->
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>الموقع الاكترونى</mat-label>
+              <input matInput placeholder="" name="site" formControlName="site">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'الموقع الاكترونى' },
+                        control: vendorForm.controls['site']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'الموقع الاكترونى'  , min:3},
+                        control: vendorForm.controls['site']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'الموقع الاكترونى'  , max:100},
+                        control: vendorForm.controls['site']
+                       }"></ng-container>
+              </mat-hint>
+
+            </mat-form-field>
+          </div>
+
+          <!-- Email -->
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'HR.INPUTS.EMAIL' | translate}}</mat-label>
+              <input matInput placeholder="Placeholder" name="email" formControlName="email">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+                        control: vendorForm.controls['email']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'pattern',
+                        message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+                        control: vendorForm.controls['email']
+                        }"></ng-container>
+
+              </mat-hint>
+
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="col-md-4"></div> -->
+
+          <!-- mobile -->
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label> {{'HR.INPUTS.PHONENUM' | translate}}</mat-label>
+              <input matInput placeholder="01147785..." minlength="3" maxlength="11" name="mobile" formControlName="mobile">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+                        control: vendorForm.controls['mobile']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , min:3},
+                        control: vendorForm.controls['mobile']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , max:11},
+                        control: vendorForm.controls['mobile']
+                       }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'pattern',
+                        message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+                        control: vendorForm.controls['mobile']
+                        }"></ng-container>
+
+              </mat-hint>
+
+            </mat-form-field>
+          </div>
+
+          <!-- telephone -->
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label> {{'HR.INPUTS.PHONENUM' | translate}}</mat-label>
+              <input matInput placeholder="02896354..." minlength="3" maxlength="11" name="telephone" formControlName="telephone">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+                        control: vendorForm.controls['telephone']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'minlength',
+                        message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , min:3},
+                        control: vendorForm.controls['telephone']
+                      }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.PHONENUM' | translate , max:11},
+                        control: vendorForm.controls['telephone']
+                       }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'pattern',
+                        message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.PHONENUM' | translate},
+                        control: vendorForm.controls['telephone']
+                        }"></ng-container>
+
+              </mat-hint>
+
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="d-flex justify-content-start align-content-center mt-5">
+        <mat-icon class="text-primary">receipt</mat-icon>
+        <h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">{{'HR.TITLES.TAXDATA'|translate}}</h1>
+      </div>
+
+      <div class="mb-5 border-bottom"></div>
+
+      <div class="row  mt-5">
+
+        <!-- commercialRecord -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'HR.INPUTS.COMMERCIALRECORD' | translate}} </mat-label>
+            <input matInput placeholder="" name="commercialRecord" formControlName="commercialRecord">
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate},
+                      control: vendorForm.controls['commercialRecord']
+                    }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'minlength',
+                      message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , min:3},
+                      control: vendorForm.controls['commercialRecord']
+                    }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'maxlength',
+                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , max:50},
+                      control: vendorForm.controls['commercialRecord']
+                     }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'pattern',
+                      message: 'AUTH.VALIDATION.INVALID' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate},
+                      control: vendorForm.controls['commercialRecord']
+                      }"></ng-container>
+
+            </mat-hint>
+
+          </mat-form-field>
+        </div>
+
+        <!-- taxFileNum -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'HR.INPUTS.TAXCARDNO' | translate}} </mat-label>
+            <input matInput placeholder="Placeholder" name="taxFileNum" formControlName="taxFileNum">
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate},
+                      control: vendorForm.controls['taxFileNum']
+                    }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'minlength',
+                      message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , min:3},
+                      control: vendorForm.controls['taxFileNum']
+                    }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'maxlength',
+                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , max:50},
+                      control: vendorForm.controls['taxFileNum']
+                     }"></ng-container>
+
+
+            </mat-hint>
+
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4"></div>
+
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <section class="example-section">
+            <span class="mx-2 fontForInputs"> {{'HR.INPUTS.WTAX' | translate}} </span>
+            <mat-slide-toggle name="isWithHoldTaxActive" formControlName="isWithHoldTaxActive" class="example-margin" [color]="'red'">
+            </mat-slide-toggle>
+          </section>
+        </div>
+
+        <div class="col-md-2" *ngIf="vendorForm.controls['isWithHoldTaxActive'].value">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'HR.INPUTS.WTAX' | translate}} </mat-label>
+            <input matInput placeholder="Placeholder" name="withHoldTax" formControlName="withHoldTax">
+            <mat-hint>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'min',
+                message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , min:0},
+                control: vendorForm.controls['withHoldTax']
+                }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'max',
+                  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , max:100},
+                  control: vendorForm.controls['withHoldTax']
+                 }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'pattern',
+                      message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate},
+                      control: vendorForm.controls['withHoldTax']
+                      }"></ng-container>
+
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <section class="example-section">
+            <span class="mx-2 fontForInputs"> {{'HR.INPUTS.VATTAX' | translate}}</span>
+            <mat-slide-toggle name="isVatTaxActive" formControlName="isVatTaxActive" class="example-margin" [color]="'red'">
+            </mat-slide-toggle>
+          </section>
+        </div>
+
+        <div class="col-md-2" *ngIf="vendorForm.controls['isVatTaxActive'].value">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'HR.INPUTS.VATTAX' | translate}} </mat-label>
+            <input matInput placeholder="" name="vatTax" formControlName="vatTax">
+            <mat-hint>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'min',
+                      message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'HR.INPUTS.VATTAX' | translate , min:0},
+                      control: vendorForm.controls['vatTax']
+                    }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'max',
+                      message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.VATTAX' | translate , max:100},
+                      control: vendorForm.controls['vatTax']
+                     }"></ng-container>
+
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'pattern',
+                      message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'HR.INPUTS.VATTAX' | translate},
+                      control: vendorForm.controls['vatTax']
+                      }"></ng-container>
+
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <mat-divider></mat-divider>
+  <div mat-dialog-actions>
+    <div class="text-center col-md-6 d-flex">
+      <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'DECLARATIONS.BUTTONS.CANCEL'|translate}}</button>
+
+      <button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" class="btn btn-primary">
+        <span class="indicator-label">{{'DECLARATIONS.BUTTONS.SAVE'|translate}}</span>
+        <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+      </button>
+    </div>
+    <!-- <button >No</button>
+    <button mat-button cdkFocusInitial>Ok</button> -->
+  </div>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

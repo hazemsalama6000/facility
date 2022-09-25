@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
@@ -47,6 +48,7 @@ export class UsersService {
 
   //Update User Roles
   putUserRoles(model: any) {
+    console.log(model)
     return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_UPDATE_USER_ROLES}`);
   }
 

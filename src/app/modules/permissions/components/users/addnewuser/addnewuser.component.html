@@ -1,7 +1,6 @@
-<div id="kt_addnewuser" class="bg-white" data-kt-drawer="true" data-kt-drawer-name="addnewuser"
-    data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'900px', 'lg': '900px'}"
-    data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_addnewuser_toggle"
-    data-kt-drawer-close="#kt_addnewuser_close">
+<div id="kt_addnewuser" class="bg-white" data-kt-drawer="true" data-kt-drawer-name="addnewuser" data-kt-drawer-activate="true"
+    data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'900px', 'lg': '900px'}" data-kt-drawer-direction="start"
+    data-kt-drawer-toggle="#kt_addnewuser_toggle" data-kt-drawer-close="#kt_addnewuser_close">
     <div class="card shadow-none rounded-0 w-100">
         <form [formGroup]="userDataForm" (ngSubmit)="Submit()">
             <!-- Begin Header -->
@@ -9,10 +8,8 @@
                 <h3 class="card-title fw-bolder text-dark fontsection fs-2">{{'PERMISSIONS.TITLES.ADDNEWUSER'|translate}} </h3>
 
                 <div class="card-toolbar">
-                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
-                        id="kt_addnewuser_close">
-                        <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"
-                            class="svg-icon svg-icon-1"></span>
+                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_addnewuser_close">
+                        <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-1"></span>
                     </button>
                 </div>
             </div>
@@ -26,13 +23,12 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMPLOYEE'|translate}}</label>
-                                    <p-dropdown [options]="employeeDropdown" optionLabel="Name" optionValue="Id"
-                                        placeholder=" "
-                                        class="form-control form-control-solid mb-3 mb-lg-0 userDropdown"
-                                        formControlName="employeeId">
-                                    </p-dropdown>
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMPLOYEE'|translate}}</label>
+
+                                    <ng-select  class="customized"  [items]="employeeDropdown" bindLabel="Name"
+                                        bindValue="Id" name="employeeId" id="employeeId" placeholder="اختر الموظف" formControlName="employeeId">
+                                    </ng-select>
+
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                               validation: 'required',
@@ -44,10 +40,8 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMAIL'|translate}}</label>
-                                    <input type="email" formControlName="email"
-                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMAIL'|translate}}</label>
+                                    <input type="email" formControlName="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                                   validation: 'required',
@@ -66,10 +60,9 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PHONENUMBER'|translate}}</label>
-                                    <input type="text" formControlName="phoneNumber"
-                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PHONENUMBER'|translate}}</label>
+                                    <input type="text" formControlName="phoneNumber" class="form-control form-control-solid mb-3 mb-lg-0"
+                                        placeholder="" />
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                                   validation: 'required',
@@ -95,10 +88,9 @@
 
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.FULLNAME'|translate}}</label>
-                                    <input type="text" formControlName="userName"
-                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.FULLNAME'|translate}}</label>
+                                    <input type="text" formControlName="userName" class="form-control form-control-solid mb-3 mb-lg-0"
+                                        placeholder="" />
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                               validation: 'required',
@@ -123,10 +115,9 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PASSWORD'|translate}}</label>
-                                    <input type="password" formControlName="password"
-                                        class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PASSWORD'|translate}}</label>
+                                    <input type="password" formControlName="password" class="form-control form-control-solid mb-3 mb-lg-0"
+                                        placeholder="" />
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                                   validation: 'required',
@@ -151,13 +142,11 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="fv-row mb-7">
-                                    <label
-                                        class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.USERTYPE'|translate}}</label>
-                                    <p-dropdown [options]="userTypeDropdown" optionLabel="Name" optionValue="Id"
-                                        placeholder=" "
-                                        class="form-control form-control-solid mb-3 mb-lg-0 userDropdown"
-                                        formControlName="userType_Id">
-                                    </p-dropdown>
+                                    <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.USERTYPE'|translate}}</label>
+
+                                    <ng-select  class="customized" [searchable]="false" [items]="userTypeDropdown" bindLabel="Name"
+                                        bindValue="Id" name="userType_Id" id="userType_Id" placeholder="اختر نوع المستخدم" formControlName="userType_Id">
+                                    </ng-select>
                                     <mat-hint>
                                         <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                                               validation: 'required',
@@ -177,9 +166,8 @@
                             <ng-container *ngFor="let role of rolesData;let i=index">
                                 <div class="d-flex fv-row">
                                     <div class="form-check form-check-custom form-check-solid">
-                                        <input class="form-check-input me-3" name="user_role" type="checkbox"
-                                            [value]="role.id" id="kt_modal_update_role_option_{{i}}" [checked]='false'
-                                            (change)="onCheckboxChange($event)" />
+                                        <input class="form-check-input me-3" name="user_role" type="checkbox" [value]="role.id"
+                                            id="kt_modal_update_role_option_{{i}}" [checked]='false' (change)="onCheckboxChange($event)" />
                                         <label class="form-check-label" for="kt_modal_update_role_option_0">
                                             <div class="fw-bolder text-gray-800">{{role.name}}</div>
                                         </label>
@@ -201,8 +189,7 @@
                 <div class="col-md-6 d-flex">
                     <button type="reset" id="kt_addnewuser_close" class="btn btn-light me-3"
                         #btnClose>{{'PERMISSIONS.BUTTONS.CANCEL'|translate}}</button>
-                    <button type="submit" id="kt_modal_new_target_submit1" class="btn btn-primary"
-                        (click)="saveButtonClickedFlag = true">
+                    <button type="submit" id="kt_modal_new_target_submit1" class="btn btn-primary" (click)="saveButtonClickedFlag = true">
                         <span class="indicator-label">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</span>
                         <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

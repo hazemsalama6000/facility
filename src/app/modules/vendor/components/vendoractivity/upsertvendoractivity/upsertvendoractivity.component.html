@@ -1,8 +1,8 @@
-<form [formGroup]="invForm" (ngSubmit)="UpsertInventoryCategory()" >
+<form [formGroup]="activityForm" (ngSubmit)="UpsertVendorActivity()" >
 
   <div mat-dialog-title>
     <div class="row mx-0">
-      <div class="col"> {{(isEdit?"DECLARATIONS.TITLES.EDITINVENTORYCATEGORY":"DECLARATIONS.TITLES.ADDINVENTORYCATEGORY")|translate}}</div>
+      <div class="col"> {{(isEdit?"تعديل نشاط مورد":"اضافة نشاط مورد")}}</div>
       <div class="col-2">
         <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
       </div>
@@ -13,31 +13,57 @@
   <div mat-dialog-content class="overflow-auto py-2">
     <div class="row mx-0">
 
-      <div class="col-md-12 mb-3">
+      <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.TITLES.NAME" | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="name" formControlName="name">
+          <input matInput placeholder="" name="name" formControlName="name">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
                   message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.TITLES.NAME' | translate},
-                  control: invForm.controls['name']
+                  control: activityForm.controls['name']
                 }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'minlength',
                   message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.TITLES.NAME' | translate , min:3},
-                  control: invForm.controls['name']
+                  control: activityForm.controls['name']
                 }"></ng-container>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'maxlength',
                   message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.TITLES.NAME' | translate , max:100},
-                  control: invForm.controls['name']
+                  control: activityForm.controls['name']
                  }"></ng-container>
           </mat-hint>
         </mat-form-field>
       </div>
+
+      <div class="col-md-6 mb-3">
+        <mat-form-field appearance="outline">
+        <mat-label> {{"DECLARATIONS.TITLES.CODE" | translate}} </mat-label>
+        <input matInput placeholder="" name="code" formControlName="code">
+        <mat-hint>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.TITLES.CODE' | translate},
+                control: activityForm.controls['code']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.TITLES.CODE' | translate , min:3},
+                control: activityForm.controls['code']
+              }"></ng-container>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'maxlength',
+                message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.TITLES.CODE' | translate , max:100},
+                control: activityForm.controls['code']
+               }"></ng-container>
+        </mat-hint>
+      </mat-form-field>
+    </div>
    
     </div>
 
