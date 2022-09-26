@@ -35,7 +35,7 @@ export enum HttpPaths {
 	//maritalStatus
 	API_MARITALSTATUS_GETLIST = "/api/v1/hr/listofmartialstatus",
 
-	API_STATUS_GETLIST="/api/v1/hr/listofhrstatus",
+	API_STATUS_GETLIST = "/api/v1/hr/listofhrstatus",
 
 	//Transfering Company APIS
 
@@ -52,7 +52,7 @@ export enum HttpPaths {
 	API_UNITS_DELETE = "/api/v1/invt/deleteunit/",
 	API_UNITS_UACTIVEDEACTIVE = "/api/v1/invt/changeunitactiveornot/",
 
-	API_LIST_OF_UNITTYPES="/api/v1/invt/listofunitstypes",
+	API_LIST_OF_UNITTYPES = "/api/v1/invt/listofunitstypes",
 
 	//Cars Models APIS
 
@@ -81,15 +81,15 @@ export enum HttpPaths {
 	API_GET_CARS_EXPENSES = "/api/v1/Trans/getcarsexpenses?",
 	API_CARS_EXPENSETRANSACTION_DELETE = "/api/v1/Trans/removetranscarexpense/",
 
-    API_CARS_EXPENSES_IMAGES="/api/v1/Trans/uploadcarexpensesimages",
-	API_CARS_EXPENSES_ACCEPT="/api/v1/Trans/acceptcarexpense/",
-    API_CARS_EXPENSES_REJECT="/api/v1/Trans/rejectcarexpense/",
+	API_CARS_EXPENSES_IMAGES = "/api/v1/Trans/uploadcarexpensesimages",
+	API_CARS_EXPENSES_ACCEPT = "/api/v1/Trans/acceptcarexpense/",
+	API_CARS_EXPENSES_REJECT = "/api/v1/Trans/rejectcarexpense/",
 
 	// cars 
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
 
 
-	API_LISTOF_TECHNITIANS="/api/v1/tech/listoftechnicians",
+	API_LISTOF_TECHNITIANS = "/api/v1/tech/listoftechnicians",
 
 	//VoucherSerial APIS
 
@@ -261,6 +261,8 @@ export enum HttpPaths {
 	API_DELETE_MENU = "/api/v1/permissions/removepermissionmenuitem/",
 	API_ACTIVEDEACTIVE_MENU = "/api/v1/permissions/changenodeactivation",
 
+
+
 	//financial year
 	API_GET_FINANCIAL_YEAR = "/api/v1/shared/getfinancialyears/",
 	API_GET_ACTIVE_FINANCIAL_YEAR = "/api/v1/shared/getactivefinancialyear/",
@@ -342,6 +344,42 @@ export enum HttpPaths {
 	API_ITEM_UPDATE = "/api/v1/invt/updateinvitems/",
 	API_PARENT_ITEM_UPDATE = "/api/v1/invt/changeitemcategory",
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
+
+
+	//Vendor Activity
+	API_LIST_OF_ACTIVITY = "/api/v1/Vend/listofactivities?branchId=",
+	API_GET_ACTIVITY = "/api/v1/Vend/getactivities?branchId=",
+	API_ADD_ACTIVITY = "/api/v1/Vend/addactivity",
+	API_UPDATE_ACTIVITY = "/api/v1/Vend/updateactivity/",
+	API_DELETE_ACTIVITY = "/api/v1/Vend/deleteactivity/",
+
+	//vendor Main Company
+	API_LIST_OF_MAIN_COMPANY = "/api/v1/Vend/listofmaincompanies?branchId=",
+	API_GET_MAIN_COMPANY = "/api/v1/Vend/getmaincompanies?branchId=",
+	API_ADD_MAIN_COMPANY = "/api/v1/Vend/addmaincompany",
+	API_UPDATE_MAIN_COMPANY = "/api/v1/Vend/updatemaincompany/",
+	API_DELETE_MAIN_COMPANY = "/api/v1/Vend/deletemaincompany/",
+
+	//Vendor Classification
+	API_LIST_OF_CLASSIFICATION = "/api/v1/Vend/listofclassifications?branchId=",
+	API_GET_CLASSIFICATION = "/api/v1/Vend/getaclassifications?branchId=",
+	API_ADD_CLASSIFICATION = "/api/v1/Vend/addclassification",
+	API_UPDATE_CLASSIFICATION = "/api/v1/Vend/updateclassification/",
+	API_DELETE_CLASSIFICATION = "/api/v1/Vend/deleteclassification/",
+
+	//Vendor
+	API_LIST_OF_VENDOR = "/api/v1/Vend/listofvendors?branchId=",
+	API_GET_VENDOR = "/api/v1/Vend/getVendors",
+	API_ADD_VENDOR = "/api/v1/Vend/addVendor",
+	API_UPDATE_VENDOR = "/api/v1/Vend/updateVendor/",
+	API_DELETE_VENDOR = "/api/v1/Vend/deletevendor/",
+
+	//Tax Office
+
+	API_LIST_OF_TAX_OFFICE='/api/v1/shared/gettaxoffices',
+
+	API_LIST_OF_COMPANY_BRANCH='/api/v1/shared/listofcompanybranches?companyId=',
+
 
 
 

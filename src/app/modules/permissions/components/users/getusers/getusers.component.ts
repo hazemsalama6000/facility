@@ -34,7 +34,8 @@ export class GetusersComponent implements OnInit, OnDestroy {
     let getdata = this.authservice.userData.subscribe(
       res => {
         this.userData = res;
-        this.getUserData();
+       let user= userservice.bSubject.subscribe(res=>this.getUserData());
+        this.unsubscribe.push(user)
       });
 
     this.unsubscribe.push(getdata);

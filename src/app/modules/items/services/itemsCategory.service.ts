@@ -29,7 +29,7 @@ export class ItemsCategoryService {
   }
 
   updateCategory(model: any): Observable<HttpReponseModel> {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CATEGORY_UPDATE}${model.itemCategoryId}`)
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CATEGORY_UPDATE}${model.id}`)
   }
 
   updateParentCategory(model: any): Observable<HttpReponseModel> {
@@ -45,7 +45,7 @@ export class ItemsCategoryService {
   }
 
   updateItem(model: any): Observable<HttpReponseModel> {
-    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_ITEM_UPDATE}${model.itemId}`)
+    return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_ITEM_UPDATE}${model.Id}`)
   }
 
   updateParentItem(model: any): Observable<HttpReponseModel> {

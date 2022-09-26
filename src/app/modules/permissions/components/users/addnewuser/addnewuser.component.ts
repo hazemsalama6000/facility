@@ -25,13 +25,13 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
   userData: IUserData;
 
   userDataForm: FormGroup = this.fb.group({
-    employeeId: [0, [Validators.required]],
+    employeeId: [null, [Validators.required]],
     userName: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(150)])],
     password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
     email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")])],
     phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(11)])],
-    company_Id: [0, [Validators.required]],
-    userType_Id: [0, [Validators.required]],
+    company_Id: [null, [Validators.required]],
+    userType_Id: [null, [Validators.required]],
     addingRoles: this.fb.array([])
   });
 
@@ -78,7 +78,6 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
   }
 
   Submit() {
-    // console.log(this.userDataForm.value, 'this user form', this.userDataForm.get('phoneNumber')?.errors)
     if (this.userDataForm.valid && this.saveButtonClickedFlag) {
 
       this.userservice.PostUserData(this.userDataForm.value).

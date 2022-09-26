@@ -39,7 +39,8 @@ export class AssignrolestousersComponent implements OnInit {
           // console.log(data);
           this.roleData = { userId: '', userRoles: [] }
           this.toaster.openSuccessSnackBar(data.message);
-          this.btnClose.nativeElement.click();
+          this.usersService.bSubject.next(true);
+                    this.btnClose.nativeElement.click();
         }
         else {
           this.toaster.openWarningSnackBar(data.message);
