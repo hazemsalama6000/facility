@@ -330,6 +330,7 @@ export enum HttpPaths {
 	API_CLIENT_CATEGORY_UACTIVEDEACTIVE = "/api/v1/cust/changeclientcategoryactiveornot/",
 	API_CLIENT_CATEGORY_GETALL = "/api/v1/cust/getallclientcategories?companyId=",
 	API_CLIENT_CATEGORY_DELETE = "/api/v1/cust/deleteclientcategory/",
+	API_CLIENT_CATEGORY_LIST = "/api/v1/cust/listofclientcategories?companyId=",
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
@@ -376,9 +377,9 @@ export enum HttpPaths {
 
 	//Tax Office
 
-	API_LIST_OF_TAX_OFFICE='/api/v1/shared/gettaxoffices',
+	API_LIST_OF_TAX_OFFICE = '/api/v1/shared/gettaxoffices',
 
-	API_LIST_OF_COMPANY_BRANCH='/api/v1/shared/listofcompanybranches?companyId=',
+	API_LIST_OF_COMPANY_BRANCH = '/api/v1/shared/listofcompanybranches?companyId=',
 
 
 

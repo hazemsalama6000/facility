@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from "rxjs";
 import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 import { HttpPaths } from "src/app/modules/auth/Enums/HttpPaths.enum";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import { IClientDisplayedData } from "../models/IClientDisplayedData.interface";
 import { ICompany } from "../models/ICompany";
 import { ICompanyDisplayData } from "../models/ICompanyDisplayData";
 
@@ -11,36 +12,20 @@ import { ICompanyDisplayData } from "../models/ICompanyDisplayData";
 	providedIn: 'root'
 })
 
-export class CompanyService {
+export class ClientService {
 	bSubject = new BehaviorSubject(true);
 
 	constructor(private http: CommonHttpService) { }
 
-	getCompanyData(): Observable<ICompanyDisplayData[]> {
+	getCompanyData(): Observable<IClientDisplayedData[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_GETALL}`)
-			.pipe(map(Items => Items.map((Item: ICompanyDisplayData) => ({
-				id: Item.id,
-				companyName: Item.companyName,
-				address: Item.address,
-				code: Item.code,
-				activity: Item.activity,
-				phoneNumber: Item.phoneNumber,
-				logoWeb: Item.logoWeb,
-				logoPrint: Item.logoPrint,
-				hasDirectTransferForStocks: Item.hasDirectTransferForStocks,
-				email: Item.email,
-				isActive: Item.isActive,
-				mobileUsersCount: Item.mobileUsersCount,
-				state: Item.state,
-				region: Item.region,
-				managerName: Item.managerName,
-				managerPosition: Item.managerPosition,
-				vatTax: Item.vatTax,
-				taxCardNo: Item.taxCardNo,
-				wTax: Item.wTax,
-				commercialRecord: Item.commercialRecord
+			.pipe(map(Items => Items.data.map((Item: IClientDisplayedData) => Item as IClientDisplayedData)));
+	}
 
-			}) as ICompanyDisplayData)));
+
+	getClientCategories(companyId:number) : Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_CATEGORY_LIST}${companyId}`)
+		.pipe(map(Items =>  Items.data.map( (item:any) =>  ({Id:item.id,Name:item.name }) as LookUpModel  ) ));
 	}
 
 	getActiveCompanies() : Observable<LookUpModel[]> {

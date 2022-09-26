@@ -3,6 +3,7 @@ import { DialogPosition, MatDialog, MatDialogConfig } from "@angular/material/di
 import { left } from "@popperjs/core";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
+import { IClientDisplayedData } from "src/app/modules/client/models/IClientDisplayedData.interface";
 import { ICompanyDisplayData } from "src/app/modules/hr/models/ICompanyDisplayData";
 import { CompanyService } from "src/app/modules/hr/services/company.service";
 import { ClientUpsertComponent } from "./client-upsert/client-upsert.component";
@@ -14,7 +15,7 @@ import { ClientUpsertComponent } from "./client-upsert/client-upsert.component";
 
 export class ClientItemComponent {
 
-	@Input() company: ICompanyDisplayData;
+	@Input() company: IClientDisplayedData;
 
 	panelOpenState: boolean = false;
 
@@ -81,7 +82,7 @@ export class ClientItemComponent {
 
 					if (data.isSuccess) {
 						this.toaster.openSuccessSnackBar(data.message);
-						this.company.logoPrint = `${localStorage.getItem('companyLink')}${data.data}`;
+					//TODO//	this.company.logoPrint = `${localStorage.getItem('companyLink')}${data.data}`;
 						// console.log(this.company.logoPrint);
 					}
 					else if (data.isExists) {
@@ -132,7 +133,7 @@ export class ClientItemComponent {
 					if (data.isSuccess) {
 						this.toaster.openSuccessSnackBar(data.message);
 						// console.log(data.data);
-						this.company.logoWeb = `${localStorage.getItem('companyLink')}${data.data}`
+					//TODO	this.company.logoWeb = `${localStorage.getItem('companyLink')}${data.data}`
 						// console.log(this.company.logoWeb);
 						//	this.service.bSubject.next(true);
 					}

@@ -1,17 +1,17 @@
 import { Component } from "@angular/core";
-import { DialogPosition, MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DialogPosition, MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
-import { environment } from "src/environments/environment";
-import { ICompanyDisplayData } from "../../../models/ICompanyDisplayData";
-import { CompanyService } from "../../../services/company.service";
-import { EmployeeService } from "../../../../employees/services/employee.service";
+import { ClientService } from "../../../services/client.service";
 import { ClientUpsertComponent } from "./client-item/client-upsert/client-upsert.component";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { IRegion } from "src/app/modules/share/models/IRegion.interface";
+import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
+import { IClientDisplayedData } from "../../../models/IClientDisplayedData.interface";
 @Component({
 	selector: "client-DataList",
 	templateUrl: './client-dataList.component.html',
@@ -20,14 +20,17 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 
 export class ClientDataListComponent {
 
-	dropdownFinancialYearData: LookUpModel[] = [];
-	dropdownBillTypeData: LookUpModel[] = [];
-	dropdownEmloyeeTypeData: LookUpModel[] = [];
-	VoucherSerialsSearchForm: FormGroup;
+
+	dropdownPathRouteData: LookUpModel[] = [];
+	dropdownCategoryData: LookUpModel[] = [];
+	dropdownListDataForState: any = [];
+	dropdownListDataForRegion: any = [];
+
+	clientSearchForm: FormGroup;
 
 	matDialogConfig: DialogPosition;
 
-	companys: Array<ICompanyDisplayData> = [];
+	companys: Array<IClientDisplayedData> = [];
 
 	toolbarButtonMarginClass = 'ms-1 ms-lg-3';
 	toolbarButtonHeightClass = 'w-30px h-30px w-md-40px h-md-40px';
@@ -38,12 +41,11 @@ export class ClientDataListComponent {
 	private unsubscribe: Subscription[] = [];
 
 	constructor(
-		private companyService: CompanyService,
+		private companyService: ClientService,
 		private dialog: MatDialog,
 		private stateService: StatesService,
-		private employeeService: EmployeeService,
 		private regionService: RegionService,
-		private auth: AuthService, private fb: FormBuilder) { }
+		private auth: AuthService, private fb: FormBuilder,private pathrouteService:PathrouteService) { }
 
 		
 	
@@ -75,26 +77,34 @@ export class ClientDataListComponent {
 	}
 
 	ngOnInit() {
-		this.VoucherSerialsSearchForm = this.fb.group({
-			FinancialYearId: [],
-			BillTypeId: [],
-			EmployeeId: []
+		this.clientSearchForm = this.fb.group({
+			CompanyBranchId:[],
+			Category_Id:[],
+			State_Id:[],
+			Region_Id:[],
+			Name:[],
+			PathRoute_Id:[],
+			Code:[]
 		});
 
 		this.auth.userData.subscribe((data: IUserData) => {
+			this.companyService.getClientCategories(data.companyId).subscribe(
+				(data: LookUpModel[]) => {
+					this.dropdownCategoryData = data;
+				}
+			);
 
-			this.employeeService.getLookupEmployeeData(data.companyId).subscribe((data: LookUpModel[]) => {
-				this.dropdownEmloyeeTypeData = data;
-				this.dropdownFinancialYearData = data;
-				this.dropdownBillTypeData = data;
-
+			this.pathrouteService.getLookUpPathRoute({CompanyBranchId:data.branchId}).subscribe((data:LookUpModel[])=>{
+				this.dropdownPathRouteData=data;
 			});
-
 		});
+
+	
+		
 
 		this.stateService.getLookupData().subscribe(
 			(data: LookUpModel[]) => {
-				this.stateService.states = data;
+				this.dropdownListDataForState = data;
 			}
 		);
 
@@ -102,11 +112,8 @@ export class ClientDataListComponent {
 		this.companyService.bSubject.subscribe(data => {
 
 			this.companyService.getCompanyData().subscribe(
-				(data: Array<ICompanyDisplayData>) => {
-					this.companys = data.map(item => ({
-						...item, logoWeb: `${localStorage.getItem('companyLink')}${item.logoWeb}`
-						, logoPrint: `${localStorage.getItem('companyLink')}${item.logoPrint}`
-					}) as ICompanyDisplayData);
+				(data: Array<IClientDisplayedData>) => {
+					this.companys = data;
 
 					// console.log(this.companys);
 				}
@@ -117,7 +124,14 @@ export class ClientDataListComponent {
 		const userdata = this.auth.userData.subscribe(res => this.userdata = res);
 		this.unsubscribe.push(userdata);
 	}
+onItemSelectState(item: any) {
+		this.regionService.getLookupData(item.Id).subscribe(
+			(data: IRegion[]) => {
+				this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
+			}
+		);
 
+	}
 	ngOnDestroy() {
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}

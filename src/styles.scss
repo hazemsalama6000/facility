@@ -28,11 +28,14 @@
 	font-family: 'Cairo' !important;
 }
 
-.ng-select.customized .ng-select-container {
+.ng-select.customized .ng-select-container{
 	min-height: 50px;
 	border-radius: 15px;
 	font-family: 'Cairo' !important;
 }
+
+
+
 
 ng-select.ng-invalid.ng-touched .ng-select-container {
 	border-color: #dc3545;
