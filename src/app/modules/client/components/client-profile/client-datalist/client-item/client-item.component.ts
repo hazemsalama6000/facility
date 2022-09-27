@@ -4,6 +4,7 @@ import { left } from "@popperjs/core";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { IClientDisplayedData } from "src/app/modules/client/models/IClientDisplayedData.interface";
+import { ClientService } from "src/app/modules/client/services/client.service";
 import { ICompanyDisplayData } from "src/app/modules/hr/models/ICompanyDisplayData";
 import { CompanyService } from "src/app/modules/hr/services/company.service";
 import { ClientUpsertComponent } from "./client-upsert/client-upsert.component";
@@ -15,7 +16,7 @@ import { ClientUpsertComponent } from "./client-upsert/client-upsert.component";
 
 export class ClientItemComponent {
 
-	@Input() company: IClientDisplayedData;
+	@Input() client: IClientDisplayedData;
 
 	panelOpenState: boolean = false;
 
@@ -23,7 +24,7 @@ export class ClientItemComponent {
 
     matDialogConfig: MatDialogConfig = new MatDialogConfig();
 
-	constructor(private dialog: MatDialog, private toaster: toasterService, private service: CompanyService, private cd : ChangeDetectorRef
+	constructor(private dialog: MatDialog, private toaster: toasterService, private service: ClientService, private cd : ChangeDetectorRef
 	) { }
 	logoWebFile: File;
 	logoPrintFile: File;
@@ -31,10 +32,7 @@ export class ClientItemComponent {
 
 
 	ngOnInit() {
-		/*this.matDialogConfig.position = { left: `200px`, top: `200px` };
-		this.matDialogConfig.width = '300px';
-		this.matDialogConfig.height = '400px';
-		*/
+	
 		this.companyIdForShowingBranches = 0;
 		this.cd.detectChanges();
 		
@@ -70,42 +68,15 @@ export class ClientItemComponent {
 
 	}
 
-	logoPrintChange(event: any) {
-		this.logoPrintFile = <File>event.target.files[0];
-		const fd = new FormData();
-		fd.append('companyLogo', this.logoPrintFile, this.logoPrintFile.name);
-		fd.append('company_Id', this.company.id.toString());
+	toggleActiveClient(){
 
-		this.service.changeLogoPrint(fd).
-			subscribe(
-				(data: HttpReponseModel) => {
-
-					if (data.isSuccess) {
-						this.toaster.openSuccessSnackBar(data.message);
-					//TODO//	this.company.logoPrint = `${localStorage.getItem('companyLink')}${data.data}`;
-						// console.log(this.company.logoPrint);
-					}
-					else if (data.isExists) {
-						this.toaster.openWarningSnackBar(data.message);
-					}
-				},
-				(error: any) => {
-					console.log(error);
-					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-				}
-			);
-
-	}
-
-	activeCompany(){
-
-		this.service.activeOrNot(this.company).
+		this.service.activeOrNot(this.client).
 		subscribe(
 			(data: HttpReponseModel) => {
 
 				if (data.isSuccess) {
 					this.toaster.openSuccessSnackBar(data.message);
-					this.company.isActive = !this.company.isActive;
+					this.client.isActive = !this.client.isActive;
 					//	this.service.bSubject.next(true);
 				}
 				else if (data.isExists) {
@@ -121,33 +92,7 @@ export class ClientItemComponent {
 
 	}
 
-	logoWebChange(event: any) {
-		this.logoWebFile = <File>event.target.files[0];
-		const fd = new FormData();
-		fd.append('companyLogo', this.logoWebFile, this.logoWebFile.name);
-		fd.append('company_Id', this.company.id.toString());
-		this.service.changeLogoWebData(fd).
-			subscribe(
-				(data: HttpReponseModel) => {
-
-					if (data.isSuccess) {
-						this.toaster.openSuccessSnackBar(data.message);
-						// console.log(data.data);
-					//TODO	this.company.logoWeb = `${localStorage.getItem('companyLink')}${data.data}`
-						// console.log(this.company.logoWeb);
-						//	this.service.bSubject.next(true);
-					}
-					else if (data.isExists) {
-						this.toaster.openWarningSnackBar(data.message);
-					}
-				},
-				(error: any) => {
-					console.log(error);
-					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-				}
-			);
-	}
-
+	
 
 
 }

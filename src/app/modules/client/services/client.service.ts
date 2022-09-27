@@ -17,8 +17,12 @@ export class ClientService {
 
 	constructor(private http: CommonHttpService) { }
 
-	getCompanyData(): Observable<IClientDisplayedData[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_GETALL}`)
+	getClientsData(model:any): Observable<IClientDisplayedData[]> {
+		let queryString = Object.keys(model).map((key: string) =>
+			model[key] != null && model[key] != '' && model[key] != 0 && model[key] != undefined ? key + '=' + model[key] : null
+		).filter(x => x != null).join('&');
+
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_GETALL}${queryString}`)
 			.pipe(map(Items => Items.data.map((Item: IClientDisplayedData) => Item as IClientDisplayedData)));
 	}
 
@@ -55,7 +59,7 @@ export class ClientService {
 	}
 
 	activeOrNot(model: any): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_ACTIVEORNOT}${model.id}`);
+		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_UACTIVEDEACTIVE}${model.id}`);
 	}
 
 

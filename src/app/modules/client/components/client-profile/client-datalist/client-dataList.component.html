@@ -13,46 +13,49 @@
 
 		</div>
 
+		<form [formGroup]="clientSearchForm"
+		(ngSubmit)="searchClients(clientSearchForm.value)">
 
 		<div class="row">
-
-			<mat-form-field class="custominput" style="width: 250px;" appearance="outline">
-				<mat-label> اسم العميل </mat-label>
-				<input  matInput placeholder="Placeholder" name="Name"
-					formControlName="Name">	
-			</mat-form-field>
-
-			<mat-form-field  style="width: 250px;" appearance="outline">
-				<mat-label>  الكود  </mat-label>
-				<input   matInput placeholder="Placeholder" name="Code"
-					formControlName="Code">	
-			</mat-form-field>
 			
+				<mat-form-field class="custominput" style="width: 250px;" appearance="outline">
+					<mat-label> اسم العميل </mat-label>
+					<input matInput placeholder="Placeholder" name="Name" formControlName="Name">
+				</mat-form-field>
 
-			<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownPathRouteData"
-				formControlName="PathRoute_Id" bindLabel="Name" bindValue="Id" name="PathRoute_Id"
-				placeholder=" خط السير">
-			</ng-select>
+				<mat-form-field style="width: 250px;" appearance="outline">
+					<mat-label> الكود </mat-label>
+					<input matInput placeholder="Placeholder" name="Code" formControlName="Code">
+				</mat-form-field>
 
-			<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownCategoryData"
-				formControlName="Category_Id" bindLabel="Name" bindValue="Id" name="Category_Id" placeholder="تصنيف العميل">
-			</ng-select>
 
-			<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id" name="state_Id"
-				formControlName="state_Id" placeholder="المحافظة" (change)="onItemSelectState($event)">
-			</ng-select>
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownPathRouteData"
+					formControlName="PathRoute_Id" bindLabel="Name" bindValue="Id" name="PathRoute_Id"
+					placeholder=" خط السير">
+				</ng-select>
 
-			<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id" name="region_Id"
-				id="region_Id" placeholder="المنطقة" formControlName="region_Id">
-			</ng-select>
-			
-			<button mat-mini-fab color="primary" style="margin-top: 10px !important;" id="search" type="submit" class="mx-10">
-				<mat-icon style="font-size: 25px;">search</mat-icon>
-			</button>
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownCategoryData"
+					formControlName="Category_Id" bindLabel="Name" bindValue="Id" name="Category_Id"
+					placeholder="تصنيف العميل">
+				</ng-select>
 
-			
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForState"
+					bindLabel="Name" bindValue="Id" name="state_Id" formControlName="state_Id" placeholder="المحافظة"
+					(change)="onItemSelectState($event)">
+				</ng-select>
+
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForRegion"
+					bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder="المنطقة"
+					formControlName="region_Id">
+				</ng-select>
+
+				<button mat-mini-fab color="primary" style="margin-top: 10px !important;" id="search" type="submit"
+					class="mx-10">
+					<mat-icon style="font-size: 25px;">search</mat-icon>
+				</button>
 
 		</div>
+	</form>
 
 	</mat-card>
 
@@ -63,7 +66,7 @@
 			{{ "HR.BUTTONS.ADD" | translate }}
 		</button>-->
 		<div class="col-md-12">
-			<client-item *ngFor="let x of companys" [company]="x"></client-item>
+			<client-item *ngFor="let x of clients" [client]="x"></client-item>
 		</div>
 	</div>
 

@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
 import { IClientDisplayedData } from "../../../models/IClientDisplayedData.interface";
+import { IClientSearchParams } from "../../../models/IClientSearchParams.interface";
 @Component({
 	selector: "client-DataList",
 	templateUrl: './client-dataList.component.html',
@@ -30,7 +31,9 @@ export class ClientDataListComponent {
 
 	matDialogConfig: DialogPosition;
 
-	companys: Array<IClientDisplayedData> = [];
+	clients: Array<IClientDisplayedData> = [];
+
+	companyBranch: number;
 
 	toolbarButtonMarginClass = 'ms-1 ms-lg-3';
 	toolbarButtonHeightClass = 'w-30px h-30px w-md-40px h-md-40px';
@@ -41,14 +44,14 @@ export class ClientDataListComponent {
 	private unsubscribe: Subscription[] = [];
 
 	constructor(
-		private companyService: ClientService,
+		private clientService: ClientService,
 		private dialog: MatDialog,
 		private stateService: StatesService,
 		private regionService: RegionService,
-		private auth: AuthService, private fb: FormBuilder,private pathrouteService:PathrouteService) { }
+		private auth: AuthService, private fb: FormBuilder, private pathrouteService: PathrouteService) { }
 
-		
-	
+
+
 	openDialog() {
 
 		const dialogPosition: DialogPosition = {
@@ -78,29 +81,36 @@ export class ClientDataListComponent {
 
 	ngOnInit() {
 		this.clientSearchForm = this.fb.group({
-			CompanyBranchId:[],
-			Category_Id:[],
-			State_Id:[],
-			Region_Id:[],
-			Name:[],
-			PathRoute_Id:[],
-			Code:[]
+			CompanyBranchId: [],
+			Category_Id: [],
+			State_Id: [],
+			Region_Id: [],
+			Name: [],
+			PathRoute_Id: [],
+			Code: []
 		});
 
 		this.auth.userData.subscribe((data: IUserData) => {
-			this.companyService.getClientCategories(data.companyId).subscribe(
+			this.companyBranch = data.branchId;
+			this.clientService.getClientCategories(data.companyId).subscribe(
 				(data: LookUpModel[]) => {
 					this.dropdownCategoryData = data;
 				}
 			);
 
-			this.pathrouteService.getLookUpPathRoute({CompanyBranchId:data.branchId}).subscribe((data:LookUpModel[])=>{
-				this.dropdownPathRouteData=data;
+			this.pathrouteService.getLookUpPathRoute({ CompanyBranchId: data.branchId }).subscribe((data: LookUpModel[]) => {
+				this.dropdownPathRouteData = data;
 			});
+
+
+			this.clientService.getClientsData({ CompanyBranchId: data.branchId } as IClientSearchParams).subscribe(
+				(data: Array<IClientDisplayedData>) => {
+					this.clients = data;
+				}
+			);
+
 		});
 
-	
-		
 
 		this.stateService.getLookupData().subscribe(
 			(data: LookUpModel[]) => {
@@ -108,23 +118,23 @@ export class ClientDataListComponent {
 			}
 		);
 
-
-		this.companyService.bSubject.subscribe(data => {
-
-			this.companyService.getCompanyData().subscribe(
-				(data: Array<IClientDisplayedData>) => {
-					this.companys = data;
-
-					// console.log(this.companys);
-				}
-			);
-
-		});
-
 		const userdata = this.auth.userData.subscribe(res => this.userdata = res);
 		this.unsubscribe.push(userdata);
 	}
-onItemSelectState(item: any) {
+
+
+	searchClients(model: IClientSearchParams) {
+		model.CompanyBranchId = this.companyBranch;
+		this.clients = [];
+		this.clientService.getClientsData(model).subscribe(
+			(data: Array<IClientDisplayedData>) => {
+				this.clients = data;
+			}
+		);
+	}
+
+
+	onItemSelectState(item: any) {
 		this.regionService.getLookupData(item.Id).subscribe(
 			(data: IRegion[]) => {
 				this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
@@ -132,6 +142,8 @@ onItemSelectState(item: any) {
 		);
 
 	}
+
+
 	ngOnDestroy() {
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}

@@ -332,6 +332,19 @@ export enum HttpPaths {
 	API_CLIENT_CATEGORY_DELETE = "/api/v1/cust/deleteclientcategory/",
 	API_CLIENT_CATEGORY_LIST = "/api/v1/cust/listofclientcategories?companyId=",
 
+
+// CLIENT_APIS
+API_CLIENT_ADD = "/api/v1/cust/addclientdata",
+API_CLIENT_UPDATE = "/api/v1/cust/updateclientdata/",
+API_CLIENT_UACTIVEDEACTIVE = "/api/v1/cust/changeclientdataactiveornot/",
+API_CLIENT_GETALL = "/api/v1/cust/getclientsdatabyfilteration?",
+API_CLIENT_GETPROFILE = "/api/v1/cust/getclientprofile?",
+
+API_CLIENT_DELETE = "/api/v1/cust/deleteclientcategory/",
+API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
+
+
+
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
 
