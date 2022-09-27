@@ -380,6 +380,8 @@ export enum HttpPaths {
 
 	API_LIST_OF_COMPANY_BRANCH='/api/v1/shared/listofcompanybranches?companyId=',
 
+	API_GET_TRANSACTION='/api/v1/invt/getallstocktransactions?',
+
 
 
 

@@ -214,14 +214,15 @@ app-reading-list .p-dropdown.p-component {
 }
 
 .p-multiselect-clear-icon {
-    right: 6px !important;
+	right: 6px !important;
 }
 
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
-    margin-left: 0.5rem;
+	margin-left: 0.5rem;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-inputtext {
-    padding-right: 2.2rem;
+	padding-right: 2.2rem;
 }
 
 .p-datatable .p-datatable-thead>tr>th,
@@ -363,7 +364,7 @@ p-paginator button {
 	text-align: right !important;
 }
 
-.bg-hover-tree{
+.bg-hover-tree {
 	background-color: #bde0ff;
 }
 
@@ -411,8 +412,9 @@ app-treepermission mat-tree-node[aria-level="4"] {
 	display: flex !important;
 }
 
-app-pathroute ng-select ,app-addpathroute ng-select {
-    width:auto !important;
+app-pathroute ng-select,
+app-addpathroute ng-select {
+	width: auto !important;
 }
 
 app-assigntechtoinventory .mat-dialog-content,
@@ -426,10 +428,11 @@ app-addstocktech .mat-dialog-content {
 app-itemsandcategory .mat-tree-node,
 app-internaldivisiontree .mat-tree-node {
 	background-color: #e7e7e7;
-    color: black;
+	color: black;
 	user-select: none;
 	cursor: move;
 	margin-bottom: 2px;
+
 	&.cdk-drag-placeholder {
 		opacity: 0;
 	}
@@ -453,6 +456,21 @@ app-internaldivisiontree .cdk-drag-animating {
 
 
 
+app-inventorytransaction .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+	width: 7%;
+}
+
+app-inventorytransaction .mat-tab-label {
+	padding: 0 !important;
+}
+
+app-inventorytransaction .mat-tab-label-content>a {
+	margin: 0 !important;
+}
+
+// app-inventorytransaction .mat-form-field-wrapper {
+// 	padding-bottom: 0 !important;
+// }
 
 @media only screen and (max-width: 991.98px) {
 	.mcontainer {
@@ -471,9 +489,8 @@ app-internaldivisiontree .cdk-drag-animating {
 	}
 }
 
-hr
-{
+hr {
 	border: 0;
 	height: 1px;
-    background-image: linear-gradient(to right , rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }

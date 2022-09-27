@@ -546,6 +546,34 @@ export const locale = {
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
       }
+    },
+
+    TRANSACTIONS: {
+      INPUTS: {
+      },
+      BUTTONS: {
+        ADD: "Add",
+        CLOSE: "close",
+        EDIT: "edit",
+        SAVE: "Save",
+        DELETE: "Delete",
+        CANCEL: "Cancel",
+        CANCELASSIGN: 'Cancel Assign',
+        REASSIGN: 'Reassign',
+        DOWNLOAD: "Dowwnload Files",
+        PRINTER:"Print"
+      },
+      TITLES: {
+        ID:"ID",
+        DOCNUMBER:"Code",
+        DOCDATE:"Date",
+        TRANSCTYPE:"Type",
+        STOCKNAME:"Stock Name",
+        NOTES:"Notes"
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      }
     }
 
   }
