@@ -6,15 +6,20 @@ import { HttpPaths } from "../../auth/Enums/HttpPaths.enum";
 
 
 
-@Injectable({providedIn:'root'})
+@Injectable({ providedIn: 'root' })
 
-export class ItemService{
+export class ItemService {
 
 	constructor(private http: CommonHttpService) { }
 
-	getLookUpItems(company_Id:Number): Observable<LookUpModel[]> {
+	getLookUpItems(company_Id: Number): Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ITEMS_LOOKUP}${company_Id}`)
-		  .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
-	  }
-	
+			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+	}
+
+	getLookUpItemsByCode(company_Id: Number,CodeOrName:string): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_ITEMS}CompanyId=${company_Id}&SearchingChar=${CodeOrName}`)
+			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+	}
+
 }

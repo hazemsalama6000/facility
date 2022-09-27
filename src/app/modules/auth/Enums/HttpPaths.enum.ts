@@ -345,6 +345,8 @@ export enum HttpPaths {
 	API_PARENT_ITEM_UPDATE = "/api/v1/invt/changeitemcategory",
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
+	API_LIST_OF_ITEMS = "/api/v1/invt/listofitemsbynameorcode?",
+
 
 	//Vendor Activity
 	API_LIST_OF_ACTIVITY = "/api/v1/Vend/listofactivities?branchId=",
@@ -381,6 +383,10 @@ export enum HttpPaths {
 	API_LIST_OF_COMPANY_BRANCH='/api/v1/shared/listofcompanybranches?companyId=',
 
 	API_GET_TRANSACTION='/api/v1/invt/getallstocktransactions?',
+
+	API_LIST_OF_TRANSTYPE='/api/v1/invt/listofstocktranstypes',
+	API_LIST_OF_ENTITYTYPE='/api/v1/invt/listofentitiestypes',
+	API_LIST_OF_EXTERNAL_PLACES='/api/v1/vend/listofexternalplaces?companyId=',
 
 
 

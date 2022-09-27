@@ -7,15 +7,37 @@
         <span class="fontsection">الاستعلام عن حركات المخزن</span>
       </div>
 
-      <div class="col-2">
-        <mat-form-field appearance="fill">
-          <mat-label> بحث برقم الاذن</mat-label>
-          <input #codeInput type="text" name="code" matInput>
-          <mat-icon matSuffix (click)="getTransactionByCode(codeInput.value);areaselect.handleClearClick()" style="cursor: pointer;">search</mat-icon>
-        </mat-form-field>
-      </div>
-    </div>
+      <div class="col-4">
 
+        <div class="row">
+
+          <div class="col-6">
+            <mat-form-field appearance="fill">
+              <mat-label> بحث برقم الاذن</mat-label>
+              <input #codeInput type="text" name="code" matInput>
+              <mat-icon matSuffix
+                (click)="getTransactionByCode(codeInput.value);TransType.handleClearClick();Stock.handleClearClick();EntityType.handleClearClick();Entity.handleClearClick();endDate='';startDate='';"
+                style="cursor: pointer;">search</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-6">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>بحث باسم المنتج </mat-label>
+              <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
+                <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
   <mat-divider></mat-divider>
@@ -23,7 +45,7 @@
   <div class="col-12 mt-3">
     <div class="row mx-5">
 
-      <div class="col" style="max-width: 180px;">
+      <div class="col" style="max-width: 160px;">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
           <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getTransactionByDate()">
@@ -32,7 +54,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col" style="max-width: 180px;">
+      <div class="col" style="max-width: 160px;">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
           <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getTransactionByDate()">
@@ -42,34 +64,28 @@
       </div>
 
       <div class="col">
-        <ng-select class="customized" [items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder=" ">
+        <ng-select #TransType class="customized" [items]="dropdownTransType" bindLabel="Name" bindValue="Id"
+          [(ngModel)]="searchModel.StockTransTypeId" placeholder="أختر نوع العملية" (change)="getTransactionData();" (clear)="getTransactionData();">
         </ng-select>
       </div>
 
       <div class="col">
-        <ng-select #areaselect class="customized" [items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id"
-          placeholder=" ">
+        <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.StockId"
+          placeholder="أختر المخزن" (change)="getTransactionData();" (clear)="getTransactionData();">
         </ng-select>
       </div>
 
       <div class="col">
-        <ng-select #blockselect class="customized" [items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id"
-          placeholder=" ">
+        <ng-select #EntityType class="customized" [items]="dropdownEntityType" bindLabel="name" [(ngModel)]="entityTypeObject"
+          placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);"
+          (clear)="Entity.handleClearClick();dropdownEntity=[]">
         </ng-select>
       </div>
 
       <div class="col">
-        <ng-select #employeeselect class="customized" [items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id"
-          placeholder=" ">
+        <ng-select #Entity class="customized" [items]="dropdownEntity" bindLabel="Name" bindValue="Id" placeholder="أختر المستفيد"
+          (change)="onSelectEntity($event);" >
         </ng-select>
-      </div>
-
-      <div class="col">
-
-        <ng-select #customerselect class="customized" [items]="dropdownCustomerData" bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id"
-          placeholder=" ">
-        </ng-select>
-
       </div>
 
     </div>
