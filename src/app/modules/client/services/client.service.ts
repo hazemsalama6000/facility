@@ -42,8 +42,8 @@ export class ClientService {
 		.pipe(map(Items =>  Items as ICompany  ));
 	}
 
-	PostCompanyData(model: any): Observable<any> {
-		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_ADD}`);
+	PostClientData(model: any): Observable<any> {
+		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_ADD}`);
 	}
 
 	UpdateCompanyData(model: ICompany): Observable<any> {

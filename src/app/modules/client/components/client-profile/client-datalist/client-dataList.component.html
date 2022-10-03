@@ -40,13 +40,13 @@
 				</ng-select>
 
 				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForState"
-					bindLabel="Name" bindValue="Id" name="state_Id" formControlName="state_Id" placeholder="المحافظة"
+					bindLabel="Name" bindValue="Id" name="State_Id" formControlName="State_Id" placeholder="المحافظة"
 					(change)="onItemSelectState($event)">
 				</ng-select>
 
 				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForRegion"
-					bindLabel="Name" bindValue="Id" name="region_Id" id="region_Id" placeholder="المنطقة"
-					formControlName="region_Id">
+					bindLabel="Name" bindValue="Id" name="Region_Id" id="Region_Id" placeholder="المنطقة"
+					formControlName="Region_Id">
 				</ng-select>
 
 				<button mat-mini-fab color="primary" style="margin-top: 10px !important;" id="search" type="submit"
