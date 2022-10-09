@@ -557,6 +557,34 @@ export const locale = {
       MESSAGE: {
         NOROWFOUND: "لايوجد بيانات"
       }
+    },
+
+    TRANSACTIONS: {
+      INPUTS: {
+      },
+      BUTTONS: {
+        ADD: "Add",
+        CLOSE: "close",
+        EDIT: "edit",
+        SAVE: "Save",
+        DELETE: "Delete",
+        CANCEL: "Cancel",
+        CANCELASSIGN: 'Cancel Assign',
+        REASSIGN: 'Reassign',
+        DOWNLOAD: "Dowwnload Files",
+        PRINTER:"طباعة"
+      },
+      TITLES: {
+        ID:"رقم الاذن",
+        DOCNUMBER:"كود",
+        DOCDATE:"التاريخ",
+        TRANSCTYPE:"نوع العملية",
+        STOCKNAME:"المخزن",
+        NOTES:"ملاحظات"
+      },
+      MESSAGE: {
+        NOROWFOUND: "No Rows Found"
+      }
     }
 
   }

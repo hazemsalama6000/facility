@@ -359,6 +359,8 @@ API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
 	API_PARENT_ITEM_UPDATE = "/api/v1/invt/changeitemcategory",
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
+	API_LIST_OF_ITEMS = "/api/v1/invt/listofitemsbynameorcode?",
+
 
 	//Vendor Activity
 	API_LIST_OF_ACTIVITY = "/api/v1/Vend/listofactivities?branchId=",
@@ -393,6 +395,12 @@ API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
 	API_LIST_OF_TAX_OFFICE = '/api/v1/shared/gettaxoffices',
 
 	API_LIST_OF_COMPANY_BRANCH = '/api/v1/shared/listofcompanybranches?companyId=',
+
+	API_GET_TRANSACTION='/api/v1/invt/getallstocktransactions?',
+
+	API_LIST_OF_TRANSTYPE='/api/v1/invt/listofstocktranstypes',
+	API_LIST_OF_ENTITYTYPE='/api/v1/invt/listofentitiestypes',
+	API_LIST_OF_EXTERNAL_PLACES='/api/v1/vend/listofexternalplaces?companyId=',
 
 
 

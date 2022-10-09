@@ -47,10 +47,15 @@ const Routing: Routes = [
 			import('../modules/vendor/vendor.module').then(m => m.VendorModule)
 	},
 	{
+		path: 'InvTransaction',
+		loadChildren: () =>
+			import('../modules/InventoryTransaction/InventoryTransaction.module').then(m => m.InventoryTransactionModule)
+	},
+	{
 		path: 'items',
 		loadChildren: () => import('../modules/items/item.module').then(m => m.ItemModule)
 	},
-  {
+	{
 		path: 'operation',
 		loadChildren: () =>
 			import('../modules/operations/operations.module').then(m => m.OperationsModule)

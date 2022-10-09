@@ -87,7 +87,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}} </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index" >
           <span>{{element.name}}</span>
         </td>
       </ng-container>
@@ -95,7 +95,7 @@
       <!-- Code Column -->
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.CODE" | translate}} </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.code}}</span>
         </td>
       </ng-container>
@@ -103,7 +103,7 @@
       <!-- mainCompany Column -->
       <ng-container matColumnDef="mainCompany">
         <th mat-header-cell *matHeaderCellDef> الاسم التجارى </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.mainCompany}}</span>
         </td>
       </ng-container>
@@ -111,7 +111,7 @@
       <!-- email Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> ايميل </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.email}}</span>
         </td>
       </ng-container>
@@ -119,7 +119,7 @@
       <!-- site Column -->
       <ng-container matColumnDef="site">
         <th mat-header-cell *matHeaderCellDef> موقع إلكترونى</th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.site}}</span>
         </td>
       </ng-container>
@@ -127,7 +127,7 @@
       <!-- mobile Column -->
       <ng-container matColumnDef="mobile">
         <th mat-header-cell *matHeaderCellDef> رقم الموبايل </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.mobile}}</span>
         </td>
       </ng-container>
@@ -135,7 +135,7 @@
       <!-- isWithHoldTaxActive Column -->
       <ng-container matColumnDef="isWithHoldTaxActive">
         <th mat-header-cell *matHeaderCellDef> خاضع لضريبة القيمة المضافة </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+        <td mat-cell *matCellDef="let element; let x=index">
           <mat-icon *ngIf="element.isWithHoldTaxActive == true" class="text-success">done</mat-icon>
           <mat-icon *ngIf="element.isWithHoldTaxActive == false" class="text-danger">close</mat-icon>
         </td>
@@ -170,8 +170,8 @@
       <ng-container matColumnDef="isActive">
         <th mat-header-cell *matHeaderCellDef> الحالة </th>
         <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
-           <mat-icon *ngIf="element.isActive == true" class="text-success">done</mat-icon>
-           <mat-icon *ngIf="element.isActive == false" class="text-danger">close</mat-icon>
+          <mat-icon *ngIf="element.isActive == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="element.isActive == false" class="text-danger">close</mat-icon>
         </td>
       </ng-container>
 
