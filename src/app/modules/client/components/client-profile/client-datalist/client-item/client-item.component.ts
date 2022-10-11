@@ -7,6 +7,7 @@ import { IClientDisplayedData } from "src/app/modules/client/models/IClientDispl
 import { ClientService } from "src/app/modules/client/services/client.service";
 import { ICompanyDisplayData } from "src/app/modules/hr/models/ICompanyDisplayData";
 import { CompanyService } from "src/app/modules/hr/services/company.service";
+import { ClientUpdateComponent } from "./client-update/client-update.component";
 import { ClientUpsertComponent } from "./client-upsert/client-upsert.component";
 @Component({
 	selector: "client-item",
@@ -43,8 +44,30 @@ export class ClientItemComponent {
 		this.companyIdForShowingBranches = companyId;
 		this.cd.detectChanges();
 	}
+	openDialogUpdate(clientId: number) {
+		const dialogPosition: DialogPosition = {
+			top:'0px',
+			right:'0px'
+		  };
 
-	openDialog(companyId: number) {
+		const dialogRef = this.dialog.open(ClientUpdateComponent,
+			{
+				/*maxWidth: '50vw',
+				maxHeight: '100vh',*/
+				maxHeight: '100vh',
+				height: '100%',
+
+				//panelClass: 'full-screen-modal',*/
+				position:dialogPosition,
+				data: { clientId: clientId }
+			});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+
+	}
+	openDialog(clientId: number) {
 		const dialogPosition: DialogPosition = {
 			top:'0px',
 			right:'0px'
@@ -59,7 +82,7 @@ export class ClientItemComponent {
 
 				//panelClass: 'full-screen-modal',*/
 				position:dialogPosition,
-				data: { companyId: companyId }
+				data: { clientId: clientId }
 			});
 
 		dialogRef.afterClosed().subscribe(result => {

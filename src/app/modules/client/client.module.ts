@@ -13,6 +13,7 @@ import { ClientUpsertComponent } from './components/client-profile/client-datali
 import { ClientItemComponent } from './components/client-profile/client-datalist/client-item/client-item.component';
 import { ClientDataListComponent } from './components/client-profile/client-datalist/client-dataList.component';
 import { ClientComponent } from './components/client-profile/client.component';
+import { ClientUpdateComponent } from './components/client-profile/client-datalist/client-item/client-update/client-update.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { ClientComponent } from './components/client-profile/client.component';
 	ClientDataListComponent,
 	ClientItemComponent,
 	ClientUpsertComponent,
-	
+	ClientUpdateComponent,	
     BranchComponent,
     BranchUpsertComponent,
     BranchListContentComponent,

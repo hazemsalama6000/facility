@@ -7,6 +7,7 @@ export interface IClientDisplayedData {
 	isWithHoldTaxActive: boolean,
 	isActive: boolean,
 	code: string,
+	Code:string,
 	commercialName:string ,
 	activity:string ,
 	activeOrDeActiveDate: string,
@@ -18,5 +19,5 @@ export interface IClientDisplayedData {
 	withHoldTax: number,
 //	nationalId: string,
 //	companyBranch_Id: number,
-//	clientCategory_Id:number 
+	clientCategory_Id:number 
 }

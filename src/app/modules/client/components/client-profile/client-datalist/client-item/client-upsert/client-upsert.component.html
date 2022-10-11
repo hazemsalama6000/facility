@@ -167,7 +167,7 @@
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 								validation: 'required',
-								message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'HR.INPUTS.CODE' | translate},
+								message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'' | translate},
 								control: clientDataForm.controls['responsibleName']
 							  }"></ng-container>
 
@@ -191,7 +191,7 @@
 						<mat-label>{{'HR.INPUTS.ACTIVITY'|translate}}</mat-label>
 						<input matInput placeholder="Placeholder" name="activity" formControlName="activity">
 						<mat-hint>
-						
+
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'minlength',
 										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.ACTIVITY' | translate , min:3},
@@ -214,14 +214,20 @@
 						<input matInput placeholder="Placeholder" name="telephone" formControlName="telephone">
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								validation: 'required',
+								message: 'AUTH.VALIDATION.REQUIRED' | translate :  {name:'' | translate },
+								control: clientDataForm.controls['telephone']
+							  }"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:3},
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:7},
 										  control: clientDataForm.controls['telephone']
 										}"></ng-container>
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 											validation: 'maxlength',
-											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'' | translate , max:11},
+											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'' | translate , max:7},
 											control: clientDataForm.controls['telephone']
 										 }"></ng-container>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -241,8 +247,14 @@
 						<mat-hint>
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								validation: 'required',
+								message: 'AUTH.VALIDATION.REQUIRED' | translate :  {name:'' | translate },
+								control: clientDataForm.controls['mobile']
+							  }"></ng-container>
+
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:3},
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:11},
 										  control: clientDataForm.controls['mobile']
 										}"></ng-container>
 
@@ -265,10 +277,15 @@
 						<input matInput placeholder="Placeholder" name="secondMobile" formControlName="secondMobile">
 						<mat-hint>
 
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								validation: 'required',
+								message: 'AUTH.VALIDATION.REQUIRED' | translate :  {name:'' | translate },
+								control: clientDataForm.controls['secondMobile']
+							  }"></ng-container>
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:3},
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:11},
 										  control: clientDataForm.controls['secondMobile']
 										}"></ng-container>
 
@@ -297,7 +314,7 @@
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'minlength',
-										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:3},
+										  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:11},
 										  control: clientDataForm.controls['managerMobile']
 										}"></ng-container>
 
@@ -320,9 +337,8 @@
 					<div class="row mt-2">
 
 						<div class="col-md-12">
-							<ng-select class="customized" [items]="dropdownCategoryData" bindLabel="Name"
-								bindValue="Id" name="clientCategory_Id" placeholder="تصنيف العميل"
-								formControlName="clientCategory_Id">
+							<ng-select class="customized" [items]="dropdownCategoryData" bindLabel="Name" bindValue="Id"
+								name="clientCategory_Id" placeholder="تصنيف العميل" formControlName="clientCategory_Id">
 							</ng-select>
 							<mat-hint>
 								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{

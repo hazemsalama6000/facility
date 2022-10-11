@@ -90,6 +90,10 @@ export class ClientDataListComponent {
 			Code: []
 		});
 
+		this.clientService.searchUpdate$.subscribe((data)=>{
+          document.getElementById("search")?.click();
+		});
+
 		this.auth.userData.subscribe((data: IUserData) => {
 			this.companyBranch = data.branchId;
 			this.clientService.getClientCategories(data.companyId).subscribe(

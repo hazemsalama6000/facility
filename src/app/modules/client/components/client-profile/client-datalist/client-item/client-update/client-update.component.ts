@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { dropdownSettings } from "src/app/core-module/UIServices/dropdownsetting";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
-import { CompanyService } from "src/app/modules/hr/services/company.service";
 import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
@@ -16,28 +15,23 @@ import { ClientService } from "src/app/modules/client/services/client.service";
 import { AuthService } from "src/app/modules/auth";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { IClientUpsertModel } from "src/app/modules/client/models/IClientUpsertModel.interface";
+import { IClientDisplayedData } from "src/app/modules/client/models/IClientDisplayedData.interface";
 
 @Component({
-	selector: "client-upsert",
-	templateUrl: './client-upsert.component.html',
-	styleUrls: ['./client-upsert.component.scss']
+	selector: "client-update",
+	templateUrl: './client-update.component.html',
+	styleUrls: ['./client-update.component.scss']
 })
 
-export class ClientUpsertComponent implements OnInit {
+export class ClientUpdateComponent implements OnInit {
 
 	saveButtonClickedFlag = false;
 
 	isEdit = false;
-	client: IClientForm;
-
-	isEditable: boolean = false;
-	dropdownListDataForState: any = [];
-	selectedItemState: any = [];
+	client: IClientDisplayedData;
+    companyBranchId=0;
 	
 	dropdownCategoryData:any=[];
-
-	dropdownListDataForRegion: any = [];
-	selectedItemForRegion: any = [];
 
 
 
@@ -52,11 +46,7 @@ export class ClientUpsertComponent implements OnInit {
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private fb: FormBuilder,
 		private toaster: toasterService,
-		private stateService: StatesService,
-		private regionService: RegionService,
 		private service: ClientService,
-		private employeeService: EmployeeService,
-		private rcd: ChangeDetectorRef,
 		private auth:AuthService
 	) {
 
@@ -65,14 +55,13 @@ export class ClientUpsertComponent implements OnInit {
 	}
 	setDefaultForForm() {
 
-		if (this.data.clientId != 0) {  //for edit
-			this.isEdit = true;
+		
 			this.clientDataForm = this.fb.group({
 				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			//	Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				CommercialName: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
-				responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			//	responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
 				
 				taxCardNum: [0, Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
@@ -82,74 +71,29 @@ export class ClientUpsertComponent implements OnInit {
 				
 				isVatTaxActive: [false,],
 				isWithHoldTaxActive: [false,],
-				isAddedClientBranch: [false,],
+				//isAddedClientBranch: [false,],
 
-				clientCategory_Id: [, Validators.compose([Validators.required])],
-				address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+				clientCategory_Id: ['', Validators.compose([Validators.required])],
+			//	address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 
-				telephone: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
+			/*	telephone: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
 				mobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
 				secondMobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
 				managerMobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-
+*/
 				activity: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-				state_Id: [, Validators.compose([Validators.required])],
-				region_Id: [, Validators.compose([Validators.required])],
-				
+/*				state_Id: ['', Validators.compose([Validators.required])],
+				region_Id: ['', Validators.compose([Validators.required])],
+*/				
 		        isActive: [false,],
-				isMain: [false,]
 			});
-		}
-
-
-		else {  // for add
-			this.isEdit = false;
-			this.clientDataForm = this.fb.group({
-				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-				name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-				CommercialName: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
-				responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-				commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
-				
-				taxCardNum: ["0", Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				vatTaxNum: ["0", Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-
-				
-				isVatTaxActive: [false,],
-				isWithHoldTaxActive: [false,],
-				isAddedClientBranch: [false,],
-
-				clientCategory_Id: [, Validators.compose([Validators.required])],
-				address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-
-				telephone: ['', Validators.compose([ Validators.required,Validators.minLength(7), Validators.maxLength(7), Validators.pattern("^[0-9]*$")])],
-				mobile: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-				secondMobile: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-				managerMobile: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-
-				activity: ['', Validators.compose([ Validators.minLength(3), Validators.maxLength(100)])],
-				state_Id: [, Validators.compose([Validators.required])],
-				region_Id: [, Validators.compose([Validators.required])],
-				isActive: [false,],
-				isMain: [false,]
-
-			});
-
-		}
-
-
+		
 
 	}
 
 
 	fillDropDowns() {
-		this.stateService.getLookupData().subscribe(
-			(data: LookUpModel[]) => {
-				this.dropdownListDataForState = data;
-			}
-		);
+		
 		this.auth.userData.subscribe((data: IUserData) => {
 
 			this.companyBranch = data.branchId;
@@ -161,67 +105,33 @@ export class ClientUpsertComponent implements OnInit {
 
 		});
 
-		this.dropdownListDataForState = this.stateService.states;
-
-		this.dropdownListDataForRegion = [];
-
-
-		if (this.isEdit) {
-
-			//get selected region
-			this.regionService.getLookupData(this.client.state_Id).subscribe(
-				(data: IRegion[]) => {
-					this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
-				}
-			);
-
-		
-			setTimeout(() => {
-			//	this.passingCompanyToFormData();
-			}, 1000);
-
-		}
-
 	}
 
 
 	ngOnInit() {
-
 		this.setDefaultForForm();
 
 		this.initForm();
 
 	}
 
-	onItemSelectState(item: any) {
-		this.regionService.getLookupData(item.Id).subscribe(
-			(data: IRegion[]) => {
-				this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
-			}
-		);
-		this.selectedItemForRegion = {};
-
-	}
-
-
 	// initialize Form With Validations
 	initForm() {
 
-		this.client = {} as IClientForm;
+		this.auth.userData.subscribe((data: IUserData) => {
 
-//TODO
-	/*	if (this.isEdit) {
-
-			this.service.getCompanyDataById(this.data.companyId).subscribe(
-				(data: ICompany) => {
-					this.client = data;
-					this.isEdit = true;
+			this.companyBranch = data.branchId;
+			
+			this.service.getClientsDataProfile(this.data.clientId,this.companyBranch).subscribe(
+				(data: IClientDisplayedData) => {
+					console.log(data);
+					this.clientDataForm.setValue(data);
 					this.fillDropDowns();
 				}
 			)
-		} else {*/
-			this.fillDropDowns();
-		/*}*/
+
+		});
+		
 
 	}
 
@@ -271,8 +181,6 @@ export class ClientUpsertComponent implements OnInit {
 		if (this.clientDataForm.valid) {
 
 			let model: IClientUpsertModel[] = [this.mapFormGroupsToModel(clientDataForm)];
-
-			this.isEditable = true;
 
 			if (clientDataForm.id == 0) {
 

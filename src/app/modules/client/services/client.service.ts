@@ -14,6 +14,7 @@ import { ICompanyDisplayData } from "../models/ICompanyDisplayData";
 
 export class ClientService {
 	bSubject = new BehaviorSubject(true);
+	searchUpdate$ = this.bSubject.asObservable();
 
 	constructor(private http: CommonHttpService) { }
 
@@ -26,6 +27,12 @@ export class ClientService {
 			.pipe(map(Items => Items.data.map((Item: IClientDisplayedData) => Item as IClientDisplayedData)));
 	}
 
+	getClientsDataProfile(id:any,companyBranchId:number): Observable<IClientDisplayedData> {
+	
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_GETPROFILE}CompanyBranchId=${companyBranchId}&Id=${id}`)
+			.pipe(map(Items => Items.data));
+	}
+	
 
 	getClientCategories(companyId:number) : Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_CATEGORY_LIST}${companyId}`)
