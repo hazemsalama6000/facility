@@ -344,6 +344,10 @@ API_CLIENT_DELETE = "/api/v1/cust/deleteclientcategory/",
 API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
 
 
+//Client Branches
+API_CLIENTBRANCHES_GETBRANCHES="/api/v1/cust/getclientbranches?",
+API_CLIENTBRANCH_TOGGLE="/api/v1/cust/changeclientbranchactiveornot/",
+
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",

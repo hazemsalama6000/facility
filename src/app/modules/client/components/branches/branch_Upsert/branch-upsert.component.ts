@@ -12,7 +12,7 @@ import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { IBranchUpsert } from "../../../models/IBranchUpsert.interface";
-import { BranchService } from "../../../services/branch.service";
+import { ClientBranchService } from "../../../services/branch.service";
 
 @Component({
 	selector: "branch-upsert",
@@ -50,9 +50,8 @@ export class BranchUpsertComponent implements OnInit {
 		private toaster: toasterService,
 		private stateService: StatesService,
 		private regionService: RegionService,
-		private companyService: CompanyService,
 		private employeeService: EmployeeService,
-		private service: BranchService
+		private service: ClientBranchService
 	) { }
 
 	ngOnInit() {

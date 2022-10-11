@@ -53,8 +53,8 @@ export class ClientService {
 		return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_ADD}`);
 	}
 
-	UpdateCompanyData(model: ICompany): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_COMPANY_UPDATE}${model.id}`);
+	UpdateClientData(model: any): Observable<any> {
+		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENT_UPDATE}${model.id}`);
 	}
 
 	changeLogoWebData(model: any): Observable<any> {

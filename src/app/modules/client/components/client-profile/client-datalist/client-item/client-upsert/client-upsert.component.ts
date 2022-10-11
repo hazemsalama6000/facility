@@ -75,8 +75,8 @@ export class ClientUpsertComponent implements OnInit {
 				responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
 				
-				taxCardNum: [0, Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				vatTaxNum: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				taxCardNum: ["0", Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				vatTaxNum: ["0", Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 
 				
@@ -294,18 +294,6 @@ export class ClientUpsertComponent implements OnInit {
 							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 						}
 					);
-
-			}
-
-			else {
-				this.service.UpdateCompanyData(clientDataForm).subscribe(
-					(data: any) => {
-						this.toaster.openSuccessSnackBar(data.message);
-						this.service.bSubject.next(true);
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
 
 			}
 

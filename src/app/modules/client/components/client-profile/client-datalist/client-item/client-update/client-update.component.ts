@@ -4,10 +4,6 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { dropdownSettings } from "src/app/core-module/UIServices/dropdownsetting";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
-import { EmployeeService } from "src/app/modules/employees/services/employee.service";
-import { IRegion } from "src/app/modules/share/models/IRegion.interface";
-import { RegionService } from "src/app/modules/share/Services/region.service";
-import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { ChangeDetectorRef } from '@angular/core';
 import { IClientForm } from "src/app/modules/client/models/IClientForm.interface";
@@ -125,7 +121,19 @@ export class ClientUpdateComponent implements OnInit {
 			this.service.getClientsDataProfile(this.data.clientId,this.companyBranch).subscribe(
 				(data: IClientDisplayedData) => {
 					console.log(data);
-					this.clientDataForm.setValue(data);
+					this.clientDataForm.controls['id'].setValue(data.id);
+					this.clientDataForm.controls['name'].setValue(data.name);
+					this.clientDataForm.controls['CommercialName'].setValue(data.commercialName);
+					this.clientDataForm.controls['commercialRecord'].setValue(data.commercialRecord);
+					this.clientDataForm.controls['taxCardNum'].setValue(data.taxCardNum);
+					this.clientDataForm.controls['vatTaxNum'].setValue(data.vatTaxNum);
+					this.clientDataForm.controls['withHoldTax'].setValue(data.withHoldTax);
+					this.clientDataForm.controls['isVatTaxActive'].setValue(data.isVatTaxActive);
+					this.clientDataForm.controls['isWithHoldTaxActive'].setValue(data.isWithHoldTaxActive);
+					this.clientDataForm.controls['clientCategory_Id'].setValue(data.clientCategory_Id);
+					this.clientDataForm.controls['activity'].setValue(data.activity);
+					this.clientDataForm.controls['isActive'].setValue(data.isActive);
+
 					this.fillDropDowns();
 				}
 			)
@@ -135,78 +143,11 @@ export class ClientUpdateComponent implements OnInit {
 
 	}
 
-	mapFormGroupsToModel(companyDataForm: IClientForm): IClientUpsertModel {
-
-		// console.log(companyDataForm);
-		let model: IClientUpsertModel = {} as IClientUpsertModel;
-
-		model.id = companyDataForm.id;
-		model.name = companyDataForm.name;
-
-		model.clientDataCode = companyDataForm.Code;
-		model.clientCommercialName = companyDataForm.CommercialName;
-		model.activity = companyDataForm.activity;
-		model.commercialRecord = companyDataForm.commercialRecord;
-		model.taxCardNum = companyDataForm.taxCardNum;
-		model.vatTaxNum = companyDataForm.vatTaxNum;
-		model.vatTax = companyDataForm.vatTax;
-		model.isVatTaxActive = companyDataForm.isVatTaxActive;
-		model.withHoldTax = companyDataForm.withHoldTax;
-		model.isWithHoldTaxActive = companyDataForm.isWithHoldTaxActive;
-		model.isAddedClientBranch = companyDataForm.isAddedClientBranch;
-		model.clientCategory_Id = companyDataForm.clientCategory_Id;
-		model.companyBranch_Id = this.companyBranch;
-
-	model.clientDataBranches=[{
-        name: companyDataForm.name,
-        clientBranchCode: companyDataForm.Code,
-        address: companyDataForm.address,
-        telephone: companyDataForm.telephone,
-        mobile: companyDataForm.mobile,
-        secondMobile: companyDataForm.secondMobile,
-        managerMobile: companyDataForm.managerMobile,
-        region_Id: companyDataForm.region_Id,
-        responsibleName: companyDataForm.responsibleName,
-        commercialName: companyDataForm.CommercialName,
-        isActive: true,
-        clientBranchId: this.companyBranch
-	}];
-	
-		return model;
-
-	}
-
 
 	Submit(clientDataForm: any) {
 		if (this.clientDataForm.valid) {
 
-			let model: IClientUpsertModel[] = [this.mapFormGroupsToModel(clientDataForm)];
-
-			if (clientDataForm.id == 0) {
-
-				this.service.PostClientData(model).
-					subscribe(
-						(data: HttpReponseModel) => {
-
-							if (data.isSuccess) {
-								this.toaster.openSuccessSnackBar(data.message);
-								// console.log(data.message);
-								this.service.bSubject.next(true);
-							}
-							else if (data.isExists) {
-								this.toaster.openWarningSnackBar(data.message);
-							}
-						},
-						(error: any) => {
-							console.log(error);
-							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-						}
-					);
-
-			}
-
-			else {
-				this.service.UpdateCompanyData(clientDataForm).subscribe(
+				this.service.UpdateClientData(clientDataForm).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
 						this.service.bSubject.next(true);
@@ -214,8 +155,6 @@ export class ClientUpdateComponent implements OnInit {
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 					});
-
-			}
 
 		}
 

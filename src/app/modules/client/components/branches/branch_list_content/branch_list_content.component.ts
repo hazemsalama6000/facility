@@ -9,7 +9,7 @@ import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { LookupService } from "src/app/shared-module/Services/Lookup.service";
 import { IBranch } from "../../../models/IBranch";
-import { BranchService } from "../../../services/branch.service";
+import { ClientBranchService } from "../../../services/branch.service";
 import { BranchUpsertComponent } from "../branch_Upsert/branch-upsert.component";
 @Component({
 	selector: 'branch_list_content',
@@ -29,13 +29,13 @@ export class BranchListContentComponent {
 		});
 	};
 
-	displayedColumns: string[] = ['name', 'address','salesLoginState' , 'state' , 'action'];
+	displayedColumns: string[] = ['name', 'address', 'state' , 'action'];
 
 	dataSource:any;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private service: BranchService, private toaster: toasterService ,private dialog: MatDialog) {
+	constructor(private service: ClientBranchService, private toaster: toasterService ,private dialog: MatDialog) {
 
 		this.currentSelected={Id:0,Name:'',company_Id:0};
 	}

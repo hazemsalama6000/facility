@@ -9,7 +9,7 @@ import { IBranchUpsert } from "../models/IBranchUpsert.interface";
 	providedIn:'root'
 })
 
-export class BranchService 
+export class ClientBranchService 
 {
 
     
@@ -18,8 +18,8 @@ export class BranchService
 	constructor(private http:CommonHttpService){}
     
 	getBranchData(companyId:number):Observable<IBranch[]>{
-            return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_BRANCH_GETALL}${companyId}`)
-			.pipe( map(Items=> Items.map( (Item:any) => ({id:Item.id , branchName:Item.branchName , branchAddress:Item.branchAddress , isActive:Item.isActive ,lockTechnicalsLogins:Item.lockTechnicalsLogins}) as IBranch )  ) );
+            return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCHES_GETBRANCHES}clientDataId=${companyId}`)
+			.pipe( map(Items=> Items.data ));
 	}
 
 	getBranchDataById(id:number): Observable<IBranchUpsert> {
@@ -28,7 +28,7 @@ export class BranchService
 
 
 	toggleActiveDeactive(model: IBranch): Observable<any> {
-		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_BRANCH_ACTIVEORNOT}${model.id}`);
+		return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCH_TOGGLE}${model.id}`);
 	}
 
 	toggleSalesActiveDeactive(model: IBranch): Observable<any> {
