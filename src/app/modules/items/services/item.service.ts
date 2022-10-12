@@ -3,6 +3,7 @@ import { map, Observable } from "rxjs";
 import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { HttpPaths } from "../../auth/Enums/HttpPaths.enum";
+import { IItemProfile } from "../models/itemsCategory/IItemProfile.interface";
 
 
 
@@ -17,9 +18,15 @@ export class ItemService {
 			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 
-	getLookUpItemsByCode(company_Id: Number,CodeOrName:string): Observable<LookUpModel[]> {
+	getLookUpItemsByCode(company_Id: Number, CodeOrName: string): Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_ITEMS}CompanyId=${company_Id}&SearchingChar=${CodeOrName}`)
 			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+	}
+
+	getItemProfile(itemId: number, companyId: number) {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ITEM_PROFILE}itemId=${itemId}&companyId=${companyId}`).pipe(
+			map((Items) => Items.data as IItemProfile)
+		);
 	}
 
 }

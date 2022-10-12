@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
+import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IFinancialYear } from '../models/IFinancialYear.interface';
 
@@ -30,6 +31,10 @@ export class FinancialyearService {
 
   StopIsActiveFinancialYear(companyId:number,financialYearId: number) {
     return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_DEACTIVE_FINANCIAL_YEAR}CompanyId=${companyId}&FinancialYearId=${financialYearId}`);
+  }
+
+  checkFinancialYear(companyId:number,date:string){
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CHECK_FINANCIAL_YEAR}dataTime=${date}&CompanyId=${companyId}`);
   }
 
 }

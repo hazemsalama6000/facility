@@ -9,11 +9,21 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { InventoryTransactionRoutingModule } from './InventoryTransaction-routing.module';
 import { TransactionlistComponent } from './components/transactionlist/transactionlist.component';
+import { DailytransactionsComponent } from './components/dailytransactions/dailytransactions.component';
+import { AddtransactionComponent } from './components/dailytransactions/addtransaction/addtransaction.component';
+import { AddserialsComponent } from './components/dailytransactions/addtransaction/addserials/addserials.component';
+import { ReserveditemComponent } from './components/reserveditem/reserveditem.component';
+import { TransactionrequestlistComponent } from './components/transactionrequestlist/transactionrequestlist.component';
 
 @NgModule({
   declarations: [
     InventoryTransactionComponent,
-    TransactionlistComponent
+    TransactionlistComponent,
+    DailytransactionsComponent,
+    AddtransactionComponent,
+    AddserialsComponent,
+    ReserveditemComponent,
+    TransactionrequestlistComponent
   ],
   imports: [
     CommonModule,

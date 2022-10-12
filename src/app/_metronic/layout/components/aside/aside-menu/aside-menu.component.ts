@@ -279,6 +279,17 @@ export class AsideMenuComponent implements OnInit {
               "permission": "Screen.Shared.Company.View",
               "icon": "perm_identity",
               "childNode": []
+            } ,
+            {
+              "id": 41,
+              "name": "العمليات المخزنية",
+              "parentId": 39,
+              "isLast": true,
+              "isDeleted": false,
+              "route": "/InvTransaction/dailytransaction",
+              "permission": "Screen.Shared.Company.View",
+              "icon": "perm_identity",
+              "childNode": []
             } 
           ]
         },
