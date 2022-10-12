@@ -45,6 +45,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 					// console.log(requestError)
 				}
 
+
 				if (requestError.status == 400) {
 
 					let messageError: string = "";
@@ -67,15 +68,15 @@ export class ErrorInterceptor implements HttpInterceptor {
 				}
 
 
-				else if (requestError.status == 500) {
+				else if (requestError.status == 500 || requestError.status == 404) {
 
 					this.Logging.LogRequestError({
 						severity: 'error',
 						summary: `HTTP Error - ${requestError.status}`,
-						detail: error.message
+						detail: error.message,
 					});
 
-					return throwError(error.message);
+					return throwError(error);
 				}
 
 				else {

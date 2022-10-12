@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, BehaviorSubject } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
+import { IAddTransaction } from '../models/IAddTransaction.interface';
 import { IEntityType } from '../models/IEntityType.interface';
 import { IInvTransactionPagination } from '../models/IInvTransaction.interface';
+import { IReservedItem } from '../models/IReservedItem.interface';
+import { ITransType } from '../models/ITransType.interface';
+import { IUpdateReserved } from '../models/IUpdateReserved.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvTransactionService {
+
+  bSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private http: CommonHttpService) { }
 
@@ -23,14 +29,14 @@ export class InvTransactionService {
       .pipe(map((Items: HttpReponseModel) => Items.data as IInvTransactionPagination));
   }
 
-  getTransactionType() {
+  getTransactionType(): Observable<ITransType[]> {
     return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_TRANSTYPE}`).pipe(
-      map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
+      map(Items => Items.data as ITransType[])
     );
   }
 
-  getEntityType(): Observable<IEntityType[]> {
-    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_ENTITYTYPE}`).pipe(
+  getEntityType(TransTypeId: number): Observable<IEntityType[]> {
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_ENTITYTYPE}?stockTransTypeId=${TransTypeId}`).pipe(
       map(Items => Items.data as IEntityType[])
     );
   }
@@ -39,6 +45,24 @@ export class InvTransactionService {
     return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_EXTERNAL_PLACES}${companyId}`).pipe(
       map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
     );
+  }
+
+  getDocumentNumber(financialYearId: number, stockId: number, stockTransactionTypeId: number) {
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_DOCUMENT_NUMBER}FinancialYearId=${financialYearId}&StockId=${stockId}&StockTransactionTypeId=${stockTransactionTypeId}`)
+  }
+
+  addTransaction(model: IAddTransaction): Observable<HttpReponseModel> {
+    return this.http.CommonPostRequests(model, `${localStorage.getItem('companyLink')}${HttpPaths.API_ADD_TRANSACTION}`)
+  }
+
+  getItemTransactions(itemId: number, stockId: number) {
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_ITEM_TRANSACTION}itemId=${itemId}&stockId=${stockId}`).pipe(
+      map(items => items.data as IReservedItem[])
+    )
+  }
+
+  updateReserved(model: IUpdateReserved[]): Observable<HttpReponseModel> {
+    return this.http.CommonPostRequests(model, `${localStorage.getItem('companyLink')}${HttpPaths.API_UPDATE_RESERVED}`)
   }
 
 }
