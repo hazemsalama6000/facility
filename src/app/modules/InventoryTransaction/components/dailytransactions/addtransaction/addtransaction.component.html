@@ -1,0 +1,324 @@
+<h2 mat-dialog-title>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection">اضافة إذن مخزنى</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+
+<mat-dialog-content style="z-index: -1;" class="mat-typography" style="min-height: 78vh;overflow-y: auto;">
+
+  <div class="row mx-0">
+
+    <div class="col-4 my-2" style="border-inline-end: solid 1px #e7e7e7;height: 75vh;">
+      <form [formGroup]="masterForm" (ngSubmit)="AddTransaction()" id="formmaster">
+        <div class="row mx-0 py-2">
+
+          <div class="col-6 pb-3">
+            <ng-select #Stock [readonly]="isReadOnly" [items]="dropdownStock" bindLabel="Name" bindValue="Id"
+              placeholder="أختر المخزن" formControlName="stock_Id" (change)=" onChangeDateOrStockOrTransType() ;onChangeDate();">
+            </ng-select>
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'المخزن'},
+              control: masterForm.controls['stock_Id']}">
+              </ng-container>
+            </mat-hint>
+          </div>
+
+          <div class="col-6 pb-3">
+            <ng-select #TransType [readonly]="isReadOnly" [items]="dropdownTransType" bindLabel="name" bindValue="id"
+              placeholder="أختر نوع العملية" formControlName="stockTransType_Id"
+              (change)="onSelectTransType($event);EntityType.handleClearClick(); onChangeDateOrStockOrTransType() ;onChangeDate();"
+              (clear)="EntityType.handleClearClick();dropdownEntityType=[];">
+            </ng-select>
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'نوع العملية'},
+              control: masterForm.controls['stockTransType_Id']}">
+              </ng-container>
+            </mat-hint>
+          </div>
+
+          <div class="col-6">
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>التاريخ المستند</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="documentDate" (dateChange)="onChangeDate();" [readonly]="isReadOnly">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 [disabled]="isReadOnly"></mat-datepicker>
+
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'التاريخ'},
+                control: masterForm.controls['documentDate']}">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'minlength',
+                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'التاريخ' , min:3},
+                control: masterForm.controls['documentDate']}">
+                </ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'maxlength',
+                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'التاريخ' , max:100},
+                  control: masterForm.controls['documentDate']}">
+                </ng-container>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="col-6">
+            <mat-form-field appearance="outline">
+              <mat-label> رقم المستند </mat-label>
+              <input matInput placeholder="" name="documentNumber" formControlName="documentNumber" [readonly]="isReadOnly">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'رقم المستند '},
+          control: masterForm.controls['documentNumber']
+        }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'pattern',
+          message: 'AUTH.VALIDATION.INVALID' | translate : {name:'رقم المستند '},
+          control:  masterForm.controls['documentNumber']
+          }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="col-6 pb-3">
+            <ng-select #EntityType [readonly]="isReadOnly" [items]="dropdownEntityType" bindLabel="name" bindValue="id"
+              placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);" (clear)="Entity.handleClearClick();dropdownEntity=[];"
+              formControlName="entityType_Id">
+            </ng-select>
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:' نوع المستفيد'},
+              control: masterForm.controls['entityType_Id']}">
+              </ng-container>
+            </mat-hint>
+          </div>
+
+          <div class="col-6 pb-3">
+            <ng-select #Entity [readonly]="isReadOnly" [items]="dropdownEntity" bindLabel="Name" bindValue="Id"
+              placeholder="أختر المستفيد" formControlName="entity_Id">
+            </ng-select>
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'أختر المستفيد'},
+              control: masterForm.controls['entity_Id']}">
+              </ng-container>
+            </mat-hint>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label> {{"ملاحظات" | translate}} </mat-label>
+              <input matInput placeholder="" name="notes" formControlName="notes" [readonly]="isReadOnly">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'ملاحظات' },
+          control: masterForm.controls['notes']
+        }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'ملاحظات'  , min:3},
+          control: masterForm.controls['notes']
+        }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxlength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'ملاحظات'  , max:100},
+          control: masterForm.controls['notes']
+         }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <div class="col-8">
+      <div class="row mx-0 py-2">
+
+        <div class="col-6">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>بحث باسم المنتج </mat-label>
+            <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
+              <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
+                {{option.Name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <form [formGroup]="detailsForm" (ngSubmit)="AddItem()" class="col-12">
+          <div class="row mx-0 py-2">
+
+
+            <div class="col-12">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">الوحدة الرئيسية (الصغرى)</th>
+                    <th scope="col">الكمية (بالوحدة الاساسية)</th>
+                    <th scope="col">الكمية بالوحدة المنفذ بها</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{item.unit}}</td>
+                    <td>{{item.quantityInBaseUnit}}</td>
+                    <td>{{convertedUnit?.quantityInExcutedUnit| number : '1.2'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-4">
+              <ng-select [items]="convertedUnits" bindLabel="convertedUnitName" bindValue="unitConversionId" placeholder="اختر الوحدة المنفذ بها"
+                (change)="onSelectUnit($event)" formControlName="unit" dropdownPosition="top">
+              </ng-select>
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'اختر الوحدة المنفذ بها'},
+                    control: detailsForm.controls['unit']}">
+                </ng-container>
+              </mat-hint>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline">
+                <mat-label> {{"الكمية المنفذة" | translate}} </mat-label>
+                <input matInput placeholder="" name="quantity" formControlName="quantity" (input)="calcQuantity()">
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'الكمية المنفذة' },
+                control: detailsForm.controls['quantity']
+              }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'pattern',
+                message: 'AUTH.VALIDATION.INVALID' | translate : {name:'الكمية المنفذة' },
+                control:  detailsForm.controls['quantity']
+                }"></ng-container>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline">
+                <mat-label> {{"السعر ب "+(item.unit??'') | translate}} </mat-label>
+                <input matInput placeholder="" name="price" formControlName="price">
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'السعر' },
+                control: detailsForm.controls['price']
+              }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                validation: 'pattern',
+                message: 'AUTH.VALIDATION.INVALID' | translate : {name:'السعر' },
+                control:   detailsForm.controls['price']
+                }"></ng-container>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-2 d-flex align-items-center justify-content-center">
+              <button matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+                aria-label="Example icon button with a filter list icon">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="col-12" style="overflow-x: auto;border:2px solid rgb(187, 187, 187);">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">أسم الصنف</th>
+                <th scope="col">الوحدة الرئيسية (الصغرى) </th>
+                <th scope="col">الكمية </th>
+                <th scope="col">الوحده المنفذة </th>
+                <th scope="col">الكمية المنفذة</th>
+                <th scope="col">الكمية بعد التحويل</th>
+                <th scope="col">السعر</th>
+                <th scope="col">الاجمالى</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items;let i=index" class="{{item.isRefused?'bg-danger':''}}" >
+                <td>{{item.name}}</td>
+                <td>{{item.unit}}</td>
+                <td>{{item.quantityInBaseUnit}}</td>
+                <td>{{item.convertedUnit.convertedUnitName}}</td>
+                <td>{{item.preconvertedQuantity}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.total}}</td>
+                <td>
+                  <div class="d-flex">
+                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="warn" (click)="deleteItem(i)">delete</mat-icon>
+                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="editItem(item,i)">edit</mat-icon>
+                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="openSerialDialog(item,i)">add
+                    </mat-icon>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row fixed-bottom mb-3">
+    <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true;" form="formmaster" [disabled]="loading" color="primary"
+      style="width: 130px !important;">{{'HR.BUTTONS.SAVE'|translate}}</button>
+    <button mat-raised-button color="warn" type="button" (click)="items=[]" class="mx-2" style="width: 150px !important;">
+      {{'حذف جميع الاصناف'|translate}}</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial
+      style="width: 100px !important;background-color: #e7e7e7;">{{'HR.BUTTONS.CLOSE'|translate}}</button>
+  </div>
+</mat-dialog-content>
+
+
+<!-- <mat-dialog-actions class="m-0 p-0">
+
+  
+
+</mat-dialog-actions> -->
+
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

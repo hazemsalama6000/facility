@@ -8,7 +8,7 @@ export class LoggingService {
         // TODO: Log Any Request
         console.log(msg);
     }
-    LogRequestError(msg: { severity: string, summary: string, detail: string }) {
+    LogRequestError(msg: { severity: string, summary: string, detail: string}) {
         // TODO: Log Any Response Error
         console.log(msg);
     }

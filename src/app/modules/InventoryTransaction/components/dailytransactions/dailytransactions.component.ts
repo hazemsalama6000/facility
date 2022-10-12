@@ -2,7 +2,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import {  Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { CarService } from 'src/app/modules/car/services/cars.service';
@@ -17,11 +18,12 @@ import { IInvTransaction } from '../../models/IInvTransaction.interface';
 import { ISeachTransaction } from '../../models/ISeachTransaction.interface';
 import { ITransType } from '../../models/ITransType.interface';
 import { InvTransactionService } from '../../services/invTransaction.service';
+import { AddtransactionComponent } from './addtransaction/addtransaction.component';
 
 @Component({
-  selector: 'app-transactionlist',
-  templateUrl: './transactionlist.component.html',
-  styleUrls: ['./transactionlist.component.scss'],
+  selector: 'app-dailytransactions',
+  templateUrl: './dailytransactions.component.html',
+  styleUrls: ['./dailytransactions.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -30,7 +32,7 @@ import { InvTransactionService } from '../../services/invTransaction.service';
     ]),
   ]
 })
-export class TransactionlistComponent implements OnInit {
+export class DailytransactionsComponent implements OnInit {
 
   columnsToDisplay = ['id', 'docNumber', 'docDate', 'transType', 'stockName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
@@ -48,8 +50,6 @@ export class TransactionlistComponent implements OnInit {
   dropdownStock: LookUpModel[] = [];
   entityTypeObject: IEntityType | null;
 
-  startDate: string;
-  endDate: string;
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
 
@@ -62,7 +62,8 @@ export class TransactionlistComponent implements OnInit {
     private itemService: ItemService,
     private carService: CarService,
     private auth: AuthService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private dialog: MatDialog
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
@@ -78,6 +79,8 @@ export class TransactionlistComponent implements OnInit {
   ngOnInit(): void { }
 
   getTransactionData() {
+    this.searchModel.StartDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd') + "T00:00:00" ?? '';
+    this.searchModel.EndDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd') + "T00:00:00" ?? '';
     this.invTransactionService.getTransaction(this.searchModel).subscribe(res => {
       this.data = res.data;
       this.isLoadingResults = false;
@@ -86,7 +89,6 @@ export class TransactionlistComponent implements OnInit {
   }
 
   pageEvent(event: any) {
-    console.log(event);
     this.searchModel.PageSize = event.pageSize;
     this.searchModel.PageNumber = event.pageIndex + 1;
     this.getTransactionData();
@@ -98,24 +100,9 @@ export class TransactionlistComponent implements OnInit {
   }
 
   getTransactionByCode = (text: string) => {
-    this.startDate = '';
-    this.endDate = '';
     let val: number = parseInt(text);
     (!isNaN(val)) ? this.searchModel.DocNumber = val : delete this.searchModel.DocNumber;
     this.getTransactionData();
-  }
-
-  getTransactionByDate() {
-    delete this.searchModel.DocNumber;
-    if (this.startDate && this.endDate) {
-      this.searchModel.StartDate = this.datePipe.transform(new Date(this.startDate ?? ''), 'yyyy-MM-dd') + "T00:00:00" ?? '';
-      this.searchModel.EndDate = this.datePipe.transform(new Date(this.endDate ?? ''), 'yyyy-MM-dd') + "T00:00:00" ?? '';
-      this.getTransactionData();
-    } else {
-      this.searchModel.StartDate = '';
-      this.searchModel.EndDate = '';
-      this.getTransactionData();
-    }
   }
 
   onSelectTransType(item: ITransType) {
@@ -207,7 +194,6 @@ export class TransactionlistComponent implements OnInit {
       this.getTransactionData();
     } else
       delete this.searchModel.ItemId;
-
   }
 
   displayinputAutoComplete = (item?: LookUpModel): string => item ? item.Name : '';
@@ -215,7 +201,15 @@ export class TransactionlistComponent implements OnInit {
   onSelectedAutoComplete(x: MatAutocompleteSelectedEvent) {
     this.searchModel.ItemId = x.option.value.Id;
     this.getTransactionData();
-    console.log(x.option.value)
+  }
+
+
+  openDialog() {
+    this.dialog.open(AddtransactionComponent, {
+      minWidth: '100%',
+      height: '100vh',
+      position: { right: '0' }
+    })
   }
 
 

@@ -268,6 +268,7 @@ export enum HttpPaths {
 	API_GET_ACTIVE_FINANCIAL_YEAR = "/api/v1/shared/getactivefinancialyear/",
 	API_ADD_FINANCIAL_YEAR = "/api/v1/shared/addfinancialyear",
 	API_DEACTIVE_FINANCIAL_YEAR = "/api/v1/shared/changefinancialyearactiveornot?",
+	API_CHECK_FINANCIAL_YEAR = "/api/v1/shared/checkdateinrange?",
 
 	//path route
 
@@ -346,6 +347,8 @@ export enum HttpPaths {
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
 	API_LIST_OF_ITEMS = "/api/v1/invt/listofitemsbynameorcode?",
+	API_GET_ITEM_PROFILE= "/api/v1/invt/getitemprofilebyid?",
+
 
 
 	//Vendor Activity
@@ -388,7 +391,11 @@ export enum HttpPaths {
 	API_LIST_OF_ENTITYTYPE='/api/v1/invt/listofentitiestypes',
 	API_LIST_OF_EXTERNAL_PLACES='/api/v1/vend/listofexternalplaces?companyId=',
 
+	API_GET_DOCUMENT_NUMBER='/api/v1/invt/getnextdocumentnumber?',
+	API_ADD_TRANSACTION='/api/v1/invt/addstocktransaction',
 
+	API_GET_ITEM_TRANSACTION='/api/v1/invt/getallstocktransbyitemid?',
+	API_UPDATE_RESERVED='/api/v1/invt/updatereservedamountforstocktrans',
 
 
 }

@@ -4,33 +4,29 @@
     <div class="d-flex mx-5 justify-content-between align-items-center">
       <div>
         <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
-        <span class="fontsection">الاستعلام عن حركات المخزن</span>
+        <span class="fontsection"> حركات اليوم للمخزن</span>
       </div>
 
-      <div class="col-4">
+      <div class="col-3">
 
-        <div class="row">
+        <div class="row align-items-baseline">
 
-          <div class="col-6">
+          <div class="col-9">
             <mat-form-field appearance="outline">
               <mat-label> بحث بكود الاذن</mat-label>
               <input #codeInput type="text" name="code" matInput>
               <mat-icon matSuffix
-                (click)="getTransactionByCode(codeInput.value);TransType.handleClearClick();Stock.handleClearClick();EntityType.handleClearClick();Entity.handleClearClick();endDate='';startDate='';"
+                (click)="getTransactionByCode(codeInput.value);TransType.handleClearClick();Stock.handleClearClick();EntityType.handleClearClick();Entity.handleClearClick();"
                 style="cursor: pointer;">search</mat-icon>
             </mat-form-field>
           </div>
 
-          <div class="col-6">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>بحث باسم المنتج </mat-label>
-              <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
-                <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
-                  {{option.Name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+          <div class="col-3">
+            <button (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary"
+            class="mx-md-1" aria-label="Example icon button with a filter list icon">
+            <mat-icon>add</mat-icon>
+          </button>
+  
           </div>
 
         </div>
@@ -45,8 +41,8 @@
   <div class="col-12 mt-3">
     <div class="row mx-5">
 
-      <div class="col" style="max-width: 160px;">
-        <mat-form-field color="accent" appearance="outline">
+      <!-- <div class="col" style="max-width: 160px;">
+        <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
           <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getTransactionByDate()">
           <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
@@ -55,16 +51,28 @@
       </div>
 
       <div class="col" style="max-width: 160px;">
-        <mat-form-field color="accent" appearance="outline">
+        <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
           <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getTransactionByDate()">
           <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
           <mat-datepicker #endD></mat-datepicker>
         </mat-form-field>
+      </div> -->
+
+      <div class="col">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>بحث باسم المنتج </mat-label>
+          <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
+            <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
+              {{option.Name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
 
       <div class="col">
-        <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="convertedUnitName" bindValue="unitConversionId" [(ngModel)]="searchModel.StockId"
+        <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.StockId"
           placeholder="أختر المخزن" (change)="getTransactionData();" (clear)="getTransactionData();">
         </ng-select>
       </div>

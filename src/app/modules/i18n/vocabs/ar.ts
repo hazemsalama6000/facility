@@ -563,15 +563,12 @@ export const locale = {
       INPUTS: {
       },
       BUTTONS: {
-        ADD: "Add",
-        CLOSE: "close",
-        EDIT: "edit",
-        SAVE: "Save",
-        DELETE: "Delete",
-        CANCEL: "Cancel",
-        CANCELASSIGN: 'Cancel Assign',
-        REASSIGN: 'Reassign',
-        DOWNLOAD: "Dowwnload Files",
+        ADD: "اضافة",
+        CLOSE: "غلق",
+        EDIT: "تعديل",
+        SAVE: "حفظ",
+        DELETE: "حذف",
+        CANCEL: "الغاء",
         PRINTER:"طباعة"
       },
       TITLES: {
@@ -580,7 +577,10 @@ export const locale = {
         DOCDATE:"التاريخ",
         TRANSCTYPE:"نوع العملية",
         STOCKNAME:"المخزن",
-        NOTES:"ملاحظات"
+        NOTES:"ملاحظات",
+        NAME:"الاسم",
+        REMAININGQUANTITY:"الكمية المتبقية",
+        RESERVEDQUANTITY:"الكمية المحجوزة"
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"

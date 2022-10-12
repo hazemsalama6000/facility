@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection">{{"DECLARATIONS.TITLES.ADDFINANCIALYEAR"|translate}}</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
+    <div class="row mx-0">
+    </div>
+  </mat-dialog-content>
+
+
+  <mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit"  color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+    </div>
+  </mat-dialog-actions>

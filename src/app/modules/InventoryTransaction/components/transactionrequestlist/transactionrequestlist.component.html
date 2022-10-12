@@ -1,96 +1,8 @@
-<mat-card class="row mx-o p-0 ">
-
+<mat-card class="row mx-o p-0 pb-3">
   <div class="col-12 pt-2">
-    <div class="d-flex mx-5 justify-content-between align-items-center">
-      <div>
-        <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
-        <span class="fontsection">الاستعلام عن حركات المخزن</span>
-      </div>
-
-      <div class="col-4">
-
-        <div class="row">
-
-          <div class="col-6">
-            <mat-form-field appearance="outline">
-              <mat-label> بحث بكود الاذن</mat-label>
-              <input #codeInput type="text" name="code" matInput>
-              <mat-icon matSuffix
-                (click)="getTransactionByCode(codeInput.value);TransType.handleClearClick();Stock.handleClearClick();EntityType.handleClearClick();Entity.handleClearClick();endDate='';startDate='';"
-                style="cursor: pointer;">search</mat-icon>
-            </mat-form-field>
-          </div>
-
-          <div class="col-6">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <mat-label>بحث باسم المنتج </mat-label>
-              <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
-                <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
-                  {{option.Name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
+    <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
+    <span class="fontsection">طلبات الاستلام</span>
   </div>
-
-  <mat-divider></mat-divider>
-
-  <div class="col-12 mt-3">
-    <div class="row mx-5">
-
-      <div class="col" style="max-width: 160px;">
-        <mat-form-field color="accent" appearance="outline">
-          <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getTransactionByDate()">
-          <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
-          <mat-datepicker #startD></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div class="col" style="max-width: 160px;">
-        <mat-form-field color="accent" appearance="outline">
-          <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getTransactionByDate()">
-          <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
-          <mat-datepicker #endD></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div class="col">
-        <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="convertedUnitName" bindValue="unitConversionId" [(ngModel)]="searchModel.StockId"
-          placeholder="أختر المخزن" (change)="getTransactionData();" (clear)="getTransactionData();">
-        </ng-select>
-      </div>
-
-      <div class="col">
-        <ng-select #TransType class="customized" [items]="dropdownTransType" bindLabel="name" bindValue="id"
-          [(ngModel)]="searchModel.StockTransTypeId" placeholder="أختر نوع العملية" (change)="getTransactionData();onSelectTransType($event)" (clear)="getTransactionData();">
-        </ng-select>
-      </div>
-
-      <div class="col">
-        <ng-select #EntityType class="customized" [items]="dropdownEntityType" bindLabel="name" [(ngModel)]="entityTypeObject"
-          placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);"
-          (clear)="Entity.handleClearClick();dropdownEntity=[]">
-        </ng-select>
-      </div>
-
-      <div class="col">
-        <ng-select #Entity class="customized" [items]="dropdownEntity" bindLabel="Name" bindValue="Id" placeholder="أختر المستفيد"
-          (change)="onSelectEntity($event);" >
-        </ng-select>
-      </div>
-
-    </div>
-  </div>
-
 </mat-card>
 
 
@@ -127,10 +39,7 @@
           <span *ngSwitchCase="'notes'"> {{element[column] }} </span>
           <span *ngSwitchCase="'action'">
 
-            <button (click)="$event.stopPropagation()" matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary"
-              class="mx-md-1" aria-label="Example icon button with a filter list icon">
-              <mat-icon>local_printshop</mat-icon>
-            </button>
+
           </span>
         </td>
       </ng-container>
@@ -149,12 +58,29 @@
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
       <ng-container matColumnDef="expandedDetail">
 
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" [attr.colspan]="columnsToDisplayWithExpand.length">
 
-          <div class="example-element-detail justify-content-center align-items-center"
+          <div class="example-element-detail justify-content-center align-items-center d-block"
             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <mat-divider></mat-divider>
+            <div class="row  mt-2">
+              <div class="col-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>التاريخ</mat-label>
+                  <input matInput [matDatepicker]="startD" [(ngModel)]="element.docReceivedDate" (dateChange)="onChangeDate(element,elementIndex)">
+                  <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
+                  <mat-datepicker #startD></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-4">
+                <mat-form-field appearance="outline">
+                  <mat-label> رقم الاذن</mat-label>
+                  <input type="text" name="code" matInput [(ngModel)]="element.docReceivedNumber">
+                </mat-form-field>
+              </div>
+            </div>
             <!-- style="border:2px solid rgb(187, 187, 187);" -->
-            <table class="table mt-10" style="border:2px solid rgb(187, 187, 187);">
+            <table class="table" style="border:2px solid rgb(187, 187, 187);">
               <tr>
                 <th rowspan="2" class="trpadding"> كود المنتج</th>
                 <th rowspan="2"> الاسم </th>
@@ -163,17 +89,23 @@
                 <th rowspan="2"> السعر</th>
                 <th colspan="2" class="badge-success"> الكمية المنفذ بها</th>
                 <th colspan="3" class="badge-primary"> الكمية بعد التحويل</th>
-                <th rowspan="2"> الاجمالى</th>
+                <th colspan="3" class="badge-info"> الكمية المستلمة</th>
+                <th rowspan="2" class=" w-125px"> ملاحظات</th>
               </tr>
               <tr style="border: 2px solid rgb(187, 187, 187);">
                 <th>الوحدة</th>
                 <th>الكمية </th>
+
                 <th>الوحدة</th>
                 <th>المعامل</th>
                 <th>الكمية </th>
+
+                <th>الوحدة</th>
+                <th class="w-75px">المستلم</th>
+                <th> المتبقى </th>
               </tr>
 
-              <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails" style="border: 2px solid rgb(187, 187, 187);">
+              <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails;let item = index" style="border: 2px solid rgb(187, 187, 187);">
                 <td>{{x.itemCode}}</td>
                 <td>{{x.itemName}}</td>
                 <td>{{x.categoryName}}</td>
@@ -184,10 +116,29 @@
                 <td>{{x.baseUnitName}}</td>
                 <td>x</td>
                 <td>{{x.baseQuantity}}</td>
-                <td>{{x.baseQuantity*x.price}}</td>
-
+                <td>
+                  <ng-select #Stock class="p-1" [items]="convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="x.convertedUnit" placeholder="أختر الوحدة"
+                    appendTo="body" (change)="changeUnit(elementIndex,item);" [clearable]="false">
+                  </ng-select>
+                </td>
+                <td><input type="number" class="form-control" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);"></td>
+                <td> {{x.baseQuantity}} </td>
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
+                </td>
               </tr>
+              <tfoot> 
+                <tr>
+
+                </tr>
+              </tfoot>
             </table>
+
+            <div class="d-inline-flex">
+              <button (click)="saveTransaction(element)" mat-raised-button color="primary" class="mx-md-1 mb-2"
+                aria-label="Example icon button with a filter list icon">{{'TRANSACTIONS.BUTTONS.ADD'|translate}}
+              </button>
+            </div>
 
           </div>
         </td>
@@ -205,4 +156,5 @@
   <mat-paginator [length]="totalRecord" [pageSize]="searchModel.PageSize" (page)="pageEvent($event) " [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons aria-label="Select page of periodic elements">
   </mat-paginator>
+
 </div>

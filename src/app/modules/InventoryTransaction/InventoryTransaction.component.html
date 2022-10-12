@@ -6,8 +6,8 @@
         <mat-tab>
           <ng-template mat-tab-label>
             <a class="nav-link text-hover-primary me-6 fontForInputs" style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
-              routerLink="InvTransaction/transactionList" routerLinkActive="text-primary">
-              الاستعلام عن حركات المخزن
+              routerLink="/InvTransaction/dailytransaction" routerLinkActive="text-primary">
+              التعاملات اليومية
               <mat-icon>receipt</mat-icon>
             </a>
           </ng-template>
@@ -16,8 +16,28 @@
         <mat-tab>
           <ng-template mat-tab-label>
             <a class="nav-link text-hover-primary me-6 fontForInputs" style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
-              routerLink="InvTransaction/transactionList" routerLinkActive="text-primary">
-              test
+              routerLink="/InvTransaction/transactionList" routerLinkActive="text-primary">
+              الاستعلام عن حركات المخزن
+              <mat-icon>receipt</mat-icon>
+            </a>
+          </ng-template>
+        </mat-tab>     
+        
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <a class="nav-link text-hover-primary me-6 fontForInputs" style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
+              routerLink="/InvTransaction/reserveditem" routerLinkActive="text-primary">
+              الاستعلام عن الاصناف المحجوزة
+              <mat-icon>receipt</mat-icon>
+            </a>
+          </ng-template>
+        </mat-tab>    
+        
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <a class="nav-link text-hover-primary me-6 fontForInputs" style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
+              routerLink="/InvTransaction/transactionrequest" routerLinkActive="text-primary">
+              طلبات الاستلام
               <mat-icon>receipt</mat-icon>
             </a>
           </ng-template>
