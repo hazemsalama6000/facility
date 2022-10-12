@@ -1,0 +1,56 @@
+<div style="width:400px ;">
+
+	<h2 mat-dialog-title>
+		<span class="fontsection"> تخصيص خط سير </span>
+	</h2>
+
+	<mat-divider></mat-divider>
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+			<table>
+				<tr>
+					<th>خط السير</th>
+					<th>من تاريخ</th>
+					<th>الى تاريخ</th>
+					<th>حالة التفعيل </th>
+				</tr>
+
+				<tr *ngFor="let x of branchPathRoutesLogs">
+					<td>
+						{{x.pathRouteName}}
+					</td>
+					<td> {{x.startDate | date:'dd/MM/yyyy'}}</td>
+					<td> {{x.endDate | date:'dd/MM/yyyy'}}</td>
+					<td> 
+						<div   class="d-flex justify-content-center align-items-center">
+							<label *ngIf="x.isActive === true" class="badge badge-primary">
+								{{ "HR.TITLES.ACTIVE" | translate }}
+							</label>
+						
+							<span *ngIf="x.isActive === true" class="mx-2">
+								<section
+									matTooltip="{{x.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+									class="example-section">
+									<mat-slide-toggle name="isValTaxActive" class="example-margin"
+										[color]="'red'"
+										[checked]="x.isActive">
+									</mat-slide-toggle>
+								</section>
+							</span>
+						</div>
+					</td>
+	
+				</tr>
+
+			</table>
+
+		</mat-dialog-content>
+
+		<mat-dialog-actions>
+
+		</mat-dialog-actions>
+
+
+
+</div>

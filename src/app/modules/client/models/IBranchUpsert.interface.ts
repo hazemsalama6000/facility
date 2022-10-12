@@ -1,15 +1,21 @@
-export interface IBranchUpsert{
+
+export interface IBranchAddModel{
 		id: number,
-		branchName: string,
-		branchAddress: string,
-		isActive: boolean,
-		isUseStock: boolean,
-		phoneNumber: string,
-		email:string,
-		lockTechnicalsLogins: boolean,
-		stateId: any,
-		region_Id: any,
-		branchManager_Id: any,
-		company_Id: number,
-		isMain:boolean
+		address: string,
+		telephone: string,
+		responsibleName: string,
+		code: string,
+		commercialName: string,
+		isMain: boolean,
+		name: string,
+		state_Id: number,
+		region_Id: number,
+		mobile: string,
+		secondMobile: string,
+		clientData_Id: number,
+		technician_Id: number,
+		pathRoute_Id: number,
+		isCompletedData: boolean,
+		x: number,
+		y: number
 }

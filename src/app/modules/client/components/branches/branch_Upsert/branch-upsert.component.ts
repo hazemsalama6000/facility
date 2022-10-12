@@ -11,8 +11,12 @@ import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
 import { StatesService } from "src/app/modules/share/Services/state.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
-import { IBranchUpsert } from "../../../models/IBranchUpsert.interface";
+import { IBranchAddModel } from "../../../models/IBranchUpsert.interface";
 import { ClientBranchService } from "../../../services/branch.service";
+import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
+import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
+import { AuthService } from "src/app/modules/auth";
+import { TechnicianService } from "src/app/core-module/LookupsServices/technician.service";
 
 @Component({
 	selector: "branch-upsert",
@@ -22,24 +26,18 @@ import { ClientBranchService } from "../../../services/branch.service";
 
 export class BranchUpsertComponent implements OnInit {
 
-	companyBranch = 1;
-
-	branch: IBranchUpsert;
-
+	branch: IBranchAddModel;
+	branchId: number;
+	companyBranchId: number;
 	isEditable: boolean = false;
 	dropdownListDataForState: any = [];
 	selectedItemState: any = [];
+	dropdownPathRouteData: LookUpModel[] = [];
+
+	dropdownTechnicianData: LookUpModel[] = [];
 
 	dropdownListDataForRegion: any = [];
 	selectedItemForRegion: any = [];
-
-	dropdownListDataForEmployee: LookUpModel[] = [];
-	selectedItemForEmployee: any = [];
-
-	dropdownListDataForResponsible: any = [];
-	selectedItemForResponsible: any = [];
-
-	dropdownSettings = dropdownSettings;
 
 	submitClicked: boolean = false;
 	branchDataForm: FormGroup;
@@ -50,8 +48,10 @@ export class BranchUpsertComponent implements OnInit {
 		private toaster: toasterService,
 		private stateService: StatesService,
 		private regionService: RegionService,
-		private employeeService: EmployeeService,
-		private service: ClientBranchService
+		private pathrouteService: PathrouteService,
+		private technicianService: TechnicianService,
+		private service: ClientBranchService,
+		private auth: AuthService
 	) { }
 
 	ngOnInit() {
@@ -62,31 +62,55 @@ export class BranchUpsertComponent implements OnInit {
 	setDefaultForForm() {
 		this.branchDataForm = this.fb.group({
 			id: [0],
-			company_Id: [0],
-			branchName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-			branchAddress: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-			state_Id: ['', Validators.compose([Validators.required])],
-			region_Id: ['', Validators.compose([Validators.required])],
-			isActive: [false,],
+			clientData_Id: [0],
+			name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			commercialName: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
+
+			address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			state_Id: [, Validators.compose([Validators.required])],
+			region_Id: [, Validators.compose([Validators.required])],
+			pathRoute_Id: [],
+			technician_Id: [],
+
+			isCompletedData: [false,],
 			isMain: [false,],
-			branchManager_Id: ['', Validators.compose([Validators.required])],
-			email: ['', Validators.compose([Validators.required, , Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")])],
-			phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[0-9]*$")])],
+
+			telephone: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[0-9]*$")])],
+			mobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
+			secondMobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
+			managerMobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
+
 		});
 	}
 
 
 	fillDropDowns() {
 
-		this.dropdownListDataForState = this.stateService.states;
-
-		this.dropdownListDataForEmployee = this.employeeService.employees;
-
 		this.dropdownListDataForRegion = [];
+		this.auth.userData.subscribe((data: IUserData) => {
+			this.companyBranchId = data.branchId;
+			this.pathrouteService.getLookUpPathRoute({ CompanyBranchId: data.branchId }).subscribe((data: LookUpModel[]) => {
+				this.dropdownPathRouteData = data;
+			});
+
+			this.technicianService.getLookUpTechnician(data.branchId).subscribe(
+				(res: LookUpModel[]) => this.dropdownTechnicianData = res,
+				(err: any) => console.log(err),
+				() => { });
+
+		});
+
+		this.stateService.getLookupData().subscribe(
+			(data: LookUpModel[]) => {
+				this.dropdownListDataForState = data;
+			}
+		);
 
 		if (this.data.branchId != 0) { // in Edit State
 			//get selected region
-			this.regionService.getLookupData(this.branch.stateId).subscribe(
+			this.regionService.getLookupData(this.branch.state_Id).subscribe(
 				(data: IRegion[]) => {
 					this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
 				}
@@ -119,18 +143,19 @@ export class BranchUpsertComponent implements OnInit {
 
 	passingCompanyToFormData() {
 
-		this.branchDataForm.controls['id'].setValue(this.branch.id);
-		this.branchDataForm.controls['company_Id'].setValue(this.branch.company_Id);
-		this.branchDataForm.controls['branchName'].setValue(this.branch.branchName);
-		this.branchDataForm.controls['branchManager_Id'].setValue(this.branch.branchManager_Id);
-		this.branchDataForm.controls['branchAddress'].setValue(this.branch.branchAddress);
-		this.branchDataForm.controls['phoneNumber'].setValue(this.branch.phoneNumber);
-		this.branchDataForm.controls['state_Id'].setValue(this.branch.stateId);
-		this.branchDataForm.controls['region_Id'].setValue(this.branch.region_Id);
-		this.branchDataForm.controls['isActive'].setValue(this.branch.isActive);
-		this.branchDataForm.controls['isMain'].setValue(this.branch.isMain);
-		this.branchDataForm.controls['email'].setValue(this.branch.email);
-
+		/*	this.branchDataForm.controls['id'].setValue(this.branch.id);
+			this.branchDataForm.controls['company_Id'].setValue(this.branch.company_Id);
+			this.branchDataForm.controls['branchName'].setValue(this.branch.branchName);
+			this.branchDataForm.controls['branchManager_Id'].setValue(this.branch.branchManager_Id);
+			this.branchDataForm.controls['branchAddress'].setValue(this.branch.branchAddress);
+			this.branchDataForm.controls['phoneNumber'].setValue(this.branch.phoneNumber);
+			this.branchDataForm.controls['state_Id'].setValue(this.branch.stateId);
+			this.branchDataForm.controls['region_Id'].setValue(this.branch.region_Id);
+			this.branchDataForm.controls['isActive'].setValue(this.branch.isActive);
+			this.branchDataForm.controls['isMain'].setValue(this.branch.isMain);
+			this.branchDataForm.controls['email'].setValue(this.branch.email);
+	*/
+		this.branchDataForm.setValue(this.branch);
 	}
 
 
@@ -138,14 +163,18 @@ export class BranchUpsertComponent implements OnInit {
 	initForm() {
 
 		if (this.data.branchId != 0) {
-
-			this.service.getBranchDataById(this.data.branchId).subscribe(
-				(data: IBranchUpsert) => {
-					this.branch = data;
-					// console.log(this.branch);
-					this.fillDropDowns();
-				}
-			)
+			
+			this.auth.userData.subscribe((data: IUserData) => {
+				this.companyBranchId = data.branchId;
+				
+				this.service.getBranchDataById(this.data.branchId, this.companyBranchId).subscribe(
+					(data: IBranchAddModel) => {
+						this.branch = data;
+						this.fillDropDowns();
+					}
+				)
+			});
+	
 		}
 		else {
 			this.fillDropDowns();
@@ -154,13 +183,13 @@ export class BranchUpsertComponent implements OnInit {
 	}
 
 
-	Submit(model: IBranchUpsert) {
+	Submit(model: IBranchAddModel) {
 
 
 		if (this.branchDataForm.valid) {
 
 			if (model.id == 0) {
-				model.company_Id = this.data.companyId;
+				model.clientData_Id = this.data.clientId;
 				this.service.PostBranchData(model).
 					subscribe(
 						(data: HttpReponseModel) => {
@@ -183,14 +212,14 @@ export class BranchUpsertComponent implements OnInit {
 			}
 
 			else {
-				this.service.UpdateBranchData(model).subscribe(
+				/*this.service.UpdateBranchData(model).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
 						this.service.bSubject.next(true);
 					},
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
+					});*/
 
 			}
 

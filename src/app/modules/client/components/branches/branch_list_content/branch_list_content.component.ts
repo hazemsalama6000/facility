@@ -11,6 +11,8 @@ import { LookupService } from "src/app/shared-module/Services/Lookup.service";
 import { IBranch } from "../../../models/IBranch";
 import { ClientBranchService } from "../../../services/branch.service";
 import { BranchUpsertComponent } from "../branch_Upsert/branch-upsert.component";
+import { BranchAssignPathComponent } from "./branch_AssignPathRoutes/branch_AssignPathRoutes.component";
+import { BranchPathRoutesLogs } from "./branch_pathroutes_logs/branch_pathroutes_logs.component";
 @Component({
 	selector: 'branch_list_content',
 	templateUrl: './branch_list_content.component.html',
@@ -39,6 +41,45 @@ export class BranchListContentComponent {
 
 		this.currentSelected={Id:0,Name:'',company_Id:0};
 	}
+	
+	AssignClientPathRoute(branchId:any){
+		const dialogPosition: DialogPosition = {
+			top:'0px',
+			right:'0px'
+		  };
+
+		const dialogRef = this.dialog.open(BranchAssignPathComponent,
+			{
+				maxHeight: '100vh',
+				height: '100%',
+             	position:dialogPosition,
+				data: { branchId: branchId }
+			});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+	}
+
+	clientPathRouteLogs(branchId:any){
+		const dialogPosition: DialogPosition = {
+			top:'0px',
+			right:'0px'
+		  };
+
+		const dialogRef = this.dialog.open(BranchPathRoutesLogs,
+			{
+				maxHeight: '100vh',
+				height: '100%',
+             	position:dialogPosition,
+				data: { branchId: branchId }
+			});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+	}
+
 
     addNewBranch(branchId = 0){
 
@@ -52,7 +93,7 @@ export class BranchListContentComponent {
 				maxHeight: '100vh',
 				height: '100%',
              	position:dialogPosition,
-				data: { branchId: branchId , companyId:this.companyId}
+				data: { branchId: branchId , clientId:this.companyId}
 			});
 
 		dialogRef.afterClosed().subscribe(result => {
