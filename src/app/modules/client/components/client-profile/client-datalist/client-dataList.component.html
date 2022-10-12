@@ -1,0 +1,73 @@
+<section id="company_list">
+
+	<mat-card class="col-md-12">
+		<div style="width:100%" class="d-flex justify-content-between align-items-center">
+
+			<span class="fontsection"> بيانات العملاء </span>
+
+			<button matTooltip="{{'HR.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+				id="kt_activities_toggle" (click)="openDialog()"
+				aria-label="Example icon button with a filter list icon">
+				<mat-icon>add</mat-icon>
+			</button>
+
+		</div>
+
+		<form [formGroup]="clientSearchForm"
+		(ngSubmit)="searchClients(clientSearchForm.value)">
+
+		<div class="row">
+			
+				<mat-form-field class="custominput" style="width: 250px;" appearance="outline">
+					<mat-label> اسم العميل </mat-label>
+					<input matInput placeholder="Placeholder" name="Name" formControlName="Name">
+				</mat-form-field>
+
+				<mat-form-field style="width: 250px;" appearance="outline">
+					<mat-label> الكود </mat-label>
+					<input matInput placeholder="Placeholder" name="Code" formControlName="Code">
+				</mat-form-field>
+
+
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownPathRouteData"
+					formControlName="PathRoute_Id" bindLabel="Name" bindValue="Id" name="PathRoute_Id"
+					placeholder=" خط السير">
+				</ng-select>
+
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownCategoryData"
+					formControlName="Category_Id" bindLabel="Name" bindValue="Id" name="Category_Id"
+					placeholder="تصنيف العميل">
+				</ng-select>
+
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForState"
+					bindLabel="Name" bindValue="Id" name="State_Id" formControlName="State_Id" placeholder="المحافظة"
+					(change)="onItemSelectState($event)">
+				</ng-select>
+
+				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForRegion"
+					bindLabel="Name" bindValue="Id" name="Region_Id" id="Region_Id" placeholder="المنطقة"
+					formControlName="Region_Id">
+				</ng-select>
+
+				<button mat-mini-fab color="primary" style="margin-top: 10px !important;" id="search" type="submit"
+					class="mx-10">
+					<mat-icon style="font-size: 25px;">search</mat-icon>
+				</button>
+
+		</div>
+	</form>
+
+	</mat-card>
+
+
+
+	<div class="row">
+		<!--<button (click)="openDialog()" class="btn btn-primary col-md-2">
+			{{ "HR.BUTTONS.ADD" | translate }}
+		</button>-->
+		<div class="col-md-12">
+			<client-item *ngFor="let x of clients" [client]="x"></client-item>
+		</div>
+	</div>
+
+</section>

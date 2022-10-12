@@ -1,0 +1,243 @@
+<section id="company_list" class="mt-5">
+
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<mat-accordion>
+				<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+					<mat-expansion-panel-header [ngClass]="{'selectedCardClass':panelOpenState==true}">
+						<mat-panel-title>
+
+							<div style="width:100%; color: black;" class="text-center">
+
+								<span class="fontForInputs" style="font-weight:bold ;">
+									بيانات العميل
+								</span>
+
+								<span class="fontForInputs mx-5">
+									{{client.name}}
+								</span>
+
+								<span class="fontForInputs" style="font-weight:bold ;">
+									 الاسم التجارى
+								</span>
+
+								<span class="fontForInputs mx-5">
+									{{client.commercialName}}
+								</span>
+
+								<span class="fontForInputs" style="font-weight:bold ;">
+									{{'HR.TITLES.COMPANYCODE'|translate}}
+								</span>
+
+								<span class="fontForInputs mx-5">
+									{{client.code}}
+								</span>
+
+								<span class="fontForInputs" style="font-weight:bold ;">
+									الحالة
+								</span>
+
+
+								<a *ngIf="client.isActive== true"
+									class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+									data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+									{{'HR.TITLES.COMPANYACTIVE'|translate}}
+								</a>
+
+								<a *ngIf="client.isActive== false"
+									class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+									data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+									{{'HR.TITLES.COMPANYNOTACTIVE'|translate}}
+								</a>
+
+							</div>
+
+						</mat-panel-title>
+					</mat-expansion-panel-header>
+
+
+					<div class="row p-5">
+
+
+						<div class="col-md-12">
+
+							<div class="row">
+
+								<div class="col-md-12 fontForInputs">
+
+									<div class="row">
+
+										<div class="col-md-8">
+
+											<div class="d-flex align-items-center mb-2">
+												<mat-icon class="text-primary" style="font-size: 30px;"> contacts</mat-icon>
+
+												<a
+													class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">{{client.name}}</a>
+
+												<a class="cursor-pointer"><span
+														class="svg-icon svg-icon-1 svg-icon-primary"></span></a>
+
+												<a *ngIf="client.isActive== true"
+													class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+													data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+													{{'HR.TITLES.COMPANYACTIVE'|translate}}
+												</a>
+
+												<a *ngIf="client.isActive== false"
+													class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+													data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+													{{'HR.TITLES.COMPANYNOTACTIVE'|translate}}
+												</a>
+
+												<span class="mx-2">
+													<section
+														matTooltip="{{client.isActive==true?('HR.TITLES.SETNOTACTIVE'|translate):('HR.TITLES.SETACTIVE'|translate)}}"
+														class="example-section">
+														<mat-slide-toggle name="isValTaxActive" class="example-margin"
+															[color]="'primary'" (click)="toggleActiveClient()"
+															[checked]="client.isActive">
+														</mat-slide-toggle>
+													</section>
+												</span>
+
+											</div>
+
+
+										</div>
+
+										<div class="col-md-4">
+											<div class="d-flex align-items-start justify-content-end">
+
+												<button class="btn btn-primary col-md-6 mx-1"
+													(click)="openDialogUpdate(client.id)">
+													<span class="fontForInputs">
+														تعديل العميل
+													</span>
+												</button>
+												<button class="btn btn-light col-md-6 mx-1"
+													(click)="setCompanyIdGettingBranches(client.id) ">
+													<span class="fontForInputs">
+														{{'HR.BUTTONS.VIEWBRANCHS'|translate}}
+													</span>
+												</button>
+
+											</div>
+										</div>
+
+									</div>
+
+									<div class="row mt-5">
+
+										<div class="col-md-8">
+											<table class="table" style="width:100% ;">
+
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													
+													<th style="padding: 10px;font-weight: bold;">حالة ضريبه ق . م </th>
+													<td style="padding: 10px;">
+														<a *ngIf="client.isVatTaxActive== true"
+															class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+															data-bs-toggle="modal"
+															data-bs-target="#kt_modal_upgrade_plan">
+															{{'HR.TITLES.COMPANYACTIVE'|translate}}
+														</a>
+
+														<a *ngIf="client.isVatTaxActive== false"
+															class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+															data-bs-toggle="modal"
+															data-bs-target="#kt_modal_upgrade_plan">
+															{{'HR.TITLES.COMPANYNOTACTIVE'|translate}}
+														</a>
+													</td>
+													<th style="padding: 10px;font-weight: bold;"> ضريبه ق . م</th>
+													<td style="padding: 10px;">{{client.vatTax}}</td>
+												</tr>
+
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													<th style="padding: 10px;font-weight: bold;"> حالة ضريبة الخصم </th>
+													<td style="padding: 10px;">
+														<a *ngIf="client.isWithHoldTaxActive== true"
+															class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+															data-bs-toggle="modal"
+															data-bs-target="#kt_modal_upgrade_plan">
+															{{'HR.TITLES.COMPANYACTIVE'|translate}}
+														</a>
+
+														<a *ngIf="client.isWithHoldTaxActive== false"
+															class="btn btn-sm btn-light-danger fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+															data-bs-toggle="modal"
+															data-bs-target="#kt_modal_upgrade_plan">
+															{{'HR.TITLES.COMPANYNOTACTIVE'|translate}}
+														</a>
+													</td>
+													<th style="padding: 10px;font-weight: bold;"> ضريبه الخصم</th>
+													<td style="padding: 10px;">{{client.withHoldTax}} </td>
+												</tr>
+
+												
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													<th style="padding: 10px;font-weight: bold;">التصنيف</th>
+													<td style="padding: 10px;">{{client.categoryName}}</td>
+													<th style="padding: 10px;font-weight: bold;">
+														{{'HR.TITLES.ACTIVITY'|translate}}</th>
+													<td style="padding: 10px;">{{client.activity}}</td>
+												</tr>
+											</table>
+										</div>
+
+										<div class="col-md-4">
+
+											<table class="table" style="width:100% ;">
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													<th style="padding: 10px;font-weight: bold;">رقم الملف الضريبي</th>
+													<td style="padding: 10px;">{{client.taxFileNum}}</td>
+													
+												</tr>
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													<th style="padding: 10px;font-weight: bold;">السجل التجارى</th>
+													<td style="padding: 10px;">{{client.commercialRecord}}</td>
+												</tr>
+												
+
+
+												<tr style="border-bottom:1px dotted #5a5a5a ;">
+													<th style="padding: 10px;font-weight: bold;"> رقم تسجيل ض.ق </th>
+													<td style="padding: 10px;">{{client.vatTaxNum}}</td>
+												</tr>
+
+											</table>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+					</div>
+
+
+					<div class="row" *ngIf="companyIdForShowingBranches != 0">
+						<branchs-c [companyId]="companyIdForShowingBranches"></branchs-c>
+					</div>
+
+
+				</mat-expansion-panel>
+			</mat-accordion>
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+</section>

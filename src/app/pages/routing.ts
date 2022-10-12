@@ -12,6 +12,11 @@ const Routing: Routes = [
 			import('../modules/hr/hr.module').then((m) => m.HrModule)
 	},
 	{
+		path: 'client',
+		loadChildren: () =>
+			import('../modules/client/client.module').then((m) => m.ClientModule)
+	},
+	{
 		path: 'employee',
 		loadChildren: () =>
 			import('../modules/employees/employees.module').then((m) => m.EmployeesModule)
