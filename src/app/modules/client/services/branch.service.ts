@@ -45,6 +45,10 @@ export class ClientBranchService {
 	AssignPathRouteToClientBranch(model : IclientBranchAssignPathModel) {
 		return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ASSIGN_CLIENTBRANCH_TO_PATHROUTE}ClientBranchId=${model.ClientBranchId}&PathRouteId=${model.PathRouteId}`);
 	}
+	
+	DeAssignPathRouteToClientBranch(branchId:number) {
+		return this.http.CommonPostRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE}clientBranchId=${branchId}`);
+	}
 
 	getPathRoutesLogs(clientBranchId: number): Observable<IBranchPathRoutesLogs[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCH_PATHROUTE_LOGS}clientBranchId=${clientBranchId}`)

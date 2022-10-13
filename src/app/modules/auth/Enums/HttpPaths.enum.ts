@@ -355,6 +355,7 @@ API_CLIENTBRANCHES_GETALL = "/api/v1/shared/getcompanybranches/",
 API_CLIENTBRANCHES_GETBYID = "/api/v1/cust/getclientbranchprofile?",
 API_ASSIGN_CLIENTBRANCH_TO_PATHROUTE="/api/v1/cust/assignpathroutetoclientbranch?",
 API_CLIENTBRANCH_PATHROUTE_LOGS="/api/v1/cust/getclientbranchpathrouteslog?",
+API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE="/api/v1/cust/removepathroutefromclientbranch?",
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",

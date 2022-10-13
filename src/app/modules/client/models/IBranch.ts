@@ -8,5 +8,6 @@ export interface IBranch{
 	mobile: string,
 	technicianName: string,
 	isActive: true,
-	mobileDate: string
+	mobileDate: string,
+	HasPathRoute:boolean
 }

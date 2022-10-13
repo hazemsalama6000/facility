@@ -170,6 +170,7 @@ export class BranchUpsertComponent implements OnInit {
 				this.service.getBranchDataById(this.data.branchId, this.companyBranchId).subscribe(
 					(data: IBranchAddModel) => {
 						this.branch = data;
+						console.log(data);
 						this.fillDropDowns();
 					}
 				)

@@ -37,9 +37,14 @@ export class BranchPathRoutesLogs implements OnInit {
 	) { }
 
 	ngOnInit() {
+		this.getData();
+	}
+
+	getData(){
 		this.service.getPathRoutesLogs(this.data.branchId).subscribe((data:IBranchPathRoutesLogs[])=>{
 			this.branchPathRoutesLogs=data;
 		})
 	}
+
 
 }

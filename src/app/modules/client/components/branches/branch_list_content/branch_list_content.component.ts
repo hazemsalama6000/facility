@@ -101,6 +101,9 @@ export class BranchListContentComponent {
 		});
 	}
 
+
+
+
 	toggleActiveDeactive(element:IBranch){
 		this.service.toggleActiveDeactive(element).subscribe(
 			(data: HttpReponseModel) => {
@@ -112,6 +115,17 @@ export class BranchListContentComponent {
 			});
 	}
 
+
+	DeAssignPathRoute(branchId:number){
+		this.service.DeAssignPathRouteToClientBranch(branchId).subscribe(
+			(data: HttpReponseModel) => {
+				this.toaster.openSuccessSnackBar(data.message);
+				//this.getallData(this.companyId);
+			},
+			(error:any) => {
+				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+			});
+	}
 
 	toggleSalesPersonActiveDeactive(element:IBranch){
 		this.service.toggleSalesActiveDeactive(element).subscribe(
