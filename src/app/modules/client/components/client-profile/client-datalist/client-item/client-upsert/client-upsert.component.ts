@@ -246,6 +246,8 @@ export class ClientUpsertComponent implements OnInit {
 		model.isAddedClientBranch = companyDataForm.isAddedClientBranch;
 		model.clientCategory_Id = companyDataForm.clientCategory_Id;
 		model.companyBranch_Id = this.companyBranch;
+		model.clientCommercialName = companyDataForm.CommercialName;
+
 
 	model.clientDataBranches=[{
         name: companyDataForm.name,

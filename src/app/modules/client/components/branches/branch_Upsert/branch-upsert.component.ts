@@ -179,7 +179,7 @@ export class BranchUpsertComponent implements OnInit {
 				this.service.getBranchDataById(this.data.branchId, this.companyBranchId).subscribe(
 					(data: IBranchAddModel[]) => {
 						this.branch = data[0];
-						this.imagePath=data[0].imagePath;
+						this.imagePath=`${localStorage.getItem("companyLink")}${data[0].imagePath}`;
 						this.fillDropDowns();
 					}
 				)
@@ -212,7 +212,7 @@ export class BranchUpsertComponent implements OnInit {
 								if (this.ImageFile != null && this.ImageFile != undefined) {
 									fd.append('photos', this.ImageFile, data.data.id + "_" + this.ImageFile.name);
 									
-									this.service.UploadImagesForBranch(this.fb).subscribe(
+									this.service.UploadImagesForBranch(fd).subscribe(
 										(data: HttpReponseModel) => {
 											this.toaster.openSuccessSnackBar(data.message);
 										},
@@ -242,12 +242,12 @@ export class BranchUpsertComponent implements OnInit {
 				this.service.UpdateBranchData(model).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
-						        const fd = new FormData();
+						        let fdd = new FormData();
 
 								if (this.ImageFile != null && this.ImageFile != undefined) {
-									fd.append('photos', this.ImageFile, model.id + "_" + this.ImageFile.name);
+									fdd.append('photos', this.ImageFile, model.id + "_" + this.ImageFile.name);
 									
-									this.service.UploadImagesForBranch(this.fb).subscribe(
+									this.service.UploadImagesForBranch(fdd).subscribe(
 										(data: HttpReponseModel) => {
 											this.toaster.openSuccessSnackBar(data.message);
 										},

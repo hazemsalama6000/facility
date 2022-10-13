@@ -350,7 +350,7 @@ API_CLIENTBRANCHES_GETBRANCHES="/api/v1/cust/getclientbranches?",
 API_CLIENTBRANCH_TOGGLE="/api/v1/cust/changeclientbranchactiveornot/",
 
 API_CLIENTBRANCHES_ADD = "/api/v1/cust/addclientbranch",
-API_CLIENTBRANCHES_UPLOADIMAGE = "/api/v1/Trans/uploadclientbranchesimages",
+API_CLIENTBRANCHES_UPLOADIMAGE = "/api/v1/cust/uploadclientbranchesimages",
 API_CLIENTBRANCHES_UPDATE = "/api/v1/cust/updateclientbranch/",
 API_CLIENTBRANCHES_GETALL = "/api/v1/shared/getcompanybranches/",
 API_CLIENTBRANCHES_GETBYID = "/api/v1/cust/getclientbranchprofile?",
