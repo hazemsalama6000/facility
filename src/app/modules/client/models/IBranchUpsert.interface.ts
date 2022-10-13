@@ -2,6 +2,7 @@
 export interface IBranchAddModel{
 		id: number,
 		address: string,
+		imagePath:string,
 		telephone: string,
 		responsibleName: string,
 		code: string,
@@ -12,6 +13,7 @@ export interface IBranchAddModel{
 		region_Id: number,
 		mobile: string,
 		secondMobile: string,
+		managerMobile:string,
 		clientData_Id: number,
 		technician_Id: number,
 		pathRoute_Id: number,

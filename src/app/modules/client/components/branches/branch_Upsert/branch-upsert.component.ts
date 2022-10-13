@@ -33,6 +33,7 @@ export class BranchUpsertComponent implements OnInit {
 	dropdownListDataForState: any = [];
 	selectedItemState: any = [];
 	dropdownPathRouteData: LookUpModel[] = [];
+	ImageFile: File;
 
 	dropdownTechnicianData: LookUpModel[] = [];
 
@@ -41,6 +42,7 @@ export class BranchUpsertComponent implements OnInit {
 
 	submitClicked: boolean = false;
 	branchDataForm: FormGroup;
+	imagePath:string;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -58,7 +60,9 @@ export class BranchUpsertComponent implements OnInit {
 		this.setDefaultForForm();
 		this.initForm();
 	}
-
+	ImageChange(event: any) {
+		this.ImageFile = <File>event.target.files[0];
+	}
 	setDefaultForForm() {
 		this.branchDataForm = this.fb.group({
 			id: [0],
@@ -143,19 +147,24 @@ export class BranchUpsertComponent implements OnInit {
 
 	passingCompanyToFormData() {
 
-		/*	this.branchDataForm.controls['id'].setValue(this.branch.id);
-			this.branchDataForm.controls['company_Id'].setValue(this.branch.company_Id);
-			this.branchDataForm.controls['branchName'].setValue(this.branch.branchName);
-			this.branchDataForm.controls['branchManager_Id'].setValue(this.branch.branchManager_Id);
-			this.branchDataForm.controls['branchAddress'].setValue(this.branch.branchAddress);
-			this.branchDataForm.controls['phoneNumber'].setValue(this.branch.phoneNumber);
-			this.branchDataForm.controls['state_Id'].setValue(this.branch.stateId);
+			this.branchDataForm.controls['id'].setValue(this.branch.id);
+			this.branchDataForm.controls['clientData_Id'].setValue(this.branch.clientData_Id);
+			this.branchDataForm.controls['name'].setValue(this.branch.name);
+			this.branchDataForm.controls['code'].setValue(this.branch.code);
+			this.branchDataForm.controls['responsibleName'].setValue(this.branch.responsibleName);
+			this.branchDataForm.controls['commercialName'].setValue(this.branch.commercialName);
+			this.branchDataForm.controls['state_Id'].setValue(this.branch.state_Id);
 			this.branchDataForm.controls['region_Id'].setValue(this.branch.region_Id);
-			this.branchDataForm.controls['isActive'].setValue(this.branch.isActive);
+			this.branchDataForm.controls['pathRoute_Id'].setValue(this.branch.pathRoute_Id);
 			this.branchDataForm.controls['isMain'].setValue(this.branch.isMain);
-			this.branchDataForm.controls['email'].setValue(this.branch.email);
-	*/
-		this.branchDataForm.setValue(this.branch);
+			this.branchDataForm.controls['technician_Id'].setValue(this.branch.technician_Id);
+
+			this.branchDataForm.controls['isCompletedData'].setValue(this.branch.isCompletedData);
+			this.branchDataForm.controls['isMain'].setValue(this.branch.isMain);
+			this.branchDataForm.controls['telephone'].setValue(this.branch.telephone);
+			this.branchDataForm.controls['mobile'].setValue(this.branch.mobile);
+			this.branchDataForm.controls['secondMobile'].setValue(this.branch.secondMobile);
+			this.branchDataForm.controls['managerMobile'].setValue(this.branch.managerMobile);
 	}
 
 
@@ -168,9 +177,9 @@ export class BranchUpsertComponent implements OnInit {
 				this.companyBranchId = data.branchId;
 				
 				this.service.getBranchDataById(this.data.branchId, this.companyBranchId).subscribe(
-					(data: IBranchAddModel) => {
-						this.branch = data;
-						console.log(data);
+					(data: IBranchAddModel[]) => {
+						this.branch = data[0];
+						this.imagePath=data[0].imagePath;
 						this.fillDropDowns();
 					}
 				)
@@ -186,7 +195,6 @@ export class BranchUpsertComponent implements OnInit {
 
 	Submit(model: IBranchAddModel) {
 
-
 		if (this.branchDataForm.valid) {
 
 			if (model.id == 0) {
@@ -198,6 +206,24 @@ export class BranchUpsertComponent implements OnInit {
 							if (data.isSuccess) {
 								this.toaster.openSuccessSnackBar(data.message);
 								// console.log(data.message);
+
+								const fd = new FormData();
+
+								if (this.ImageFile != null && this.ImageFile != undefined) {
+									fd.append('photos', this.ImageFile, data.data.id + "_" + this.ImageFile.name);
+									
+									this.service.UploadImagesForBranch(this.fb).subscribe(
+										(data: HttpReponseModel) => {
+											this.toaster.openSuccessSnackBar(data.message);
+										},
+										(error: any) => {
+											console.log(error);
+											this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+										}
+									);
+								}
+
+
 								this.service.bSubject.next(true);
 							}
 							else if (data.isExists) {
@@ -213,14 +239,30 @@ export class BranchUpsertComponent implements OnInit {
 			}
 
 			else {
-				/*this.service.UpdateBranchData(model).subscribe(
+				this.service.UpdateBranchData(model).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);
+						        const fd = new FormData();
+
+								if (this.ImageFile != null && this.ImageFile != undefined) {
+									fd.append('photos', this.ImageFile, model.id + "_" + this.ImageFile.name);
+									
+									this.service.UploadImagesForBranch(this.fb).subscribe(
+										(data: HttpReponseModel) => {
+											this.toaster.openSuccessSnackBar(data.message);
+										},
+										(error: any) => {
+											console.log(error);
+											this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+										}
+									);
+								}
+
 						this.service.bSubject.next(true);
 					},
 					(error: any) => {
 						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});*/
+					});
 
 			}
 

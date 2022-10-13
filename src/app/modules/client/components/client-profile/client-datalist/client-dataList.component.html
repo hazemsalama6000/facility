@@ -29,22 +29,22 @@
 				</mat-form-field>
 
 
-				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownPathRouteData"
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownPathRouteData"
 					formControlName="PathRoute_Id" bindLabel="Name" bindValue="Id" name="PathRoute_Id"
 					placeholder=" خط السير">
 				</ng-select>
 
-				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownCategoryData"
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownCategoryData"
 					formControlName="Category_Id" bindLabel="Name" bindValue="Id" name="Category_Id"
 					placeholder="تصنيف العميل">
 				</ng-select>
 
-				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForState"
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForState"
 					bindLabel="Name" bindValue="Id" name="State_Id" formControlName="State_Id" placeholder="المحافظة"
 					(change)="onItemSelectState($event)">
 				</ng-select>
 
-				<ng-select style="margin-top: 10px;width: 250px;" class="customized" [items]="dropdownListDataForRegion"
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForRegion"
 					bindLabel="Name" bindValue="Id" name="Region_Id" id="Region_Id" placeholder="المنطقة"
 					formControlName="Region_Id">
 				</ng-select>

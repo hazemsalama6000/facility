@@ -75,8 +75,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 						summary: `HTTP Error - ${requestError.status}`,
 						detail: error.message,
 					});
-
-					return throwError(error);
+//don't change please return and use handling in subscription that i did
+					return throwError(error.message);
 				}
 
 				else {

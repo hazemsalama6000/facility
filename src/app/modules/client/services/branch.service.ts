@@ -24,7 +24,11 @@ export class ClientBranchService {
 			.pipe(map(Items => Items.data));
 	}
 
-	getBranchDataById(id: number, CompanyBranchId: number): Observable<IBranchAddModel> {
+	UploadImagesForBranch(model:any): Observable<any> {
+		return this.http.CommonPostRequests(model,`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCHES_UPLOADIMAGE}`);
+	}
+
+	getBranchDataById(id: number, CompanyBranchId: number): Observable<IBranchAddModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCHES_GETBYID}CompanyBranchId=${CompanyBranchId}&Id=${id}`)
 			.pipe(map(data => data.data));
 	}

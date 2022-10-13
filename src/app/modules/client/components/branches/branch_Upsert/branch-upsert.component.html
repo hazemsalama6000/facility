@@ -11,18 +11,34 @@
 		<input type="hidden" name="id" formControlName="id">
 		<input type="hidden" name="clientData_Id" formControlName="clientData_Id">
 
+		
+
+
 		<div class="row mt-5">
 
 			<div class="col-md-12">
 
 				<div class="d-flex justify-content-start align-content-center">
+					
 					<mat-icon class="text-primary">home</mat-icon>
 					<h1 class="fontsection text-primary fs-2 fw-bolder me-1 cursor-pointer">بيانات الاساسية للفرع
 					</h1>
+
+					<div class="d-flex ">
+
+						<span class=" mx-10">
+							<label class="fontForInputs"> صورة الفرع </label>
+							<input type="file" class="mx-2" (change)="ImageChange($event)" placeholder="Placeholder"
+								name="Image" >
+							
+						</span>
+			
+					</div>
+
 				</div>
 
 				<div class="mb-5 border-bottom"></div>
-
+				
 				<div class="row">
 					<div class="col-md-2">
 
@@ -319,6 +335,11 @@
 
 							</mat-slide-toggle>
 						</section>
+					</div>
+
+					<div class="col-md-2" [hidden]=" branchDataForm.controls['id'].value==0">
+						<img src="imagePath" width="100px" height="50px">
+
 					</div>
 				</div>
 
