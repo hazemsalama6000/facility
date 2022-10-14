@@ -1,0 +1,65 @@
+<div style="width:300px ;">
+
+	<h2 mat-dialog-title>
+		<span class="fontsection"> تخصيص خط سير </span>
+	</h2>
+
+	<mat-divider></mat-divider>
+	<form [formGroup]="AssignPathToClientDataForm" (ngSubmit)="Submit(AssignPathToClientDataForm.value)">
+
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+
+			<div class="row mt-5">
+
+				<div class="col-md-12">
+
+					<div class="row">
+
+						<div class="col-md-12">
+
+							<ng-select class="customized" [items]="dropdownPathRouteData" bindLabel="Name"
+								bindValue="Id" name="PathRouteId" placeholder="خطوط السير"
+								formControlName="PathRouteId">
+							</ng-select>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<br>
+			<br>
+			<br>
+			<br>
+			<br><br><br><br><br><br><br>
+			<br>
+
+		</mat-dialog-content>
+
+		<mat-dialog-actions>
+			<div class="d-flex">
+				<button mat-raised-button type="submit" (click)="submitClicked=true"
+					color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>close</button>
+			</div>
+		</mat-dialog-actions>
+
+	</form>
+
+	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+		<ng-container *ngIf="control.hasError(validation)  && submitClicked">
+			<div class="fv-plugins-message-container">
+				<span role="alert">{{ message }}</span>
+			</div>
+		</ng-container>
+	</ng-template>
+
+
+</div>

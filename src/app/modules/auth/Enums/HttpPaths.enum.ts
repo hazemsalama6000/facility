@@ -349,6 +349,14 @@ API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
 API_CLIENTBRANCHES_GETBRANCHES="/api/v1/cust/getclientbranches?",
 API_CLIENTBRANCH_TOGGLE="/api/v1/cust/changeclientbranchactiveornot/",
 
+API_CLIENTBRANCHES_ADD = "/api/v1/cust/addclientbranch",
+API_CLIENTBRANCHES_UPLOADIMAGE = "/api/v1/cust/uploadclientbranchesimages",
+API_CLIENTBRANCHES_UPDATE = "/api/v1/cust/updateclientbranch/",
+API_CLIENTBRANCHES_GETALL = "/api/v1/shared/getcompanybranches/",
+API_CLIENTBRANCHES_GETBYID = "/api/v1/cust/getclientbranchprofile?",
+API_ASSIGN_CLIENTBRANCH_TO_PATHROUTE="/api/v1/cust/assignpathroutetoclientbranch?",
+API_CLIENTBRANCH_PATHROUTE_LOGS="/api/v1/cust/getclientbranchpathrouteslog?",
+API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE="/api/v1/cust/removepathroutefromclientbranch?",
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",

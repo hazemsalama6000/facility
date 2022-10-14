@@ -1,0 +1,35 @@
+<div style="width:400px ;">
+
+	<h2 mat-dialog-title>
+تاريخ خطوط السير	</h2>
+
+	<mat-divider></mat-divider>
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+			<table>
+				<tr>
+					<th>خط السير</th>
+					<th>من تاريخ</th>
+					<th>الى تاريخ</th>
+				</tr>
+
+				<tr *ngFor="let x of branchPathRoutesLogs">
+					<td>
+						{{x.pathRouteName}}
+					</td>
+					<td> {{x.startDate | date:'dd/MM/yyyy'}}</td>
+					<td> {{x.endDate | date:'dd/MM/yyyy'}}</td>
+				</tr>
+
+			</table>
+
+		</mat-dialog-content>
+
+		<mat-dialog-actions>
+
+		</mat-dialog-actions>
+
+
+
+</div>

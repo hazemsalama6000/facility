@@ -14,6 +14,8 @@ import { ClientItemComponent } from './components/client-profile/client-datalist
 import { ClientDataListComponent } from './components/client-profile/client-datalist/client-dataList.component';
 import { ClientComponent } from './components/client-profile/client.component';
 import { ClientUpdateComponent } from './components/client-profile/client-datalist/client-item/client-update/client-update.component';
+import { BranchAssignPathComponent } from './components/branches/branch_list_content/branch_AssignPathRoutes/branch_AssignPathRoutes.component';
+import { BranchPathRoutesLogs } from './components/branches/branch_list_content/branch_pathroutes_logs/branch_pathroutes_logs.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { ClientUpdateComponent } from './components/client-profile/client-datali
 	ClientItemComponent,
 	ClientUpsertComponent,
 	ClientUpdateComponent,	
+	BranchAssignPathComponent,
+	BranchPathRoutesLogs,
     BranchComponent,
     BranchUpsertComponent,
     BranchListContentComponent,
