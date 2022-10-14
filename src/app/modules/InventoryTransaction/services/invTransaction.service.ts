@@ -65,4 +65,13 @@ export class InvTransactionService {
     return this.http.CommonPostRequests(model, `${localStorage.getItem('companyLink')}${HttpPaths.API_UPDATE_RESERVED}`)
   }
 
+  getTransferFromTransaction(searchModel: any): Observable<IInvTransactionPagination> {
+    let queryString = Object.keys(searchModel).map((key: string) =>
+      searchModel[key] != null && searchModel[key] != '' && searchModel[key] != undefined ? key + '=' + searchModel[key] : null
+    ).filter(x => x != null).join('&');
+
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_TRANSFER_TRANSACTION}${queryString}`)
+      .pipe(map((Items: HttpReponseModel) => Items.data as IInvTransactionPagination));
+  }
+
 }

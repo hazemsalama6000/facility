@@ -4,6 +4,7 @@ export interface IReservedItem{
     itemCode: string,
     remainingQuantity: number,
     reservedQuantity: number,
+    price: number,
     docNumber: number,
     docDate: Date
 }

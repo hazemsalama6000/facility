@@ -424,5 +424,7 @@ API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE="/api/v1/cust/listofclientsbranches
 	API_GET_ITEM_TRANSACTION='/api/v1/invt/getallstocktransbyitemid?',
 	API_UPDATE_RESERVED='/api/v1/invt/updatereservedamountforstocktrans',
 
+	API_GET_TRANSFER_TRANSACTION='/api/v1/invt/getallstocktransactionstransfer?',
+
 
 }

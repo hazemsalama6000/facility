@@ -19,6 +19,7 @@
 	// min-height: 50px;
 	border-radius: 5px;
 	font-family: 'Cairo' !important;
+	// padding-bottom: 14px;
 
 }
 
@@ -31,8 +32,13 @@
 .ng-select.customized .ng-select-container {
 	// min-height: 50px;
 	// border-radius: 15px;
-	// font-family: 'Cairo' !important;
+	font-family: 'Cairo' !important;
+}
 
+.ng-select.transdrop .ng-select-container {
+	height: 29px;
+	min-height: 20px;
+	margin-top: 0;
 }
 
 ng-select.ng-invalid.ng-touched .ng-select-container {
@@ -440,9 +446,6 @@ app-addstocktech .mat-dialog-content {
 	max-height: 80vh;
 }
 
-
-
-
 app-itemsandcategory .mat-tree-node,
 app-internaldivisiontree .mat-tree-node {
 	background-color: #e7e7e7;
@@ -524,14 +527,14 @@ app-addtransaction>.mat-dialog-container {
 	margin: 0;
 }
 
-mat-hint{
+mat-hint {
 	color: rgb(247 123 123) !important;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 
