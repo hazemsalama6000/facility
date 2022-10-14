@@ -68,8 +68,8 @@
           <div class="col-6">
             <mat-form-field appearance="outline">
               <mat-label> رقم الاذن </mat-label>
-              <input matInput type="number" placeholder="" name="documentNumber" formControlName="documentNumber" [readonly]="isReadOnly" 
-              (keydown)="restrictZero($event)">
+              <input matInput type="number" placeholder="" name="documentNumber" formControlName="documentNumber" [readonly]="isReadOnly"
+                (keydown)="restrictZero($event)">
               <mat-hint>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -116,18 +116,18 @@
           <div class="col" [hidden]="EntityType.sysName!='vendor'">
             <mat-form-field appearance="outline">
               <mat-label> {{"رقم الاذن المستلم" | translate}} </mat-label>
-              <input matInput placeholder="" name="vendorBillId" formControlName="vendorBillId" [readonly]="isReadOnly">
+              <input matInput placeholder="" name="billVendorNumber" formControlName="billVendorNumber" [readonly]="isReadOnly">
               <mat-hint>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
           message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'ملاحظات' },
-          control: masterForm.controls['vendorBillId']
+          control: masterForm.controls['billVendorNumber']
         }"></ng-container>
 
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'minlength',
           message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'ملاحظات'  , min:3},
-          control: masterForm.controls['vendorBillId']
+          control: masterForm.controls['billVendorNumber']
         }"></ng-container>
 
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -242,7 +242,7 @@
             <div class="col-3">
               <mat-form-field appearance="outline">
                 <mat-label> {{"السعر ب "+(item.unit??'') | translate}} </mat-label>
-                <input matInput type="number" placeholder="" name="price" formControlName="price">
+                <input matInput type="number" placeholder="" name="price" formControlName="price" (keydown)="restrictZeroPrice($event)">
                 <mat-hint>
                   <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
@@ -268,31 +268,40 @@
           </div>
         </form>
 
-        <div class="col-12" style="overflow-x: auto;border:2px solid rgb(187, 187, 187);">
-          <table class="table">
+        <div class="col-12" style="overflow-x: auto;">
+          <table class="table" style="border:2px solid rgb(187, 187, 187);">
             <thead>
-              <tr>
-                <th scope="col" class="py-2">أسم الصنف</th>
-                <th scope="col" class="py-2">الوحدة الرئيسية (الصغرى) </th>
-                <th scope="col" class="py-2">الكمية </th>
-                <th scope="col" class="py-2">الوحده المنفذة </th>
-                <th scope="col" class="py-2">الكمية المنفذة</th>
-                <th scope="col" class="py-2">الكمية بعد التحويل</th>
-                <th scope="col" class="py-2">السعر</th>
-                <th scope="col" class="py-2">الاجمالى</th>
-                <th scope="col" class="py-2"></th>
+              <tr style="border: 2px solid rgb(187, 187, 187);">
+                <th rowspan="2" class="p-1">أسم الصنف</th>
+                <th rowspan="2" class="p-1">الكمية بالمخزن </th>
+                <th colspan="3" class="p-1 badge-primary">الوحدة الاساسية</th>
+                <th colspan="3" class="p-1 badge-primary"> الوحدة المنفذ بها</th>
+                <th rowspan="2" class="p-1">الاجمالى</th>
+                <th rowspan="2"></th>
+              </tr>
+              <tr style="border: 2px solid rgb(187, 187, 187);">
+                <th class="p-1">الوحدة </th>
+                <th class="p-1">الكمية </th>
+                <th class="p-1">السعر</th>
+                <th class="p-1">الوحده </th>
+                <th class="p-1">الكمية </th>
+                <th class="p-1">السعر </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of items;let i=index" class="{{item.isRefused?'bg-danger':''}}">
+              <tr *ngFor="let item of items;let i=index" class="{{item.isRefused?'bg-danger':''}}" style="border: 2px solid rgb(187, 187, 187);">
                 <td>{{item.name}}</td>
+                <td>{{item.quantityInBaseUnit| number : '1.0-2'}}</td>
+
                 <td>{{item.unit}}</td>
-                <td>{{item.quantityInBaseUnit}}</td>
+                <td>{{item.quantity| number : '1.0-2'}}</td>
+                <td>{{(item.price/item.convertedUnit.factor)| number : '1.0-2'}}</td>
+
                 <td>{{item.convertedUnit.convertedUnitName}}</td>
-                <td>{{item.preconvertedQuantity}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.total}}</td>
+                <td>{{item.preconvertedQuantity| number : '1.0-2'}}</td>
+                <td>{{item.price| number : '1.0-2'}}</td>
+
+                <td>{{item.total| number : '1.0-2'}}</td>
                 <td>
                   <div class="d-flex">
                     <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="warn" (click)="deleteItem(i)">delete</mat-icon>
