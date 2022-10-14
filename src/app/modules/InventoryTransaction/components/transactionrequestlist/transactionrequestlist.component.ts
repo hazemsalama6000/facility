@@ -28,7 +28,7 @@ import { InvTransactionService } from '../../services/invTransaction.service';
 })
 export class TransactionrequestlistComponent implements OnInit {
 
-  columnsToDisplay = ['docNumber', 'docDate', 'transType', 'stockName', 'notes', 'action'];
+  columnsToDisplay = ['n','docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
   @ViewChild(MatTable) table: MatTable<IInvTransaction>;
@@ -69,9 +69,8 @@ export class TransactionrequestlistComponent implements OnInit {
 
   getTransactionData() {
     this.invTransactionService.getTransferFromTransaction(this.searchModel).subscribe(res => {
-
       res.data.map(x => x.stockTransDetails.map(obj => obj.quantity = obj.baseQuantity / obj.convertedUnits.factor));
-      // console.log(this.data)
+      console.log(this.data)
       this.data = res.data;
       this.isLoadingResults = false;
     })
@@ -105,8 +104,8 @@ export class TransactionrequestlistComponent implements OnInit {
         element.financialYear_Id = res.data.id;
         this.data[elementIndex].financialYear_Id = res.data.id;
         // console.log(element, element.financialYear_Id, element.getStockTransEntity.transferStock_Id, element.stockTransTypeId)
-        if (element.financialYear_Id > 0 && element.getStockTransEntity.transferStock_Id > 0 && element.stockTransTypeId > 0) {
-          this.invTransactionService.getDocumentNumber(element.financialYear_Id, element.getStockTransEntity.transferStock_Id, element.stockTransTypeId).subscribe(res => {
+        if (element.financialYear_Id > 0 && element.transferStock_Id > 0 && element.stockTransTypeId > 0) {
+          this.invTransactionService.getDocumentNumber(element.financialYear_Id, element.transferStock_Id, element.stockTransTypeId).subscribe(res => {
             this.data[elementIndex].docReceivedNumber = res.data.docId;
           });
         }
@@ -147,19 +146,20 @@ export class TransactionrequestlistComponent implements OnInit {
     let transaction: IAddTransaction = {} as IAddTransaction;
     transaction.id = 0;
     transaction.companyId = this.userData.companyId;
-    transaction.stock_Id = item.getStockTransEntity.transferStock_Id;
+    transaction.stock_Id = item.transferStock_Id;
     transaction.stockTransType_Id = item.stockTransTypeId;
     transaction.documentDate = this.datePipe.transform(new Date().setDate(new Date(item.docReceivedDate).getDate()), 'yyyy-MM-ddThh:mm:ss') ?? '';
     transaction.documentNumber = item.docReceivedNumber;
     transaction.financialYear_Id = item.financialYear_Id;
     transaction.ReceivedFromTrans_Id = item.id;
     transaction.notes = '';
-
-    transaction.getStockTransEntity = {} as ITransEntity;
+    
+    transaction.transEntity = {} as ITransEntity;
     transaction.stockTransType_Id = item.stockTransTypeId;
-    transaction.getStockTransEntity.stockTransaction_Id = 0;
-    transaction.getStockTransEntity.transferStock_Id = item.stockId;
-
+    transaction.transEntity.stockTransaction_Id = 0;
+    transaction.transEntity.transferStock_Id = item.stockId;
+    transaction.transEntity.entityType_Id=item.entityTypeId;
+    
     transaction.itemData = [];
     item.stockTransDetails.map((obj, index) => {
       transaction.itemData.push({
@@ -233,7 +233,7 @@ export class TransactionrequestlistComponent implements OnInit {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.') {
+    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.'|| event.key === '+'|| event.key === 'e') {
       event.preventDefault();
     }
   }

@@ -22,11 +22,11 @@
           </div>
 
           <div class="col-3">
-            <button (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary"
-            class="mx-md-1" aria-label="Example icon button with a filter list icon">
-            <mat-icon>add</mat-icon>
-          </button>
-  
+            <button (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+              aria-label="Example icon button with a filter list icon">
+              <mat-icon>add</mat-icon>
+            </button>
+
           </div>
 
         </div>
@@ -79,20 +79,20 @@
 
       <div class="col">
         <ng-select #TransType class="customized" [items]="dropdownTransType" bindLabel="name" bindValue="id"
-          [(ngModel)]="searchModel.StockTransTypeId" placeholder="أختر نوع العملية" (change)="getTransactionData();onSelectTransType($event)" (clear)="getTransactionData();">
+          [(ngModel)]="searchModel.StockTransTypeId" placeholder="أختر نوع العملية" (change)="getTransactionData();onSelectTransType($event)"
+          (clear)="getTransactionData();">
         </ng-select>
       </div>
 
       <div class="col">
         <ng-select #EntityType class="customized" [items]="dropdownEntityType" bindLabel="name" [(ngModel)]="entityTypeObject"
-          placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);"
-          (clear)="Entity.handleClearClick();dropdownEntity=[]">
+          placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);" (clear)="Entity.handleClearClick();dropdownEntity=[]">
         </ng-select>
       </div>
 
       <div class="col">
         <ng-select #Entity class="customized" [items]="dropdownEntity" bindLabel="Name" bindValue="Id" placeholder="أختر المستفيد"
-          (change)="onSelectEntity($event);" >
+          (change)="onSelectEntity($event);">
         </ng-select>
       </div>
 
@@ -117,24 +117,25 @@
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 
         <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-          <!-- <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span> -->
+          <span *ngSwitchCase="'n'"> م</span>
           <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
           <span *ngSwitchCase="'docDate'">تاريخ التحويل</span>
           <span *ngSwitchCase="'transType'"> {{"TRANSACTIONS.TITLES.TRANSCTYPE"|translate}}</span>
           <span *ngSwitchCase="'stockName'"> {{"TRANSACTIONS.TITLES.STOCKNAME"|translate}}</span>
+          <span *ngSwitchCase="'entityName'"> المستفيد</span>
           <span *ngSwitchCase="'notes'"> {{"TRANSACTIONS.TITLES.NOTES"|translate}}</span>
           <span *ngSwitchCase="'action'"></span>
         </th>
 
-        <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element">
-          <!-- <span *ngSwitchCase="'id'"> {{element[column] }} </span> -->
+        <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element;let elementIndex=dataIndex">
+          <span *ngSwitchCase="'n'"> {{((searchModel.PageNumber-1)*searchModel.PageSize)+(elementIndex+1) }} </span>
           <span *ngSwitchCase="'docNumber'"> {{element[column] }} </span>
           <span class="badge badge-primary" *ngSwitchCase="'docDate'"> {{element[column] | date:'dd/MM/yyyy'}}</span>
           <span class="badge badge-danger" *ngSwitchCase="'transType'"> {{element[column] }} </span>
           <span class="badge badge-success" *ngSwitchCase="'stockName'"> {{element[column] }} </span>
+          <span class="badge badge-info" *ngSwitchCase="'entityName'"> {{element[column] }} </span>
           <span *ngSwitchCase="'notes'"> {{element[column] }} </span>
           <span *ngSwitchCase="'action'">
-
 
           </span>
         </td>
@@ -161,34 +162,43 @@
             <!-- style="border:2px solid rgb(187, 187, 187);" -->
             <table class="table mt-10" style="border:2px solid rgb(187, 187, 187);">
               <tr>
-                <th rowspan="2" class="trpadding"> كود المنتج</th>
+                <th rowspan="2" class="trpadding"> م</th>
+                <th rowspan="2" class="trpadding"> كود </th>
                 <th rowspan="2"> الاسم </th>
                 <th rowspan="2"> التصنيف</th>
                 <th rowspan="2"> الباركود</th>
-                <th rowspan="2"> السعر</th>
-                <th colspan="2" class="badge-success"> الكمية المنفذ بها</th>
-                <th colspan="3" class="badge-primary"> الكمية بعد التحويل</th>
+
+                <th colspan="3" class="badge-primary"> الكمية بالوحدة الاساسية</th>
+                <!-- <th rowspan="2"> السعر</th> -->
+                <th colspan="3" class="badge-success"> الكمية المنفذ بها</th>
                 <th rowspan="2"> الاجمالى</th>
               </tr>
               <tr style="border: 2px solid rgb(187, 187, 187);">
                 <th>الوحدة</th>
+                <th>السعر</th>
                 <th>الكمية </th>
+
                 <th>الوحدة</th>
                 <th>المعامل</th>
                 <th>الكمية </th>
               </tr>
 
-              <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails" style="border: 2px solid rgb(187, 187, 187);">
+              <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails;let i=index" style="border: 2px solid rgb(187, 187, 187);">
+                <td>{{i+1}}</td>
                 <td>{{x.itemCode}}</td>
                 <td>{{x.itemName}}</td>
                 <td>{{x.categoryName}}</td>
                 <td>{{x.itemBarCode}}</td>
-                <td>{{x.price}}</td>
-                <td>{{x.preConvertedUnitName}}</td>
-                <td>{{x.preConvertedQuantity}}</td>
+
                 <td>{{x.baseUnitName}}</td>
-                <td>{{x.factor}}</td>
+                <td>{{x.price}}</td>
                 <td>{{x.baseQuantity}}</td>
+                
+
+                <td>{{x.preConvertedUnitName}}</td>
+                <td>{{x.factor}}</td>
+                <td>{{x.preConvertedQuantity}}</td>
+
                 <td>{{x.baseQuantity*x.price}}</td>
 
               </tr>

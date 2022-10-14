@@ -21,14 +21,15 @@ import { InvTransactionService } from '../../services/invTransaction.service';
 })
 export class ReserveditemComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['docNumber', 'docDate',  'itemCode', 'itemName','price', 'remainingQuantity', 'reservedQuantity'];
+  displayedColumns: string[] = ['n', 'docNumber', 'docDate', 'itemCode', 'itemName', 'price', 'remainingQuantity', 'reservedQuantity'];
   dataSource: any;
   isLoadingResults = false;
   isRateLimitReached = false;
   dropdownStock: LookUpModel[] = [];
   searchModel: any = { itemId: 0 }
+  page = { PNum: 1, PSize: 10 }
   userData: IUserData;
-  showbtn:number=0;
+  showbtn: number = 0;
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -52,7 +53,7 @@ export class ReserveditemComponent implements OnInit {
     if (this.searchModel.itemId != 0 && this.searchModel.stockId != 0) {
       this.isLoadingResults = true
       this.invTransactionService.getItemTransactions(this.searchModel.itemId, this.searchModel.stockId).subscribe(res => {
-      this.showbtn=res.length;
+        this.showbtn = res.length;
         this.dataSource = new MatTableDataSource<IReservedItem>(res);
         this.dataSource.paginator = this.paginator;
         this.isLoadingResults = false;
@@ -131,9 +132,16 @@ export class ReserveditemComponent implements OnInit {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 0 && event.key === '0')||event.key === '-'||event.key === '.') {
+    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
+
+    console.log(this.page)
   }
 
   ngOnDestroy() {

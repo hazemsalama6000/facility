@@ -32,7 +32,7 @@ import { InvTransactionService } from '../../services/invTransaction.service';
 })
 export class TransactionlistComponent implements OnInit {
 
-  columnsToDisplay = [ 'docNumber', 'docDate', 'transType', 'stockName', 'notes', 'action'];
+  columnsToDisplay = [ 'n','docNumber', 'docDate', 'transType', 'stockName', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
 

@@ -12,9 +12,11 @@ export interface IInvTransaction {
     transType: string,
     stockName: string,
     notes: string,
-    getStockTransEntity: { transferStock_Id: number },
+    transferStock_Id: number,
     stockTransDetails: IInvTransactionDetails[]
     stockTransTypeId: number,
+    entityName:string;
+    entityTypeId:number;
 
     docReceivedDate: string,
     docReceivedNumber: number,
