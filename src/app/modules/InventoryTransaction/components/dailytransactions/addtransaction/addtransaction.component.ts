@@ -34,11 +34,13 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   saveButtonClickedFlag: boolean = false;
   dropdownTransType: ITransType[] = [];
-  TransType: ITransType;
+  TransType: ITransType = { id: 0, name: '', transKind: true, sysName: '' };
   dropdownStock: LookUpModel[] = [];
   dropdownEntityType: IEntityType[] = [];
-  EntityType: IEntityType;
+  EntityType: IEntityType = { id: 0, name: '', sysName: '' };
   dropdownEntity: LookUpModel[] = [];
+
+  maxDate = new Date();
 
   convertedUnits: IConvertedUnits[] = [];
   convertedUnit: IConvertedUnits;
@@ -58,14 +60,15 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     notes: [''],
     entityType_Id: [null, Validators.compose([Validators.required])],
     entity_Id: [null, Validators.compose([Validators.required])],
-    financialYear_Id: [null]
+    financialYear_Id: [null],
+    vendorBillId: [null]
   });
 
   detailsForm: FormGroup = this.fb.group({
     name: [''],
-    price: ['', Validators.compose([Validators.required])],
-    quantity: ['', Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
-    unit: [null, Validators.compose([Validators.required])]
+    price: [{ value: '', disabled: true }, Validators.compose([Validators.required])],
+    quantity: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
+    unit: [{ value: null, disabled: true }, Validators.compose([Validators.required])]
   });
 
   constructor(
@@ -90,20 +93,18 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     });
     this.unsubscribe.push(subuser);
 
-    this.items = JSON.parse(localStorage.getItem('Items') as string);
-    let masterData: any = JSON.parse(localStorage.getItem('mainData') as string);
-    this.masterForm.patchValue({
-      stock_Id: masterData.stock_Id,
-      stockTransType_Id: masterData.stockTransType_Id,
-      documentDate: masterData.documentDate,
-      notes: masterData.notes,
-      entityType_Id: masterData.entityType_Id,
-      entity_Id: masterData.entity_Id,
-      financialYear_Id: masterData.financialYear_Id,
-      documentNumber: masterData.documentNumber,
-    });
-
-
+    // this.items = JSON.parse(localStorage.getItem('Items') as string);
+    // let masterData: any = JSON.parse(localStorage.getItem('mainData') as string);
+    // this.masterForm.patchValue({
+    //   stock_Id: masterData.stock_Id,
+    //   stockTransType_Id: masterData.stockTransType_Id,
+    //   documentDate: masterData.documentDate,
+    //   notes: masterData.notes,
+    //   entityType_Id: masterData.entityType_Id,
+    //   entity_Id: masterData.entity_Id,
+    //   financialYear_Id: masterData.financialYear_Id,
+    //   documentNumber: masterData.documentNumber,
+    // });
 
   }
 
@@ -111,17 +112,25 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-
   fillDropdown() {
     this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res; });
     this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
   }
 
   onSelectTransType(item: ITransType) {
-    console.log(item)
     if (item) {
       this.TransType = item;
-      this.invTransactionService.getEntityType(item.id).subscribe(res => this.dropdownEntityType = res);
+      this.invTransactionService.getEntityType(item.id).subscribe(res => {
+        this.dropdownEntityType = res;
+        this.EntityType = res.find(x => x.sysName == 'stock') ?? { sysName: '' } as IEntityType;
+
+        if (this.TransType.sysName == 'settlementinc' || this.TransType.sysName == 'settlementdec') {
+          this.masterForm.patchValue({
+            entityType_Id: this.EntityType.id ?? 0,
+            entity_Id: this.masterForm.get('stock_Id')?.value
+          })
+        }
+      });
     } else
       this.TransType = {} as ITransType;
   }
@@ -152,6 +161,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           break;
       }
     }
+    console.log(item);
   }
 
   onChangeDate() {
@@ -171,7 +181,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     let financialYear_Id: number = this.masterForm.get('financialYear_Id')?.value
     let stockId: number = this.masterForm.get('stock_Id')?.value
     let transTypeId: number = this.masterForm.get('stockTransType_Id')?.value
-    console.log(financialYear_Id > 0 && stockId > 0 && transTypeId > 0)
+    // console.log(financialYear_Id > 0 && stockId > 0 && transTypeId > 0)
     if (financialYear_Id > 0 && stockId > 0 && transTypeId > 0) {
       this.invTransactionService.getDocumentNumber(financialYear_Id, stockId, transTypeId).subscribe(res => {
         this.masterForm.patchValue({ documentNumber: res.data.docId })
@@ -179,13 +189,14 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     }
   }
 
-
   autoCompleteItems: LookUpModel[] = [];
 
   inputAutoComplete(text: string) {
-
     if (this.masterForm.valid) {
-      this.isReadOnly = true
+      this.isReadOnly = true;
+      this.detailsForm.get('price')?.enable();
+      this.detailsForm.get('unit')?.enable();
+      this.detailsForm.get('quantity')?.enable();
 
       this.autoCompleteItems = []
       if (text.length > 3) {
@@ -252,8 +263,23 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
   AddItem() {
     if (this.detailsForm.valid) {
-      this.item.price = this.detailsForm.get('price')?.value;
+
       this.item.preconvertedQuantity = this.detailsForm.get('quantity')?.value;
+
+      if (this.item.preconvertedQuantity < 1) {
+        this.detailsForm.get('quantity')?.setErrors(Validators.pattern("^[0-9]*$"))
+        return;
+      }
+
+      if (this.TransType.sysName != "increase") {
+        let index = this.items.findIndex(x => x.id == this.item.id);
+        if (index > -1) {
+          this.toaster.openWarningSnackBar('لايمكن اضافة نفس الصنف');
+          return;
+        }
+      }
+
+      this.item.price = this.detailsForm.get('price')?.value;
       this.item.quantity = this.item.preconvertedQuantity * this.convertedUnit.factor;
       this.item.total = this.item.quantity * this.item.price;
       this.item.convertedUnit = this.convertedUnit;
@@ -271,13 +297,15 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     this.convertedUnit = item.convertedUnit;
     this.detailsForm.patchValue({
       unit: item.convertedUnit.unitConversionId,
-      quantity: item.quantity,
+      quantity: item.preconvertedQuantity,
       price: item.price
     });
     this.items.splice(index, 1);
   }
 
-  deleteItem = (index: number) => this.items.splice(index, 1);
+  deleteItem(index: number) {
+    this.items.splice(index, 1);
+  }
 
   AddTransaction() {
     if (this.items.length == 0) {
@@ -320,9 +348,8 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     transaction.companyId = this.userData.companyId;
     transaction.stock_Id = this.masterForm.get('stock_Id')?.value;
     transaction.stockTransType_Id = this.masterForm.get('stockTransType_Id')?.value;
-    transaction.documentDate = this.datePipe.transform(new Date(this.masterForm.get('documentDate')?.value), 'yyyy-MM-dd') + "T00:00:00" ?? '';
+    transaction.documentDate = this.datePipe.transform(new Date().setDate(new Date(this.masterForm.get('documentDate')?.value).getDate()), 'yyyy-MM-ddThh:mm:ss') ?? '';
     transaction.documentNumber = this.masterForm.get('documentNumber')?.value;
-    transaction.entityType_Id = this.masterForm.get('entityType_Id')?.value;
     transaction.financialYear_Id = this.masterForm.get('financialYear_Id')?.value;
     transaction.notes = this.masterForm.get('notes')?.value;
 
@@ -351,7 +378,6 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           break;
       }
     }
-
 
     transaction.getStockTransEntity.stockTransaction_Id = 0;
 
@@ -384,12 +410,27 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
 
+  deleteSubForm() {
+    this.items = [];
+    this.isReadOnly = false;
+    this.detailsForm.get('price')?.disable();
+    this.detailsForm.get('unit')?.disable();
+    this.detailsForm.get('quantity')?.disable();
+  }
+
+  restrictZero(event: any) {
+    if ((event.target.value.length === 0 && event.key === '0')||event.key === '-'||event.key === '.') {
+      event.preventDefault();
+    }
+    console.log(event)
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
-    if (this.items.length > 0) {
-      localStorage.setItem('Items', JSON.stringify(this.items));
-      localStorage.setItem('mainData', JSON.stringify(this.masterForm.value));
-    }
+    // if (this.items.length > 0) {
+    //   localStorage.setItem('Items', JSON.stringify(this.items));
+    //   localStorage.setItem('mainData', JSON.stringify(this.masterForm.value));
+    // }
   }
 
 }

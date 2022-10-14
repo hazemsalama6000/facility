@@ -7,9 +7,8 @@ export interface IAddTransaction {
     documentDate: string;
     documentNumber: number;
     notes: string;
+    ReceivedFromTrans_Id:number;
     financialYear_Id: number;
-    entityType_Id: number;
-
     getStockTransEntity: ITransEntity;
 
     itemData: IItem[];
@@ -35,5 +34,6 @@ export interface IItem {
     unitConversion_Id: number,
     stockTransaction_Id: number,
     stockShelf_Id?: number,
+    notes?:string;
     isRefused?: boolean
 }

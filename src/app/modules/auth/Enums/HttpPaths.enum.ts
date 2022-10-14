@@ -423,5 +423,7 @@ API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE="/api/v1/cust/removepathroutefromclientbr
 	API_GET_ITEM_TRANSACTION='/api/v1/invt/getallstocktransbyitemid?',
 	API_UPDATE_RESERVED='/api/v1/invt/updatereservedamountforstocktrans',
 
+	API_GET_TRANSFER_TRANSACTION='/api/v1/invt/getallstocktransactionstransfer?',
+
 
 }
