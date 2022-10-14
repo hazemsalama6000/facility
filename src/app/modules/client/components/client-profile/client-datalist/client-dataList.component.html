@@ -13,11 +13,10 @@
 
 		</div>
 
-		<form [formGroup]="clientSearchForm"
-		(ngSubmit)="searchClients(clientSearchForm.value)">
+		<form [formGroup]="clientSearchForm" (ngSubmit)="searchClients(clientSearchForm.value)">
 
-		<div class="row">
-			
+			<div class="row">
+
 				<mat-form-field class="custominput" style="width: 250px;" appearance="outline">
 					<mat-label> اسم العميل </mat-label>
 					<input matInput placeholder="Placeholder" name="Name" formControlName="Name">
@@ -39,23 +38,31 @@
 					placeholder="تصنيف العميل">
 				</ng-select>
 
-				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForState"
-					bindLabel="Name" bindValue="Id" name="State_Id" formControlName="State_Id" placeholder="المحافظة"
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForState" bindLabel="Name"
+					bindValue="Id" name="State_Id" formControlName="State_Id" placeholder="المحافظة"
 					(change)="onItemSelectState($event)">
 				</ng-select>
 
-				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForRegion"
-					bindLabel="Name" bindValue="Id" name="Region_Id" id="Region_Id" placeholder="المنطقة"
-					formControlName="Region_Id">
+				<ng-select style="width: 250px;" class="customized" [items]="dropdownListDataForRegion" bindLabel="Name"
+					bindValue="Id" name="Region_Id" id="Region_Id" placeholder="المنطقة" formControlName="Region_Id">
 				</ng-select>
 
-				<button mat-mini-fab color="primary" style="margin-top: 10px !important;" id="search" type="submit"
-					class="mx-10">
+				<button mat-mini-fab color="primary" style="margin-top: 8px !important;" id="search" type="submit"
+					class="mx-2">
 					<mat-icon style="font-size: 25px;">search</mat-icon>
 				</button>
 
-		</div>
-	</form>
+				<button style="margin-top: 8px !important;" type="button"  matTooltip="تخصيص خط سير للفروع" mat-mini-fab
+					color="danger" (click)="AssignClientPathRoute()"
+					aria-label="Example icon button with a menu icon">
+					<mat-icon>
+						<span class="material-symbols-outlined">
+							device_hub
+						</span>
+					</mat-icon>
+				</button>
+			</div>
+		</form>
 
 	</mat-card>
 

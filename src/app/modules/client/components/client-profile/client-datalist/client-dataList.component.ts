@@ -13,6 +13,7 @@ import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
 import { IClientDisplayedData } from "../../../models/IClientDisplayedData.interface";
 import { IClientSearchParams } from "../../../models/IClientSearchParams.interface";
+import { BranchsAssignPathRouteComponent } from "./branchs_assignPathRoute/branchs_assignPathRoute.component";
 @Component({
 	selector: "client-DataList",
 	templateUrl: './client-dataList.component.html',
@@ -51,6 +52,24 @@ export class ClientDataListComponent {
 		private auth: AuthService, private fb: FormBuilder, private pathrouteService: PathrouteService) { }
 
 
+		AssignClientPathRoute(){
+			const dialogPosition: DialogPosition = {
+				top:'0px',
+				right:'0px'
+			  };
+	
+			const dialogRef = this.dialog.open(BranchsAssignPathRouteComponent,
+				{
+					maxHeight: '100vh',
+					height: '100%',
+					 position:dialogPosition,
+//					data: { branchId: branchId }
+				});
+	
+			dialogRef.afterClosed().subscribe(result => {
+				console.log(`Dialog result: ${result}`);
+			});
+		}
 
 	openDialog() {
 

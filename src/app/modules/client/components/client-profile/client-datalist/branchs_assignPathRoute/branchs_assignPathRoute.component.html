@@ -1,0 +1,102 @@
+<div style="width:300px ;">
+
+	<h2 mat-dialog-title>
+		<span class="fontsection"> تخصيص خط سير </span>
+	</h2>
+
+	<mat-divider></mat-divider>
+	<form [formGroup]="AssignPathToClientDataForm" (ngSubmit)="Submit(AssignPathToClientDataForm.value)">
+
+
+		<mat-dialog-content style="z-index: -1;" class="mat-typography">
+
+
+			<div class="row mt-5">
+
+				<div class="col-md-12">
+
+					<div class="row">
+						<div class="col-md-12">
+
+							<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
+								name="state_Id" placeholder="{{'HR.INPUTS.STATE' | translate}}" formControlName="state_Id"
+								(change)="onItemSelectState($event);pathRoute.handleClearClick();branchId.handleClearClick()">
+							</ng-select>
+	
+						</div>
+	
+						<!--<div class="col-md-12">
+	
+							<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name"
+								bindValue="Id" name="region_Id" placeholder="{{'HR.INPUTS.REGION' | translate}}"
+								id="region_Id" formControlName="region_Id">
+							</ng-select>
+	
+						</div>-->
+	
+						<div class="col-md-12">
+
+							<ng-select #pathRoute class="customized" [items]="dropdownPathRouteData" bindLabel="Name"
+								bindValue="Id" name="PathRouteId" placeholder="خطوط السير"
+								formControlName="PathRouteId">
+							</ng-select>
+							<mat-hint>
+								<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											  validation: 'required',
+											  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'' | translate},
+											  control: AssignPathToClientDataForm.controls['PathRouteId']
+											}"></ng-container>
+							</mat-hint>
+
+						</div>
+
+						<div class="col-md-12">
+	
+							<ng-select #branchId class="customized" [items]="dropdownListDataForBranches" bindLabel="Name"
+								bindValue="Id" name="branch_Id" placeholder="الفرع"
+								id="branch_Id" formControlName="branch_Id">
+							</ng-select>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+								validation: 'required',
+								message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'' | translate},
+								control: AssignPathToClientDataForm.controls['branch_Id']
+							  }"></ng-container>
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<br>
+			<br>
+			<br>
+			<br>
+			<br><br><br><br><br><br><br>
+			<br>
+
+		</mat-dialog-content>
+
+		<mat-dialog-actions>
+			<div class="d-flex">
+				<button mat-raised-button type="submit" (click)="submitClicked=true"
+					color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>close</button>
+			</div>
+		</mat-dialog-actions>
+
+	</form>
+
+	<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+		<ng-container *ngIf="control.hasError(validation)  && submitClicked">
+			<div class="fv-plugins-message-container">
+				<span role="alert">{{ message }}</span>
+			</div>
+		</ng-container>
+	</ng-template>
+
+
+</div>

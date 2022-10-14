@@ -16,7 +16,7 @@ import { ClientComponent } from './components/client-profile/client.component';
 import { ClientUpdateComponent } from './components/client-profile/client-datalist/client-item/client-update/client-update.component';
 import { BranchAssignPathComponent } from './components/branches/branch_list_content/branch_AssignPathRoutes/branch_AssignPathRoutes.component';
 import { BranchPathRoutesLogs } from './components/branches/branch_list_content/branch_pathroutes_logs/branch_pathroutes_logs.component';
-
+import{BranchsAssignPathRouteComponent} from './components/client-profile/client-datalist/branchs_assignPathRoute/branchs_assignPathRoute.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { BranchPathRoutesLogs } from './components/branches/branch_list_content/
     BranchComponent,
     BranchUpsertComponent,
     BranchListContentComponent,
-    BranchUpsertComponent,
+    BranchUpsertComponent
+	,BranchsAssignPathRouteComponent
   ],
   imports: [
     CommonModule,

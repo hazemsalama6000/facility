@@ -3,6 +3,7 @@ import { BehaviorSubject, map, Observable } from "rxjs";
 import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { HttpPaths } from "src/app/modules/auth/Enums/HttpPaths.enum";
+import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { IBranch } from "../models/IBranch";
 import { IBranchPathRoutesLogs } from "../models/IBranchPathRoutesLogs.interface";
 import { IBranchAddModel } from "../models/IBranchUpsert.interface";
@@ -32,6 +33,12 @@ export class ClientBranchService {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCHES_GETBYID}CompanyBranchId=${CompanyBranchId}&Id=${id}`)
 			.pipe(map(data => data.data));
 	}
+
+	getBranchsNotAssignedToPathRoute(CompanyBranchId: number, StateId?: number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}
+		${HttpPaths.API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE}CompanyBranchId=${CompanyBranchId}&StateId=${StateId}`)
+		.pipe( map(Items=> Items.data.map( (Item:any) => ({Id:Item.id,Name:Item.name}) as LookUpModel )  ) );
+}
 
 	toggleActiveDeactive(model: IBranch): Observable<any> {
 		return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_CLIENTBRANCH_TOGGLE}${model.id}`);
