@@ -117,9 +117,9 @@
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 
         <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-          <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
-          <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.DOCNUMBER"|translate}}</span>
-          <span *ngSwitchCase="'docDate'">{{"TRANSACTIONS.TITLES.DOCDATE"|translate}}</span>
+          <!-- <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span> -->
+          <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
+          <span *ngSwitchCase="'docDate'">تاريخ التحويل</span>
           <span *ngSwitchCase="'transType'"> {{"TRANSACTIONS.TITLES.TRANSCTYPE"|translate}}</span>
           <span *ngSwitchCase="'stockName'"> {{"TRANSACTIONS.TITLES.STOCKNAME"|translate}}</span>
           <span *ngSwitchCase="'notes'"> {{"TRANSACTIONS.TITLES.NOTES"|translate}}</span>
@@ -127,7 +127,7 @@
         </th>
 
         <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element">
-          <span *ngSwitchCase="'id'"> {{element[column] }} </span>
+          <!-- <span *ngSwitchCase="'id'"> {{element[column] }} </span> -->
           <span *ngSwitchCase="'docNumber'"> {{element[column] }} </span>
           <span class="badge badge-primary" *ngSwitchCase="'docDate'"> {{element[column] | date:'dd/MM/yyyy'}}</span>
           <span class="badge badge-danger" *ngSwitchCase="'transType'"> {{element[column] }} </span>
@@ -135,10 +135,7 @@
           <span *ngSwitchCase="'notes'"> {{element[column] }} </span>
           <span *ngSwitchCase="'action'">
 
-            <button (click)="$event.stopPropagation()" matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary"
-              class="mx-md-1" aria-label="Example icon button with a filter list icon">
-              <mat-icon>local_printshop</mat-icon>
-            </button>
+
           </span>
         </td>
       </ng-container>
@@ -190,7 +187,7 @@
                 <td>{{x.preConvertedUnitName}}</td>
                 <td>{{x.preConvertedQuantity}}</td>
                 <td>{{x.baseUnitName}}</td>
-                <td>x</td>
+                <td>{{x.factor}}</td>
                 <td>{{x.baseQuantity}}</td>
                 <td>{{x.baseQuantity*x.price}}</td>
 

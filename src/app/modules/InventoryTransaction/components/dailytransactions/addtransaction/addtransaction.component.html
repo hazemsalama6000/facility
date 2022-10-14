@@ -20,8 +20,8 @@
         <div class="row mx-0 py-2">
 
           <div class="col-6 pb-3">
-            <ng-select #Stock [readonly]="isReadOnly" [items]="dropdownStock" bindLabel="Name" bindValue="Id"
-              placeholder="أختر المخزن" formControlName="stock_Id" (change)=" onChangeDateOrStockOrTransType() ;onChangeDate();">
+            <ng-select #Stock [readonly]="isReadOnly" [items]="dropdownStock" bindLabel="Name" bindValue="Id" placeholder="أختر المخزن"
+              formControlName="stock_Id" (change)=" onChangeDateOrStockOrTransType() ;onChangeDate();">
             </ng-select>
             <mat-hint>
               <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -33,10 +33,10 @@
           </div>
 
           <div class="col-6 pb-3">
-            <ng-select #TransType [readonly]="isReadOnly" [items]="dropdownTransType" bindLabel="name" bindValue="id"
-              placeholder="أختر نوع العملية" formControlName="stockTransType_Id"
-              (change)="onSelectTransType($event);EntityType.handleClearClick(); onChangeDateOrStockOrTransType() ;onChangeDate();"
-              (clear)="EntityType.handleClearClick();dropdownEntityType=[];">
+            <ng-select [readonly]="isReadOnly" [items]="dropdownTransType" bindLabel="name" bindValue="id" placeholder="أختر نوع العملية"
+              formControlName="stockTransType_Id"
+              (change)="onSelectTransType($event);selectEntityType.handleClearClick(); onChangeDateOrStockOrTransType() ;onChangeDate();"
+              (clear)="selectEntityType.handleClearClick();dropdownEntityType=[];">
             </ng-select>
             <mat-hint>
               <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -49,8 +49,9 @@
 
           <div class="col-6">
             <mat-form-field color="accent" appearance="outline">
-              <mat-label>التاريخ المستند</mat-label>
-              <input matInput [matDatepicker]="picker2" formControlName="documentDate" (dateChange)="onChangeDate();" [readonly]="isReadOnly">
+              <mat-label>التاريخ الاذن</mat-label>
+              <input matInput [matDatepicker]="picker2" [max]="maxDate" [readonly]="true" formControlName="documentDate"
+                (dateChange)="onChangeDate();">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2 [disabled]="isReadOnly"></mat-datepicker>
 
@@ -60,26 +61,15 @@
                 message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'التاريخ'},
                 control: masterForm.controls['documentDate']}">
                 </ng-container>
-
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                validation: 'minlength',
-                message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'التاريخ' , min:3},
-                control: masterForm.controls['documentDate']}">
-                </ng-container>
-
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'التاريخ' , max:100},
-                  control: masterForm.controls['documentDate']}">
-                </ng-container>
               </mat-hint>
             </mat-form-field>
           </div>
 
           <div class="col-6">
             <mat-form-field appearance="outline">
-              <mat-label> رقم المستند </mat-label>
-              <input matInput placeholder="" name="documentNumber" formControlName="documentNumber" [readonly]="isReadOnly">
+              <mat-label> رقم الاذن </mat-label>
+              <input matInput type="number" placeholder="" name="documentNumber" formControlName="documentNumber" [readonly]="isReadOnly" 
+              (keydown)="restrictZero($event)">
               <mat-hint>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -96,8 +86,8 @@
             </mat-form-field>
           </div>
 
-          <div class="col-6 pb-3">
-            <ng-select #EntityType [readonly]="isReadOnly" [items]="dropdownEntityType" bindLabel="name" bindValue="id"
+          <div class="col-6 pb-3" [hidden]="TransType.sysName=='settlementinc'||TransType.sysName=='settlementdec'">
+            <ng-select #selectEntityType [readonly]="isReadOnly" [items]="dropdownEntityType" bindLabel="name" bindValue="id"
               placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);" (clear)="Entity.handleClearClick();dropdownEntity=[];"
               formControlName="entityType_Id">
             </ng-select>
@@ -110,9 +100,9 @@
             </mat-hint>
           </div>
 
-          <div class="col-6 pb-3">
-            <ng-select #Entity [readonly]="isReadOnly" [items]="dropdownEntity" bindLabel="Name" bindValue="Id"
-              placeholder="أختر المستفيد" formControlName="entity_Id">
+          <div class="col-6 pb-3" [hidden]="TransType.sysName=='settlementinc'||TransType.sysName=='settlementdec'">
+            <ng-select #Entity [readonly]="isReadOnly" [items]="dropdownEntity" bindLabel="Name" bindValue="Id" placeholder="أختر المستفيد"
+              formControlName="entity_Id">
             </ng-select>
             <mat-hint>
               <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -123,10 +113,36 @@
             </mat-hint>
           </div>
 
+          <div class="col" [hidden]="EntityType.sysName!='vendor'">
+            <mat-form-field appearance="outline">
+              <mat-label> {{"رقم الاذن المستلم" | translate}} </mat-label>
+              <input matInput placeholder="" name="vendorBillId" formControlName="vendorBillId" [readonly]="isReadOnly">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'ملاحظات' },
+          control: masterForm.controls['vendorBillId']
+        }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'ملاحظات'  , min:3},
+          control: masterForm.controls['vendorBillId']
+        }"></ng-container>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxlength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'ملاحظات'  , max:100},
+          control: masterForm.controls['notes']
+         }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
           <div class="col">
             <mat-form-field appearance="outline">
               <mat-label> {{"ملاحظات" | translate}} </mat-label>
-              <input matInput placeholder="" name="notes" formControlName="notes" [readonly]="isReadOnly">
+              <input matInput placeholder="" name="notes" formControlName="notes">
               <mat-hint>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -176,16 +192,16 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">الوحدة الرئيسية (الصغرى)</th>
-                    <th scope="col">الكمية (بالوحدة الاساسية)</th>
-                    <th scope="col">الكمية بالوحدة المنفذ بها</th>
+                    <th scope="col" class="py-1">الوحدة الرئيسية (الصغرى)</th>
+                    <th scope="col" class="py-1">الكمية (بالوحدة الاساسية)</th>
+                    <th scope="col" class="py-1">الكمية بالوحدة المنفذ بها</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>{{item.unit}}</td>
                     <td>{{item.quantityInBaseUnit}}</td>
-                    <td>{{convertedUnit?.quantityInExcutedUnit| number : '1.2'}}</td>
+                    <td>{{convertedUnit?.quantityInExcutedUnit| number : '1.0-2'}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -207,7 +223,7 @@
             <div class="col-3">
               <mat-form-field appearance="outline">
                 <mat-label> {{"الكمية المنفذة" | translate}} </mat-label>
-                <input matInput placeholder="" name="quantity" formControlName="quantity" (input)="calcQuantity()">
+                <input matInput type="number" name="quantity" formControlName="quantity" (input)="calcQuantity()" (keydown)="restrictZero($event)">
                 <mat-hint>
                   <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
@@ -226,7 +242,7 @@
             <div class="col-3">
               <mat-form-field appearance="outline">
                 <mat-label> {{"السعر ب "+(item.unit??'') | translate}} </mat-label>
-                <input matInput placeholder="" name="price" formControlName="price">
+                <input matInput type="number" placeholder="" name="price" formControlName="price">
                 <mat-hint>
                   <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
@@ -256,19 +272,19 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">أسم الصنف</th>
-                <th scope="col">الوحدة الرئيسية (الصغرى) </th>
-                <th scope="col">الكمية </th>
-                <th scope="col">الوحده المنفذة </th>
-                <th scope="col">الكمية المنفذة</th>
-                <th scope="col">الكمية بعد التحويل</th>
-                <th scope="col">السعر</th>
-                <th scope="col">الاجمالى</th>
-                <th scope="col"></th>
+                <th scope="col" class="py-2">أسم الصنف</th>
+                <th scope="col" class="py-2">الوحدة الرئيسية (الصغرى) </th>
+                <th scope="col" class="py-2">الكمية </th>
+                <th scope="col" class="py-2">الوحده المنفذة </th>
+                <th scope="col" class="py-2">الكمية المنفذة</th>
+                <th scope="col" class="py-2">الكمية بعد التحويل</th>
+                <th scope="col" class="py-2">السعر</th>
+                <th scope="col" class="py-2">الاجمالى</th>
+                <th scope="col" class="py-2"></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of items;let i=index" class="{{item.isRefused?'bg-danger':''}}" >
+              <tr *ngFor="let item of items;let i=index" class="{{item.isRefused?'bg-danger':''}}">
                 <td>{{item.name}}</td>
                 <td>{{item.unit}}</td>
                 <td>{{item.quantityInBaseUnit}}</td>
@@ -281,15 +297,14 @@
                   <div class="d-flex">
                     <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="warn" (click)="deleteItem(i)">delete</mat-icon>
                     <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="editItem(item,i)">edit</mat-icon>
-                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="openSerialDialog(item,i)">add
-                    </mat-icon>
+                    <!-- <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="openSerialDialog(item,i)">add</mat-icon> -->
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        
+
       </div>
     </div>
 
@@ -298,7 +313,7 @@
   <div class="row fixed-bottom mb-3">
     <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true;" form="formmaster" [disabled]="loading" color="primary"
       style="width: 130px !important;">{{'HR.BUTTONS.SAVE'|translate}}</button>
-    <button mat-raised-button color="warn" type="button" (click)="items=[]" class="mx-2" style="width: 150px !important;">
+    <button mat-raised-button color="warn" type="button" (click)="deleteSubForm()" class="mx-2" style="width: 150px !important;">
       {{'حذف جميع الاصناف'|translate}}</button>
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial
       style="width: 100px !important;background-color: #e7e7e7;">{{'HR.BUTTONS.CLOSE'|translate}}</button>

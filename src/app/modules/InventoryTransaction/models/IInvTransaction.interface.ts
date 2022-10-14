@@ -12,17 +12,19 @@ export interface IInvTransaction {
     transType: string,
     stockName: string,
     notes: string,
+    getStockTransEntity: { transferStock_Id: number },
     stockTransDetails: IInvTransactionDetails[]
+    stockTransTypeId: number,
 
-    docReceivedDate:string,
-    docReceivedNumber:number,
-    stockId:number,
-    financialYear_Id:number,
-    transTypeId:number
-    receivedNotes:string,
+    docReceivedDate: string,
+    docReceivedNumber: number,
+    stockId: number,
+    financialYear_Id: number,
+    // transTypeId: number
 }
 
 export interface IInvTransactionDetails {
+    itemId: number,
     categoryName: string,
     itemName: string,
     itemCode: string,
@@ -32,9 +34,14 @@ export interface IInvTransactionDetails {
     baseUnitName: string,
     preConvertedQuantity: number,
     preConvertedUnitName: string,
+    reservedQuantity: number,
 
     receivedQuantity: number,
+    quantity: number,
     remainingQuantity: number,
-    convertedUnits: IConvertedUnits[],
-    convertedUnit: IConvertedUnits
+    receivedNotes: string,
+
+    unitConversions: IConvertedUnits[],
+    convertedUnits: IConvertedUnits
 }
+

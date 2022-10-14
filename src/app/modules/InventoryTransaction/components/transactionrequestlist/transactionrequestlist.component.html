@@ -1,8 +1,49 @@
-<mat-card class="row mx-o p-0 pb-3">
-  <div class="col-12 pt-2">
-    <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
-    <span class="fontsection">طلبات الاستلام</span>
+
+
+<mat-card class="row mx-o p-0 ">
+
+  <div class="col-12 py-2">
+    <div class="d-flex mx-5 justify-content-between align-items-center">
+      <div>
+        <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
+        <span class="fontsection">طلبات الاستلام</span>
+      </div>
+
+    </div>
   </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="col-12 mt-3">
+    <div class="row mx-5">
+
+      <div class="col" style="max-width: 160px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getTransactionByDate()">
+          <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
+          <mat-datepicker #startD></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col" style="max-width: 160px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getTransactionByDate()">
+          <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
+          <mat-datepicker #endD></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-4">
+        <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.StockId"
+          placeholder="أختر المخزن" (change)="getTransactionData();" (clear)="getTransactionData();">
+        </ng-select>
+      </div>
+
+    </div>
+  </div>
+
 </mat-card>
 
 
@@ -21,9 +62,9 @@
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 
         <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-          <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
-          <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.DOCNUMBER"|translate}}</span>
-          <span *ngSwitchCase="'docDate'">{{"TRANSACTIONS.TITLES.DOCDATE"|translate}}</span>
+          <!-- <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span> -->
+          <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
+          <span *ngSwitchCase="'docDate'">تاريخ التحويل</span>
           <span *ngSwitchCase="'transType'"> {{"TRANSACTIONS.TITLES.TRANSCTYPE"|translate}}</span>
           <span *ngSwitchCase="'stockName'"> {{"TRANSACTIONS.TITLES.STOCKNAME"|translate}}</span>
           <span *ngSwitchCase="'notes'"> {{"TRANSACTIONS.TITLES.NOTES"|translate}}</span>
@@ -31,7 +72,7 @@
         </th>
 
         <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element">
-          <span *ngSwitchCase="'id'"> {{element[column] }} </span>
+          <!-- <span *ngSwitchCase="'id'"> {{element[column] }} </span> -->
           <span *ngSwitchCase="'docNumber'"> {{element[column] }} </span>
           <span class="badge badge-primary" *ngSwitchCase="'docDate'"> {{element[column] | date:'dd/MM/yyyy'}}</span>
           <span class="badge badge-danger" *ngSwitchCase="'transType'"> {{element[column] }} </span>
@@ -66,41 +107,42 @@
             <div class="row  mt-2">
               <div class="col-4">
                 <mat-form-field appearance="outline">
-                  <mat-label>التاريخ</mat-label>
-                  <input matInput [matDatepicker]="startD" [(ngModel)]="element.docReceivedDate" (dateChange)="onChangeDate(element,elementIndex)">
+                  <mat-label> تاريخ الاستلام</mat-label>
+                  <input matInput [matDatepicker]="startD" [max]="maxDate" [readonly]="true" [(ngModel)]="element.docReceivedDate" (dateChange)="onChangeDate(element,elementIndex)">
                   <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
                   <mat-datepicker #startD></mat-datepicker>
                 </mat-form-field>
               </div>
               <div class="col-4">
                 <mat-form-field appearance="outline">
-                  <mat-label> رقم الاذن</mat-label>
-                  <input type="text" name="code" matInput [(ngModel)]="element.docReceivedNumber">
+                  <mat-label> رقم إذن الاستلام</mat-label>
+                  <input type="" name="code" matInput [(ngModel)]="element.docReceivedNumber">
                 </mat-form-field>
               </div>
             </div>
             <!-- style="border:2px solid rgb(187, 187, 187);" -->
             <table class="table" style="border:2px solid rgb(187, 187, 187);">
               <tr>
-                <th rowspan="2" class="trpadding"> كود المنتج</th>
-                <th rowspan="2"> الاسم </th>
-                <th rowspan="2"> التصنيف</th>
-                <th rowspan="2"> الباركود</th>
+                <th rowspan="2" class="trpadding"> كود </th>
+                <th rowspan="2" class="w-125px"> الاسم </th>
+                <th rowspan="2" class="w-125px"> التصنيف</th>
+                <!-- <th rowspan="2"> الباركود</th> -->
                 <th rowspan="2"> السعر</th>
                 <th colspan="2" class="badge-success"> الكمية المنفذ بها</th>
-                <th colspan="3" class="badge-primary"> الكمية بعد التحويل</th>
-                <th colspan="3" class="badge-info"> الكمية المستلمة</th>
-                <th rowspan="2" class=" w-125px"> ملاحظات</th>
+                <!-- <th colspan="3" class="badge-primary"> الكمية بعد التحويل</th> -->
+                <th colspan="4" class="badge-info"> الكمية المستلمة</th>
+                <th rowspan="2" class=" "> ملاحظات</th>
               </tr>
               <tr style="border: 2px solid rgb(187, 187, 187);">
-                <th>الوحدة</th>
+                <th class="w-50px">الوحدة</th>
                 <th>الكمية </th>
 
-                <th>الوحدة</th>
+                <!-- <th>الوحدة</th>
                 <th>المعامل</th>
-                <th>الكمية </th>
+                <th>الكمية </th> -->
 
                 <th>الوحدة</th>
+                <th>الكمية</th>
                 <th class="w-75px">المستلم</th>
                 <th> المتبقى </th>
               </tr>
@@ -109,29 +151,25 @@
                 <td>{{x.itemCode}}</td>
                 <td>{{x.itemName}}</td>
                 <td>{{x.categoryName}}</td>
-                <td>{{x.itemBarCode}}</td>
+                <!-- <td>{{x.itemBarCode}}</td> -->
                 <td>{{x.price}}</td>
                 <td>{{x.preConvertedUnitName}}</td>
                 <td>{{x.preConvertedQuantity}}</td>
-                <td>{{x.baseUnitName}}</td>
+                <!-- <td>{{x.baseUnitName}}</td>
                 <td>x</td>
-                <td>{{x.baseQuantity}}</td>
+                <td>{{x.baseQuantity}}</td> -->
                 <td>
-                  <ng-select #Stock class="p-1" [items]="convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="x.convertedUnit" placeholder="أختر الوحدة"
-                    appendTo="body" (change)="changeUnit(elementIndex,item);" [clearable]="false">
+                  <ng-select #Stock class="transdrop p-1" [items]="x.unitConversions" bindLabel="convertedUnitName" [(ngModel)]="x.convertedUnits" placeholder="أختر الوحدة"
+                    appendTo="body" (change)="changeUnit(x,elementIndex,item);" [clearable]="false" >
                   </ng-select>
-                </td>
-                <td><input type="number" class="form-control" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);"></td>
-                <td> {{x.baseQuantity}} </td>
+                </td> 
+                <td> {{x.quantity|number : '1.2-2'}} </td>
+                <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
+                <td> {{x.remainingQuantity|number:'1.2-2'}} </td>
                 <td>
-                  <input type="text" class="form-control" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
+                  <input type="text" class="form-control p-1" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
                 </td>
               </tr>
-              <tfoot> 
-                <tr>
-
-                </tr>
-              </tfoot>
             </table>
 
             <div class="d-inline-flex">

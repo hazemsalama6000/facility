@@ -75,8 +75,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 						summary: `HTTP Error - ${requestError.status}`,
 						detail: error.message,
 					});
-
-					return throwError(error);
+					 console.log(error)
+					 
+					if (error.data)
+						return throwError(error);
+					else
+						return throwError(error.message)
 				}
 
 				else {
