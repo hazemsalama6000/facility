@@ -213,8 +213,6 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           }
         });
 
-
-
       } else {
         this.item = {} as IItemProfile;
         this.convertedUnit = {} as IConvertedUnits;
@@ -227,7 +225,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   displayinputAutoComplete = (item?: LookUpModel): string => item ? item.Name : '';
   onSelectedAutoComplete(x: MatAutocompleteSelectedEvent) {
     if (x.option.value.Id)
-      this.itemService.getItemProfile(x.option.value.Id, this.userData.companyId).subscribe(res => {
+      this.itemService.getItemProfile(x.option.value.Id,this.masterForm.get('stock_Id')?.value, this.userData.companyId).subscribe(res => {
         if (res) {
           this.detailsForm.reset();
           this.item = res;
@@ -435,6 +433,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     this.items = [];
     this.item = {} as IItemProfile;
     this.isReadOnly = false;
+    this.autoCompleteItems=[]
     this.searchItem = '';
     this.detailsForm.get('price')?.disable();
     this.detailsForm.get('unit')?.disable();

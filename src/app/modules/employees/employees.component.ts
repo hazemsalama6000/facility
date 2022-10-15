@@ -68,9 +68,11 @@ export class EmployeesComponent implements OnInit {
 
 	ngAfterViewInit() {
 		this.route.queryParams.subscribe(params => {
-			if (params)
+			if (params){
 				this.EmployeeId = params.id;
-			console.log(params.id)
+				document.getElementById("employee")?.click();
+				console.log(params.id)
+			}
 		});
 	}
 

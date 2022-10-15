@@ -17,7 +17,7 @@ export interface IInvTransaction {
     stockTransDetails: IInvTransactionDetails[]
     stockTransTypeId: number,
     entityName:string;
-    stockEntityTypeId:number;
+    // stockEntityTypeId:number;
     // entityTypeId:number;
 
     stockTransEntity:ITransEntity
