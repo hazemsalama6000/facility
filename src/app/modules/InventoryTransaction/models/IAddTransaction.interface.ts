@@ -7,10 +7,9 @@ export interface IAddTransaction {
     documentDate: string;
     documentNumber: number;
     notes: string;
-    ReceivedFromTrans_Id:number;
+    ReceivedFromTrans_Id: number;
     financialYear_Id: number;
-    getStockTransEntity: ITransEntity;
-
+    transEntity: ITransEntity;
     itemData: IItem[];
 
 }
@@ -18,15 +17,18 @@ export interface IAddTransaction {
 export interface ITransEntity {
     stockTransaction_Id: number;
     vendor_Id: number;
+    billVendorNumber: string,
+    entityType_Id: number;
     employee_Id: number;
     department_Id: number;
     car_Id: number;
     externalVendor_Id: number;
     transferStock_Id: number
+
 }
 
 export interface IItem {
-    indexRef:number,
+    indexRef: number,
     itemId: number,
     quantity: number,
     price: number,
@@ -34,6 +36,6 @@ export interface IItem {
     unitConversion_Id: number,
     stockTransaction_Id: number,
     stockShelf_Id?: number,
-    notes?:string;
+    notes?: string;
     isRefused?: boolean
 }

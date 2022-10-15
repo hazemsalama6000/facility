@@ -34,7 +34,7 @@ import { AddtransactionComponent } from './addtransaction/addtransaction.compone
 })
 export class DailytransactionsComponent implements OnInit {
 
-  columnsToDisplay = [ 'docNumber', 'docDate', 'transType', 'stockName', 'notes', 'action'];
+  columnsToDisplay = [ 'n','docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
 

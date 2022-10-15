@@ -61,7 +61,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     entityType_Id: [null, Validators.compose([Validators.required])],
     entity_Id: [null, Validators.compose([Validators.required])],
     financialYear_Id: [null],
-    vendorBillId: [null]
+    billVendorNumber: [null],
   });
 
   detailsForm: FormGroup = this.fb.group({
@@ -123,7 +123,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       this.invTransactionService.getEntityType(item.id).subscribe(res => {
         this.dropdownEntityType = res;
         this.EntityType = res.find(x => x.sysName == 'stock') ?? { sysName: '' } as IEntityType;
-
+    
         if (this.TransType.sysName == 'settlementinc' || this.TransType.sysName == 'settlementdec') {
           this.masterForm.patchValue({
             entityType_Id: this.EntityType.id ?? 0,
@@ -131,6 +131,8 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           })
         }
       });
+
+
     } else
       this.TransType = {} as ITransType;
   }
@@ -155,7 +157,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           this.invTransactionService.getExternalPlaces(this.userData.companyId).subscribe(res => this.dropdownEntity = res);
           break;
         case 'stock':
-          this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownEntity = res);
+          this.inventoryService.getLookUpStocks(this.userData.branchId, this.masterForm.get('stock_Id')?.value).subscribe(res => this.dropdownEntity = res);
           break;
         default:
           break;
@@ -192,6 +194,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   autoCompleteItems: LookUpModel[] = [];
 
   inputAutoComplete(text: string) {
+
     if (this.masterForm.valid) {
       this.isReadOnly = true;
       this.detailsForm.get('price')?.enable();
@@ -208,8 +211,10 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
             this.convertedUnit = {} as IConvertedUnits;
             this.convertedUnits = [];
           }
-        }
-        );
+        });
+
+
+
       } else {
         this.item = {} as IItemProfile;
         this.convertedUnit = {} as IConvertedUnits;
@@ -281,8 +286,8 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
       this.item.price = this.detailsForm.get('price')?.value;
       this.item.quantity = this.item.preconvertedQuantity * this.convertedUnit.factor;
-      this.item.total = this.item.quantity * this.item.price;
       this.item.convertedUnit = this.convertedUnit;
+      this.item.total = this.item.quantity * (this.item.price / this.item.convertedUnit.factor);
       this.items.push(this.item);
       this.item = {} as IItemProfile;
       this.convertedUnit = {} as IConvertedUnits;
@@ -343,6 +348,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   createTransactionObject(): IAddTransaction {
+
     let transaction: IAddTransaction = {} as IAddTransaction;
     transaction.id = 0;
     transaction.companyId = this.userData.companyId;
@@ -353,33 +359,37 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     transaction.financialYear_Id = this.masterForm.get('financialYear_Id')?.value;
     transaction.notes = this.masterForm.get('notes')?.value;
 
-    transaction.getStockTransEntity = {} as ITransEntity;
+    transaction.transEntity = {} as ITransEntity;
     if (this.EntityType) {
       switch (this.EntityType.sysName) {
         case 'vendor':
-          transaction.getStockTransEntity.vendor_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.vendor_Id = this.masterForm.get('entity_Id')?.value;
           break;
         case 'employee':
-          transaction.getStockTransEntity.employee_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.employee_Id = this.masterForm.get('entity_Id')?.value;
           break;
         case 'department':
-          transaction.getStockTransEntity.department_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.department_Id = this.masterForm.get('entity_Id')?.value;
           break;
         case 'car':
-          transaction.getStockTransEntity.car_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.car_Id = this.masterForm.get('entity_Id')?.value;
           break;
         case 'external':
-          transaction.getStockTransEntity.externalVendor_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.externalVendor_Id = this.masterForm.get('entity_Id')?.value;
           break;
         case 'stock':
-          transaction.getStockTransEntity.transferStock_Id = this.masterForm.get('entity_Id')?.value;
+          transaction.transEntity.transferStock_Id = this.masterForm.get('entity_Id')?.value;
           break;
         default:
           break;
       }
     }
 
-    transaction.getStockTransEntity.stockTransaction_Id = 0;
+    let x = this.masterForm.get('billVendorNumber')?.value;
+    transaction.transEntity.stockTransaction_Id = 0;
+    transaction.transEntity.entityType_Id = this.masterForm.get('entityType_Id')?.value;
+    if (x)
+      transaction.transEntity.billVendorNumber = x;
 
     transaction.itemData = [];
     this.items.map((obj, index) => {
@@ -387,7 +397,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       transaction.itemData.push({
         preConvertedQuantity: obj.preconvertedQuantity,
         quantity: obj.quantity,
-        price: obj.price,
+        price: obj.price / obj.convertedUnit.factor,
         unitConversion_Id: obj.convertedUnit.unitConversionId,
         stockTransaction_Id: 0,
         itemId: obj.id,
@@ -419,10 +429,15 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 0 && event.key === '0')||event.key === '-'||event.key === '.') {
+    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
-    console.log(event)
+  }
+
+  restrictZeroPrice(event: any) {
+    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '+' || event.key === 'e') {
+      event.preventDefault();
+    }
   }
 
   ngOnDestroy(): void {

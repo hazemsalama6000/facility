@@ -62,21 +62,23 @@
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 
         <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-          <!-- <span *ngSwitchCase="'id'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span> -->
+          <span *ngSwitchCase="'n'"> م</span>
           <span *ngSwitchCase="'docNumber'"> {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
           <span *ngSwitchCase="'docDate'">تاريخ التحويل</span>
           <span *ngSwitchCase="'transType'"> {{"TRANSACTIONS.TITLES.TRANSCTYPE"|translate}}</span>
           <span *ngSwitchCase="'stockName'"> {{"TRANSACTIONS.TITLES.STOCKNAME"|translate}}</span>
+          <span *ngSwitchCase="'entityName'"> المستفيد</span>
           <span *ngSwitchCase="'notes'"> {{"TRANSACTIONS.TITLES.NOTES"|translate}}</span>
           <span *ngSwitchCase="'action'"></span>
         </th>
 
-        <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element">
-          <!-- <span *ngSwitchCase="'id'"> {{element[column] }} </span> -->
+        <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element;let elementIndex=dataIndex">
+          <span *ngSwitchCase="'n'"> {{((searchModel.PageNumber-1)*searchModel.PageSize)+(elementIndex+1) }} </span>
           <span *ngSwitchCase="'docNumber'"> {{element[column] }} </span>
           <span class="badge badge-primary" *ngSwitchCase="'docDate'"> {{element[column] | date:'dd/MM/yyyy'}}</span>
           <span class="badge badge-danger" *ngSwitchCase="'transType'"> {{element[column] }} </span>
           <span class="badge badge-success" *ngSwitchCase="'stockName'"> {{element[column] }} </span>
+          <span class="badge badge-info" *ngSwitchCase="'entityName'"> {{element[column] }} </span>
           <span *ngSwitchCase="'notes'"> {{element[column] }} </span>
           <span *ngSwitchCase="'action'">
 
@@ -116,13 +118,14 @@
               <div class="col-4">
                 <mat-form-field appearance="outline">
                   <mat-label> رقم إذن الاستلام</mat-label>
-                  <input type="" name="code" matInput [(ngModel)]="element.docReceivedNumber">
+                  <input type="number" name="code" matInput [(ngModel)]="element.docReceivedNumber"  (keydown)="restrictZero($event)">
                 </mat-form-field>
               </div>
             </div>
             <!-- style="border:2px solid rgb(187, 187, 187);" -->
             <table class="table" style="border:2px solid rgb(187, 187, 187);">
               <tr>
+                <th rowspan="2" class="trpadding"> م </th>
                 <th rowspan="2" class="trpadding"> كود </th>
                 <th rowspan="2" class="w-125px"> الاسم </th>
                 <th rowspan="2" class="w-125px"> التصنيف</th>
@@ -148,6 +151,7 @@
               </tr>
 
               <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails;let item = index" style="border: 2px solid rgb(187, 187, 187);">
+                <td>{{item+1}}</td>
                 <td>{{x.itemCode}}</td>
                 <td>{{x.itemName}}</td>
                 <td>{{x.categoryName}}</td>
