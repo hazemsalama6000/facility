@@ -109,6 +109,16 @@
 											message: 'اقصى عدد حروف 100',
 											control: EmployeeDataForm.controls['Code']
 										 }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'pattern',
+											message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+											control: EmployeeDataForm.controls['Code']
+										  }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'min',
+											message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'' | translate , min:0},
+											control: EmployeeDataForm.controls['Code']
+										  }"></ng-container>
 						</mat-hint>
 					</mat-form-field>
 
@@ -189,7 +199,8 @@
 
 					<mat-form-field appearance="outline">
 						<mat-label> الرقم القومى </mat-label>
-						<input matInput minlength="14" maxlength="14" placeholder="Placeholder" name="NId" formControlName="NId">
+						<input matInput minlength="14" maxlength="14" placeholder="Placeholder" name="NId"
+							formControlName="NId">
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
@@ -208,6 +219,16 @@
 											message: 'اقصى عدد حروف 14',
 											control: EmployeeDataForm.controls['NId']
 										 }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'pattern',
+											message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+											control: EmployeeDataForm.controls['NId']
+										  }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'min',
+											message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'' | translate , min:0},
+											control: EmployeeDataForm.controls['NId']
+										  }"></ng-container>
 						</mat-hint>
 					</mat-form-field>
 
@@ -464,9 +485,9 @@
 			<br>
 			<br><br><br>
 			<br>
-<br><br><br>
-<br>
-<br><br><br>
+			<br><br><br>
+			<br>
+			<br><br><br>
 		</div>
 
 
@@ -477,7 +498,8 @@
 		<div class="d-flex">
 			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
 				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-			<button mat-button [mat-dialog-close]="true" id="closeme" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			<button mat-button [mat-dialog-close]="true" id="closeme"
+				cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
 		</div>
 	</mat-dialog-actions>
 </form>

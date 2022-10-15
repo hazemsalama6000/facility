@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -75,7 +76,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		private statusService: StatusService,
 		private jobService: JobService,
 		private service: EmployeeService,
-		private authService: AuthService
+		private authService: AuthService, private datePipe: DatePipe
 	) {
 		//here get data of company and put data in the form
 	}
@@ -84,7 +85,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.isEdit = true;
 			this.EmployeeDataForm = this.fb.group({
 				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				Name: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: ['', Validators.compose([Validators.required])],
@@ -97,7 +98,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MartialStatus_Id: ['', Validators.compose([Validators.required])],
 				BirthDate: ['', Validators.compose([])],
-				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
+				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
 				Qualification: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
 				GraduateDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
@@ -115,7 +116,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.EmployeeDataForm = this.fb.group({
 				id: [0],
 				Image: [''],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				Name: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: [, Validators.compose([Validators.required])],
@@ -127,9 +128,9 @@ export class EmployeeUpsertComponent implements OnInit {
 				JobSection_Id: [, Validators.compose([Validators.required])],
 				MartialStatus_Id: [],
 				BirthDate: [''],
-				NId: ['', Validators.compose([Validators.required, Validators.minLength(14), Validators.maxLength(14)])],
-				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
-				Qualification: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
+				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				University: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
+				Qualification: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				GraduateDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				HireDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				Mobile: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
@@ -303,6 +304,9 @@ export class EmployeeUpsertComponent implements OnInit {
 				if (this.ImageFile != null || this.ImageFile != undefined) {
 					fd.append('Image', this.ImageFile, this.ImageFile.name);
 				}
+				model.BirthDate = this.datePipe.transform(model.BirthDate, 'MM/dd/yyyy')!;
+				model.HireDate = this.datePipe.transform(model.HireDate, 'MM/dd/yyyy')!;
+				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'MM/dd/yyyy')!;
 
 				fd.append('id', model.id);
 				fd.append('Name', model.Name);
@@ -313,7 +317,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				fd.append('Region_Id', model.Region_Id);
 				fd.append('Mobile', model.Mobile);
 				fd.append('Email', model.Email);
-				fd.append('BirthDate', model.BirthDate);
+				fd.append('BirthDate', model.BirthDate==null?'':model.BirthDate);
 
 				fd.append('NId', model.NId);
 				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id==null?'':model.MilitaryStatus_Id);
@@ -323,9 +327,9 @@ export class EmployeeUpsertComponent implements OnInit {
 				fd.append('University', model.University);
 
 				fd.append('Qualification', model.Qualification);
-				fd.append('GraduateDate', model.GraduateDate);
+				fd.append('GraduateDate', model.GraduateDate==null?'':model.GraduateDate);
 				fd.append('JobSection_Id', model.JobSection_Id);
-				fd.append('HireDate', model.HireDate);
+				fd.append('HireDate', model.HireDate==null?'':model.HireDate);
 				fd.append('Branch_Id', this.data.branch_Id.toString());
 				fd.append('IsTechnician', 'false');
 
@@ -353,7 +357,10 @@ export class EmployeeUpsertComponent implements OnInit {
 			}
 
 			else {
-				
+				model.BirthDate = this.datePipe.transform(model.BirthDate, 'MM/dd/yyyy')!;
+				model.HireDate = this.datePipe.transform(model.HireDate, 'MM/dd/yyyy')!;
+				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'MM/dd/yyyy')!;
+
 				this.service.UpdateLookupData(model).subscribe(
 					(data: any) => {
 						this.toaster.openSuccessSnackBar(data.message);

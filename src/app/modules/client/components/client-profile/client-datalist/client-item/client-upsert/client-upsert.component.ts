@@ -69,15 +69,15 @@ export class ClientUpsertComponent implements OnInit {
 			this.isEdit = true;
 			this.clientDataForm = this.fb.group({
 				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0) , Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				CommercialName: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
 				
-				taxCardNum: ["0", Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				vatTaxNum: ["0", Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				taxCardNum: [, Validators.compose([Validators.required,Validators.min(0) ,Validators.minLength(9),  Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				vatTaxNum: [, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				withHoldTax: [, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 
 				
 				isVatTaxActive: [false,],
@@ -106,15 +106,15 @@ export class ClientUpsertComponent implements OnInit {
 			this.isEdit = false;
 			this.clientDataForm = this.fb.group({
 				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0) , Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				CommercialName: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				responsibleName: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
 				
-				taxCardNum: ["0", Validators.compose([Validators.required,Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				vatTaxNum: ["0", Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				taxCardNum: [, Validators.compose([Validators.required,Validators.min(0) ,Validators.minLength(9),  Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				vatTaxNum: [, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				withHoldTax: [, Validators.compose([Validators.minLength(0), Validators.maxLength(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 
 				
 				isVatTaxActive: [false,],
@@ -285,6 +285,7 @@ export class ClientUpsertComponent implements OnInit {
 							if (data.isSuccess) {
 								this.toaster.openSuccessSnackBar(data.message);
 								// console.log(data.message);
+								document.getElementById("closeme")?.click();
 								this.service.bSubject.next(true);
 							}
 							else if (data.isExists) {

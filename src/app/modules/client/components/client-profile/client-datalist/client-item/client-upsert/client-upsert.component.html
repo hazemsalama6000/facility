@@ -62,6 +62,16 @@
 											message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.CODE' | translate , max:100},
 											control: clientDataForm.controls['Code']
 										 }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'pattern',
+											message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+											control: clientDataForm.controls['Code']
+										  }"></ng-container>
+							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+											validation: 'min',
+											message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'' | translate , min:0},
+											control: clientDataForm.controls['Code']
+										  }"></ng-container>
 						</mat-hint>
 					</mat-form-field>
 
@@ -211,7 +221,8 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label>رقم الهاتف</mat-label>
-						<input matInput placeholder="Placeholder" name="telephone" formControlName="telephone">
+						<input matInput placeholder="Placeholder" maxlength="7" minlength="7" name="telephone"
+							formControlName="telephone">
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 								validation: 'required',
@@ -243,7 +254,8 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label>موبيل الفرع</mat-label>
-						<input matInput placeholder="Placeholder" name="mobile" formControlName="mobile">
+						<input matInput placeholder="Placeholder" maxlength="11" minlength="11" name="mobile"
+							formControlName="mobile">
 						<mat-hint>
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -274,7 +286,8 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label>موبيل الفرع 2</mat-label>
-						<input matInput placeholder="Placeholder" name="secondMobile" formControlName="secondMobile">
+						<input matInput placeholder="Placeholder" maxlength="11" minlength="11" name="secondMobile"
+							formControlName="secondMobile">
 						<mat-hint>
 
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -308,7 +321,8 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label>موبيل مسؤول المبيعات</mat-label>
-						<input matInput placeholder="Placeholder" name="managerMobile" formControlName="managerMobile">
+						<input matInput placeholder="Placeholder" maxlength="11" minlength="11" name="managerMobile"
+							formControlName="managerMobile">
 						<mat-hint>
 
 
@@ -495,8 +509,9 @@
 
 			<div class="col-md-2">
 				<mat-form-field appearance="outline">
-					<mat-label>رقم الملف الضريبي </mat-label>
-					<input matInput placeholder="Placeholder" name="taxCardNum" formControlName="taxCardNum">
+					<mat-label>رقم تسجيل ض.ق	   </mat-label>
+					<input matInput placeholder="Placeholder" maxlength="9" minlength="9" name="taxCardNum"
+						formControlName="taxCardNum">
 					<mat-hint>
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 									  validation: 'required',
@@ -506,17 +521,25 @@
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 									  validation: 'minlength',
-									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:3},
+									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'' | translate , min:9},
 									  control: clientDataForm.controls['taxCardNum']
 									}"></ng-container>
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										validation: 'maxlength',
-										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'' | translate , max:50},
+										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'' | translate , max:9},
 										control: clientDataForm.controls['taxCardNum']
 									 }"></ng-container>
-
-
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										validation: 'pattern',
+										message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'' | translate},
+										control: clientDataForm.controls['taxCardNum']
+									  }"></ng-container>
+						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+										validation: 'min',
+										message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'' | translate , min:0},
+										control: clientDataForm.controls['taxCardNum']
+									  }"></ng-container>
 					</mat-hint>
 
 				</mat-form-field>
@@ -610,7 +633,8 @@
 		<div class="d-flex">
 			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
 				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			<button mat-button [mat-dialog-close]="true" id="closeme"
+				cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
 		</div>
 	</mat-dialog-actions>
 </form>

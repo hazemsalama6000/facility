@@ -90,6 +90,8 @@ export class BranchAssignPathComponent implements OnInit {
 						(data: HttpReponseModel) => {
 
 							if (data.isSuccess) {
+								document.getElementById("closeme")?.click();
+
 								this.toaster.openSuccessSnackBar(data.message);
 								// console.log(data.message);
 								this.service.bSubject.next(true);
