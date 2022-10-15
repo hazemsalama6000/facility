@@ -116,6 +116,7 @@ export class UpsertvendorComponent implements OnInit {
       this.loading = true;
       this.vendorForm.patchValue({ branch_Id: this.userData.branchId });
       if (this.isEdit) {
+        console.log(JSON.stringify(this.vendorForm.value))
         this.vendorService.updateVendor(this.vendorForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;

@@ -145,13 +145,8 @@ export class TransactionreturnsComponent implements OnInit {
     let transaction: IAddTransaction = {} as IAddTransaction;
     transaction.id = 0;
     transaction.companyId = this.userData.companyId;
+    transaction.stock_Id = item.stockId;
 
-    if (item.stockTransEntity.vendor_Id) transaction.stock_Id = item.stockTransEntity.vendor_Id;
-    if (item.stockTransEntity.employee_Id) transaction.stock_Id = item.stockTransEntity.employee_Id;
-    if (item.stockTransEntity.department_Id) transaction.stock_Id = item.stockTransEntity.department_Id;
-    if (item.stockTransEntity.car_Id) transaction.stock_Id = item.stockTransEntity.car_Id;
-    if (item.stockTransEntity.externalVendor_Id) transaction.stock_Id = item.stockTransEntity.externalVendor_Id;
-    if (item.stockTransEntity.transferStock_Id) transaction.stock_Id = item.stockTransEntity.transferStock_Id;
     // console.log(item.stockTransEntity.entityType_Id)
 
     transaction.stockTransType_Id = item.stockTransTypeId;
@@ -163,9 +158,14 @@ export class TransactionreturnsComponent implements OnInit {
 
     transaction.transEntity = {} as ITransEntity;
     transaction.transEntity.stockTransaction_Id = 0;
-    transaction.transEntity.transferStock_Id = item.stockId;
-    transaction.transEntity.entityType_Id = item.stockEntityTypeId;
-    
+    transaction.transEntity.entityType_Id = item.stockTransEntity.entityType_Id;
+    if (item.stockTransEntity.vendor_Id) transaction.transEntity.vendor_Id = item.stockTransEntity.vendor_Id;
+    if (item.stockTransEntity.employee_Id) transaction.transEntity.employee_Id = item.stockTransEntity.employee_Id;
+    if (item.stockTransEntity.department_Id) transaction.transEntity.department_Id = item.stockTransEntity.department_Id;
+    if (item.stockTransEntity.car_Id) transaction.transEntity.car_Id = item.stockTransEntity.car_Id;
+    if (item.stockTransEntity.externalVendor_Id) transaction.transEntity.externalVendor_Id = item.stockTransEntity.externalVendor_Id;
+    if (item.stockTransEntity.transferStock_Id) transaction.transEntity.transferStock_Id = item.stockTransEntity.transferStock_Id;
+
     transaction.itemData = [];
     item.stockTransDetails.map((obj, index) => {
       transaction.itemData.push({
@@ -240,7 +240,7 @@ export class TransactionreturnsComponent implements OnInit {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
+    if ((event.target.value.length === 1 && event.key === '0'&&event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
   }
