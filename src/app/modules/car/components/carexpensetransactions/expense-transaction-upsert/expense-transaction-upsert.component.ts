@@ -96,7 +96,7 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 		if (this.expenseTransactionDataForm.valid) {
 
-			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'MM/dd/yyyy')!;
+			ExpenseTransactionDataForm.ExpenseDate = this.datePipe.transform(ExpenseTransactionDataForm.ExpenseDate, 'dd/MM/yyyy')!;
 
 			this.carExpenseTransactionService.PostExpenseTransactionData(ExpenseTransactionDataForm).
 				subscribe(

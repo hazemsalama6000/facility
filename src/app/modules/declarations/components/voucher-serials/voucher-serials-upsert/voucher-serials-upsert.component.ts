@@ -1,19 +1,15 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { AuthService } from "src/app/modules/auth";
-import { DatePipe } from "@angular/common";
 import { VoucherSerialService } from "../../../services/voucherSerial.service";
 import { FinancialyearService } from "../../../services/financialyear.service";
-import { EmployeeService } from "src/app/modules/employees/services/employee.service";
 import { IFinancialYear } from "../../../models/IFinancialYear.interface";
 import { map } from "rxjs";
 import { TechnitianService } from "src/app/modules/employees/services/technitian.service";
-import { IVoucherSerialUpsert } from "../../../models/voucher-serials/IVoucherSerialUpsert.interface";
-import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 
 @Component({
 	selector: "voucher-serials-upsert",
@@ -42,10 +38,7 @@ export class VoucherSerialUpsertComponent implements OnInit {
 		private toaster: toasterService,
 		private auth: AuthService,
 		private voucherSerialService: VoucherSerialService, private financialYearService: FinancialyearService,
-		private employeeService: EmployeeService,
 		private technitianService: TechnitianService,
-		private datePipe: DatePipe,
-		private http: CommonHttpService
 	) { }
 
 

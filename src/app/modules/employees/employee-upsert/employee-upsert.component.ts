@@ -304,9 +304,9 @@ export class EmployeeUpsertComponent implements OnInit {
 				if (this.ImageFile != null || this.ImageFile != undefined) {
 					fd.append('Image', this.ImageFile, this.ImageFile.name);
 				}
-				model.BirthDate = this.datePipe.transform(model.BirthDate, 'MM/dd/yyyy')!;
-				model.HireDate = this.datePipe.transform(model.HireDate, 'MM/dd/yyyy')!;
-				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'MM/dd/yyyy')!;
+				model.BirthDate = this.datePipe.transform(model.BirthDate, 'dd/MM/yyyy')!;
+				model.HireDate = this.datePipe.transform(model.HireDate, 'dd/MM/yyyy')!;
+				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'dd/MM/yyyy')!;
 
 				fd.append('id', model.id);
 				fd.append('Name', model.Name);

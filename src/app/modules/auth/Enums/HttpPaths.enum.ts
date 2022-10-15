@@ -86,8 +86,8 @@ export enum HttpPaths {
 	API_CARS_EXPENSES_REJECT = "/api/v1/Trans/rejectcarexpense/",
 
 	// cars 
-	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcar",
-
+	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcarData",
+	
 
 	API_LISTOF_TECHNITIANS = "/api/v1/tech/listoftechnicians",
 
