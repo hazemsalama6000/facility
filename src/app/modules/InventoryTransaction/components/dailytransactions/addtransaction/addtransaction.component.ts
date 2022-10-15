@@ -39,7 +39,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   dropdownEntityType: IEntityType[] = [];
   EntityType: IEntityType = { id: 0, name: '', sysName: '' };
   dropdownEntity: LookUpModel[] = [];
-
+  searchItem: string;
   maxDate = new Date();
 
   convertedUnits: IConvertedUnits[] = [];
@@ -113,7 +113,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   fillDropdown() {
-    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res; });
+    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.sysName != 'transferfrom'&&x.sysName != 'returnfrom'); });
     this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
   }
 
@@ -123,7 +123,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       this.invTransactionService.getEntityType(item.id).subscribe(res => {
         this.dropdownEntityType = res;
         this.EntityType = res.find(x => x.sysName == 'stock') ?? { sysName: '' } as IEntityType;
-    
+
         if (this.TransType.sysName == 'settlementinc' || this.TransType.sysName == 'settlementdec') {
           this.masterForm.patchValue({
             entityType_Id: this.EntityType.id ?? 0,
@@ -229,11 +229,11 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     if (x.option.value.Id)
       this.itemService.getItemProfile(x.option.value.Id, this.userData.companyId).subscribe(res => {
         if (res) {
+          this.detailsForm.reset();
           this.item = res;
           this.convertedUnits = res.convertedUnits;
           this.convertedUnit = res.convertedUnits.find(x => x.isBaseUnit) as IConvertedUnits;
           this.detailsForm.patchValue({ unit: this.convertedUnit.unitConversionId });
-          console.log(this.detailsForm.value)
         }
       }, (err) => this.toaster.openWarningSnackBar(err))
   }
@@ -250,12 +250,19 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       let quantity = this.detailsForm.get('quantity')?.value;
       let BillQuantity = (quantity * this.convertedUnit.factor);
       if (!isNaN(quantity)) {
+        // console.log()
+        if (this.TransType.sysName != 'increase') {
+          this.invTransactionService.getPrice(quantity, this.item.id, this.masterForm.get('stock_Id')?.value).subscribe(res => {
+            if(res.isSuccess)
+            this.detailsForm.patchValue({price:res.data.avgPrice});
+          })
+        }
+
         if (this.TransType.transKind) {
           let totalQuantity = BillQuantity + this.item.quantityInBaseUnit;
           (totalQuantity > this.item.maxLimit) ? this.toaster.openWarningSnackBar('برجاء الانتباه بأن الكمية تخطى الحد الاقصى') : null;
         } else {
           this.items.filter(x => x.id == this.item.id).map(item => BillQuantity += item.quantity);
-          console.log(BillQuantity)
           if (BillQuantity > this.item.quantityInBaseUnit) {
             this.toaster.openWarningSnackBar('لا يمكن صرف كمية أكبر من الكمية الموجودة بالمخزن');
             this.detailsForm.get('quantity')?.setErrors({ 'incorrect': true });
@@ -293,6 +300,10 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       this.convertedUnit = {} as IConvertedUnits;
       this.convertedUnits = [];
       this.detailsForm.reset();
+      this.detailsForm.get('price')?.setErrors(null)
+      this.detailsForm.get('quantity')?.setErrors(null)
+      this.detailsForm.get('unit')?.setErrors(null)
+      this.searchItem = '';
     }
   }
 
@@ -422,7 +433,9 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
   deleteSubForm() {
     this.items = [];
+    this.item = {} as IItemProfile;
     this.isReadOnly = false;
+    this.searchItem = '';
     this.detailsForm.get('price')?.disable();
     this.detailsForm.get('unit')?.disable();
     this.detailsForm.get('quantity')?.disable();

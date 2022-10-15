@@ -16,15 +16,14 @@ export interface IAddTransaction {
 
 export interface ITransEntity {
     stockTransaction_Id: number;
-    vendor_Id: number;
     billVendorNumber: string,
     entityType_Id: number;
+    vendor_Id: number;
     employee_Id: number;
     department_Id: number;
     car_Id: number;
     externalVendor_Id: number;
     transferStock_Id: number
-
 }
 
 export interface IItem {

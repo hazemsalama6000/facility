@@ -4,6 +4,7 @@ import { DailytransactionsComponent } from "./components/dailytransactions/daily
 import { ReserveditemComponent } from "./components/reserveditem/reserveditem.component";
 import { TransactionlistComponent } from "./components/transactionlist/transactionlist.component";
 import { TransactionrequestlistComponent } from "./components/transactionrequestlist/transactionrequestlist.component";
+import { TransactionreturnsComponent } from "./components/transactionreturns/transactionreturns.component";
 import { InventoryTransactionComponent } from "./InventoryTransaction.component";
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
 		path: '',
 		component: InventoryTransactionComponent,
 		children: [
+			{ path: 'transactionreturns', component: TransactionreturnsComponent },
 			{ path: 'transactionrequest', component: TransactionrequestlistComponent },
 			{ path: 'reserveditem', component: ReserveditemComponent },
 			{ path: 'transactionList', component: TransactionlistComponent },

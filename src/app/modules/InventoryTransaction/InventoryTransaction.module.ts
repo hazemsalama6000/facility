@@ -14,6 +14,7 @@ import { AddtransactionComponent } from './components/dailytransactions/addtrans
 import { AddserialsComponent } from './components/dailytransactions/addtransaction/addserials/addserials.component';
 import { ReserveditemComponent } from './components/reserveditem/reserveditem.component';
 import { TransactionrequestlistComponent } from './components/transactionrequestlist/transactionrequestlist.component';
+import { TransactionreturnsComponent } from './components/transactionreturns/transactionreturns.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TransactionrequestlistComponent } from './components/transactionrequest
     AddtransactionComponent,
     AddserialsComponent,
     ReserveditemComponent,
-    TransactionrequestlistComponent
+    TransactionrequestlistComponent,
+    TransactionreturnsComponent
   ],
   imports: [
     CommonModule,

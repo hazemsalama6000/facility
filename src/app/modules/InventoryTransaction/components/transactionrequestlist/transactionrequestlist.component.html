@@ -6,7 +6,7 @@
     <div class="d-flex mx-5 justify-content-between align-items-center">
       <div>
         <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
-        <span class="fontsection">طلبات الاستلام</span>
+        <span class="fontsection">طلبات </span>
       </div>
 
     </div>
@@ -110,7 +110,7 @@
               <div class="col-4">
                 <mat-form-field appearance="outline">
                   <mat-label> تاريخ الاستلام</mat-label>
-                  <input matInput [matDatepicker]="startD" [max]="maxDate" [readonly]="true" [(ngModel)]="element.docReceivedDate" (dateChange)="onChangeDate(element,elementIndex)">
+                  <input matInput [matDatepicker]="startD" [max]="maxDate" [min]="element.docDate" [readonly]="true" [(ngModel)]="element.docReceivedDate" (dateChange)="onChangeDate(element,elementIndex)">
                   <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
                   <mat-datepicker #startD></mat-datepicker>
                 </mat-form-field>
@@ -156,9 +156,9 @@
                 <td>{{x.itemName}}</td>
                 <td>{{x.categoryName}}</td>
                 <!-- <td>{{x.itemBarCode}}</td> -->
-                <td>{{x.price}}</td>
+                <td>{{x.price|number : '1.0-2'}}</td>
                 <td>{{x.preConvertedUnitName}}</td>
-                <td>{{x.preConvertedQuantity}}</td>
+                <td>{{x.preConvertedQuantity|number : '1.0-2'}}</td>
                 <!-- <td>{{x.baseUnitName}}</td>
                 <td>x</td>
                 <td>{{x.baseQuantity}}</td> -->
@@ -167,9 +167,9 @@
                     appendTo="body" (change)="changeUnit(x,elementIndex,item);" [clearable]="false" >
                   </ng-select>
                 </td> 
-                <td> {{x.quantity|number : '1.2-2'}} </td>
+                <td> {{x.quantity|number : '1.0-2'}} </td>
                 <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
-                <td> {{x.remainingQuantity|number:'1.2-2'}} </td>
+                <td> {{x.remainingQuantity|number : '1.0-2'}} </td>
                 <td>
                   <input type="text" class="form-control p-1" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
                 </td>

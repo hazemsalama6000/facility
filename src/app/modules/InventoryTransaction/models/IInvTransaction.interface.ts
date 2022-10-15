@@ -1,4 +1,5 @@
 import { IConvertedUnits } from "../../items/models/itemsCategory/IItemProfile.interface";
+import { ITransEntity } from "./IAddTransaction.interface";
 
 export interface IInvTransactionPagination {
     data: IInvTransaction[],
@@ -12,11 +13,14 @@ export interface IInvTransaction {
     transType: string,
     stockName: string,
     notes: string,
-    transferStock_Id: number,
+    // transferStockId: number,
     stockTransDetails: IInvTransactionDetails[]
     stockTransTypeId: number,
     entityName:string;
-    entityTypeId:number;
+    stockEntityTypeId:number;
+    // entityTypeId:number;
+
+    stockTransEntity:ITransEntity
 
     docReceivedDate: string,
     docReceivedNumber: number,
