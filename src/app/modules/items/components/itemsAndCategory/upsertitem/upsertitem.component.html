@@ -21,7 +21,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.CODE" | translate}}</mat-label>
-          <input matInput placeholder="" name="code" formControlName="code">
+          <input matInput  placeholder="" name="code" formControlName="code">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -31,7 +31,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'minlength',
-                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE' | translate , min:3},
+                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.CODE' | translate , min:4},
                   control: ItemForm.controls['code']
                 }"></ng-container>
 
@@ -189,7 +189,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.MAXLIMIT" | translate}} </mat-label>
-          <input matInput placeholder="" name="maxLimit" formControlName="maxLimit">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="maxLimit" formControlName="maxLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -216,7 +216,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.MINLIMIT" | translate}} </mat-label>
-          <input matInput placeholder="" name="minLimit" formControlName="minLimit">
+          <input matInput  type="number" (keydown)="restrictZero($event)" placeholder="" name="minLimit" formControlName="minLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -243,7 +243,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.ORDERINGLIMIT" | translate}} </mat-label>
-          <input matInput placeholder="" name="orderingLimit" formControlName="orderingLimit">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="orderingLimit" formControlName="orderingLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -280,7 +280,7 @@
         </mat-checkbox>
         <mat-form-field appearance="outline">
           <mat-label> النسبة</mat-label>
-          <input matInput placeholder="" name="vatTaxValue" formControlName="vatTaxValue">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="vatTaxValue" formControlName="vatTaxValue">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',

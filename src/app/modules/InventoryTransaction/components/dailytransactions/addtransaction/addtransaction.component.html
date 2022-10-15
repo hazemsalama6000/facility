@@ -175,7 +175,7 @@
         <div class="col-6">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>بحث باسم المنتج </mat-label>
-            <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
+            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchItem" #text (input)="inputAutoComplete(text.value)">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
               <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
                 {{option.Name}}
@@ -209,7 +209,7 @@
 
             <div class="col-4">
               <ng-select [items]="convertedUnits" bindLabel="convertedUnitName" bindValue="unitConversionId" placeholder="اختر الوحدة المنفذ بها"
-                (change)="onSelectUnit($event)" formControlName="unit" dropdownPosition="top">
+                (change)="onSelectUnit($event);calcQuantity()" formControlName="unit" dropdownPosition="top">
               </ng-select>
               <mat-hint>
                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -242,7 +242,7 @@
             <div class="col-3">
               <mat-form-field appearance="outline">
                 <mat-label> {{"السعر ب "+(item.unit??'') | translate}} </mat-label>
-                <input matInput type="number" placeholder="" name="price" formControlName="price" (keydown)="restrictZeroPrice($event)">
+                <input matInput type="number" placeholder="" [readonly]="TransType.sysName!='increase'" name="price" formControlName="price" (keydown)="restrictZeroPrice($event)">
                 <mat-hint>
                   <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                 validation: 'required',
@@ -259,7 +259,7 @@
             </div>
 
             <div class="col-2 d-flex align-items-center justify-content-center">
-              <button matTooltip="{{'TRANSACTIONS.BUTTONS.PRINTER'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+              <button matTooltip="{{'TRANSACTIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
                 aria-label="Example icon button with a filter list icon">
                 <mat-icon>add</mat-icon>
               </button>
@@ -304,8 +304,8 @@
                 <td>{{item.total| number : '1.0-2'}}</td>
                 <td>
                   <div class="d-flex">
+                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.EDIT'|translate}}" color="primary" (click)="editItem(item,i)">edit</mat-icon>
                     <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="warn" (click)="deleteItem(i)">delete</mat-icon>
-                    <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="editItem(item,i)">edit</mat-icon>
                     <!-- <mat-icon matTooltip="{{'TRANSACTIONS.BUTTONS.DELETE'|translate}}" color="primary" (click)="openSerialDialog(item,i)">add</mat-icon> -->
                   </div>
                 </td>
@@ -319,7 +319,7 @@
 
   </div>
   <mat-divider></mat-divider>
-  <div class="row fixed-bottom mb-3">
+  <div class="row fixed-bottom mb-3 ms-8">
     <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true;" form="formmaster" [disabled]="loading" color="primary"
       style="width: 130px !important;">{{'HR.BUTTONS.SAVE'|translate}}</button>
     <button mat-raised-button color="warn" type="button" (click)="deleteSubForm()" class="mx-2" style="width: 150px !important;">

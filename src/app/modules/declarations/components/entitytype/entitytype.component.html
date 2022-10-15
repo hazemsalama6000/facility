@@ -1,0 +1,84 @@
+<div class="card shadow-none rounded-0 w-100">
+
+  <div class="card-header">
+    <h3 class="card-title fw-bolder fontsection fs-2">اعدادات المستفيدين</h3>
+  </div>
+
+  <div class="card-body position-relative">
+
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="entityForm" (ngSubmit)="addEntityType()" id="entityForm">
+          <div class="row">
+            <div class="col-md-4">
+              <ng-select #TransType class="customized" [items]="dropdownTransType" bindLabel="name" bindValue="id" formControlName="transTypeId"
+                placeholder="أختر نوع العملية" (change)="onSelectTransType($event)" (clear)="true">
+              </ng-select>
+
+              <mat-hint>
+
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'نوع العملية'},
+                  control: entityForm.controls['transTypeId']}">
+                </ng-container>
+
+              </mat-hint>
+            </div>
+          </div>
+        </form>
+
+
+        <div class="row mt-5">
+          <label class="fs-5 fw-bolder form-label mb-2">المستفيدين</label>
+
+          <ng-container *ngFor="let ietm of entitytype">
+            <div class="col-6">
+              <div class="d-flex fv-row">
+                <div class="form-check form-check-custom form-check-solid">
+
+                  <input class="form-check-input me-3" name="user_role" type="checkbox" id="kt_modal_update_role_option_0" [checked]='ietm.isActive'
+                    [(ngModel)]="ietm.isActive" />
+
+                  <label class="form-check-label" for="kt_modal_update_role_option_0">
+                    <div class="fw-bolder text-gray-800">{{ietm.entityName}}</div>
+
+                  </label>
+
+                </div>
+              </div>
+              <div class='separator separator-dashed my-5'></div>
+            </div>
+
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card-footer py-5 row justify-content-end" id="kt_editemployees_footer">
+    <div class="text-center col-md-2 d-flex">
+      <button type="submit" (click)="saveButtonClickedFlag = true" form="entityForm" id="kt_modal_new_target_submit" class="btn btn-primary">
+        <span class="indicator-label">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</span>
+        <span class="indicator-progress">Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

@@ -132,7 +132,8 @@ export class ReserveditemComponent implements OnInit {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
+    console.log(event.target.value.startsWith("00"),event.target.value)
+    if ((event.target.value.length === 1 && event.key === '0'&&event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
   }

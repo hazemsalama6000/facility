@@ -35,6 +35,7 @@ import { VoucherSerialsDatatableComponent } from './components/voucher-serials/v
 import { UnitsListContentComponent } from './components/Units/units_list_content/units_list_content.component';
 import { UnitsUpsertComponent } from './components/Units/units_upsert/unitsupsert.component';
 import { UnitsComponent } from './components/Units/units.component';
+import { EntitytypeComponent } from './components/entitytype/entitytype.component';
 
 @NgModule({
   declarations: [
@@ -64,9 +65,10 @@ import { UnitsComponent } from './components/Units/units.component';
     VoucherSerialsComponent,
     VoucherSerialUpsertComponent,
     VoucherSerialsDatatableComponent,
-	UnitsListContentComponent,
-	UnitsUpsertComponent,
-	UnitsComponent
+    UnitsListContentComponent,
+    UnitsUpsertComponent,
+    UnitsComponent,
+    EntitytypeComponent
   ],
   imports: [
     CommonModule,

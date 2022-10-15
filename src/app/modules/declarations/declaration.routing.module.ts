@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LookupIdNameComponent } from "src/app/shared-module/Components/lookupId_name/lookupId_name.component";
 import { CarExpensesComponent } from "./components/cars-expenses/car-expenses.component";
 import { CarsModelsComponent } from "./components/cars-models/cars-models.component";
+import { EntitytypeComponent } from "./components/entitytype/entitytype.component";
 import { FinancialyearComponent } from "./components/financialyear/financialyear.component";
 import { InternaldivisionstockComponent } from "./components/Internaldivisionstock/Internaldivisionstock.component";
 import { InventoryComponent } from "./components/inventory/inventory.component";
@@ -23,6 +24,7 @@ const route: Routes = [
 	{ path: 'carsmodels', component: CarsModelsComponent },
 	{ path: 'carexpenses', component: CarExpensesComponent },
 	{ path: 'voucherSerial', component: VoucherSerialsComponent },
+	{ path: 'entitytype', component: EntitytypeComponent },
 	{ path: 'clientcategory', component: LookupIdNameComponent, data: { page: 'CLIENT_CATEGORY' } },
 ]
 @NgModule({

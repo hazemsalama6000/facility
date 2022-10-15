@@ -44,7 +44,7 @@
                     (cdkDragReleased)="dragEnd(node)" matTooltip="يمكنك السحب والاسقاط على تصنيف أخر">
                     <button mat-icon-button disabled></button>
 
-                    <label *ngIf="!node.isEdit"  class="d-flex justify-content-center align-items-end fontForInput fs-2"
+                    <label *ngIf="!node.isEdit"  [matMenuTriggerFor]="menu" class="d-flex justify-content-center align-items-end fontForInput fs-2"
                         style="user-select: none;">
                         <mat-icon *ngIf="node.type=='Item'" class="{{node.isActive == true?'text-success':'text-danger'}}">description</mat-icon>
                         <mat-icon *ngIf="node.type=='Category'" class="{{node.isActive == true?'text-success':'text-danger'}}">folder</mat-icon>
@@ -52,11 +52,11 @@
                     </label>
 
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Category')"
+                        <button mat-menu-item *ngIf="node.type=='Category'&&node.isActive" (click)="addItem(node,'Category')"
                             class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
                         </button>
-                        <button mat-menu-item *ngIf="node.type=='Category'" (click)="addItem(node,'Item')"
+                        <button mat-menu-item *ngIf="node.type=='Category'&&node.isActive" (click)="addItem(node,'Item')"
                             class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
                         </button>
@@ -97,10 +97,10 @@
                     </label>
 
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="addItem(node,'Category')" class="align-items-center d-flex justify-content-between px-2">
+                        <button mat-menu-item (click)="addItem(node,'Category')" *ngIf="node.isActive === true" class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة تصنيف</span>
                         </button>
-                        <button mat-menu-item (click)="addItem(node,'Item')" class="align-items-center d-flex justify-content-between px-2">
+                        <button mat-menu-item (click)="addItem(node,'Item')" *ngIf="node.isActive === true" class="align-items-center d-flex justify-content-between px-2">
                             <mat-icon class="m-0">add</mat-icon><span>اضافة صنف</span>
                         </button>
                         <button mat-menu-item *ngIf="node.isActive === true" (click)="updateItem(node)"
