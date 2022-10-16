@@ -90,17 +90,17 @@ export class EmployeeUpsertComponent implements OnInit {
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: ['', Validators.compose([Validators.required])],
 				Region_Id: ['', Validators.compose([Validators.required])],
-				MilitaryStatus_Id: ['', Validators.compose([Validators.required])],
+				MilitaryStatus_Id: ['', ],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
 				Status_Id: [],
 
 				JobSection_Id: ['', Validators.compose([Validators.required])],
-				MartialStatus_Id: ['', Validators.compose([Validators.required])],
+				MartialStatus_Id: ['',],
 				BirthDate: ['', Validators.compose([])],
 				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
-				University: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
-				Qualification: ['', Validators.compose([Validators.minLength(14), Validators.maxLength(14)])],
+				University: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
+				Qualification: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				GraduateDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				HireDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 				Mobile: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
@@ -357,9 +357,9 @@ export class EmployeeUpsertComponent implements OnInit {
 			}
 
 			else {
-				model.BirthDate = this.datePipe.transform(model.BirthDate, 'MM/dd/yyyy')!;
-				model.HireDate = this.datePipe.transform(model.HireDate, 'MM/dd/yyyy')!;
-				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'MM/dd/yyyy')!;
+				model.BirthDate = this.datePipe.transform(model.BirthDate, 'yyyy-MM-ddThh:mm:ss')!;
+				model.HireDate = this.datePipe.transform(model.HireDate, 'yyyy-MM-ddThh:mm:ss')!;
+				model.GraduateDate = this.datePipe.transform(model.GraduateDate, 'yyyy-MM-ddThh:mm:ss')!;
 
 				this.service.UpdateLookupData(model).subscribe(
 					(data: any) => {
