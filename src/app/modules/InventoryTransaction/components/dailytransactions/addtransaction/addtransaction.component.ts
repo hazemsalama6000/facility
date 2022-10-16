@@ -31,6 +31,7 @@ import { AddserialsComponent } from './addserials/addserials.component';
 export class AddtransactionComponent implements OnInit, OnDestroy {
 
   @ViewChild('TransType') TransTypes!: any;
+  itemLoader = false;
   loading: boolean = false;
   saveButtonClickedFlag: boolean = false;
   dropdownTransType: ITransType[] = [];
@@ -113,7 +114,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   fillDropdown() {
-    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.sysName != 'transferfrom'&&x.sysName != 'returnfrom'); });
+    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.sysName != 'transferfrom' && x.sysName != 'returnfrom'); });
     this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
   }
 
@@ -203,6 +204,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
       this.autoCompleteItems = []
       if (text.length > 3) {
+        this.itemLoader = true
         this.itemService.getLookUpItemsByCode(this.userData.companyId, text).subscribe(res => {
           if (res)
             this.autoCompleteItems = res
@@ -211,6 +213,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
             this.convertedUnit = {} as IConvertedUnits;
             this.convertedUnits = [];
           }
+          this.itemLoader = false;
         });
 
       } else {
@@ -224,8 +227,9 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
   displayinputAutoComplete = (item?: LookUpModel): string => item ? item.Name : '';
   onSelectedAutoComplete(x: MatAutocompleteSelectedEvent) {
-    if (x.option.value.Id)
-      this.itemService.getItemProfile(x.option.value.Id,this.masterForm.get('stock_Id')?.value, this.userData.companyId).subscribe(res => {
+    if (x.option.value.Id) {
+      this.itemLoader = true;
+      this.itemService.getItemProfile(x.option.value.Id, this.masterForm.get('stock_Id')?.value, this.userData.companyId).subscribe(res => {
         if (res) {
           this.detailsForm.reset();
           this.item = res;
@@ -233,7 +237,9 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           this.convertedUnit = res.convertedUnits.find(x => x.isBaseUnit) as IConvertedUnits;
           this.detailsForm.patchValue({ unit: this.convertedUnit.unitConversionId });
         }
-      }, (err) => this.toaster.openWarningSnackBar(err))
+        this.itemLoader = false;
+      }, (err) => { this.toaster.openWarningSnackBar(err); this.itemLoader = false; })
+    }
   }
 
   onSelectUnit(item: IConvertedUnits) {
@@ -251,8 +257,8 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
         // console.log()
         if (this.TransType.sysName != 'increase') {
           this.invTransactionService.getPrice(quantity, this.item.id, this.masterForm.get('stock_Id')?.value).subscribe(res => {
-            if(res.isSuccess)
-            this.detailsForm.patchValue({price:res.data.avgPrice});
+            if (res.isSuccess)
+              this.detailsForm.patchValue({ price: res.data.avgPrice });
           })
         }
 
@@ -433,7 +439,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     this.items = [];
     this.item = {} as IItemProfile;
     this.isReadOnly = false;
-    this.autoCompleteItems=[]
+    this.autoCompleteItems = []
     this.searchItem = '';
     this.detailsForm.get('price')?.disable();
     this.detailsForm.get('unit')?.disable();

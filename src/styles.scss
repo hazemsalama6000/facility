@@ -537,6 +537,14 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+app-addtransaction mat-spinner {
+	top: 10px !important;
+}
+
+app-addtransaction mat-spinner svg {
+	height: 30px !important;
+	width: 30px !important;
+}
 
 
 @media only screen and (max-width: 991.98px) {
