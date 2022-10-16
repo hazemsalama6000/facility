@@ -22,7 +22,7 @@ export class EmployeesComponent implements OnInit {
 	imageFile: File;
 	companyId: number;
 	branch_Id = 0;
-	EmployeeId: any = 5;
+	EmployeeId: number|null=null ;
 	dropdownEmployeeData: LookUpModel[] = [];
 	employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 
@@ -35,6 +35,13 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.route.queryParams.subscribe(params => {
+			if (params.id) {
+				this.EmployeeId = params.id;
+				this.getEmployeeById(params.id);
+			}
+		});
+
 
 		this.service.subjectEmployeeChangedStream.subscribe((data) => {
 			if (this.employeeDsiaplay.id > 0) {
@@ -44,17 +51,13 @@ export class EmployeesComponent implements OnInit {
 							(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
 						)
 					)
-					.subscribe(
-						(data: IEmployee) => {
-							this.employeeDsiaplay = data;
-						}
+					.subscribe((data: IEmployee) => { this.employeeDsiaplay = data; }
 						, (error) => {
 							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 						}
 					);
 			}
 		});
-
 
 
 		this.service.bSubjectStream.subscribe((data) => {
@@ -66,15 +69,6 @@ export class EmployeesComponent implements OnInit {
 		this.service.bSubject.next(true);
 	}
 
-	ngAfterViewInit() {
-		this.route.queryParams.subscribe(params => {
-			if (params){
-				this.EmployeeId = params.id;
-				document.getElementById("employee")?.click();
-				console.log(params.id)
-			}
-		});
-	}
 
 	imageChange(event: any) {
 		this.imageFile = <File>event.target.files[0];
@@ -105,8 +99,11 @@ export class EmployeesComponent implements OnInit {
 	}
 
 	employeeSelectListOnChange(selectedItem: LookUpModel) {
-		console.log(this.EmployeeId)
-		this.service.getEmployeeById(selectedItem.Id)
+		this.getEmployeeById(selectedItem.Id);
+	}
+
+	getEmployeeById(employee_Id: number) {
+		this.service.getEmployeeById(employee_Id)
 			.pipe(
 				map(
 					(data: IEmployee) => ({ ...data, imagePath: `${localStorage.getItem("companyLink")}${data.imagePath}`, imagepathbase: data.imagePath }) as IEmployee
@@ -126,9 +123,6 @@ export class EmployeesComponent implements OnInit {
 					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 				}
 			);
-
-
-
 	}
 
 	editEmployeeTechnicialData(value: ITechnitianLog) {
