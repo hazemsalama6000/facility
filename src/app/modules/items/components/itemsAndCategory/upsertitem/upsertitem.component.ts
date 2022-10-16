@@ -42,7 +42,7 @@ export class UpsertitemComponent {
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],
     itemCategory_Id: [null],
-    unit_Id: [null],
+    unit_Id: [null, Validators.compose([Validators.required])],
     company_Id: [0]
   });
 

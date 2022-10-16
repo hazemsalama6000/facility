@@ -294,6 +294,7 @@ export enum HttpPaths {
 	API_UNASSIGN_CAR_TO_DRIVER = "/api/v1/Trans/unssigncartodriver",
 	API_LIST_OF_CAR_MODEL = "/api/v1/Trans/listofcarsmodels/",
 	API_GET_OF_CAR_LOGS = "/api/v1/Trans/getcarlogs?",
+	API_LIST_OF_CARS = "/api/v1/Trans/listofcar",
 
 	//inventory Category
 	API_LIST_OF_INVENTORY_CATEGORY = "/api/v1/invt/listofstockcategory?companyId=",

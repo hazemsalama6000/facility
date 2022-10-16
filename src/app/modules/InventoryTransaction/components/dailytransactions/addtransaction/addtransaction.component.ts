@@ -151,7 +151,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
           this.departmentService.getLookupData(this.userData.companyId).subscribe(res => this.dropdownEntity = res);
           break;
         case 'car':
-          this.carService.getLookupCarData(this.userData.branchId).subscribe(res => this.dropdownEntity = res);
+          this.carService.getLookupCar(this.userData.branchId).subscribe(res => this.dropdownEntity = res);
           break;
         case 'external':
           this.invTransactionService.getExternalPlaces(this.userData.companyId).subscribe(res => this.dropdownEntity = res);

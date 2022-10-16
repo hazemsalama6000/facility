@@ -59,14 +59,14 @@ export class VendorComponent implements OnInit {
     const udata = this.auth.userData.subscribe(res => {
       this.userdata = res
       this.searchModel.company_Id = res.companyId
-      const datajob = this.vendorervice.bSubject.subscribe(data => { this.getallData(); });
+      const datajob = this.vendorervice.bSubject.subscribe(data => { this.getallData(); this.filldropdown(); });
       this.unsubscribe.push(datajob);
     });
     this.unsubscribe.push(udata);
   }
 
   ngOnInit() {
-    this.filldropdown();
+   
   }
 
   filldropdown() {
