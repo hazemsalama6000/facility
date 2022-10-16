@@ -74,4 +74,8 @@ export class InvTransactionService {
       .pipe(map((Items: HttpReponseModel) => Items.data as IInvTransactionPagination));
   }
 
+  getPrice(requiredQuantity: number, itemId: number, stockId: number):Observable<HttpReponseModel> {
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_PRICE}requiredQuantity=${requiredQuantity}&itemId=${itemId}&stockId=${stockId}`).pipe(map(items => items as HttpReponseModel));
+  }
+
 }

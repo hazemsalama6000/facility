@@ -44,7 +44,7 @@ export class UpsertvendorComponent implements OnInit {
 
     telephone: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
     mobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-    email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")])],
+    email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
     site: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 
     commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
@@ -116,6 +116,7 @@ export class UpsertvendorComponent implements OnInit {
       this.loading = true;
       this.vendorForm.patchValue({ branch_Id: this.userData.branchId });
       if (this.isEdit) {
+        console.log(JSON.stringify(this.vendorForm.value))
         this.vendorService.updateVendor(this.vendorForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;

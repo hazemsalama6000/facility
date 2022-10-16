@@ -102,7 +102,7 @@
 
       <!-- mainCompany Column -->
       <ng-container matColumnDef="mainCompany">
-        <th mat-header-cell *matHeaderCellDef> الاسم التجارى </th>
+        <th mat-header-cell *matHeaderCellDef> الشركة الام </th>
         <td mat-cell *matCellDef="let element; let x=index">
           <span>{{element.mainCompany}}</span>
         </td>
@@ -134,7 +134,7 @@
 
       <!-- isWithHoldTaxActive Column -->
       <ng-container matColumnDef="isWithHoldTaxActive">
-        <th mat-header-cell *matHeaderCellDef> خاضع لضريبة القيمة المضافة </th>
+        <th mat-header-cell *matHeaderCellDef> خاضع لضريبة ق.م </th>
         <td mat-cell *matCellDef="let element; let x=index">
           <mat-icon *ngIf="element.isWithHoldTaxActive == true" class="text-success">done</mat-icon>
           <mat-icon *ngIf="element.isWithHoldTaxActive == false" class="text-danger">close</mat-icon>
@@ -143,7 +143,7 @@
 
       <!-- withHoldTax Column -->
       <ng-container matColumnDef="withHoldTax">
-        <th mat-header-cell *matHeaderCellDef> نسبة القيمة المضافة </th>
+        <th mat-header-cell *matHeaderCellDef> نسبة ق.م  </th>
         <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
           <span>{{element.withHoldTax}}</span>
         </td>

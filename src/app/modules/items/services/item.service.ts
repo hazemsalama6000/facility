@@ -23,8 +23,8 @@ export class ItemService {
 			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 
-	getItemProfile(itemId: number, companyId: number) {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ITEM_PROFILE}itemId=${itemId}&companyId=${companyId}`).pipe(
+	getItemProfile(itemId: number,stock_Id:number, companyId: number) {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ITEM_PROFILE}itemId=${itemId}&companyId=${companyId}&stockId=${stock_Id} `).pipe(
 			map((Items) => Items.data as IItemProfile)
 		);
 	}

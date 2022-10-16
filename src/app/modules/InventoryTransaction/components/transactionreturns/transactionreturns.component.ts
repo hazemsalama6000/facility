@@ -15,9 +15,9 @@ import { IInvTransaction, IInvTransactionDetails } from '../../models/IInvTransa
 import { InvTransactionService } from '../../services/invTransaction.service';
 
 @Component({
-  selector: 'app-transactionrequestlist',
-  templateUrl: './transactionrequestlist.component.html',
-  styleUrls: ['./transactionrequestlist.component.scss'],
+  selector: 'app-transactionreturns',
+  templateUrl: './transactionreturns.component.html',
+  styleUrls: ['./transactionreturns.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -26,16 +26,15 @@ import { InvTransactionService } from '../../services/invTransaction.service';
     ]),
   ]
 })
-export class TransactionrequestlistComponent implements OnInit {
-
-  columnsToDisplay = ['n','docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
+export class TransactionreturnsComponent implements OnInit {
+  columnsToDisplay = ['n', 'docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
   @ViewChild(MatTable) table: MatTable<IInvTransaction>;
   loading: boolean = false;
   data: any[] = [];
   totalRecord = 0;
-  searchModel: any = { CompanyBranchId: 0, PageNumber: 1, PageSize: 5, IsTransferRequest: true };
+  searchModel: any = { CompanyBranchId: 0, PageNumber: 1, PageSize: 5, IsRetrieveTrans: true };
   isLoadingResults = true;
   isRateLimitReached = false;
   userData: IUserData;
@@ -71,7 +70,7 @@ export class TransactionrequestlistComponent implements OnInit {
     this.invTransactionService.getTransferFromTransaction(this.searchModel).subscribe(res => {
       res.data.map(x => x.stockTransDetails.map(obj => obj.quantity = obj.baseQuantity / obj.convertedUnits.factor));
       this.data = res.data;
-      this.totalRecord=res.totalRecords;
+      this.totalRecord = res.totalRecords;
       this.isLoadingResults = false;
     })
   }
@@ -103,9 +102,9 @@ export class TransactionrequestlistComponent implements OnInit {
       if (res.data) {
         element.financialYear_Id = res.data.id;
         this.data[elementIndex].financialYear_Id = res.data.id;
-         console.log(element, element.financialYear_Id, element.stockTransEntity.transferStock_Id, element.stockTransTypeId)
-        if (element.financialYear_Id > 0 && element.stockTransEntity.transferStock_Id > 0 && element.stockTransTypeId > 0) {
-          this.invTransactionService.getDocumentNumber(element.financialYear_Id, element.stockTransEntity.transferStock_Id, element.stockTransTypeId).subscribe(res => {
+        console.log(element, element.financialYear_Id, element.stockId, element.stockTransTypeId)
+        if (element.financialYear_Id > 0 && element.stockId > 0 && element.stockTransTypeId > 0) {
+          this.invTransactionService.getDocumentNumber(element.financialYear_Id, element.stockId, element.stockTransTypeId).subscribe(res => {
             this.data[elementIndex].docReceivedNumber = res.data.docId;
           });
         }
@@ -146,19 +145,27 @@ export class TransactionrequestlistComponent implements OnInit {
     let transaction: IAddTransaction = {} as IAddTransaction;
     transaction.id = 0;
     transaction.companyId = this.userData.companyId;
-    transaction.stock_Id = item.stockTransEntity.transferStock_Id;
+    transaction.stock_Id = item.stockId;
+
+    // console.log(item.stockTransEntity.entityType_Id)
+
     transaction.stockTransType_Id = item.stockTransTypeId;
     transaction.documentDate = this.datePipe.transform(new Date().setDate(new Date(item.docReceivedDate).getDate()), 'yyyy-MM-ddThh:mm:ss') ?? '';
     transaction.documentNumber = item.docReceivedNumber;
     transaction.financialYear_Id = item.financialYear_Id;
     transaction.ReceivedFromTrans_Id = item.id;
     transaction.notes = '';
-    
+
     transaction.transEntity = {} as ITransEntity;
     transaction.transEntity.stockTransaction_Id = 0;
-    transaction.transEntity.transferStock_Id = item.stockId;
-    transaction.transEntity.entityType_Id=item.stockTransEntity.entityType_Id;
-    
+    transaction.transEntity.entityType_Id = item.stockTransEntity.entityType_Id;
+    if (item.stockTransEntity.vendor_Id) transaction.transEntity.vendor_Id = item.stockTransEntity.vendor_Id;
+    if (item.stockTransEntity.employee_Id) transaction.transEntity.employee_Id = item.stockTransEntity.employee_Id;
+    if (item.stockTransEntity.department_Id) transaction.transEntity.department_Id = item.stockTransEntity.department_Id;
+    if (item.stockTransEntity.car_Id) transaction.transEntity.car_Id = item.stockTransEntity.car_Id;
+    if (item.stockTransEntity.externalVendor_Id) transaction.transEntity.externalVendor_Id = item.stockTransEntity.externalVendor_Id;
+    if (item.stockTransEntity.transferStock_Id) transaction.transEntity.transferStock_Id = item.stockTransEntity.transferStock_Id;
+
     transaction.itemData = [];
     item.stockTransDetails.map((obj, index) => {
       transaction.itemData.push({
@@ -226,13 +233,14 @@ export class TransactionrequestlistComponent implements OnInit {
       },
       (error: any) => {
         this.loading = false;
-        this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+        console.log(error)
+        this.toaster.openWarningSnackBar(error.message);
       }
     );
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 1 && event.key === '0')&& event.target.value.startsWith('0')|| event.key === '-' || event.key === '.'|| event.key === '+'|| event.key === 'e') {
+    if ((event.target.value.length === 1 && event.key === '0'&&event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
   }

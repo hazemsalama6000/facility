@@ -3,7 +3,7 @@
   <div class="col-12 pt-2">
     <div class="d-flex mx-5 justify-content-between align-items-center pb-2">
       <div>
-        <mat-icon class="text-primary mx-5" style="font-size:30px;">receipt</mat-icon>
+        <mat-icon class="text-primary mx-5" style="font-size:30px;">block</mat-icon>
         <span class="fontsection">الاستعلام عن الاصناف المحجوزة</span>
       </div>
     </div>
@@ -98,21 +98,21 @@
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef> السعر </th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <span>{{element.price}}</span>
+          <span>{{element.price|number : '1.0-2'}}</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="remainingQuantity">
-        <th mat-header-cell *matHeaderCellDef> {{"TRANSACTIONS.TITLES.REMAININGQUANTITY" | translate}} </th>
+        <th mat-header-cell *matHeaderCellDef> الكمية</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <span>{{element.remainingQuantity}}</span>
+          <span>{{element.remainingQuantity|number : '1.0-2'}}</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reservedQuantity">
         <th mat-header-cell *matHeaderCellDef>{{"TRANSACTIONS.TITLES.RESERVEDQUANTITY" | translate}}</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <input type="text" class="form-control w-150px" placeholder="{{'TRANSACTIONS.TITLES.RESERVEDQUANTITY' | translate}}"
+          <input type="number" class="form-control w-150px" placeholder="{{'TRANSACTIONS.TITLES.RESERVEDQUANTITY' | translate}}"
             [(ngModel)]="element.reservedQuantity" (keydown)="restrictZero($event)">
         </td>
       </ng-container>

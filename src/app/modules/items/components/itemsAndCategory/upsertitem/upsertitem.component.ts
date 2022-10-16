@@ -29,7 +29,7 @@ export class UpsertitemComponent {
 
   ItemForm: FormGroup = this.fb.group({
     Id: [0],
-    code: ['', Validators.compose([Validators.required])],
+    code: ['', Validators.compose([Validators.required,Validators.minLength(4)])],
     name: ['', Validators.compose([Validators.required])],
     description: [''],
     barCode: [''],
@@ -42,7 +42,7 @@ export class UpsertitemComponent {
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],
     itemCategory_Id: [null],
-    unit_Id: [null],
+    unit_Id: [null, Validators.compose([Validators.required])],
     company_Id: [0]
   });
 
@@ -78,7 +78,7 @@ export class UpsertitemComponent {
           nature: res.nature,
           itemCategory_Id: res.itemCategory_Id,
           unit_Id: res.unit_Id,
-          company_Id: res.company_Id
+          company_Id: this.userData.companyId
         });
 
       }, (err) => console.log(err))
@@ -161,6 +161,11 @@ export class UpsertitemComponent {
 
   }
 
+  restrictZero(event: any) {
+    if ((event.target.value.length === 0 && event.key === '0') || event.key === '-' || event.key === '.'|| event.key === '+'|| event.key === 'e') {
+      event.preventDefault();
+    }
+  }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

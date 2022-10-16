@@ -294,6 +294,7 @@ export enum HttpPaths {
 	API_UNASSIGN_CAR_TO_DRIVER = "/api/v1/Trans/unssigncartodriver",
 	API_LIST_OF_CAR_MODEL = "/api/v1/Trans/listofcarsmodels/",
 	API_GET_OF_CAR_LOGS = "/api/v1/Trans/getcarlogs?",
+	API_LIST_OF_CARS = "/api/v1/Trans/listofcar",
 
 	//inventory Category
 	API_LIST_OF_INVENTORY_CATEGORY = "/api/v1/invt/listofstockcategory?companyId=",
@@ -334,30 +335,30 @@ export enum HttpPaths {
 	API_CLIENT_CATEGORY_LIST = "/api/v1/cust/listofclientcategories?companyId=",
 
 
-// CLIENT_APIS
-API_CLIENT_ADD = "/api/v1/cust/addclientdata",
-API_CLIENT_UPDATE = "/api/v1/cust/updateclientdata/",
-API_CLIENT_UACTIVEDEACTIVE = "/api/v1/cust/changeclientdataactiveornot/",
-API_CLIENT_GETALL = "/api/v1/cust/getclientsdatabyfilteration?",
-API_CLIENT_GETPROFILE = "/api/v1/cust/getclientprofile?",
+	// CLIENT_APIS
+	API_CLIENT_ADD = "/api/v1/cust/addclientdata",
+	API_CLIENT_UPDATE = "/api/v1/cust/updateclientdata/",
+	API_CLIENT_UACTIVEDEACTIVE = "/api/v1/cust/changeclientdataactiveornot/",
+	API_CLIENT_GETALL = "/api/v1/cust/getclientsdatabyfilteration?",
+	API_CLIENT_GETPROFILE = "/api/v1/cust/getclientprofile?",
 
-API_CLIENT_DELETE = "/api/v1/cust/deleteclientcategory/",
-API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
+	API_CLIENT_DELETE = "/api/v1/cust/deleteclientcategory/",
+	API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
 
 
-//Client Branches
-API_CLIENTBRANCHES_GETBRANCHES="/api/v1/cust/getclientbranches?",
-API_CLIENTBRANCH_TOGGLE="/api/v1/cust/changeclientbranchactiveornot/",
+	//Client Branches
+	API_CLIENTBRANCHES_GETBRANCHES = "/api/v1/cust/getclientbranches?",
+	API_CLIENTBRANCH_TOGGLE = "/api/v1/cust/changeclientbranchactiveornot/",
 
-API_CLIENTBRANCHES_ADD = "/api/v1/cust/addclientbranch",
-API_CLIENTBRANCHES_UPLOADIMAGE = "/api/v1/cust/uploadclientbranchesimages",
-API_CLIENTBRANCHES_UPDATE = "/api/v1/cust/updateclientbranch/",
-API_CLIENTBRANCHES_GETALL = "/api/v1/shared/getcompanybranches/",
-API_CLIENTBRANCHES_GETBYID = "/api/v1/cust/getclientbranchprofile?",
-API_ASSIGN_CLIENTBRANCH_TO_PATHROUTE="/api/v1/cust/assignpathroutetoclientbranch?",
-API_CLIENTBRANCH_PATHROUTE_LOGS="/api/v1/cust/getclientbranchpathrouteslog?",
-API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE="/api/v1/cust/removepathroutefromclientbranch?",
-API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE="/api/v1/cust/listofclientsbranchesnotassigned?",
+	API_CLIENTBRANCHES_ADD = "/api/v1/cust/addclientbranch",
+	API_CLIENTBRANCHES_UPLOADIMAGE = "/api/v1/cust/uploadclientbranchesimages",
+	API_CLIENTBRANCHES_UPDATE = "/api/v1/cust/updateclientbranch/",
+	API_CLIENTBRANCHES_GETALL = "/api/v1/shared/getcompanybranches/",
+	API_CLIENTBRANCHES_GETBYID = "/api/v1/cust/getclientbranchprofile?",
+	API_ASSIGN_CLIENTBRANCH_TO_PATHROUTE = "/api/v1/cust/assignpathroutetoclientbranch?",
+	API_CLIENTBRANCH_PATHROUTE_LOGS = "/api/v1/cust/getclientbranchpathrouteslog?",
+	API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE = "/api/v1/cust/removepathroutefromclientbranch?",
+	API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE = "/api/v1/cust/listofclientsbranchesnotassigned?",
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
@@ -374,7 +375,7 @@ API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE="/api/v1/cust/listofclientsbranches
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
 
 	API_LIST_OF_ITEMS = "/api/v1/invt/listofitemsbynameorcode?",
-	API_GET_ITEM_PROFILE= "/api/v1/invt/getitemprofilebyid?",
+	API_GET_ITEM_PROFILE = "/api/v1/invt/getitemprofilebyid?",
 
 
 
@@ -412,19 +413,22 @@ API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE="/api/v1/cust/listofclientsbranches
 
 	API_LIST_OF_COMPANY_BRANCH = '/api/v1/shared/listofcompanybranches?companyId=',
 
-	API_GET_TRANSACTION='/api/v1/invt/getallstocktransactions?',
+	API_GET_TRANSACTION = '/api/v1/invt/getallstocktransactions?',
 
-	API_LIST_OF_TRANSTYPE='/api/v1/invt/listofstocktranstypes',
-	API_LIST_OF_ENTITYTYPE='/api/v1/invt/listofentitiestypes',
-	API_LIST_OF_EXTERNAL_PLACES='/api/v1/vend/listofexternalplaces?companyId=',
+	API_LIST_OF_TRANSTYPE = '/api/v1/invt/listofstocktranstypes',
+	API_LIST_OF_ENTITYTYPE = '/api/v1/invt/listofentitiestypes',
+	API_LIST_OF_EXTERNAL_PLACES = '/api/v1/vend/listofexternalplaces?companyId=',
 
-	API_GET_DOCUMENT_NUMBER='/api/v1/invt/getnextdocumentnumber?',
-	API_ADD_TRANSACTION='/api/v1/invt/addstocktransaction',
+	API_GET_DOCUMENT_NUMBER = '/api/v1/invt/getnextdocumentnumber?',
+	API_ADD_TRANSACTION = '/api/v1/invt/addstocktransaction',
 
-	API_GET_ITEM_TRANSACTION='/api/v1/invt/getallstocktransbyitemid?',
-	API_UPDATE_RESERVED='/api/v1/invt/updatereservedamountforstocktrans',
+	API_GET_ITEM_TRANSACTION = '/api/v1/invt/getallstocktransbyitemid?',
+	API_UPDATE_RESERVED = '/api/v1/invt/updatereservedamountforstocktrans',
 
-	API_GET_TRANSFER_TRANSACTION='/api/v1/invt/getallstocktransactionstransfer?',
+	API_GET_TRANSFER_TRANSACTION = '/api/v1/invt/getallstocktransactionstransfer?',
+	API_GET_ENTITY_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/getentitiesperstocktranstype',
+	API_UPDATE_ENTITY_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/manageentitiesperstocktranstype',
+	API_GET_PRICE = '/api/v1/invt/getavgpriceforitem?',
 
 
 }

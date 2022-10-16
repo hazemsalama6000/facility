@@ -127,7 +127,7 @@
             <mat-icon>edit</mat-icon>
           </button>  -->
 
-          <button matTooltip="{{'DECLARATIONS.BUTTONS.REASSIGN' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
+          <button *ngIf="element.isActive == true" matTooltip="{{'DECLARATIONS.BUTTONS.REASSIGN' | translate}}" mat-mini-fab color="primary" class="mx-md-1"
             (click)="openAssignDialog(element)">
             <mat-icon>person_add</mat-icon>
           </button>
