@@ -68,7 +68,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 				}
 
 
-				else if (requestError.status == 500 || requestError.status == 404) {
+				else if (requestError.status == 404) {
 
 					this.Logging.LogRequestError({
 						severity: 'error',
@@ -76,12 +76,18 @@ export class ErrorInterceptor implements HttpInterceptor {
 						detail: error.message,
 					});
 
-					 console.log(error)
-					 //don't change please return and use handling in subscription that i did
-					if (error.data)
-						return throwError(error);
-					else
-						return throwError(error.message)
+					return throwError(error.message)
+
+				}
+
+				else if (requestError.status == 500) {
+					this.Logging.LogRequestError({
+						severity: 'error',
+						summary: `HTTP Error - ${requestError.status}`,
+						detail: error.message
+					});
+					//don't change please return and use handling in subscription that i did
+					return error.data ? throwError(error) : throwError(error.message);
 				}
 
 				else {

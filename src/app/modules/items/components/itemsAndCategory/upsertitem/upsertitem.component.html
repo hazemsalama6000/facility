@@ -137,18 +137,6 @@
                   message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate},
                   control: ItemForm.controls['unit_Id']
                 }"></ng-container>
-
-          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'minlength',
-                  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , min:3},
-                  control: ItemForm.controls['unit_Id']
-                }"></ng-container>
-
-          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'maxlength',
-                  message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , max:100},
-                  control: ItemForm.controls['unit_Id']
-                 }"></ng-container>
         </mat-hint>
 
       </div>
@@ -162,21 +150,10 @@
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'required',
-                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate},
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'طبيعة الصنف'},
                       control: ItemForm.controls['nature']
                     }"></ng-container>
 
-          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                      validation: 'minlength',
-                      message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , min:3},
-                      control: ItemForm.controls['nature']
-                    }"></ng-container>
-
-          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                      validation: 'maxlength',
-                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'DECLARATIONS.INPUTS.UNIT' | translate , max:100},
-                      control: ItemForm.controls['nature']
-                     }"></ng-container>
         </mat-hint>
 
       </div>

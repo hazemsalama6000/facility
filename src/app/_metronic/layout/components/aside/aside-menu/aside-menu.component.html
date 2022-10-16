@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of menu[0].childNode">
+<!-- <ng-container *ngFor="let item of menu[0].childNode">
 	<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
 		<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
 				<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
@@ -45,168 +45,470 @@
 		</ng-container>
 	</ng-container>
 
-</ng-container>
+</ng-container> -->
 
 
-<!-- Dashboard -->
-<!-- <div class="menu-item">
-  <a class="menu-link without-sub" routerLink="/share/state_region" routerLinkActive="active">
-    <span class="menu-icon">
-      <span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
-    </span>
-    <span class="menu-title"> {{"MENU.GOVERNORATESANDREGIONS" | translate}}</span>
-  </a>
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">home</mat-icon>
+		</span><span class="menu-title"> الرئيسية </span>
+	</a>
 </div>
-<div class="menu-item">
-  <a class="menu-link without-sub" routerLink="/share/department_section" routerLinkActive="active"><span
-      class="menu-icon">
-      <span [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'" class="svg-icon svg-icon-2"></span>
-    </span><span class="menu-title">{{"MENU.DEPARTMENTS" | translate}}</span></a>
-</div> -->
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+		</span><span class="menu-title"> صلاحيات المدير العام</span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/hr/company" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">business</mat-icon>
+				</span><span class="menu-title">الشركات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/superadminroles" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+				</span><span class="menu-title">صلاحيات المدير</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/managemenu" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">menu</mat-icon>
+				</span><span class="menu-title"> اعدادات القائمة</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+		</span><span class="menu-title">متابعة المستخدمين</span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/onlineUsers" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">record_voice_over</mat-icon>
+				</span><span class="menu-title">المستخدمين المتصلين</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/userconnectionlog" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">conveyor_belt</mat-icon>
+				</span><span class="menu-title"> بيانات الدخول للمستخدمين </span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">manage_accounts</mat-icon>
+		</span><span class="menu-title">شئون العاملين </span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/share/department_section" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">domain_add</mat-icon>
+				</span><span class="menu-title"> الادارات والاقسام </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/hr/jobs" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">work</mat-icon>
+				</span><span class="menu-title"> الوظائف</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/employee/employeeprofile" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">person_add</mat-icon>
+				</span><span class="menu-title">بيانات الموظفين </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/employee/employeelist" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">account_box</mat-icon>
+				</span><span class="menu-title"> قائمة الموظفين </span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">miscellaneous_services</mat-icon>
+		</span><span class="menu-title">اعدادات عامة </span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/financialyear" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">attach_money</mat-icon>
+				</span><span class="menu-title">تعريف الفترة المالية</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/voucherSerial" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">note_add</mat-icon>
+				</span><span class="menu-title">دفاتر الفواتير </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/pathroute" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">add_road</mat-icon>
+				</span><span class="menu-title">خطوط السير</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/transferingcompany" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">recycling</mat-icon>
+				</span><span class="menu-title">التحويلات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/share/state_region" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">maps_home_work</mat-icon>
+				</span><span class="menu-title">المحافظات و المناطق</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">drive_eta</mat-icon>
+		</span><span class="menu-title">اعدادات السيارات </span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/carsmodels" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">polymer</mat-icon>
+				</span><span class="menu-title">موديلات السيارات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/car/managecar" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">pin</mat-icon>
+				</span><span class="menu-title">تعريف السيارات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/carexpenses" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">local_gas_station</mat-icon>
+				</span><span class="menu-title">تعريف الصرفيات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="car/carexpensetransaction" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">local_gas_station</mat-icon>
+				</span><span class="menu-title">صرفيات السيارات</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">archive </mat-icon>
+		</span><span class="menu-title">العملاء</span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/clientcategory" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">groups</mat-icon>
+				</span><span class="menu-title">تصنيف العملاء</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="client/clientprofile" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">groups</mat-icon>
+				</span><span class="menu-title">تعريف العملاء</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">archive </mat-icon>
+		</span><span class="menu-title">الموردين </span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="vendor/activity" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">person_add</mat-icon>
+				</span><span class="menu-title">تعريف نشاط الموردين </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="vendor/maincompany" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">person_add</mat-icon>
+				</span><span class="menu-title">تعريف شركات الموردين</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="vendor/classification" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">person_add</mat-icon>
+				</span><span class="menu-title">تصنيف الموردين</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="vendor/vendorlist" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">person_add</mat-icon>
+				</span><span class="menu-title">تعريف الموردين</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">inventory</mat-icon>
+		</span><span class="menu-title">المخازن </span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/units" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">shopping_bag</mat-icon>
+				</span><span class="menu-title">الوحدات</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/items/itemcategory" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">shopping_bag</mat-icon>
+				</span><span class="menu-title">التصنيفات و الاصناف</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="items/unitconversion" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">shopping_bag</mat-icon>
+				</span><span class="menu-title">الوحدات الفرعية</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/declarations/invcategory" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">inventory_2</mat-icon>
+				</span><span class="menu-title">تصنيف المخازن</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/declarations/inventory" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">inventory_2</mat-icon>
+				</span><span class="menu-title">المخازن</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/declarations/internaldivision" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">widgets</mat-icon>
+				</span><span class="menu-title">التقسيم الداخلي للمخازن</span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="declarations/entitytype" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">widgets</mat-icon>
+				</span><span class="menu-title"> أعدادات المستفيدين  </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/InvTransaction/dailytransaction" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">swap_vert</mat-icon>
+				</span><span class="menu-title">العمليات المخزنية </span>
+			</a>
+		</div>
+
+	</div>
+</div>
 
 
-<div class="menu-item">
+<div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+	<span class="menu-link"><span class="menu-icon">
+			<mat-icon style="font-size:25px;">admin_panel_settings</mat-icon>
+		</span><span class="menu-title">صلاحيات المستخدمين</span><span class="menu-arrow"></span></span>
+	<div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/users" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">groups_2</mat-icon>
+				</span><span class="menu-title">المستخدمين </span>
+			</a>
+		</div>
+
+		<div class="menu-item">
+			<a class="menu-link without-sub" routerLink="/permissions/roles" routerLinkActive="active"><span class="menu-icon">
+					<mat-icon style="font-size:25px;">accessibility</mat-icon>
+				</span><span class="menu-title">الأدوار</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/carexpenses" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> تعريف الصرفيات</span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/voucherSerial" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> دفاتر الفواتير </span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="car/carexpensetransaction" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> صرفيات السيارات </span>
 	</a>
-</div>
+</div> -->
 
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/transferingcompany" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> التحويلات </span>
 	</a>
-</div>
+</div> -->
 
-
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="client/clientprofile" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> العملاء </span>
 	</a>
-</div>
+</div> -->
 
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/carsmodels" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> موديلات السيارات </span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="items/unitconversion" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> الوحدات الفرعية </span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/entitytype" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title">أعدادات المستفيدين </span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/clientcategory" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> تصنيف العميل </span>
 	</a>
-</div>
+</div> -->
 
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="vendor/activity" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> تعريف نشاط الموردين</span>
 	</a>
-</div>
+</div> -->
 
-
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="vendor/classification" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> تصنيف الموردين</span>
 	</a>
-</div>
+</div> -->
 
-
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="vendor/maincompany" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title">تعريف شركات الموردين</span>
 	</a>
-</div>
+</div> -->
 
-
-
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="vendor/vendorlist" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> تعريف الموردين</span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="/items/itemcategory" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title">التصنيفات والاصناف </span>
 	</a>
-</div>
+</div> -->
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLinkActive="active" routerLink="/permissions/managemenu">
 		<span class="menu-icon">
 			<mat-icon style="font-size:25px;">admin_panel_settings</mat-icon>
 		</span>
 		<span class="menu-title">اعدادات القائمة</span>
 	</a>
-</div>
+</div> -->
