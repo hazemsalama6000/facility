@@ -1,6 +1,7 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { FlatTreeControl } from "@angular/cdk/tree";
+import { DatePipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
@@ -32,6 +33,7 @@ export class ItemsAndCategoryComponent {
   expandTimeout: any;
   expandDelay = 1000;
   objHover: any;
+  searchString: string = ''
   dnode: IItemsCategoryFlat = {
     id: 0, isActive: true, name: '', type: '',
     parentId: 0,
@@ -106,36 +108,26 @@ export class ItemsAndCategoryComponent {
     return result && !this.descendantsAllSelected(node);
   }
 
-  filterChanged(filterText: string) {
-    this.filter(filterText);
-    if (filterText) {
-      this.treeControl.expandAll();
-    } else {
-      this.treeControl.collapseAll();
+  filterLeafNode(node: IItemsCategoryFlat): boolean {
+    if (!this.searchString) {
+      return false
     }
+    return node.name.toLowerCase().indexOf(this.searchString?.toLowerCase()) === -1
   }
 
-  public filter(filterText: string) {
-    let filteredTreeData: IItemsCategory[];
-    if (filterText) {
-      filteredTreeData = this.itemsCtegory.filter(d => d.name.toLocaleLowerCase().indexOf(filterText.toLocaleLowerCase()) > -1);
-      Object.assign([], filteredTreeData).forEach((ftd: any) => {
-        let str = (<string>ftd.name);
-        while (str.lastIndexOf('.') > -1) {
-          const index = str.lastIndexOf('.');
-          str = str.substring(0, index);
-          if (filteredTreeData.findIndex(t => t.name === str) === -1) {
-            const obj = this.itemsCtegory.find(d => d.name === str);
-            if (obj)
-              filteredTreeData.push(obj);
-          }
-        }
-      });
-    } else {
-      filteredTreeData = this.itemsCtegory;
-    }
+  filterParentNode(node: IItemsCategoryFlat): boolean {
 
-    const data = this.rebuildTreeForData(filteredTreeData);
+    if (!this.searchString || node.name.toLowerCase().indexOf(this.searchString?.toLowerCase()) !== -1) return false
+
+    const descendants = this.treeControl.getDescendants(node);
+
+    if (descendants.some((descendantNode) => descendantNode.name.toLowerCase().indexOf(this.searchString?.toLowerCase()) !== -1)) {
+      this.treeControl.expandAll();
+      return false
+    } else {
+      // this.treeControl.collapseAll();
+      return true
+    }
   }
 
 
@@ -255,7 +247,7 @@ export class ItemsAndCategoryComponent {
           maxHeight: '100vh',
           minHeight: '50%',
           minWidth: '50%',
-          
+
           data: { node: node, type: 'edit' }
         });
     } else {
@@ -264,7 +256,7 @@ export class ItemsAndCategoryComponent {
           maxHeight: '100vh',
           minHeight: '100vh',
           minWidth: '50%',
-          position:{right:'0'},
+          position: { right: '0' },
           data: { node: node, type: 'edit' }
         });
     }
