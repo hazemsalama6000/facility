@@ -106,10 +106,11 @@ export class CarTransactionUpsertComponent implements OnInit {
 							this.toaster.openSuccessSnackBar(data.message);
 							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 							const fd = new FormData();
-
 							if (this.attachment != null && this.attachment != undefined) {
-								fd.append('Attachments', this.attachment, data.data.id + "_" + this.attachment.name);
-								this.carExpenseTransactionService.UploadImagesCarTransactions(this.fb).subscribe(
+								fd.append('model', this.attachment, data.data[0].id + "_" + this.attachment.name);
+								alert(data.data.id);
+
+								this.carExpenseTransactionService.UploadImagesCarTransactions(fd).subscribe(
 									(data: HttpReponseModel) => {
 										this.toaster.openSuccessSnackBar(data.message);
 									},
