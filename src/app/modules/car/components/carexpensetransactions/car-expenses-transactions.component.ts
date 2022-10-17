@@ -40,7 +40,7 @@ export class CarExpensesTransactionComponent implements OnInit {
 	ngOnInit(): void {
 
 		this.carExpenseTransactionSearchForm = this.fb.group({
-			carPlat: [],
+			carData_Id: [],
 			expense_Id: [],
 			startDate: [new Date().toISOString()],
 			endDate: [new Date().toISOString()]
@@ -69,7 +69,6 @@ export class CarExpensesTransactionComponent implements OnInit {
 		model.startDate = this.datePipe.transform(model.startDate, 'MM/dd/yyyy')!;
 		model.endDate = this.datePipe.transform(model.endDate, 'MM/dd/yyyy')!;
 		model.branchId = this.branchId;
-
 		this.carExpenseTransactionService.searchParameterAction.next(model);
 		this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 	}

@@ -1,0 +1,23 @@
+export interface IClientBranchExcel
+{	__rowNum__:string,
+	name: string,
+	clientBranchCode: string,
+	address: string,
+	telephone: string,
+	mobile: string,
+	secondMobile: string,
+	managerMobile: string,
+	region_Id: number,
+	responsibleName: string,
+	commercialName: string,
+	mobileDate?: string,
+	isCompletedData?: false,
+	isActive: true,
+	technician_Id?: number,
+	x?: number,
+	y?: number,
+	clientData_Id?: number,
+	clientBranchId: number,
+	pathRoute_Id?: number,
+	isMain?: false
+}

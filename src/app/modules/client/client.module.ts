@@ -17,6 +17,7 @@ import { ClientUpdateComponent } from './components/client-profile/client-datali
 import { BranchAssignPathComponent } from './components/branches/branch_list_content/branch_AssignPathRoutes/branch_AssignPathRoutes.component';
 import { BranchPathRoutesLogs } from './components/branches/branch_list_content/branch_pathroutes_logs/branch_pathroutes_logs.component';
 import{BranchsAssignPathRouteComponent} from './components/client-profile/client-datalist/branchs_assignPathRoute/branchs_assignPathRoute.component'
+import { ClientImportExcel } from './components/client-import-excel/client-import-excel.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import{BranchsAssignPathRouteComponent} from './components/client-profile/client
     BranchUpsertComponent,
     BranchListContentComponent,
     BranchUpsertComponent
-	,BranchsAssignPathRouteComponent
+	,BranchsAssignPathRouteComponent,
+	ClientImportExcel
   ],
   imports: [
     CommonModule,

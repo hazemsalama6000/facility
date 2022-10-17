@@ -1,5 +1,5 @@
 export interface IClientForm {
-
+	__rowNum__:string,
 	id: number,
 	name: string,
 	Code: string,
