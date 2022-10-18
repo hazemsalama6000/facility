@@ -10,8 +10,7 @@ import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
   templateUrl: './user-inner.component.html',
 })
 export class UserInnerComponent implements OnInit, OnDestroy {
-  @HostBinding('class')
-  class = `menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px`;
+  @HostBinding('class') class = `menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px`;
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
   TOKENIN_LOCALSTORAGE = "token";
 
@@ -21,11 +20,12 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   language: LanguageFlag;
   // userdata: IUserData;
   user$: Observable<IUserData>;
+  userdata:IUserData
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
   constructor(private auth: AuthService, private translationService: TranslationService, private router: Router) {
-    // auth.userData.subscribe(res => this.userdata = res);
+     auth.userData.subscribe(res => this.userdata = res);
     this.user$ = this.auth.userData.asObservable();
 
   }
@@ -62,23 +62,6 @@ export class UserInnerComponent implements OnInit, OnDestroy {
     this.CurrentLangImage = CurrentLangInfoObject.CurrentLangImage;
     this.setDirection();
   }
-  
-  // selectLanguage(lang: string) {
-  //   this.translationService.setLanguage(lang);
-  //   this.setLanguage(lang);
-  //   // document.location.reload();
-  // }
-
-  // setLanguage(lang: string) {
-  //   this.langs.forEach((language: LanguageFlag) => {
-  //     if (language.lang === lang) {
-  //       language.active = true;
-  //       this.language = language;
-  //     } else {
-  //       language.active = false;
-  //     }
-  //   });
-  // }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

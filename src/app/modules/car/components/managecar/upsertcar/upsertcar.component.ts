@@ -68,10 +68,11 @@ export class UpsertcarComponent {
     if (this.carForm.valid && this.saveButtonClickedFlag) {
       this.carForm.patchValue({
         branch_Id: this.userData.branchId,
-        technician_Id: this.carForm.get('technician_Id')?.value == null ? 0 : this.carForm.get('technician_Id')?.value,
-        driver_Id: this.carForm.get('driver_Id')?.value == null ? 0 : this.carForm.get('driver_Id')?.value
+        technician_Id: this.carForm.get('technician_Id')?.value == null ? null : this.carForm.get('technician_Id')?.value,
+        driver_Id: this.carForm.get('driver_Id')?.value == null ?null : this.carForm.get('driver_Id')?.value
       });
       this.loading = true;
+
 
       if (this.isEdit) {
         let model: any = {

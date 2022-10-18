@@ -60,8 +60,7 @@ export class Car_list_contentComponent implements OnInit {
   getallData() {
     this.carService.getCars(this.searchModel).subscribe((data: IcarPagination) => {
       this.dataSource = new MatTableDataSource<Icar>(data.data);
-      this.dataSource.paginator = this.paginator;
-      this.totalRecord = data.totalRecords
+      this.totalRecord = data.totalCount
     });
   }
 

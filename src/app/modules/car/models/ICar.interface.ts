@@ -1,6 +1,6 @@
 export interface IcarPagination {
     data: Icar[];
-    totalRecords: number;
+    totalCount: number;
 }
 
 export interface Icar {
