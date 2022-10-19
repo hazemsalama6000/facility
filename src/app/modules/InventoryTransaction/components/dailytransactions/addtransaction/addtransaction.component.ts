@@ -35,7 +35,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   saveButtonClickedFlag: boolean = false;
   dropdownTransType: ITransType[] = [];
-  TransType: ITransType = { id: 0, name: '', transKind: true, sysName: '' };
+  TransType: ITransType = { id: 0, name: '', transKind: true, sysName: '',isShowInList:false };
   dropdownStock: LookUpModel[] = [];
   dropdownEntityType: IEntityType[] = [];
   EntityType: IEntityType = { id: 0, name: '', sysName: '' };
@@ -114,7 +114,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   fillDropdown() {
-    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.sysName != 'transferfrom' && x.sysName != 'returnfrom'); });
+    this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.isShowInList); });
     this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
   }
 

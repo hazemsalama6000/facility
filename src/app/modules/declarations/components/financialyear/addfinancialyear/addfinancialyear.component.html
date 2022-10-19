@@ -43,8 +43,8 @@
       <div class="col-md-6 mb-3">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="picker" (dateInput)="financialForm.patchValue({endDate:''})"
-            [max]="financialForm.controls['endDate'].value" formControlName="startDate">
+          <input matInput [matDatepicker]="picker" (dateInput)="financialForm.patchValue({endDate:''})" [readonly]="true"
+            [max]="financialForm.controls['endDate'].value" formControlName="startDate" [min]="minDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
 
@@ -74,11 +74,11 @@
       <div class="col-md-6 mb-3">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
-          <input matInput [matDatepicker]="picker1" [min]="financialForm.controls['startDate'].value" formControlName="endDate">
+          <input matInput [matDatepicker]="picker1" [min]="financialForm.controls['startDate'].value||minDate" [readonly]="true" formControlName="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
 
-          <mat-hint>
+          <mat-hint> 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
               validation: 'required',
               message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.TODATE' | translate},

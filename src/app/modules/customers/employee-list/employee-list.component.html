@@ -58,40 +58,18 @@
               <p-dropdown [options]="branchDropdown" #branch appendTo="body" optionLabel="branchName" placeholder="أختر الفرع"
                 (onChange)="myfilter(branch.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
 
-              <!-- <p-multiSelect [options]="branchDropdown" optionLabel="branchName" #branch appendTo="body"
-                (onChange)="myfilter(branch.value,'branch')">
-                <ng-template let-option pTemplate="item">
-                  <span>{{option.branchName}}</span>
-                </ng-template>
-              </p-multiSelect> -->
-
             </th>
-
 
             <th *ngIf="col.propName=='department'">
               <p-dropdown [options]="departmentDropdown" #department appendTo="body" optionLabel="Name" placeholder="أختر الادارة"
                 (onChange)="myfilter(department.value,'department')" placeholder=" " [showClear]="true"></p-dropdown>
-
-              <!-- <p-multiSelect [options]="departmentDropdown" optionLabel="Name" appendTo="body"
-                (onChange)="myfilter($event.value,'department')">
-                <ng-template let-option pTemplate="item">
-                  <span>{{option.Name}}</span>
-                </ng-template>
-              </p-multiSelect> -->
 
             </th>
 
             <th *ngIf="col.propName=='section'">
 
               <p-dropdown [options]="sectionDropdown" #section appendTo="body" optionLabel="Name" placeholder="أختر القسم"
-                (onChange)="myfilter(section.value,'branch')" placeholder=" " [showClear]="true"></p-dropdown>
-
-              <!-- <p-multiSelect [options]="sectionDropdown" optionLabel="Name" appendTo="body"
-                (onChange)="myfilter($event.value,'section')">
-                <ng-template let-option pTemplate="item">
-                  <span>{{option.Name}</span>
-                </ng-template>
-              </p-multiSelect> -->
+                (onChange)="myfilter(section.value,'section')" placeholder=" " [showClear]="true"></p-dropdown>
 
             </th>
 

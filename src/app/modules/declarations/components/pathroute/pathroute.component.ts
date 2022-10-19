@@ -62,7 +62,6 @@ export class PathrouteComponent implements OnInit {
     this.pathrouteService.getPathRoute(this.searchModel).subscribe((data: IPathRoutePaginantion) => {
       console.log(data)
       this.dataSource = new MatTableDataSource<IPathRoute>(data.data ?? []);
-      this.dataSource.paginator = this.paginator;
       this.totalRecord = data.totalRecords
     });
   }
