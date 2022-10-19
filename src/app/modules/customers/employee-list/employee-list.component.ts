@@ -29,7 +29,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
   branchDropdown: IBranch[];
   departmentDropdown: LookUpModel[];
   sectionDropdown: LookUpModel[];
-  jobDropdown: IJobSub[];
+  jobDropdown: LookUpModel[];
 
   searchObject: IEmployeeSearch;
   totalRecords: number;
@@ -121,9 +121,9 @@ export class Employee_listComponent implements OnInit, OnDestroy {
       case "section":
         if (ids != null) {
           this.searchObject.sectionsIds = [ids.Id];
-          this.jobService.getLookUpData(this.searchObject.sectionsIds[0]).subscribe((res: IJob) => {
-            console.log(res)
-            this.jobDropdown = res.jobs.filter(x => x.isSelected == true)
+          this.jobService.getJobData(this.searchObject.sectionsIds[0]).subscribe((res: LookUpModel[]) => {
+            this.jobDropdown = res.filter(x => x.isActive == true)
+            console.log(this.jobDropdown)
           }
           );
         } else this.searchObject.sectionsIds = [];

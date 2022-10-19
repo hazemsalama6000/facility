@@ -75,10 +75,10 @@
 
             <th *ngIf="col.propName=='job'">
 
-              <p-multiSelect [options]="jobDropdown" optionLabel="displayValue" (onChange)="myfilter($event.value,'job')" appendTo="body"
+              <p-multiSelect [options]="jobDropdown" optionLabel="Name" (onChange)="myfilter($event.value,'job')" appendTo="body"
                 [showClear]="true" placeholder="أختر الوظائف">
                 <ng-template let-option pTemplate="item">
-                  <span>{{option.displayValue}</span>
+                  <span>{{option.Name}}</span>
                 </ng-template>
               </p-multiSelect>
 
