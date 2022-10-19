@@ -38,15 +38,21 @@ export class UnitConversionListContentComponent {
 	constructor(private service: UnitConversionService, private toaster: toasterService 
 		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService ,private auth:AuthService) {
 		//subscribe here to invoke when insert done in upsert component
-		this.service.selectFromStore().subscribe(data => {
-			this.getallData();
-		});
+		
 
 		this.currentSelected = { Id: 0, Name: '', company_Id: 0 };
 
-		const udata=this.auth.userData.subscribe(res=>this.userdata=res);
+		const udata=this.auth.userData.subscribe(res=>
+			{
+				this.userdata=res;
+				this.service.selectFromStore().subscribe(data => {
+					this.getallData();
+				});
+			}
+			);
 		this.unsubscribe.push(udata);
 	}
+
 
 	addNewRow() {
 		let Item: Array<LookUpModel> = this.dataSource.data.filter((a: LookUpModel) => a.Id == 0);
@@ -132,7 +138,7 @@ export class UnitConversionListContentComponent {
 
 	// getting data and initialize data Source and Paginator
 	getallData() {
-		this.service.getLookupData().subscribe(
+		this.service.getLookupData(this.userdata.companyId).subscribe(
 			(data: IUnitConverionResponse[]) => {
 				this.dataSource = new MatTableDataSource<IUnitConverionResponse>(data);
 				this.dataSource.paginator = this.paginator;

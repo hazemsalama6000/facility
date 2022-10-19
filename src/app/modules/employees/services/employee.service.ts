@@ -90,7 +90,6 @@ export class EmployeeService {
 	getEmployeesData(searchModel: any): Observable<IEmployeePagination> {
 		return this.http.CommonPostRequests(searchModel, `${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEES_DATA}`)
 		.pipe(map(Items => Items.data as IEmployeePagination));
-
 	}
 
 

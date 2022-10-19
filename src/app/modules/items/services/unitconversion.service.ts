@@ -18,16 +18,21 @@ export class UnitConversionService {
 
 	bSubject = new BehaviorSubject(true);
 	addFlag = new BehaviorSubject(false);
-	companyId: number;
+	companyId: number=0;
 
 	constructor(private http: CommonHttpService, private auth: AuthService) {
+		
+	}
+
+	getCompanyData(){
 		this.auth.userData.subscribe((userData) => {
 			this.companyId = userData.companyId;
+			console.log('companyId'+this.companyId)
 		});
 	}
 
-	getLookupData(): Observable<IUnitConverionResponse[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_GETALL}?companyId=${this.companyId}`)
+ getLookupData(companyId:any): Observable<IUnitConverionResponse[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_UNIT_CONVERSION_GETALL}?companyId=${companyId}`)
 			.pipe(map(Items => Items.data));
 	}
 
