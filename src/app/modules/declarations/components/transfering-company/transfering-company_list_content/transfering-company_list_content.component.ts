@@ -37,13 +37,17 @@ export class TransferingCompanyListContentComponent {
 	constructor(private service: TransferingCompanyService, private toaster: toasterService 
 		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService ,private auth:AuthService) {
 		//subscribe here to invoke when insert done in upsert component
-		this.service.selectFromStore().subscribe(data => {
-			this.getallData();
-		});
+		
 
 		this.currentSelected = { Id: 0, Name: '', company_Id: 0 };
 
-		const udata=this.auth.userData.subscribe(res=>this.userdata=res);
+		const udata=this.auth.userData.subscribe(res=>{
+			this.service.companyId=res.companyId;
+			this.service.selectFromStore().subscribe(data => {
+				this.getallData();
+			});
+			this.userdata=res;
+		});
 		this.unsubscribe.push(udata);
 	}
 

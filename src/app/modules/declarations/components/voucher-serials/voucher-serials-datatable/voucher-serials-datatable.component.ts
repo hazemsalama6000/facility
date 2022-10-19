@@ -12,6 +12,7 @@ import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { ConfirmationDialogService } from "src/app/shared-module/Components/confirm-dialog/confirmDialog.service";
 import { IVoucherSerialSearch } from "../../../models/voucher-serials/IVoucherSerialSearch.interface";
 import { IVoucherSerialReponse } from "../../../models/voucher-serials/IVoucherSerialReponse.interface";
+import { AuthService } from "src/app/modules/auth";
 @Component({
 	selector: 'voucher-serials-datatable',
 	templateUrl: './voucher-serials-datatablecomponent.html',
@@ -44,7 +45,8 @@ export class VoucherSerialsDatatableComponent {
 	@Input() companyId: number;
 
 	constructor(private _httpClient: HttpClient, private service: VoucherSerialService
-		, public dialog: MatDialog, private toaster: toasterService, private confirmationDialogService: ConfirmationDialogService) {
+		, public dialog: MatDialog, private toaster: toasterService, private confirmationDialogService: ConfirmationDialogService,
+		private auth:AuthService) {
 		this.currentSearchParameter = { PageNumber: 0, FinancialYearId: 0, EmployeeId: 0, PageSize: 0, CompanyId: this.companyId, BillTypeId: 0 };
 	}
 
@@ -52,7 +54,8 @@ export class VoucherSerialsDatatableComponent {
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
-		merge(this.paginator.page, this.service.searchUpdateUserManageStream$)
+	
+merge(this.paginator.page, this.service.searchUpdateUserManageStream$)
 			.pipe(
 				switchMap(() => {
 					this.isLoadingResults = true;
@@ -72,9 +75,11 @@ export class VoucherSerialsDatatableComponent {
 				}),
 			)
 			.subscribe((data) => { this.data = data; });
-
-		this.service.searchUpdateUserManageAction.next(true);
-
+		
+			this.auth.userData.subscribe(user=>{
+				this.companyId=user.companyId;
+				this.service.searchUpdateUserManageAction.next(true);
+			});
 
 	}
 

@@ -41,9 +41,7 @@ export class UnitsListContentComponent {
 		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService 
 		,private auth:AuthService) {
 		//subscribe here to invoke when insert done in upsert component
-		this.service.selectFromStore().subscribe(data => {
-			this.getallData();
-		});
+		
 
 		this.service.getLookupUnitTypeData().subscribe(
 			(data: LookUpModel[]) => {
@@ -53,7 +51,14 @@ export class UnitsListContentComponent {
 
 		this.currentSelected = { Id: 0,unitType:"",unitType_Id:0, Name: '', company_Id: 0 };
 
-		const udata=this.auth.userData.subscribe(res=>this.userdata=res);
+		const udata=this.auth.userData.subscribe(res=>{
+			this.userdata=res;
+			this.service.companyId=res.companyId;
+			this.service.selectFromStore().subscribe(data => {
+				this.getallData();
+			});
+		}
+		);
 		this.unsubscribe.push(udata);
 	}
 
