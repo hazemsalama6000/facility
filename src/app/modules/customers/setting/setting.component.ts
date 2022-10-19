@@ -11,25 +11,22 @@ import { CutomerService } from '../services/customer.service';
 	templateUrl: './setting.component.html'
 })
 export class SettingComponent implements OnInit {
-	@HostBinding('class') class =
-		'menu menu-sub menu-sub-dropdown w-250px w-md-300px';
+	@HostBinding('class') class = 'menu menu-sub menu-sub-dropdown w-250px w-md-300px';
 	@HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
 	customerProfile: ICustomer = {} as ICustomer;
 
 	@Output() emitter = new EventEmitter<ITechnitianLog>();
 	@Output() emitForActiveProp = new EventEmitter<boolean>();
-	@Input() set _Employee(value: ICustomer) {
-		this.customerProfile = value;
-	}
+	@Input() set _Employee(value: ICustomer) { this.customerProfile = value; }
 
-	constructor(private service: CutomerService, private dialog: MatDialog,private toaster: toasterService) { }
+	constructor(private service: CutomerService, private dialog: MatDialog, private toaster: toasterService) { }
 
 	ngOnInit(): void {
 	}
 
 	toggleActive() {
-		if(this.customerProfile.id==undefined){
+		if (this.customerProfile.id == undefined) {
 			this.toaster.openWarningSnackBar('اختر عميل');
 			return;
 		}

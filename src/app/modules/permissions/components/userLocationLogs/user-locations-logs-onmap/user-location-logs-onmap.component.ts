@@ -275,17 +275,17 @@ export class UserLocationLogsOnMapComponent implements OnDestroy {
 
 			this.subscribe = this.service.Locations.subscribe(
 				(data: ILocationXY[]) => {
-					console.log(data);
 					this.map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-						center: { lat: 30.074412, lng: 31.214151 },
+						center: { lat: 31.427593, lng: 31.827810 },
 						zoom: 10,
 						styles: this.styles
 					});
 
 					_.forEach(data, (location: ILocationXY) => {
 						
+						console.log(location);
 						let icon = this.service.checkIconBasedLocation(location.status);
-
+console.log(icon);
 						const marker = new google.maps.Marker({
 							position: { lat: location.x, lng: location.y },
 							map: this.map,
@@ -297,9 +297,6 @@ export class UserLocationLogsOnMapComponent implements OnDestroy {
 							marker.setAnimation(google.maps.Animation.BOUNCE)
 							console.log(location.x + ' ' + location.y)
 						}
-						
-
-
 
 					});
 

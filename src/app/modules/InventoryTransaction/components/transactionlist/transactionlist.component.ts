@@ -141,7 +141,7 @@ export class TransactionlistComponent implements OnInit {
           this.employeeService.getLookupEmployeeData(this.userData.companyId, this.userData.branchId).subscribe(res => this.dropdownEntity = res);
           break;
         case 'department':
-          this.departmentService.getLookupData(this.userData.companyId).subscribe(res => this.dropdownEntity = res);
+          this.departmentService.getListOfData(this.userData.companyId).subscribe(res => this.dropdownEntity = res);
           break;
         case 'car':
           this.carService.getLookupCarData(this.userData.branchId).subscribe(res => this.dropdownEntity = res);

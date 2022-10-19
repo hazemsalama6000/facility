@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { TechnicianService } from 'src/app/core-module/LookupsServices/technician.service';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -25,7 +26,7 @@ export class Car_list_contentComponent implements OnInit {
 
   addButton: boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['model', 'plateCar', 'techname', 'drivername', 'downloadfiles', 'action'];
+  displayedColumns: string[] = ['n','model', 'plateCar', 'techname', 'drivername', 'downloadfiles', 'action'];
   dataSource: any;
   userdata: IUserData
   searchModel: ICarSearch = { PageSize: 5, PageNumber: 1, branchId: 0 };
@@ -43,6 +44,7 @@ export class Car_list_contentComponent implements OnInit {
     public dialog: MatDialog,
     private toaster: toasterService,
     private confirmationDialogService: ConfirmationDialogService,
+    private translateservice:TranslateService
   ) {
     const udata = this.auth.userData.subscribe(res => {
       this.userdata = res
@@ -60,8 +62,7 @@ export class Car_list_contentComponent implements OnInit {
   getallData() {
     this.carService.getCars(this.searchModel).subscribe((data: IcarPagination) => {
       this.dataSource = new MatTableDataSource<Icar>(data.data);
-      this.dataSource.paginator = this.paginator;
-      this.totalRecord = data.totalRecords
+      this.totalRecord = data.totalCount
     });
   }
 
@@ -92,9 +93,12 @@ export class Car_list_contentComponent implements OnInit {
   }
 
   openAddDialog(model?: Icar) {
-    this.dialog.open(UpsertcarComponent, { maxHeight: '100vh', minHeight: '50%', width: '50%', data: { carModel: model } });
+    let lang=this.translateservice.currentLang;
+    console.log(lang)
+    this.dialog.open(UpsertcarComponent, { maxHeight: '100vh', minHeight: '50%', width: '50%',
+     data: { carModel: model } });
   }
-
+// direction:lang=='ar'?'rtl':'ltr',
   openAssignDialog(model: Icar, type: string) {
     this.dialog.open(AssgincarComponent, {
       maxHeight: '100vh',

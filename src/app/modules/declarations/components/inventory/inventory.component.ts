@@ -25,9 +25,10 @@ export class InventoryComponent implements OnInit {
 
   addButton: boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['code', 'name', 'category', 'technician', 'address', 'status', 'action'];
+  displayedColumns: string[] = ['n','code', 'name', 'category', 'technician', 'address', 'status', 'action'];
   dataSource: any;
   userdata: IUserData
+  page = { PNum: 1, PSize: 10 }
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -115,6 +116,11 @@ export class InventoryComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {

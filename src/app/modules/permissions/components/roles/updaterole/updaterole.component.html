@@ -1,117 +1,77 @@
-<div id="kt_updaterole" class="bg-white" data-kt-drawer="true" data-kt-drawer-name="updaterole"
-  data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'900px', 'lg': '900px'}"
-  data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_updaterole_toggle"
-  data-kt-drawer-close="#kt_updaterole_close">
-  <div class="card shadow-none rounded-0 w-100">
-    <form [formGroup]="roleForm" (ngSubmit)="updateRole()">
+<form [formGroup]="roleForm" (ngSubmit)="updateRole()" dir="rtl">
 
-      <div class="card-header" id="kt_updaterole_header">
-        <h3 class="card-title fw-bolder text-dark fontsection fs-2">{{'PERMISSIONS.TITLES.UPDATEROLE'|translate}}</h3>
+  <h2 mat-dialog-title>
 
-        <div class="card-toolbar">
-          <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_updaterole_close">
-            <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-1"></span>
-          </button>
-        </div>
-      </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="fontsection">{{'PERMISSIONS.TITLES.UPDATEROLE'|translate}}</span>
+      <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
-      <div class="card-body position-relative" id="kt_updaterole_body">
-        <div class="row">
-          <div class="col-12">
+  </h2>
 
-            <div class="fv-row mb-10 d-flex">
+  <mat-divider></mat-divider>
 
-              <div class="col-md-10">
-                <label class="fs-5 fw-bolder form-label mb-2"><span
-                    class="required">{{'PERMISSIONS.TITLES.ROLENAME'|translate}}</span></label>
-                <input class="form-control form-control-solid"
-                  placeholder="{{'PERMISSIONS.PLACEHOLDER.ROLENAMEPLACEHOLDER'|translate}}" name="role_name"
-                  formControlName="roleNameNew"
-                  [ngClass]="{'border-danger':roleForm.controls['roleNameNew'].errors&&(roleForm.controls['roleNameNew'].touched||saveButtonClickedFlag)}" />
-                <mat-hint>
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
+    <div class="row">
+      <div class="col-12">
 
-                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                          validation: 'required',
-                          message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
-                          control: roleForm.controls['roleNameNew']
-                        }"></ng-container>
+        <div class="fv-row mb-10 d-flex">
 
-                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                          validation: 'minlength',
-                          message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
-                          control: roleForm.controls['roleNameNew']
-                        }"></ng-container>
+          <div class="col-md-10">
+            <label class="fs-5 fw-bolder form-label mb-2"><span class="required">{{'PERMISSIONS.TITLES.ROLENAME'|translate}}</span></label>
+            <input class="form-control form-control-solid" placeholder="{{'PERMISSIONS.PLACEHOLDER.ROLENAMEPLACEHOLDER'|translate}}" name="role_name"
+              formControlName="roleNameNew"
+              [ngClass]="{'border-danger':roleForm.controls['roleNameNew'].errors&&(roleForm.controls['roleNameNew'].touched||saveButtonClickedFlag)}" />
+            <mat-hint>
 
-                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                            validation: 'maxlength',
-                            message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
-                            control: roleForm.controls['roleNameNew']
-                         }"></ng-container>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate},
+                      control: roleForm.controls['roleNameNew']
+                    }"></ng-container>
 
-                </mat-hint>
-              </div>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'minlength',
+                      message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , min:3},
+                      control: roleForm.controls['roleNameNew']
+                    }"></ng-container>
 
-            </div>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'maxlength',
+                        message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'PERMISSIONS.TITLES.ROLENAME' | translate , max:100},
+                        control: roleForm.controls['roleNameNew']
+                     }"></ng-container>
 
-            <div class="fv-row">
-
-              <label class="fs-5 fw-bolder form-label mb-2">{{'PERMISSIONS.TITLES.ROLEPERMISSION'|translate}}</label>
-
-              <app-treepermission></app-treepermission>
-
-              <!-- <div class="table-responsive">
-
-                            <table class="table align-middle table-row-dashed fs-6 gy-5">
-
-                                <tbody class="text-gray-600 fw-bold">
-
-                                    <tr>
-                                        <td class="text-gray-800">Administrator Access
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                                title="Allows a full access to the system"></i>
-                                        </td>
-                                        <td>
-
-                                            <label class="form-check form-check-custom form-check-solid me-9">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="kt_roles_select_all" />
-                                                <span class="form-check-label" for="kt_roles_select_all">Select
-                                                    all</span>
-                                            </label>
-
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div> -->
-
-            </div>
+            </mat-hint>
           </div>
 
         </div>
 
-      </div>
+        <div class="fv-row">
 
-      <div class="card-footer py-5 row justify-content-center" id="kt_editemployees_footer">
-        <div class="col-md-6 d-flex">
-          <button type="reset" id="kt_updaterole_close" class="btn btn-light me-3"
-            #btnClose>{{'PERMISSIONS.BUTTONS.CANCEL'|translate}}</button>
-          <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary"
-            (click)="saveButtonClickedFlag = true">
-            <span class="indicator-label">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</span>
-            <span class="indicator-progress">Please wait...
-              <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-          </button>
+          <label class="fs-5 fw-bolder form-label mb-2">{{'PERMISSIONS.TITLES.ROLEPERMISSION'|translate}}</label>
+
+          <app-treepermission></app-treepermission>
+
         </div>
       </div>
 
-    </form>
-  </div>
+    </div>
 
-</div>
+  </mat-dialog-content>
+
+
+  <mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading"
+        color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+    </div>
+  </mat-dialog-actions>
+
+</form>
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
   <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">

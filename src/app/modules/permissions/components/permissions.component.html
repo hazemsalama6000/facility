@@ -1,11 +1,11 @@
-<app-addnewuser></app-addnewuser>
+<!-- <app-addnewuser></app-addnewuser>
 <app-assignrolestousers></app-assignrolestousers>
 <app-addnewrole></app-addnewrole>
-<app-updaterole></app-updaterole>
+<app-updaterole></app-updaterole> -->
 
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
-    <div id="kt_content_container" class="container-xxl">
+    <div id="kt_content_container" class="container-xxl p-0">
         <!--begin::Navbar-->
         <div class="card mb-6 mb-xl-9">
             <div class="card-body pt-9 pb-0">
@@ -31,9 +31,8 @@
                             <!--end::Details-->
                             <!--begin::Actions-->
                             <div class="d-flex mb-4">
-                                <a href="#" class="btn btn-sm btn-bg-light btn-active-color-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_permission" id="kt_addnewuser_toggle">{{'PERMISSIONS.BUTTONS.ADDUSER'|translate}}</a>
-                                <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_add_role" id="kt_addnewrole_toggle">{{'PERMISSIONS.BUTTONS.ADDROLE'|translate}}</a>
-
+                                <button class="btn btn-sm btn-bg-light btn-active-color-primary me-3" (click)="openDialogAddUser()">{{'PERMISSIONS.BUTTONS.ADDUSER'|translate}}</button>
+                                <button class="btn btn-sm btn-primary me-3" (click)="openDialogAddRole()">{{'PERMISSIONS.BUTTONS.ADDROLE'|translate}}</button>
                             </div>
                             <!--end::Actions-->
                         </div>

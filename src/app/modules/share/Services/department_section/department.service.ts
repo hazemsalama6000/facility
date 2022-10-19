@@ -17,9 +17,14 @@ export class DepartmentService {
 
 	constructor(private http: CommonHttpService) { }
 
-	getLookupData(companyid:number): Observable<LookUpModel[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_DEPARTMENT_GETALL}/${companyid}`)
-			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name ,isActive:Item.isActive , isEdit:false,isAdd:false}) as LookUpModel)));
+	getLookupData(companyid: number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_DEPARTMENT_GETALL}${companyid}`)
+			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as LookUpModel)));
+	}
+
+	getListOfData(companyid: number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_DEPARTMENT}${companyid}`)
+			.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 
 	DeleteLookupData(id: number): Observable<any> {

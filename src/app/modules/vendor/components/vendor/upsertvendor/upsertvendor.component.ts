@@ -47,7 +47,7 @@ export class UpsertvendorComponent implements OnInit {
     email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
     site: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 
-    commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
+    commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(12)])],
     taxFileNum: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
     isWithHoldTaxActive: [false],
     withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],

@@ -87,7 +87,7 @@ export enum HttpPaths {
 
 	// cars 
 	API_CARS_DROPDOWNS = "/api/v1/Trans/listofcarData",
-	
+
 
 	API_LISTOF_TECHNITIANS = "/api/v1/tech/listoftechnicians",
 
@@ -123,9 +123,10 @@ export enum HttpPaths {
 
 	API_DEPARTMENT_ADD = "/api/v1/hr/adddepartment",
 	API_DEPARTMENT_UPDATE = "/api/v1/hr/updatedepartment/",
-	API_DEPARTMENT_GETALL = "/api/v1/hr/getdepartments",
+	API_DEPARTMENT_GETALL = "/api/v1/hr/getdepartments?CompanyId=",
 	API_DEPARTMENT_DELETE = "/api/v1/hr/deletedepartment/",
 	API_DEPARTMENT_UACTIVEDEACTIVE = "/api/v1/hr/changedepartmentactiveornot/",
+	API_LIST_OF_DEPARTMENT = "/api/v1/hr/listofdepartments?CompanyId=",
 	//Section APIS
 
 	API_SECTION_ADD = "/api/v1/hr/addSection",
@@ -162,7 +163,7 @@ export enum HttpPaths {
 	//Employee APIS
 
 	API_GET_EMPLOYEELOOKUP = "/api/v1/hr/listOfEmployees",
-	API_GET_EMPLOYEES_DATA = "/api/v1/hr/listofallemployeeswithfilter",
+	API_GET_EMPLOYEES_DATA = "/api/v1/hr/getofallemployeeswithfilter",
 	API_GET_EMPLOYEEBY_ID = "/api/v1/hr/getemployeeprofileinfo",
 	API_GET_EMPLOYEEBY_UPDATE_ID = "/api/v1/hr/getemployeeprofile",
 	API_ADD_TECHNICIAN = "/api/v1/tech/addtechnicianlog",
@@ -187,6 +188,7 @@ export enum HttpPaths {
 	//Users
 	API_GET_COMPANY_USERS = "/api/v1/auth/getCompanyUsers/",
 	API_USER_REGISTER = "/api/v1/auth/userregister",
+	API_EDIT_USER = "/api/v1/auth/updateuser/",
 	API_GET_COMPANY_ROLES = "/api/v1/permissions/getrulesforcompany?CompanyId=",
 	API_GET_USER_TYPE = "/api/v1/auth/getAllUserTypes",
 
@@ -206,6 +208,8 @@ export enum HttpPaths {
 	API_DELETE_ROLE = "/api/v1/permissions/deleteruleforcompany/",
 	API_GET_COMPAY_ROLES = "/api/v1/permissions/getpermissionforcompanyadmin/",
 	API_ADD_COMPANY_ROLES = "/api/v1/permissions/managepermissionforcompanyadmin",
+	API_GET_USER_BRANCHES = "/api/v1/auth/getuserbranches?userId=",
+	API_CHANGE_PASSWORD = "/api/v1/auth/ChangePassword",
 
 	//ComplaintTypes
 	API_GET_COMPLAINT_TYPE = "/api/v1/operation/getcomplainttypes",
@@ -385,6 +389,7 @@ export enum HttpPaths {
 	API_ADD_ACTIVITY = "/api/v1/Vend/addactivity",
 	API_UPDATE_ACTIVITY = "/api/v1/Vend/updateactivity/",
 	API_DELETE_ACTIVITY = "/api/v1/Vend/deleteactivity/",
+	API_ACTIVE_DEACTIVE_VENDOR_ACTIVITY = "",
 
 	//vendor Main Company
 	API_LIST_OF_MAIN_COMPANY = "/api/v1/Vend/listofmaincompanies?branchId=",
@@ -399,6 +404,7 @@ export enum HttpPaths {
 	API_ADD_CLASSIFICATION = "/api/v1/Vend/addclassification",
 	API_UPDATE_CLASSIFICATION = "/api/v1/Vend/updateclassification/",
 	API_DELETE_CLASSIFICATION = "/api/v1/Vend/deleteclassification/",
+	API_ACTIVE_DEACTIVE_VENDOR_CLASSIFICATION = "",
 
 	//Vendor
 	API_LIST_OF_VENDOR = "/api/v1/Vend/listofvendors?branchId=",

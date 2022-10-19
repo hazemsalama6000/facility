@@ -3,5 +3,6 @@ export interface IVendorActivity{
     branch: string;
     name: string;
     code: string;
+    isActive:boolean;
     branch_Id: number;
 }

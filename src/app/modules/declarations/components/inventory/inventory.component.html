@@ -31,6 +31,13 @@
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="n">
+        <th mat-header-cell *matHeaderCellDef> م</th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+          <span>{{((page.PNum-1)*page.PSize)+(x+1) }}</span>
+        </td>
+      </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="code">
@@ -102,13 +109,11 @@
             <mat-icon>close</mat-icon>
           </button>
 
-          <button matTooltip="تخصيص أمين مخزن" mat-mini-fab color="primary" class="mx-md-1"
-            (click)="openAssignDialog(element)">
+          <button matTooltip="تخصيص أمين مخزن" mat-mini-fab color="primary" class="mx-md-1" (click)="openAssignDialog(element)">
             <mat-icon>person_add</mat-icon>
           </button>
 
-          <button matTooltip="طرق الصرف" mat-mini-fab color="warn" class="mx-md-1"
-            (click)="openStockTechDialog(element)">
+          <button matTooltip="طرق الصرف" mat-mini-fab color="warn" class="mx-md-1" (click)="openStockTechDialog(element)">
             <mat-icon>refresh</mat-icon>
           </button>
 
@@ -127,7 +132,7 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSize]="page.PSize"  (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 
   </div>

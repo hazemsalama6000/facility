@@ -4,4 +4,5 @@ export interface IVendorClassification{
     name: string;
     isExternalPlace: boolean;
     branch_Id: number
+    isActive:boolean;
 }

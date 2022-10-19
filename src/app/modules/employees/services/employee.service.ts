@@ -4,6 +4,7 @@ import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpSe
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { HttpPaths } from "src/app/modules/auth/Enums/HttpPaths.enum";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
+import {  IEmployeePagination } from "../../customers/models/IEmployeeList.interface";
 import { IEmployee } from "../models/employee.interface";
 import { IEmployeeForm } from "../models/IEmployeeForm.interface";
 
@@ -29,14 +30,14 @@ export class EmployeeService {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?
 				BranchId=${model?.branchId == undefined ? '' : model?.branchId}&areaId=${model?.AreaId == undefined ? '' : model?.AreaId}&blockId=${model?.Block == undefined ? '' : model.Block}`)
 			.pipe(
-				map((Items:any) => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
+				map((Items:any) => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
 			);
 	}
 
 	getLookupEmployeeData(companyId: number,branchId?:number): Observable<LookUpModel[]> {
 		let branchid:string=branchId!=undefined&&branchId!=null?('&BranchId='+branchId):'';
 		 return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEELOOKUP}?companyId=${companyId}${branchid}`)
-		 	.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
+		 	.pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
 	}
 	// note
 	getEmployeeById(employeeId: number): Observable<IEmployee> {
@@ -86,9 +87,9 @@ export class EmployeeService {
 		return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_POST_UPDATE_EMPLOYEE}${model.id}`);
 	}
 
-	getEmployeesData(searchModel: any): Observable<any> {
+	getEmployeesData(searchModel: any): Observable<IEmployeePagination> {
 		return this.http.CommonPostRequests(searchModel, `${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEES_DATA}`)
-		// .pipe(map(Items => Items.map((Item: any) => ({ ...Item }))));
+		.pipe(map(Items => Items.data as IEmployeePagination));
 
 	}
 

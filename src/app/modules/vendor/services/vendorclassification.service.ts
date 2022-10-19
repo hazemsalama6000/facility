@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
+import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IVendorClassification } from '../models/IVenndorClassification.interface';
@@ -35,4 +36,9 @@ export class VendorclassificationService {
   deleteClassification(ClassificationId:number) {
     return this.http.CommonDeleteRequest( `${localStorage.getItem("companyLink")}${HttpPaths.API_DELETE_CLASSIFICATION}${ClassificationId}`);
   }
+
+  toggleActiveDeactive(Id: number): Observable<HttpReponseModel> {
+    return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVE_DEACTIVE_VENDOR_CLASSIFICATION}${Id}`)
+  }
+  
 }

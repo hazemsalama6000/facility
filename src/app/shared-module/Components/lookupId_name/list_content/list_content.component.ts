@@ -23,8 +23,8 @@ export class ListContentComponent {
 	@Output() edit: EventEmitter<LookUpModel> = new EventEmitter();
 	NameForAdd: string;
 	currentSelected: LookUpModel;
-
-	displayedColumns: string[] = ['name', 'state', 'action'];
+	page = { PNum: 1, PSize: 10 }
+	displayedColumns: string[] = ['n','name', 'state', 'action'];
 	dataSource: any;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
@@ -179,6 +179,11 @@ export class ListContentComponent {
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
+
+	pageEvent(event: any) {
+		this.page.PSize = event.pageSize;
+		this.page.PNum = event.pageIndex + 1;
+	  }
 
 	ngOnDestroy() {
 		this.jobService.addFlag.next(false);
