@@ -4,6 +4,8 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
+import { AuthService } from "src/app/modules/auth";
+import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { ISection } from "src/app/modules/share/models/ISection.interface";
 import { DepartmentService } from "src/app/modules/share/Services/department_section/department.service";
@@ -18,7 +20,7 @@ import { Job_upsertComponent } from "./job_upsert/job_upsert.component";
 	styleUrls: ['./section_list_content.component.scss']
 })
 
-export class SectionListContentComponent {
+export class SectionListContentComponent implements OnInit {
 
 	currentDepartmentId = 0;
 	currentDepartment: LookUpModel;
@@ -29,10 +31,13 @@ export class SectionListContentComponent {
 	dataSource: any;
 
 	currentSelected: ISection;
+	companyId=0;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	constructor(private service: SectionService, private toaster: toasterService, private DepartmentService: DepartmentService, private confirmationDialogService: ConfirmationDialogService, private dialog: MatDialog) {
+	constructor(private service: SectionService, private toaster: toasterService, private DepartmentService: DepartmentService, 
+		private confirmationDialogService: ConfirmationDialogService, private dialog: MatDialog
+		,private authService: AuthService) {
 		this.currentSelected = { department_Id: 0, id: 0, isActive: false, name: "", isEdit: false, isAdd: false };
 		//subscribe here to invoke when insert done in upsert component
 		this.service.selectFromStore().subscribe(data => {
@@ -54,6 +59,10 @@ export class SectionListContentComponent {
 		});
 
 	}
+	ngOnInit(): void {
+		this.authService.userData.subscribe((data: IUserData) => {
+			this.companyId=data.companyId;
+		});	}
 
 	addNewRow() {
 		let Item: Array<ISection> = this.dataSource.data.filter((a: ISection) => a.id == 0);
@@ -126,6 +135,8 @@ export class SectionListContentComponent {
 	}
 	Submit(model: ISection) {
 		model.department_Id = this.currentDepartmentId;
+		model.Company_Id=this.companyId;
+		
 		if (model.id == 0) {
 
 			this.service.PostLookupData(model).

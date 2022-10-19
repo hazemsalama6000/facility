@@ -60,7 +60,7 @@
 
 
 			<div class="row  mt-5">
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<mat-form-field appearance="outline">
 						<mat-label> الاسم </mat-label>
@@ -87,7 +87,7 @@
 					</mat-form-field>
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<mat-form-field appearance="outline">
 						<mat-label> {{"HR.INPUTS.CODE" | translate}} </mat-label>
@@ -152,7 +152,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
 						name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)"
@@ -161,7 +161,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
 						name="Region_Id" id="Region_Id" formControlName="Region_Id"
@@ -179,7 +179,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ الميلاد </mat-label>
 						<input matInput [max]="maxDate"  [matDatepicker]="picker1" formControlName="BirthDate">
@@ -196,7 +196,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<mat-form-field appearance="outline">
 						<mat-label> الرقم القومى </mat-label>
@@ -235,7 +235,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label> {{'HR.INPUTS.PHONENUM' | translate}}</mat-label>
 						<input matInput placeholder="01147785..." minlength="3" maxlength="11" name="Mobile"
@@ -270,7 +270,7 @@
 					</mat-form-field>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForMilitary" bindLabel="Name" bindValue="Id"
 						name="MilitaryStatus_Id" id="MilitaryStatus_Id" formControlName="MilitaryStatus_Id"
@@ -288,7 +288,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForMarital" bindLabel="Name" bindValue="Id"
 						name="MartialStatus_Id" id="MartialStatus_Id" formControlName="MartialStatus_Id"
@@ -326,7 +326,7 @@
 
 			<div class="row mt-5">
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<mat-form-field appearance="outline">
 						<mat-label> الجامعة </mat-label>
@@ -354,7 +354,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<mat-form-field appearance="outline">
 						<mat-label> المؤهل </mat-label>
@@ -382,7 +382,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التخرج </mat-label>
 						<input matInput  [max]="maxDate"  [matDatepicker]="picker3" formControlName="GraduateDate">
@@ -399,7 +399,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التعيين </mat-label>
 						<input matInput [max]="maxDate"  [matDatepicker]="picker2" formControlName="HireDate">
@@ -416,7 +416,7 @@
 
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label>{{'HR.INPUTS.EMAIL' | translate}}</mat-label>
 						<input matInput placeholder="Placeholder" name="Email" formControlName="Email">
@@ -438,7 +438,7 @@
 					</mat-form-field>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForDepartment" bindLabel="Name"
 						bindValue="Id" name="Department_Id" formControlName="Department_Id"
@@ -448,7 +448,7 @@
 				</div>
 
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForSecion" bindLabel="Name" bindValue="Id"
 						name="Section_Id" formControlName="Section_Id" (change)="onItemSelectSection($event)"
@@ -458,7 +458,7 @@
 				</div>
 
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForJobs" bindLabel="Name" bindValue="Id"
 						name="JobSection_Id" formControlName="JobSection_Id" placeholder="الوظيفة">
@@ -473,7 +473,7 @@
 					</mat-hint>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-2">
 
 					<ng-select class="customized" [items]="dropdownListDataForStatus" bindLabel="Name" bindValue="Id"
 						name="Status_Id" formControlName="Status_Id" placeholder="الحالة">
