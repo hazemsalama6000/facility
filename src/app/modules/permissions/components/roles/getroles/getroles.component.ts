@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -7,6 +8,7 @@ import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { ConfirmationDialogService } from 'src/app/shared-module/Components/confirm-dialog/confirmDialog.service';
 import { IRoles, IRolesProfile } from '../../../models/IRolesProfile.interface';
 import { RolesService } from '../../../services/roles.service';
+import { UpdateroleComponent } from '../updaterole/updaterole.component';
 
 @Component({
   selector: 'app-getroles',
@@ -23,25 +25,25 @@ export class GetrolesComponent implements OnInit {
     private rolesService: RolesService,
     private authService: AuthService,
     private confirmationDialogService: ConfirmationDialogService,
-    private toaster: toasterService
+    private toaster: toasterService,
+    private dialog: MatDialog
   ) {
-    let getdata = this.authService.userData.subscribe(
-      res => {
-        this.userData = res;
-        this.getRolesData();
-      });
+    let getdata = this.authService.userData.subscribe(res => {
+      this.userData = res;
+      let changeData = this.rolesService.bSubject.subscribe(res => { this.getRolesData(); });
+      this.unsubscribe.push(changeData);
+    });
 
     this.unsubscribe.push(getdata);
   }
 
   ngOnInit(): void {
-    let changeData = this.rolesService.bSubject.subscribe(res => { this.getRolesData(); });
-    this.unsubscribe.push(changeData);
+
   }
 
   getRolesData() {
     this.rolesService.GetRolesDetailsForCompany(this.userData.companyId).subscribe(
-      (res) => this.rolesData = res,
+      (res) => { this.rolesData = res; this.rolesService.rolesList.next(res) },
       (err) => console.log(err),
       () => { }
     );
@@ -50,6 +52,12 @@ export class GetrolesComponent implements OnInit {
 
   editRole(roleId: string) {
     this.rolesService.roleid.next(roleId);
+    this.dialog.open(UpdateroleComponent, {
+      height: '100vh',
+      minWidth: '60vw',
+      width: "60vw",
+      position: { right: '0' }
+    })
   }
 
   deleteRole(model: IRoles) {

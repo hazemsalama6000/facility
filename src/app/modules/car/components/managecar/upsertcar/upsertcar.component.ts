@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { TechnicianService } from 'src/app/core-module/LookupsServices/technician.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
@@ -26,7 +27,7 @@ export class UpsertcarComponent {
   dropdownCarModelData: LookUpModel[] = [];
   dropdownDriverData: LookUpModel[] = [];
   dropdownTechnicianData: LookUpModel[] = [];
-
+dir:any=''
 
   carForm: FormGroup = this.fb.group({
     id: [0],
@@ -44,8 +45,12 @@ export class UpsertcarComponent {
     private toaster: toasterService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: { carModel: Icar },
-    public dialogRef: MatDialogRef<UpsertcarComponent>
+    public dialogRef: MatDialogRef<UpsertcarComponent>,
+    private translateservice:TranslateService
   ) {
+
+let lang=translateservice.currentLang
+this.dir=lang=='ar'?'rtl':'ltr';
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
 

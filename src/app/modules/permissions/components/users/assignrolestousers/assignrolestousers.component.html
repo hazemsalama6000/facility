@@ -1,22 +1,19 @@
-<div id="kt_assignrolestouser" class="bg-white" data-kt-drawer="true" data-kt-drawer-name="assignrolestouser"
-    data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'900px', 'lg': '900px'}"
-    data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_assignrolestouser_toggle"
-    data-kt-drawer-close="#kt_assignrolestouser_close">
-    <div class="card shadow-none rounded-0 w-100">
+<div dir="rtl">
+    <h2 mat-dialog-title>
 
-        <div class="card-header " id="kt_assignrolestouser_header">
-            <h3 class="card-title fw-bolder text-dark fontsection fs-2">{{'PERMISSIONS.TITLES.ASSIGNROLESTOUSER'|translate}}</h3>
-
-            <div class="card-toolbar">
-                <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
-                    id="kt_assignrolestouser_close">
-                    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"
-                        class="svg-icon svg-icon-1"></span>
-                </button>
-            </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="fontsection">{{'PERMISSIONS.TITLES.ASSIGNROLESTOUSER'|translate}}</span>
+            <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+                <mat-icon>close</mat-icon>
+            </button>
         </div>
 
-        <div class="card-body position-relative" id="kt_assignrolestouser_body">
+    </h2>
+
+    <mat-divider></mat-divider>
+
+    <mat-dialog-content style="z-index: -1;" class="mat-typography">
+        <div class="row">
             <div class="mb-13 text-center">
                 <h1 class="mb-3 fontsection fs-2">{{'PERMISSIONS.TITLES.ASSIGNROLESTOUSER'|translate}}</h1>
             </div>
@@ -29,9 +26,8 @@
                     <div class="d-flex fv-row">
                         <div class="form-check form-check-custom form-check-solid">
 
-                            <input class="form-check-input me-3" name="user_role" type="checkbox"
-                                id="kt_modal_update_role_option_0" checked='{{role.isSelected}}'
-                                [(ngModel)]="role.isSelected" />
+                            <input class="form-check-input me-3" name="user_role" type="checkbox" id="kt_modal_update_role_option_0"
+                                checked='{{role.isSelected}}' [(ngModel)]="role.isSelected" />
 
                             <label class="form-check-label" for="kt_modal_update_role_option_0">
                                 <div class="fw-bolder text-gray-800">{{role.displayValue}}</div>
@@ -47,32 +43,28 @@
 
                 <!-- <div class="d-flex fv-row">
 
-                    <div class="form-check form-check-custom form-check-solid">
+            <div class="form-check form-check-custom form-check-solid">
 
-                        <input class="form-check-input me-3" name="user_role" type="checkbox" value="1"
-                            id="kt_modal_update_role_option_1" />
+                <input class="form-check-input me-3" name="user_role" type="checkbox" value="1"
+                    id="kt_modal_update_role_option_1" />
 
-                        <label class="form-check-label" for="kt_modal_update_role_option_1">
-                            <div class="fw-bolder text-gray-800">Developer</div>
+                <label class="form-check-label" for="kt_modal_update_role_option_1">
+                    <div class="fw-bolder text-gray-800">Developer</div>
 
-                        </label>
-                    </div>
-                </div> -->
+                </label>
+            </div>
+        </div> -->
 
             </div>
 
         </div>
+    </mat-dialog-content>
 
-        <div class="card-footer py-5 row justify-content-center" id="kt_editemployees_footer">
-            <div class="col-md-6 d-flex">
-                <button type="reset" #btnClose id="kt_assignrolestouser_close" class="btn btn-light me-3">{{'PERMISSIONS.BUTTONS.CANCEL'|translate}}</button>
-                <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary" (click)="save()">
-                    <span class="indicator-label">{{'PERMISSIONS.BUTTONS.SAVE'|translate}}</span>
-                    <span class="indicator-progress">Please wait...
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
-            </div>
+
+    <mat-dialog-actions>
+        <div class="d-flex">
+            <button mat-raised-button (click)="save()" [disabled]="loading" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+            <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
         </div>
-
-    </div>
+    </mat-dialog-actions>
 </div>

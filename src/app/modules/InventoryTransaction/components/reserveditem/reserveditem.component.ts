@@ -141,8 +141,6 @@ export class ReserveditemComponent implements OnInit {
   pageEvent(event: any) {
     this.page.PSize = event.pageSize;
     this.page.PNum = event.pageIndex + 1;
-
-    console.log(this.page)
   }
 
   ngOnDestroy() {

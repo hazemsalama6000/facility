@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth';
@@ -6,6 +7,7 @@ import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { TranslationService } from 'src/app/modules/i18n';
 import { MenuComponent } from 'src/app/_metronic/kt/components';
 import { LayoutService } from '../../core/layout.service';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 @Component({
@@ -38,6 +40,7 @@ export class TopbarComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private translationService: TranslationService,
+    private dialog: MatDialog
   ) {
     auth.userData.subscribe(res => this.userdata = res)
     MenuComponent.reinitialization()
@@ -84,6 +87,14 @@ export class TopbarComponent implements OnInit {
       active: true
     };
     this.setDirection();
+  }
+
+  openDialog() {
+    this.dialog.open(ChangepasswordComponent, {
+      minHeight: "30vh",
+      minWidth: "20vw",
+      data: { userId: this.userdata.userId }
+    })
   }
 
   ngOnDestroy() {

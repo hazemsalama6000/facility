@@ -75,32 +75,38 @@
 
 
 <mat-menu #menu="matMenu" style="left: 0px !important;">
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center mt-1">
     <div class="symbol symbol-50px me-5">
       <img *ngIf="userdata" [src]="url+(userdata?.imgPath)" alt="{{userdata.fullName}}"
         (error)="img.src = '../../../assets/media/svg/avatars/001-boy.svg'" #img />
     </div>
     <div class="d-flex flex-column">
-      <div class="fw-bolder d-flex align-items-center fs-5">{{ userdata.fullName }}
+      <div class="fw-bolder d-flex align-items-center fs-5">{{ userdata?.fullName }}
       </div>
-      <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">{{ userdata.email }}</a>
+      <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">{{ userdata?.email }}</a>
     </div>
   </div>
   <div class="separator my-2"></div>
 
+  <button mat-menu-item (click)="openDialog()" class="justify-content-between d-flex align-items-center">
+    <mat-icon>published_with_changes</mat-icon>
+    <span>تغيير كلمة المرور</span>
+  </button>
+
+  <div class="separator my-2"></div>
+
   <button mat-menu-item (click)="changeLang()">
-    <div class="row bg-light rounded">
-      <div class="col-2"><img class="w-20px h-20px rounded-1 ms-2" [src]="language.flag" /></div>
-      <div class="col-10"><span class=" px-3 py-2">{{ language.name }}{{ " " }}</span></div>
+    <div class="d-flex justify-content-between align-items-center  bg-light rounded">
+      <img class="w-20px h-20px rounded-1 ms-2" [src]="language.flag" />
+      <span class=" px-3 py-2">{{ language.name }}{{ " " }}</span>
     </div>
   </button>
 
   <div class="separator my-2"></div>
-  <button mat-menu-item (click)="logout()">
+  <button mat-menu-item (click)="logout()" class="justify-content-between d-flex align-items-center">
     <mat-icon>logout</mat-icon>
     <span>{{'USERDIALOG.LOGOUT'|translate}}</span>
   </button>
 </mat-menu>
-
 
 

@@ -3,7 +3,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PermissionsRoutingModule } from './permissions-routing.module';
 import { SharedModule } from 'src/app/shared-module/shared-module.module';
 import { TranslationModule } from '../i18n';
-import { AuthRoutingModule } from '../auth/auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OnlineUsersComponent } from './components/onlineUsers/onlineUsers.component';
@@ -30,6 +29,8 @@ import { TreepermissionComponent } from './components/roles/treepermission/treep
 import { AdminrolesComponent } from './components/roles/adminroles/adminroles.component';
 import { ManagesidemenuComponent } from './components/managesidemenu/managesidemenu.component';
 import { AddmenuComponent } from './components/managesidemenu/addmenu/addmenu.component';
+import { EdituserComponent } from './components/users/edituser/edituser.component';
+import { ChangepasswordComponent } from 'src/app/_metronic/layout/components/topbar/changepassword/changepassword.component';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { AddmenuComponent } from './components/managesidemenu/addmenu/addmenu.co
 	OnlineUsersDatatableComponent,
 	UserLocationComponent,
 	SearchUserLogsComponent,
-	UserLogsDatatableComponent,
+	UserLogsDatatableComponent, 
 	UserConnectionLogsComponent,
 	UserLocationLogsComponent,
 	SearchUserLocationLogsComponent,
@@ -56,7 +57,9 @@ import { AddmenuComponent } from './components/managesidemenu/addmenu/addmenu.co
 	TreepermissionComponent,
 	AdminrolesComponent,
 	ManagesidemenuComponent,
-	AddmenuComponent
+	AddmenuComponent,
+	ChangepasswordComponent,
+	EdituserComponent
   ],
   imports: [
     CommonModule,

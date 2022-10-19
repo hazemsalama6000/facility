@@ -1,0 +1,131 @@
+<!-- <form [formGroup]="userForm" (ngSubmit)="editUser()" dir="rtl">
+
+  <h2 mat-dialog-title>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="fontsection">{{"تعديل بيانات المستخدم"|translate}} (<label class="fw-bold fs-3 mb-2">{{data.user.name}}</label>)</span>
+      <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+  </h2>
+
+  <mat-divider></mat-divider>
+
+  <mat-dialog-content style="z-index: -1;" class="mat-typography">
+    <div class="row mx-0">
+      <div class="row">
+        <div class="col-8 col-sm-12">
+          <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+              <div class="fv-row mb-7">
+                <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.EMAIL'|translate}}</label>
+                <input type="email" formControlName="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                      validation: 'required',
+                                                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.EMAIL' | translate},
+                                                      control: userForm.controls['email']
+                                                    }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                        validation: 'pattern',
+                                                        message: 'AUTH.VALIDATION.INVALID_NUMBER' | translate : {name:'HR.INPUTS.EMAIL' | translate},
+                                                        control: userForm.controls['email']
+                                                      }"></ng-container>
+
+                </mat-hint>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="fv-row mb-7">
+                <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.PHONENUMBER'|translate}}</label>
+                <input type="text" formControlName="phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" />
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                      validation: 'required',
+                                                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate},
+                                                      control: userForm.controls['phone']
+                                                    }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                        validation: 'min',
+                                                        message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate , min:10},
+                                                        control: userForm.controls['phone']
+                                                      }"></ng-container>
+
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                          validation: 'max',
+                                                          message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.PHONENUMBER' | translate , max:11},
+                                                          control: userForm.controls['phone']
+                                                       }"></ng-container>
+
+                </mat-hint>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="fv-row mb-7">
+                  <label class="required fw-bold fs-6 mb-2">الفروع</label>
+
+                  <ng-select #areaselect [multiple]="true" appendTo="body" class="customized" [items]="branchDropdown"
+                      bindLabel="Name" bindValue="Id" name="branches_Ids" id="branches_Ids" placeholder="أختر الفروع"
+                      formControlName="branches_Ids">
+                  </ng-select>
+                  <mat-hint>
+                      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'الفروع' },
+                        control: userForm.controls['branches_Ids']
+                      }"></ng-container>
+
+                  </mat-hint>
+              </div>
+          </div>
+
+            <div class="col-md-6 col-sm-12">
+              <div class="fv-row mb-7">
+                <label class="required fw-bold fs-6 mb-2">{{'PERMISSIONS.TITLES.USERTYPE'|translate}}</label>
+
+                <ng-select class="customized" [searchable]="false" [items]="userTypeDropdown" bindLabel="Name" bindValue="Id" name="userType_Id"
+                  id="userType_Id" placeholder="اختر نوع المستخدم" formControlName="userType_Id">
+                </ng-select>
+                <mat-hint>
+                  <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                                  validation: 'required',
+                                                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'PERMISSIONS.TITLES.USERTYPE' | translate},
+                                                  control: userForm.controls['userType_Id']
+                                                }"></ng-container>
+                </mat-hint>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+
+  <mat-dialog-actions>
+    <div class="d-flex">
+      <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading"
+        color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+    </div>
+  </mat-dialog-actions>
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template> -->

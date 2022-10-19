@@ -43,14 +43,11 @@ export class OverviewComponent implements OnInit {
 
   getUsersData() {
 
-    this.userService.GetCompanyUsers(this.userData.companyId).subscribe(
-      (res: any) => {
-        this.userdata = _.groupBy(res, user => user.userType);
-        this.userKeys = Object.keys(this.userdata);
-      },
-      (err) => console.log(err),
-      () => { }
-    )
+    let data = this.userService.usersList.subscribe(res => {
+      this.userdata = _.groupBy(res, user => user.userType);
+      this.userKeys = Object.keys(this.userdata);
+    })
+    this.unsubscribe.push(data);
 
   }
 

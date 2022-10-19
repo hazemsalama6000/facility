@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
+import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 
@@ -34,5 +35,10 @@ export class VendoractivityService {
   deleteActivity(ActivityId:number) {
     return this.http.CommonDeleteRequest( `${localStorage.getItem("companyLink")}${HttpPaths.API_DELETE_ACTIVITY}${ActivityId}`);
   }
+  
+  toggleActiveDeactive(Id: number): Observable<HttpReponseModel> {
+    return this.http.CommonPutRequests(null, `${localStorage.getItem("companyLink")}${HttpPaths.API_ACTIVE_DEACTIVE_VENDOR_ACTIVITY}${Id}`)
+  }
+
 
 }

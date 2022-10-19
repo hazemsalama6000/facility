@@ -6,15 +6,14 @@
         <div class="card-title">
             <!--begin::Search-->
             <div class="d-flex align-items-center position-relative my-1 me-5">
-                <input type="text" data-kt-permissions-table-filter="search" #search
-                    class="form-control form-control-solid w-400px "
+                <input type="text" data-kt-permissions-table-filter="search" #search class="form-control form-control-solid w-400px "
                     placeholder="{{'PERMISSIONS.TITLES.SEARCHUSER'|translate}}" />
             </div>
             <button type="button" class="btn btn-light-primary" (click)="getUserWithFiltter(search.value)">
                 <span class="svg-icon svg-icon-1 ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-                            transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                            fill="currentColor" />
                         <path
                             d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                             fill="currentColor" />
@@ -60,18 +59,17 @@
     <!--begin::Card body-->
     <div class="card-body pt-0 overflow-auto">
 
-        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" style="overflow-x: auto;"
-            id="kt_permissions_table">
+        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" style="overflow-x: auto;" id="kt_permissions_table">
 
             <thead>
 
                 <tr class="text-end text-gray-400 fs-7 text-uppercase gs-0">
-                    <th class="min-w-275px">{{'PERMISSIONS.TITLES.USERNAME'|translate}}</th>
+                    <th class="min-w-100px">أسم الموظف</th>
+                    <th class="min-w-50px">{{'PERMISSIONS.TITLES.USERNAME'|translate}}</th>
                     <th class="min-w-70px">{{'PERMISSIONS.TITLES.USERTYPE'|translate}}</th>
-                    <!-- <th class="min-w-70px">{{'PERMISSIONS.TITLES.JOB'|translate}}</th> -->
                     <th class="min-w-70px">{{'PERMISSIONS.TITLES.STATUS'|translate}}</th>
-                    <th class="min-w-170px">{{'PERMISSIONS.TITLES.LASTLOGINTIME'|translate}}</th>
-                    <th class="min-w-300px">{{'PERMISSIONS.TITLES.ASSIGNEDROLES'|translate}}</th>
+                    <th class="min-w-200px">{{'PERMISSIONS.TITLES.LASTLOGINTIME'|translate}}</th>
+                    <th class="min-w-250px">{{'PERMISSIONS.TITLES.ASSIGNEDROLES'|translate}}</th>
                     <th class="text-end min-w-100px"></th>
                 </tr>
 
@@ -101,19 +99,21 @@
                     </td>
 
                     <td>
+                        <a href="javascript:;" class="fs-7 m-1">{{user.userName}}</a>
+                    </td>
+
+                    <td>
                         <a href="javascript:;" class="badge badge-light-primary fs-7 m-1">{{user.userType}}</a>
                     </td>
 
                     <td>
                         <div *ngIf="user.onlineOrNot" class="d-flex align-items-center">
                             <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
-                            <label
-                                class="badge badge-light-success fs-7 m-1">{{'PERMISSIONS.TITLES.USERONLINE'|translate}}</label>
+                            <label class="badge badge-light-success fs-7 m-1">{{'PERMISSIONS.TITLES.USERONLINE'|translate}}</label>
                         </div>
                         <div *ngIf="!user.onlineOrNot" class="d-flex align-items-center">
                             <span class="badge badge-danger badge-circle w-10px h-10px me-1"></span>
-                            <label
-                                class="badge badge-light-danger fs-7 m-1">{{'PERMISSIONS.TITLES.USEROFFLINE'|translate}}</label>
+                            <label class="badge badge-light-danger fs-7 m-1">{{'PERMISSIONS.TITLES.USEROFFLINE'|translate}}</label>
                         </div>
                     </td>
 
@@ -150,16 +150,19 @@
                     </td>
 
                     <td>
-                        
+
                         <div class="text-end d-flex">
-                            <button
-                                class="btn btn-icon btn-active-light-primary w-40px h-40px me-1 align-items-center d-flex"
-                                data-bs-toggle="modal" data-bs-target="#kt_modal_update_permission"
-                                id="kt_assignrolestouser_toggle" (click)="assignUserIdToRole(user)"
-                                matTooltip="{{'PERMISSIONS.BUTTONS.EDITROLE'|translate}}">
+
+                            <button class="btn btn-icon btn-active-light-primary 4-30px h-40px me-1 align-items-center d-flex"
+                                (click)="editUser(user)" matTooltip="{{'PERMISSIONS.BUTTONS.EDIT'|translate}}">
+                                <span class="material-icons">edit</span>
+                            </button>
+
+
+                            <button class="btn btn-icon btn-active-light-primary 4-30px h-40px me-1 align-items-center d-flex"
+                                (click)="assignUserIdToRole(user)" matTooltip="{{'PERMISSIONS.BUTTONS.EDITROLE'|translate}}">
                                 <span class="svg-icon svg-icon-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path
                                             d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
                                             fill="currentColor" />
@@ -172,15 +175,12 @@
 
                             <p-confirmPopup></p-confirmPopup>
 
-                            <button
-                                class="btn btn-icon btn-active-light-primary 4-30px h-40px me-1 align-items-center d-flex"
-                                (click)="resetPassword($event,user)"
-                                matTooltip="{{'PERMISSIONS.BUTTONS.RESETPASSWORD'|translate}}">
+                            <button class="btn btn-icon btn-active-light-primary 4-30px h-40px me-1 align-items-center d-flex"
+                                (click)="resetPassword($event,user)" matTooltip="{{'PERMISSIONS.BUTTONS.RESETPASSWORD'|translate}}">
                                 <span class="material-icons">lock_reset</span>
                             </button>
 
-                            <mat-slide-toggle color="red" (click)="toggleActiveDeactive($event,user,i)"
-                                [checked]="user.isActive"
+                            <mat-slide-toggle color="red" (click)="toggleActiveDeactive($event,user,i)" [checked]="user.isActive"
                                 matTooltip="{{user.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
                                 class="btn btn-icon btn-active-light-primary w-40px h-40px me-1 align-items-center d-flex">
                             </mat-slide-toggle>

@@ -54,17 +54,18 @@ export class TreepermissionComponent implements OnInit {
     node.isSelected = checked;
     if (node.children) {
       node.children.forEach((child: any) => { this.itemToggle(checked, child); });
-    } else {
-      if (node.name == 'Full')
+    }
+    else {
+      if (node.name == 'Full' && node.isSelected)
         node.parent?.children?.forEach((child) => { node.isSelected ? child.isSelected = true : child.isSelected = false });
-      else {
-        let istrue = node.parent?.children?.filter(x => x.name != 'Full' && x.isSelected);
-        if (istrue?.length == (node.parent?.children as ITreeRoles[])?.length - 1) {
-          node.parent?.children?.map((x) => { x.name == 'Full' ? x.isSelected = true : null })
-        } else {
-          node.parent?.children?.map((x) => { x.name == 'Full' ? x.isSelected = false : null })
-        }
-      }
+      //  else {
+      // //   let istrue = node.parent?.children?.filter(x => x.name != 'Full' && x.isSelected);
+      // //   // if (istrue?.length == (node.parent?.children as ITreeRoles[])?.length - 1) {
+      // //   //   node.parent?.children?.map((x) => { x.name == 'Full' ? x.isSelected = true : null })
+      // //   // } else {
+      // //   //   node.parent?.children?.map((x) => { x.name == 'Full' ? x.isSelected = false : null })
+      // //   // }
+      // }
 
     }
     this.checkAllParents(node);

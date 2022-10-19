@@ -21,7 +21,7 @@ export class VendoractivityComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['code','name', 'state'];
+  displayedColumns: string[] = ['code', 'name', 'state'];
   dataSource: any;
   userdata: IUserData
   private unsubscribe: Subscription[] = [];
@@ -72,6 +72,28 @@ export class VendoractivityComponent implements OnInit {
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
+
+  toggleActiveDeactive(model: IVendorActivity) {
+    let msg = model.name ? 'ايقاف' : ''
+    this.confirmationDialogService.confirm(`من فضلك اكد ${msg} التفعيل`, `هل تريد ${msg} تفعيل ${model.name} ? `)
+      .then((confirmed) => {
+        if (confirmed) {
+
+          this.vendoractivityService.toggleActiveDeactive(model.id).subscribe(
+            (data: HttpReponseModel) => {
+              this.toaster.openSuccessSnackBar(data.message);
+              this.getallData();
+            },
+            (error: any) => {
+              this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+            });
+
+        } else
+          this.getallData();
+      })
+      .catch(() => { this.getallData(); console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)') });
+  }
+
 
 
   // getting data and initialize data Source and Paginator
