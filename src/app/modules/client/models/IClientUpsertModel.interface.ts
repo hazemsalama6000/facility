@@ -15,6 +15,7 @@ export interface IClientUpsertModel {
     isAddedClientBranch: false,
     clientCategory_Id: number,
     companyBranch_Id: number,
+	checked:boolean,
     clientDataBranches: [
       {
         id?: number,

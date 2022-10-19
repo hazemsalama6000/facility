@@ -90,6 +90,7 @@ export class UnitConverionPopupComponent implements OnInit {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
+							document.getElementById("closeme")?.click();
 							this.unitConversionService.bSubject.next(true);
 						}
 						else if (data.isExists) {

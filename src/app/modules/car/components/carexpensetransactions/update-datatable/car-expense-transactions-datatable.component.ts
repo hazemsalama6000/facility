@@ -140,6 +140,7 @@ export class CarExpenseTransactionDatatableComponent {
 	}
 
 	openDialogDisplayImages(attachments: { id: number, path: string }) {
+		console.log("attachments");
 
 		console.log(attachments);
 

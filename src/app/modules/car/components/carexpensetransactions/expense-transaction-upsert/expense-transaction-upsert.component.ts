@@ -9,6 +9,7 @@ import { AuthService } from "src/app/modules/auth";
 import { CarExpenseTransactionService } from "../../../services/car-expense-transactions.service";
 import { CarService } from "../../../services/cars.service";
 import { DatePipe } from "@angular/common";
+import { CheckDatesService } from "src/app/core-module/UIServices/checkdates.service";
 
 @Component({
 	selector: "expense-transaction-upsert",
@@ -38,8 +39,10 @@ export class CarTransactionUpsertComponent implements OnInit {
 		private toaster: toasterService,
 		private auth: AuthService,
 		private carExpenseTransactionService: CarExpenseTransactionService,
-		private carService: CarService, private datePipe: DatePipe
+		private carService: CarService, private datePipe: DatePipe,
+		public dateService:CheckDatesService
 	) { }
+	maxDate = new Date();
 
 
 	setDefaultForForm() {
@@ -104,21 +107,22 @@ export class CarTransactionUpsertComponent implements OnInit {
 
 						if (data.isSuccess) {
 							this.toaster.openSuccessSnackBar(data.message);
-							this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 							const fd = new FormData();
 							if (this.attachment != null && this.attachment != undefined) {
 								fd.append('model', this.attachment, data.data[0].id + "_" + this.attachment.name);
-								alert(data.data.id);
 
 								this.carExpenseTransactionService.UploadImagesCarTransactions(fd).subscribe(
 									(data: HttpReponseModel) => {
-										this.toaster.openSuccessSnackBar(data.message);
+										//this.toaster.openSuccessSnackBar(data.message);
+										this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 									},
 									(error: any) => {
 										console.log(error);
 										this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 									}
 								);
+							}else{
+								this.carExpenseTransactionService.searchUpdateUserManageAction.next(true);
 							}
 
 

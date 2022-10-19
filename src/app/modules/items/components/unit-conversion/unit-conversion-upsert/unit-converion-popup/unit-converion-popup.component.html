@@ -127,7 +127,7 @@
 			<div class="d-flex">
 				<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
 					color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-				<button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+				<button mat-button id="closeme" [mat-dialog-close]="true" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
 			</div>
 		</mat-dialog-actions>
 	</form>

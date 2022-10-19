@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { tap } from "rxjs";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
+import { CheckDatesService } from "src/app/core-module/UIServices/checkdates.service";
 import { dropdownSettings } from "src/app/core-module/UIServices/dropdownsetting";
 import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 import { ICompany } from "src/app/modules/hr/models/ICompany";
@@ -77,9 +78,12 @@ export class EmployeeUpsertComponent implements OnInit {
 		private jobService: JobService,
 		private service: EmployeeService,
 		private authService: AuthService, private datePipe: DatePipe
+		,public dateService:CheckDatesService
 	) {
 		//here get data of company and put data in the form
 	}
+	maxDate = new Date();
+
 	setDefaultForForm() {
 		if (this.data.employeeId != 0) {  //for edit
 			this.isEdit = true;

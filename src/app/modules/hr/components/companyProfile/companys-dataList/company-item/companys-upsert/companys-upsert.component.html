@@ -452,7 +452,7 @@
 			<div class="col-md-4">
 				<mat-form-field appearance="outline">
 					<mat-label>{{'HR.INPUTS.COMMERCIALRECORD' | translate}} </mat-label>
-					<input matInput placeholder="Placeholder" name="commercialRecord"
+					<input matInput placeholder="Placeholder" maxlength="6" minlength="4" name="commercialRecord"
 						formControlName="commercialRecord">
 					<mat-hint>
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -463,13 +463,13 @@
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 									  validation: 'minlength',
-									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , min:3},
+									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , min:4},
 									  control: companyDataForm.controls['commercialRecord']
 									}"></ng-container>
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										validation: 'maxlength',
-										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , max:50},
+										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , max:6},
 										control: companyDataForm.controls['commercialRecord']
 									 }"></ng-container>
 
@@ -487,7 +487,7 @@
 			<div class="col-md-4">
 				<mat-form-field appearance="outline">
 					<mat-label>{{'HR.INPUTS.TAXCARDNO' | translate}} </mat-label>
-					<input matInput placeholder="Placeholder" name="taxCardNo" formControlName="taxCardNo">
+					<input matInput placeholder="Placeholder" maxlength="12" minlength="9" name="taxCardNo" formControlName="taxCardNo">
 					<mat-hint>
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 									  validation: 'required',
@@ -497,13 +497,13 @@
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 									  validation: 'minlength',
-									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , min:3},
+									  message: 'AUTH.VALIDATION.MIN_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , min:9},
 									  control: companyDataForm.controls['taxCardNo']
 									}"></ng-container>
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										validation: 'maxlength',
-										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , max:50},
+										message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , max:12},
 										control: companyDataForm.controls['taxCardNo']
 									 }"></ng-container>
 
@@ -538,7 +538,7 @@
 			<div class="col-md-2" *ngIf="companyDataForm.controls['isWTaxActive'].value">
 				<mat-form-field appearance="outline">
 					<mat-label>{{'HR.INPUTS.WTAX' | translate}} </mat-label>
-					<input matInput placeholder="Placeholder" name="wTax" formControlName="wTax">
+					<input maxlength="3" matInput placeholder="Placeholder" name="wTax" formControlName="wTax">
 					<mat-hint>
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -576,7 +576,7 @@
 			<div class="col-md-2" *ngIf="companyDataForm.controls['isValTaxActive'].value">
 				<mat-form-field appearance="outline">
 					<mat-label>{{'HR.INPUTS.VATTAX' | translate}} </mat-label>
-					<input matInput placeholder="Placeholder" name="vatTax" formControlName="vatTax">
+					<input maxlength="3" matInput placeholder="Placeholder" name="vatTax" formControlName="vatTax">
 					<mat-hint>
 
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
