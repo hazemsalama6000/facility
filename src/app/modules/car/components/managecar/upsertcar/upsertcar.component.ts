@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { TechnicianService } from 'src/app/core-module/LookupsServices/technician.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
@@ -26,7 +27,7 @@ export class UpsertcarComponent {
   dropdownCarModelData: LookUpModel[] = [];
   dropdownDriverData: LookUpModel[] = [];
   dropdownTechnicianData: LookUpModel[] = [];
-
+dir:any=''
 
   carForm: FormGroup = this.fb.group({
     id: [0],
@@ -44,8 +45,12 @@ export class UpsertcarComponent {
     private toaster: toasterService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: { carModel: Icar },
-    public dialogRef: MatDialogRef<UpsertcarComponent>
+    public dialogRef: MatDialogRef<UpsertcarComponent>,
+    private translateservice:TranslateService
   ) {
+
+let lang=translateservice.currentLang
+this.dir=lang=='ar'?'rtl':'ltr';
     const udata = this.auth.userData.subscribe(res => this.userData = res);
     this.unsubscribe.push(udata);
 
@@ -68,10 +73,11 @@ export class UpsertcarComponent {
     if (this.carForm.valid && this.saveButtonClickedFlag) {
       this.carForm.patchValue({
         branch_Id: this.userData.branchId,
-        technician_Id: this.carForm.get('technician_Id')?.value == null ? 0 : this.carForm.get('technician_Id')?.value,
-        driver_Id: this.carForm.get('driver_Id')?.value == null ? 0 : this.carForm.get('driver_Id')?.value
+        technician_Id: this.carForm.get('technician_Id')?.value == null ? null : this.carForm.get('technician_Id')?.value,
+        driver_Id: this.carForm.get('driver_Id')?.value == null ?null : this.carForm.get('driver_Id')?.value
       });
       this.loading = true;
+
 
       if (this.isEdit) {
         let model: any = {

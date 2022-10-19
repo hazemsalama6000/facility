@@ -23,10 +23,11 @@ export class FinancialyearComponent implements OnInit {
   addButton: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'dateFrom', 'dateTo', 'state'];
+  displayedColumns: string[] = ['n','name', 'dateFrom', 'dateTo', 'state'];
   dataSource: any;
   userdata: IUserData;
   LastFinancialYearId: number;
+  page = { PNum: 1, PSize: 10 }
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -58,7 +59,8 @@ export class FinancialyearComponent implements OnInit {
   }
 
   toggleActiveDeactive(model: IFinancialYear) {
-    this.confirmationDialogService.confirm('من فضلك اكد ايقاف التفعيل', `هل تريد ايقاف تفعيل ${model.year} ? `)
+    let msg=model.isActive?'ايقاف':''
+    this.confirmationDialogService.confirm(`من فضلك اكد ${msg} التفعيل`, `هل تريد ${msg} تفعيل ${model.year} ? `)
       .then((confirmed) => {
         if (confirmed) {
 
@@ -91,6 +93,11 @@ export class FinancialyearComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {

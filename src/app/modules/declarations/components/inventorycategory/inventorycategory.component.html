@@ -25,6 +25,14 @@
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+  <!-- Name Column -->
+      <ng-container matColumnDef="n">
+        <th mat-header-cell *matHeaderCellDef> م </th>
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;" >
+          <span>{{((page.PNum-1)*page.PSize)+(x+1) }}</span>
+        </td>
+      </ng-container>
+
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}} </th>
@@ -62,7 +70,7 @@
 
 
 
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSize]="page.PSize"  (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 
   </div>

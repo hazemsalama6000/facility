@@ -21,10 +21,7 @@ export class AppComponent implements OnInit {
 	constructor(private translationService: TranslationService
 		, @Inject(DOCUMENT) private document: Document) {
 		// register translations
-		this.translationService.loadTranslations(
-			enLang,
-			arLang
-		);
+		this.translationService.loadTranslations(enLang, arLang);
 
 	}
 
@@ -50,9 +47,7 @@ export class AppComponent implements OnInit {
 		this.document.removeChild
 		const head = this.document.getElementsByTagName('head')[0];
 
-		let themeLink = this.document.getElementById(
-			'client-theme'
-		) as HTMLLinkElement;
+		let themeLink = this.document.getElementById('client-theme') as HTMLLinkElement;
 
 		if (themeLink) {
 			themeLink.href = styleName;

@@ -4,8 +4,8 @@
     <mat-card class="col-md-6">
       <div style="width:100%" class="d-flex justify-content-between align-items-center">
         <span class="fontForInputs fs-3"> تصنيف المورد</span>
-        <button  matTooltip="{{'DECLARATIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
-          (click)="openDialog()" aria-label="Example icon button with a filter list icon">
+        <button matTooltip="{{'DECLARATIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialog()"
+          aria-label="Example icon button with a filter list icon">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -28,7 +28,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> {{"DECLARATIONS.TITLES.NAME" | translate}} </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;" >
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
           <span>{{element.name}}</span>
         </td>
       </ng-container>
@@ -36,7 +36,7 @@
       <!-- Name Column -->
       <ng-container matColumnDef="isExternalPlace">
         <th mat-header-cell *matHeaderCellDef> جهة خارجية </th>
-        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;" >
+        <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
           <mat-icon *ngIf="element.isExternalPlace == true" class="text-success">done</mat-icon>
           <mat-icon *ngIf="element.isExternalPlace == false" class="text-danger">close</mat-icon>
         </td>
@@ -45,6 +45,22 @@
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let x=index">
+
+          <div class="d-flex justify-content-center align-items-center">
+            <label *ngIf="element.isActive == true" class="badge badge-primary"> {{"HR.TITLES.ACTIVE" |translate}}</label>
+            <label *ngIf="element.isActive == false" class="badge badge-danger">{{"HR.TITLES.NOTACTIVE"|translate}}</label>
+
+            <span class="mx-2">
+              <section matTooltip="{{element.isActive === true? ('HR.TITLES.NOTACTIVE' | translate): ('HR.TITLES.ACTIVE' | translate)}}"
+                class="example-section">
+                <mat-slide-toggle name="isActive" class="example-margin" [color]="'red'" (change)="toggleActiveDeactive(element)"
+                  [checked]="element.isActive">
+                </mat-slide-toggle>
+              </section>
+            </span>
+
+          </div>
+
 
           <button matTooltip="" mat-mini-fab color="primary" class="mx-md-1" (click)="openDialog(element)">
             <mat-icon>edit</mat-icon>

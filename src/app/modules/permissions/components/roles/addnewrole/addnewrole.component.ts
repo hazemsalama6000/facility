@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -16,8 +17,7 @@ import { RolesService } from '../../../services/roles.service';
   styleUrls: ['./addnewrole.component.scss']
 })
 export class AddnewroleComponent implements OnInit {
-  @ViewChild('btnClose') btnClose: ElementRef<HTMLElement>;
-
+  loading = false;
   saveButtonClickedFlag = false;
 
   rolesData: IRolesProfile;
@@ -34,6 +34,8 @@ export class AddnewroleComponent implements OnInit {
     private authService: AuthService,
     private toaster: toasterService,
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<AddnewroleComponent>,
+
   ) {
     let getdata = this.authService.userData.subscribe(res => {
       this.userData = res;
@@ -62,16 +64,19 @@ export class AddnewroleComponent implements OnInit {
 
   addRole() {
     if (this.roleForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
       this.rolesService.AddRole(this.roleForm.value).subscribe(
         (data: HttpReponseModel) => {
           if (data.isSuccess) {
             this.managePermissions(data.data.id, data.data.name)
           }
           else if (data.isExists) {
+            this.loading = false;
             this.toaster.openWarningSnackBar(data.message);
           }
         },
         (error: any) => {
+          this.loading = false;
           console.log(error);
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }
@@ -99,14 +104,16 @@ export class AddnewroleComponent implements OnInit {
             this.toaster.openSuccessSnackBar(data.message);
             this.rolesService.bSubject.next(true);
             this.roleForm.reset();
-            this.btnClose.nativeElement.click();
-            this.saveButtonClickedFlag=false;
+            this.dialogRef.close();
+            this.saveButtonClickedFlag = false;
           }
           else if (data.isExists) {
             this.toaster.openWarningSnackBar(data.message);
           }
+          this.loading = false;
         },
         (error: any) => {
+          this.loading = false;
           console.log(error);
           this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
         }

@@ -3,6 +3,6 @@ export interface IPathRouteSearch {
     StateId?: number;
     PathRouteId?: number;
     CompanyBranchId: number;
-    PageNumber?: number;
+    PageNumber: number;
     PageSize: number;
 }

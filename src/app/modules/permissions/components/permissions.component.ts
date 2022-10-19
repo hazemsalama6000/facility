@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as _ from 'lodash';
+import { Dialog } from 'primeng/dialog';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth';
 import { IUserData } from '../../auth/models/IUserData.interface';
@@ -8,6 +10,8 @@ import { CompanyService } from '../../hr/services/company.service';
 import { IUsers } from '../models/IRolesProfile.interface';
 import { IUserList } from '../models/IUserLList.interface';
 import { UsersService } from '../services/users.service';
+import { AddnewroleComponent } from './roles/addnewrole/addnewrole.component';
+import { AddnewuserComponent } from './users/addnewuser/addnewuser.component';
 
 @Component({
   selector: 'app-permissions',
@@ -26,7 +30,8 @@ export class PermissionsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private companyService: CompanyService,
-    private userService: UsersService
+    private userService: UsersService,
+    private dialog: MatDialog
   ) {
     let data = authService.userData.subscribe(res => {
       this.userData = res;
@@ -49,6 +54,8 @@ export class PermissionsComponent implements OnInit {
   getUsersData() {
     this.userService.GetCompanyUsers(this.userData.companyId).subscribe(
       (res: IUsers[]) => {
+        console.log('permission')
+        this.userService.usersList.next(res);
         this.countUsers.userTotal = res.length;
         this.countUsers.countOnlineUser = res.filter(x => x.onlineOrNot).length;
         this.countUsers.countOfflineUser = res.filter(x => !x.onlineOrNot).length;
@@ -58,6 +65,21 @@ export class PermissionsComponent implements OnInit {
     )
   }
 
+  openDialogAddUser() {
+    this.dialog.open(AddnewuserComponent, {
+      width: '80vw',
+      height: '100vh',
+      position: { right: '0' },
+    })
+  }
+
+  openDialogAddRole() {
+    this.dialog.open(AddnewroleComponent, {
+      width: '80vw',
+      height: '100vh',
+      position: { right: '0' },
+    })
+  }
 
   ngOnInit(): void {
   }

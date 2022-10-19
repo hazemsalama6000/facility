@@ -21,14 +21,14 @@ import { CustomRouteReuseStrategy } from './core-module/custom-route-reuse-strat
 import {HashLocationStrategy,LocationStrategy} from '@angular/common';
 // #fake-end#
 
-function appInitializer(authService: AuthService) {
-	return () => {
-		return new Promise((resolve) => {
-			//@ts-ignore
-			authService.getUserByToken().subscribe().add(resolve);
-		});
-	};
-}
+// function appInitializer(authService: AuthService) {
+// 	return () => {
+// 		return new Promise((resolve) => {
+// 			//@ts-ignore
+// 			authService.getUserByToken().subscribe().add(resolve);
+// 		});
+// 	};
+// }
 
 @NgModule({
 	declarations: [AppComponent],
@@ -48,12 +48,12 @@ function appInitializer(authService: AuthService) {
 			provide: RouteReuseStrategy,
 			useClass: CustomRouteReuseStrategy
 		},
-		{
-			provide: APP_INITIALIZER,
-			useFactory: appInitializer,
-			multi: true,
-			deps: [AuthService],
-		},
+		// {
+		// 	provide: APP_INITIALIZER,
+		// 	useFactory: appInitializer,
+		// 	multi: true,
+		// 	deps: [AuthService],
+		// },
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,

@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
    //const currentUser = this.authService.currentUserValue;
     if (localStorage.getItem(this.TOKENIN_LOCALSTORAGE)) {
       // logged in so return true
+      this.authService.getUserByToken().subscribe()
       return true;
     }
     // not logged in so redirect to login page with the return url

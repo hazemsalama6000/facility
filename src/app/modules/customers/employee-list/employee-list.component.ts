@@ -16,9 +16,9 @@ import { DatePipe } from '@angular/common';
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { EmployeeService } from '../../employees/services/employee.service';
-import { IEmployee } from '../../employees/models/employee.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeUpsertComponent } from '../../employees/employee-upsert/employee-upsert.component';
+import { IEmployee } from '../../employees/models/employee.interface';
 
 
 @Component({
@@ -161,6 +161,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.employeeService.getEmployeesData(this.searchObject).subscribe(
       res => {
+        console.log(res)
         this.employees = res.employeeRecords;
         this.totalRecords = res.pageSize;
       },

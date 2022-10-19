@@ -4,17 +4,16 @@
 		<div class="d-flex align-items-center">
 			<mat-icon class="text-primary mx-5" style="font-size:30px ;">assignment_ind</mat-icon>
 
-			<span class="fontsection"> بيانات الموظف
-			</span>
+			<span class="fontsection"> بيانات الموظف</span>
 
 		</div>
 
 		<div class="row align-items-center mx-10">
-			<ng-select class="customized" style="width:500px ;" [(ngModel)]="EmployeeId" [items]="dropdownEmployeeData" bindLabel="Name"
+			<ng-select class="customized" style="width:500px ;"  [items]="dropdownEmployeeData" bindLabel="Name"
 				bindValue="Id" name="region_Id" id="region_Id" placeholder="اختر الموظف"
-				(change)="employeeSelectListOnChange($event)" id="employee">
+				(change)="employeeSelectListOnChange($event)" [(ngModel)]="EmployeeId">
 			</ng-select>
-
+			
 			<button (click)="openDialogUpsertEmployee('ADD')" matTooltip="{{'HR.BUTTONS.ADD'|translate}}" mat-mini-fab
 				color="primary" class="mx-md-1" id="kt_activities_toggle"
 				aria-label="Example icon button with a filter list icon">

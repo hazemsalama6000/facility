@@ -26,7 +26,7 @@ export class PathrouteComponent implements OnInit {
 
   addButton: boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'state', 'region', 'technician', 'status', 'action'];
+  displayedColumns: string[] = ['n','name', 'state', 'region', 'technician', 'status', 'action'];
   dataSource: any;
   userdata: IUserData
   searchModel: IPathRouteSearch = { PageSize: 5, PageNumber: 1, CompanyBranchId: 0 };

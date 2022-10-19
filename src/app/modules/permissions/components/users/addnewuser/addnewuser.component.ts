@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { BranchService } from 'src/app/core-module/LookupsServices/branch.service';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
@@ -16,11 +18,11 @@ import { UsersService } from '../../../services/users.service';
   styleUrls: ['./addnewuser.component.scss']
 })
 export class AddnewuserComponent implements OnInit, OnDestroy {
-  @ViewChild('btnClose') btnClose: ElementRef<HTMLElement>;
   saveButtonClickedFlag = false;
-
+  loading = false;
   employeeDropdown: LookUpModel[];
   userTypeDropdown: LookUpModel[];
+  branchDropdown: LookUpModel[];
   rolesData: any[];
   userData: IUserData;
 
@@ -31,6 +33,7 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
     email: ['', Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")])],
     phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(11)])],
     company_Id: [null, [Validators.required]],
+    branch_Ids: [null, Validators.compose([Validators.required])],
     userType_Id: [null, [Validators.required]],
     addingRoles: this.fb.array([])
   });
@@ -39,12 +42,14 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
   constructor(
     private userservice: UsersService,
     private authservice: AuthService,
+    private branchService: BranchService,
     private toaster: toasterService,
     private fb: FormBuilder,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    public dialogRef: MatDialogRef<AddnewuserComponent>,
 
   ) {
-    const data = this.authservice.userData.subscribe(res => {
+    let data = this.authservice.userData.subscribe(res => {
       this.userData = res;
       this.fillDropdowns();
       this.userDataForm.patchValue({ company_Id: res.companyId });
@@ -75,11 +80,13 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
       () => { }
     );
 
+    this.branchService.getLookupBranchData(this.userData.companyId).subscribe((data: LookUpModel[]) => { this.branchDropdown = data; });
+
   }
 
   Submit() {
     if (this.userDataForm.valid && this.saveButtonClickedFlag) {
-
+      this.loading = true;
       this.userservice.PostUserData(this.userDataForm.value).
         subscribe(
           (data: HttpReponseModel) => {
@@ -87,13 +94,15 @@ export class AddnewuserComponent implements OnInit, OnDestroy {
             if (data.isSuccess) {
               this.toaster.openSuccessSnackBar(data.message);
               this.userservice.bSubject.next(true);
-              this.btnClose.nativeElement.click();
+              this.dialogRef.close();
             }
             else if (data.isExists) {
               this.toaster.openWarningSnackBar(data.message);
             }
+            this.loading = false;
           },
           (error: any) => {
+            this.loading = false;
             console.log(error);
             this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
           }

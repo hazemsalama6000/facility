@@ -21,7 +21,7 @@ export class AsideMenuComponent implements OnInit {
     this.unsubcribe.push(getdata);
   }
 
-  ngOnInit(): void { console.log(this.userData.menu) }
+  ngOnInit(): void { }
 
   ngOnDestroy() {
     this.unsubcribe.forEach((sb) => sb.unsubscribe());

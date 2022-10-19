@@ -20,9 +20,10 @@ import { AddinventorycategoryComponent } from './addinventorycategory/addinvento
 export class InventorycategoryComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'state'];
+  displayedColumns: string[] = ['n','name', 'state'];
   dataSource: any;
   userdata: IUserData
+  page = { PNum: 1, PSize: 10 }
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -86,6 +87,11 @@ export class InventorycategoryComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {

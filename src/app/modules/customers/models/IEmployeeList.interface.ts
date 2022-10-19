@@ -1,4 +1,4 @@
-export interface IEmployee {
+export interface IEmployeePagination {
   employeeRecords: IEmployeeList[],
   pageSize: number
 }

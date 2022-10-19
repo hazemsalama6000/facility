@@ -17,7 +17,8 @@ export class RolesService {
   bSubject = new BehaviorSubject<boolean>(false);
   roleid = new BehaviorSubject<string>('');
   permissionTree = new BehaviorSubject<ITreeRoles[]>([]);
-
+  rolesList = new BehaviorSubject<IRolesProfile>({} as IRolesProfile);
+  
   constructor(private http: CommonHttpService) { }
   //this function to get role with claims and users
   GetRolesDetailsForCompany(companyId: number): Observable<IRolesProfile> {
