@@ -32,7 +32,7 @@
 
 				<span class=" mx-10">
 					<label class="fontForInputs"> صورة الموظف </label>
-					<input type="file" class="mx-2" (change)="ImageChange($event)" placeholder="Placeholder"
+					<input type="file" accept="image/png, image/gif, image/jpeg" class="mx-2" (change)="ImageChange($event)" placeholder="Placeholder"
 						name="Image" formControlName="Image">
 					<mat-hint>
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{

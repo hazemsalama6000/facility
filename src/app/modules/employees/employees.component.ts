@@ -22,7 +22,7 @@ export class EmployeesComponent implements OnInit {
 	imageFile: File;
 	companyId: number;
 	branch_Id = 0;
-	EmployeeId: number|null=null ;
+	EmployeeId: number | null = null;
 	dropdownEmployeeData: LookUpModel[] = [];
 	employeeDsiaplay: IEmployee = { id: 0, imagePath: '', imagepathbase: '' } as IEmployee;
 
@@ -61,9 +61,12 @@ export class EmployeesComponent implements OnInit {
 
 
 		this.service.bSubjectStream.subscribe((data) => {
-			this.service.getLookupEmployeeData(this.companyId).subscribe((data: LookUpModel[]) => {
-				this.dropdownEmployeeData = data;
+			this.auth.userData.subscribe((userData) => {
+				this.service.getLookupEmployeeData(userData.companyId).subscribe((data: LookUpModel[]) => {
+					this.dropdownEmployeeData = data;
+				});
 			});
+
 		});
 
 		this.service.bSubject.next(true);
