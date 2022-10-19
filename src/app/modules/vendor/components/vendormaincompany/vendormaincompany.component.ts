@@ -20,9 +20,10 @@ import { UpsertvendormaincompanyComponent } from './upsertvendormaincompany/upse
 export class VendormaincompanyComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['code', 'name', 'state'];
+  displayedColumns: string[] = ['n','code', 'name', 'state'];
   dataSource: any;
-  userdata: IUserData
+  userdata: IUserData;
+  page = { PNum: 1, PSize: 10 }
   private unsubscribe: Subscription[] = [];
 
   constructor(
@@ -85,6 +86,11 @@ export class VendormaincompanyComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {

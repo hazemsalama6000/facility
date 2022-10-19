@@ -17,6 +17,7 @@ import { FinancialyearService } from '../../../services/financialyear.service';
 export class AddfinancialyearComponent implements OnInit {
   loading: boolean = false;
   saveButtonClickedFlag = false;
+  minDate=new Date();
   userData: IUserData;
   private unsubscribe: Subscription[] = [];
 

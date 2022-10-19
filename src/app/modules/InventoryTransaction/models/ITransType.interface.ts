@@ -3,4 +3,5 @@ export interface ITransType{
     name:string;
     sysName:string;
     transKind:boolean;
+    isShowInList:boolean;
 }

@@ -127,11 +127,13 @@ export enum HttpPaths {
 	API_DEPARTMENT_DELETE = "/api/v1/hr/deletedepartment/",
 	API_DEPARTMENT_UACTIVEDEACTIVE = "/api/v1/hr/changedepartmentactiveornot/",
 	API_LIST_OF_DEPARTMENT = "/api/v1/hr/listofdepartments?CompanyId=",
+
 	//Section APIS
 
 	API_SECTION_ADD = "/api/v1/hr/addSection",
 	API_SECTION_UPDATE = "/api/v1/hr/updateSection/",
 	API_SECTION_GETALL = "/api/v1/hr/getSections/",
+	API_LIST_OF_SECTION = "/api/v1/hr/listOfSections?departmentId=",
 	API_SECTION_DELETE = "/api/v1/hr/deleteSection/",
 	API_SECTION_UACTIVEDEACTIVE = "/api/v1/hr/changesectionactiveornot/",
 

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth';
 import { IJob, IJobSub } from 'src/app/modules/share/models/IJob.interface';
-import { ISection } from 'src/app/modules/share/models/ISection.interface';
 import { DepartmentService } from 'src/app/modules/share/Services/department_section/department.service';
 import { SectionService } from 'src/app/modules/share/Services/department_section/section.service';
 import { JobService } from 'src/app/modules/share/Services/job.service';
@@ -13,8 +12,6 @@ import * as FileSaver from 'file-saver';
 import { IUserData } from '../../auth/models/IUserData.interface';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import { EmployeeService } from '../../employees/services/employee.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeUpsertComponent } from '../../employees/employee-upsert/employee-upsert.component';
@@ -31,7 +28,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
   employeeDropdown: LookUpModel[];
   branchDropdown: IBranch[];
   departmentDropdown: LookUpModel[];
-  sectionDropdown: ISection[];
+  sectionDropdown: LookUpModel[];
   jobDropdown: IJobSub[];
 
   searchObject: IEmployeeSearch;
@@ -116,16 +113,18 @@ export class Employee_listComponent implements OnInit, OnDestroy {
       case "department":
         if (ids != null) {
           this.searchObject.departmentsIds = [ids.Id];
-          this.sectionService.getLookupData(ids.id).subscribe((res: ISection[]) =>
+          this.sectionService.getListOfData(ids.Id).subscribe((res: LookUpModel[]) =>
             this.sectionDropdown = res
           );
         } else this.searchObject.departmentsIds = [];
         break;
       case "section":
         if (ids != null) {
-          this.searchObject.sectionsIds = [ids.id];
-          this.jobService.getLookUpData(this.searchObject.sectionsIds[0]).subscribe((res: IJob) =>
+          this.searchObject.sectionsIds = [ids.Id];
+          this.jobService.getLookUpData(this.searchObject.sectionsIds[0]).subscribe((res: IJob) => {
+            console.log(res)
             this.jobDropdown = res.jobs.filter(x => x.isSelected == true)
+          }
           );
         } else this.searchObject.sectionsIds = [];
         break;
@@ -133,7 +132,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
         this.searchObject.jobsIds = ids.map((a: any) => a.Id);
         break;
       case "inputSearch":
-       this.searchObject.Contact= ids.length>0?ids:null
+        this.searchObject.Contact = ids.length > 0 ? ids : null
         console.log(this.searchObject)
         break;
       default:

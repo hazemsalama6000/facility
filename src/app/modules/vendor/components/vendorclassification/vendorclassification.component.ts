@@ -23,8 +23,9 @@ import { UpsertvendorclassificationComponent } from './upsertvendorclassificatio
 export class VendorclassificationComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'isExternalPlace', 'state'];
+  displayedColumns: string[] = ['n','name', 'isExternalPlace', 'state','action'];
   dataSource: any;
+  page = { PNum: 1, PSize: 10 }
   userdata: IUserData
   private unsubscribe: Subscription[] = [];
 
@@ -111,6 +112,11 @@ export class VendorclassificationComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {
