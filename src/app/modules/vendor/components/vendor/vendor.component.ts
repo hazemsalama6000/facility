@@ -26,7 +26,7 @@ export class VendorComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'code', 'mainCompany', 'email', 'site', 'mobile', 'isWithHoldTaxActive', 'withHoldTax', 'isVatTaxActive', 'vatTax', 'isActive', 'state'];
+  displayedColumns: string[] = ['n','name', 'code', 'mainCompany', 'email', 'site', 'mobile', 'isWithHoldTaxActive', 'withHoldTax', 'isVatTaxActive', 'vatTax', 'isActive', 'state'];
   dataSource: any;
   taxOffice: LookUpModel[] = [];
   classification: LookUpModel[] = [];
@@ -34,6 +34,7 @@ export class VendorComponent implements OnInit {
   mainCompany: LookUpModel[] = [];
   vendors: LookUpModel[] = [];
   branchs: LookUpModel[] = [];
+  page = { PNum: 1, PSize: 10 }
   searchModel: ISearchVendor = {
     company_Id: 0,
     // branch_Id: [],
@@ -180,6 +181,11 @@ export class VendorComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  pageEvent(event: any) {
+    this.page.PSize = event.pageSize;
+    this.page.PNum = event.pageIndex + 1;
   }
 
   ngOnDestroy() {
