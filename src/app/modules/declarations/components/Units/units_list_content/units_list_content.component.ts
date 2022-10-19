@@ -16,7 +16,7 @@ import { UnitsService } from "../../../services/unit.service";
 	selector: 'units_list_content',
 	templateUrl: './units_list_content.component.html',
 	styleUrls: ['./units_list_content.component.scss'],
-	changeDetection:ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class UnitsListContentComponent {
@@ -27,21 +27,21 @@ export class UnitsListContentComponent {
 
 	@Output() edit: EventEmitter<IUnitData> = new EventEmitter();
 
-	displayedColumns: string[] = ['unitType','name', 'state', 'action'];
+	displayedColumns: string[] = ['unitType', 'name', 'state', 'action'];
 
 	dataSource: any;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	userdata:IUserData;
-	 private unsubscribe: Subscription[] = [];
+	userdata: IUserData;
+	private unsubscribe: Subscription[] = [];
 
 
-	constructor(private service: UnitsService, private toaster: toasterService 
-		, private confirmationDialogService: ConfirmationDialogService ,private regionService:RegionService 
-		,private auth:AuthService) {
+	constructor(private service: UnitsService, private toaster: toasterService
+		, private confirmationDialogService: ConfirmationDialogService, private regionService: RegionService
+		, private auth: AuthService) {
 		//subscribe here to invoke when insert done in upsert component
-		
+
 
 		this.service.getLookupUnitTypeData().subscribe(
 			(data: LookUpModel[]) => {
@@ -49,11 +49,11 @@ export class UnitsListContentComponent {
 			}
 		);
 
-		this.currentSelected = { Id: 0,unitType:"",unitType_Id:0, Name: '', company_Id: 0 };
+		this.currentSelected = { Id: 0, unitType: "", unitType_Id: 0, Name: '', company_Id: 0 };
 
-		const udata=this.auth.userData.subscribe(res=>{
-			this.userdata=res;
-			this.service.companyId=res.companyId;
+		const udata = this.auth.userData.subscribe(res => {
+			this.userdata = res;
+			this.service.companyId = res.companyId;
 			this.service.selectFromStore().subscribe(data => {
 				this.getallData();
 			});
@@ -66,11 +66,11 @@ export class UnitsListContentComponent {
 
 		let Item: Array<IUnitData> = this.dataSource.data.filter((a: IUnitData) => a.Id == 0);
 		if (Item.length == 0) {
-			let newRow: IUnitData = { Id: 0, Name: "",unitType:"",unitType_Id:0, isActive: false, isAdd: true, isEdit: false, company_Id: 0 }
+			let newRow: IUnitData = { Id: 0, Name: "", unitType: "", unitType_Id: 0, isActive: false, isAdd: true, isEdit: false, company_Id: 0 }
 			this.dataSource.data = [newRow, ...this.dataSource.data];
 			document.getElementById("NameForAddState")?.focus();
 			this.currentSelected = newRow;
-			this.service.emitStateIdSubject.next(this.currentSelected );
+			this.service.emitStateIdSubject.next(this.currentSelected);
 			this.dataSource.data.filter((a: IUnitData) => a.Id != 0).forEach((element: IUnitData) => {
 				element.isAdd = false;
 				element.isEdit = false;
@@ -91,36 +91,39 @@ export class UnitsListContentComponent {
 				this.getallData();
 			},
 			(error: any) => {
-				this.toaster.openWarningSnackBar(error.toString().replace("Error:",""));
+				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
 			});
 	}
 
 	Submit(model: IUnitData) {
-
-		model.company_Id = this.userdata.companyId;
-		model.isActive = true;
-		if (model.Id == 0) {
-			model.Id = 0;
-			this.service.PostLookupData(model).
-				subscribe(
-					(data: HttpReponseModel) => {
-
-						if (data.isSuccess) {
-							this.toaster.openSuccessSnackBar(data.message);
-							this.service.bSubject.next(true);
-							this.service.addFlag.next(true);
-						}
-						else if (data.isExists) {
-							this.toaster.openWarningSnackBar(data.message);
-						}
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:",""));
-					}
-				);
-
+		if (model.unitType_Id == 0 || model.unitType_Id == null || model.Name == "") {
+			this.toaster.openWarningSnackBar("املاء البيانات");
 		}
+		else {
+			model.company_Id = this.userdata.companyId;
+			model.isActive = true;
+			if (model.Id == 0) {
+				model.Id = 0;
+				this.service.PostLookupData(model).
+					subscribe(
+						(data: HttpReponseModel) => {
 
+							if (data.isSuccess) {
+								this.toaster.openSuccessSnackBar(data.message);
+								this.service.bSubject.next(true);
+								this.service.addFlag.next(true);
+							}
+							else if (data.isExists) {
+								this.toaster.openWarningSnackBar(data.message);
+							}
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						}
+					);
+
+			}
+		}
 
 	}
 
@@ -128,21 +131,21 @@ export class UnitsListContentComponent {
 		this.service.addFlag.next(false);
 
 		this.confirmationDialogService.confirm('من فضلك اكد الحذف', `هل تريد حذف ${model.Name} ? `)
-		.then((confirmed) => {
-			if (confirmed) {
-				this.service.DeleteLookupData(model.Id).subscribe(
-					(data: HttpReponseModel) => {
-						this.service.emitStateIdSubject.next({Id:0,company_Id:0,Name:''});
+			.then((confirmed) => {
+				if (confirmed) {
+					this.service.DeleteLookupData(model.Id).subscribe(
+						(data: HttpReponseModel) => {
+							this.service.emitStateIdSubject.next({ Id: 0, company_Id: 0, Name: '' });
 
-						this.toaster.openSuccessSnackBar(data.message);
-						this.getallData();
-					},
-					(error: any) => {
-						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
-					});
-			}
-		})
-		.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+							this.toaster.openSuccessSnackBar(data.message);
+							this.getallData();
+						},
+						(error: any) => {
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						});
+				}
+			})
+			.catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
 
 	}
 
@@ -155,9 +158,9 @@ export class UnitsListContentComponent {
 		this.currentSelected = model;
 		this.edit.emit(model);
 		this.service.emitStateIdSubject.next(model);
-		this.dataSource.data.filter((a: IUnitData) => a.Id != model.Id).forEach( (element:IUnitData) => {
-			element.isAdd=false;
-			element.isEdit=false;
+		this.dataSource.data.filter((a: IUnitData) => a.Id != model.Id).forEach((element: IUnitData) => {
+			element.isAdd = false;
+			element.isEdit = false;
 		});
 	}
 
@@ -169,14 +172,14 @@ export class UnitsListContentComponent {
 			(data: IUnitData[]) => {
 				this.dataSource = new MatTableDataSource<IUnitData>(data);
 				this.dataSource.paginator = this.paginator;
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.service.addFlag.subscribe((data) => {
 						if (data == true) {
 							this.addNewRow();
 						}
 					});
-	
-				},500);
+
+				}, 500);
 			}
 		);
 	}
@@ -190,8 +193,8 @@ export class UnitsListContentComponent {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	ngOnDestroy(){
-		this.unsubscribe.forEach((sb)=>sb.unsubscribe());
+	ngOnDestroy() {
+		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}
 
 }
