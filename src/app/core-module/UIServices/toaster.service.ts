@@ -16,7 +16,7 @@ export class toasterService {
 	openSuccessSnackBar(message: string) {
 
 		this._snackBar.open(message,'', {
-			duration: 3000, horizontalPosition: this.horizontalPosition,
+			duration: 6000, horizontalPosition: this.horizontalPosition,
 			verticalPosition: this.verticalPosition,
 			panelClass: 'Success'
 		});
@@ -27,7 +27,7 @@ export class toasterService {
 	openErrorSnackBar(message: string) {
 
 		this._snackBar.open(message, '', {
-			duration: 3000, horizontalPosition: this.horizontalPosition,
+			duration: 10000, horizontalPosition: this.horizontalPosition,
 			verticalPosition: this.verticalPosition,
 			panelClass: 'Error'
 		});
@@ -37,7 +37,7 @@ export class toasterService {
 	openWarningSnackBar(message: string) {
 
 		this._snackBar.open(message,'', {
-			duration: 3000, horizontalPosition: this.horizontalPosition,
+			duration: 10000, horizontalPosition: this.horizontalPosition,
 			verticalPosition: this.verticalPosition,
 			panelClass: ['Warning']
 		});
