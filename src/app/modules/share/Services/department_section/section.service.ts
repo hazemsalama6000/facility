@@ -19,13 +19,13 @@ export class SectionService {
 	constructor(private http: CommonHttpService) { }
 
 	getLookupData(departmentId: number): Observable<ISection[]> {
-		console.log(departmentId)
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_SECTION_GETALL}${departmentId}`)
 			.pipe(map(Items => Items.map((Item: any) => ({ id: Item.id, name: Item.name, isActive: Item.isActive, isEdit: false, isAdd: false }) as ISection)));
-	}
+	}	
+	
+
 
 	getListOfData(departmentId: number): Observable<LookUpModel[]> {
-		console.log(departmentId)
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_SECTION}${departmentId}`)
 			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.name })) as LookUpModel[]));
 	}
