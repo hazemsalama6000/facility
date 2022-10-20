@@ -15,7 +15,9 @@ export interface IClientUpsertModel {
     isAddedClientBranch: false,
     clientCategory_Id: number,
     companyBranch_Id: number,
-	checked:boolean,
+	checked?:boolean, //for binding only
+	regionId?:number, //for binding only
+	pathRouteId?:number , //for binding only
     clientDataBranches: [
       {
         id?: number,
@@ -38,7 +40,8 @@ export interface IClientUpsertModel {
         clientData_Id?: number,
         clientBranchId: number,
         pathRoute_Id?: number,
-        isMain?: false
+        isMain?: false,
+		checked?:boolean
       }
     ]
   }

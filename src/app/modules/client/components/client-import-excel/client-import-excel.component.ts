@@ -11,6 +11,9 @@ import { IUserData } from "src/app/modules/auth/models/IUserData.interface";
 import { LookUpModel } from "src/app/shared-module/models/lookup";
 import { AuthService } from "src/app/modules/auth";
 import { ClientService } from "../../services/client.service";
+import { IRegion } from "src/app/modules/share/models/IRegion.interface";
+import { RegionService } from "src/app/modules/share/Services/region.service";
+import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
 
 export interface PeriodicElement {
 	name: string;
@@ -35,6 +38,9 @@ export interface PeriodicElement {
 
 export class ClientImportExcel implements OnInit {
 	dropdownCategoryData: any = [];
+	dropdownListDataForRegion:any=[];
+	dropdownPathRouteData:any=[];
+	
 	clientCategorySelected: LookUpModel={} as LookUpModel;
 	//dataSource = ELEMENT_DATA;
 	columnsToDisplay = [
@@ -66,7 +72,7 @@ export class ClientImportExcel implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(private service: ClientService, private auth: AuthService,
-		private ref: ChangeDetectorRef) { }
+		private ref: ChangeDetectorRef,private regionService: RegionService,private pathrouteService: PathrouteService) { }
 
 	ngOnInit(): void {
 		this.auth.userData.subscribe((data: IUserData) => {
@@ -75,6 +81,15 @@ export class ClientImportExcel implements OnInit {
 					this.dropdownCategoryData = data;
 				}
 			);
+			this.pathrouteService.getLookUpPathRoute({ CompanyBranchId: data.branchId }).subscribe((data: LookUpModel[]) => {
+				this.dropdownPathRouteData = data;
+			});
+			this.regionService.getLookupData().subscribe(
+				(data: IRegion[]) => {
+					this.dropdownListDataForRegion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
+				}
+			);
+
 		});
 	}
 
@@ -82,10 +97,26 @@ export class ClientImportExcel implements OnInit {
 		this.clientCategorySelected = item;
 		console.log(this.clientCategorySelected);
 	}
+
 	implementCategory(){
 		let categoryId=this.clientCategorySelected.Id;
 		this.data.filter(a=>a.checked==true).forEach(function (data) {
 			data.clientCategory_Id = categoryId;
+		});
+	}
+
+	implementPathRouteId(clientId:number){
+
+		let pathRouteId=this.data.find(a=>a.id==clientId)?.pathRouteId
+		this.data.find(a=>a.id==clientId)?.clientDataBranches.filter(a=>a.checked==true).forEach(function (data) {
+			data.pathRoute_Id = pathRouteId;
+		});
+	}
+
+	implementRegionId(clientId:number){
+		let regionId=this.data.find(a=>a.id==clientId)?.regionId!;
+		this.data.find(a=>a.id==clientId)?.clientDataBranches.filter(a=>a.checked==true).forEach(function (data) {
+			data.region_Id = regionId;
 		});
 	}
 
@@ -95,11 +126,13 @@ export class ClientImportExcel implements OnInit {
 			data.checked = completed;
 		});
 
-	//	this.ref.detectChanges();
-
 	}
 
-	updateAllComplete(completed: boolean, id: number) {
+	setAllForClientBranchPathRoute(completed: boolean,clientId:number) {
+
+		this.data.find(a=>a.id==clientId)?.clientDataBranches.forEach(function (data) {
+			data.checked = completed;
+		});
 
 	}
 
