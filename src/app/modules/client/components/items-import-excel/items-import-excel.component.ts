@@ -130,15 +130,17 @@ export class ItemsImportExcel implements OnInit {
 			//fill data from client sheet
 			this.ExcelImportData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
 
-			this.data = this.ExcelImportData;
+			this.data = this.ExcelImportData as IItem[];
+			
+			for (let i = 0; i < this.data.length; i++) {
+				this.data[i].id = i;
+			}
 
 			this.dataSource = new MatTableDataSource<IItem>(this.data);
 			this.dataSource.paginator = this.paginator;
 		}
 
 	}
-
-
 
 
 	Submit() {

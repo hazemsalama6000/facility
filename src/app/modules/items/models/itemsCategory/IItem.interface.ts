@@ -19,4 +19,5 @@ export interface IItem {
     unit_Id: number;
     company_Id: number;
 	checked?:boolean;
+	errorMessage?:string;
 }
