@@ -38,21 +38,21 @@ export class UpsertvendorComponent implements OnInit {
     isActive: [false],
 
     classification_Id: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-    mainCompany_Id: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+    mainCompany_Id: [null, Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
     activity_Id: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
     taxOffice_Id: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 
     telephone: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
     mobile: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(11), Validators.pattern("^[0-9]*$")])],
-    email: ['', Validators.compose([ Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
-    site: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+    email: ['', Validators.compose([Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
+    site: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 
-    commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(12)])],
-    taxFileNum: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
+    commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(6)])],
+    taxFileNum: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(12)])],
     isWithHoldTaxActive: [false],
-    withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
     isVatTaxActive: [false],
-    vatTax: [0, Validators.compose([Validators.min(0), Validators.max(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    vatTax: [0, Validators.compose([Validators.min(0), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 
     branch_Id: [0],
   });
@@ -80,7 +80,7 @@ export class UpsertvendorComponent implements OnInit {
         address: data.model.address,
         telephone: data.model.telephone,
         mobile: data.model.mobile,
-        commercialRecord:data.model.commercialRecord,
+        commercialRecord: data.model.commercialRecord,
         taxFileNum: data.model.taxFileNum,
         email: data.model.email,
         site: data.model.site,

@@ -35,8 +35,11 @@ export class PermissionsComponent implements OnInit {
   ) {
     let data = authService.userData.subscribe(res => {
       this.userData = res;
-      this.getCompanyData();
-      this.getUsersData();
+      let userSub=userService.bSubject.subscribe(res=>{
+        this.getCompanyData();
+        this.getUsersData();
+      });
+      this.unsubscribe.push(userSub);
     })
 
     this.unsubscribe.push(data);

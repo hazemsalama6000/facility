@@ -24,36 +24,6 @@
             <!--end::Search-->
         </div>
         <!--end::Card title-->
-        <!--begin::Card toolbar-->
-        <div class="card-toolbar">
-            <!--begin::Button-->
-            <!-- <button type="button" class="btn btn-success m-2"  data-bs-toggle="modal" data-bs-target="#kt_modal_add_permission" id="kt_assignrolestouser_toggle">
-                        <span class="svg-icon svg-icon-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
-                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
-                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
-                            </svg>
-                        </span>
-                        Add Roles</button> -->
-            <!-- <button type="button" class="btn btn-light-primary" data-bs-toggle="modal"
-                data-bs-target="#kt_modal_add_permission" id="kt_addnewuser_toggle">
-                <span class="svg-icon svg-icon-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
-                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1"
-                            transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
-                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
-                    </svg>
-                </span>
-                Add New User
-            </button> -->
-
-
-
-            <!--end::Button-->
-        </div>
-        <!--end::Card toolbar-->
     </div>
     <!--end::Card header-->
     <!--begin::Card body-->
@@ -139,14 +109,7 @@
                     </td>
 
                     <td>
-                        <!-- <a href="../../demo1/dist/apps/user-management/roles/view.html"
-                            class="badge badge-light-primary fs-7 m-1">Administrator</a>
-                        <a href="../../demo1/dist/apps/user-management/roles/view.html"
-                            class="badge badge-light-danger fs-7 m-1">Developer</a>
-                        <a href="../../demo1/dist/apps/user-management/roles/view.html"
-                            class="badge badge-light-success fs-7 m-1">Analyst</a> -->
                         <span class="badge badge-light-success fs-7 m-1" *ngFor="let role of user.roles">{{role}}</span>
-
                     </td>
 
                     <td>
@@ -192,28 +155,6 @@
             </tbody>
 
         </table>
-        <!-- <div class="row">
-            <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-            </div>
-            <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                <div class="dataTables_paginate paging_simple_numbers" id="kt_roles_view_table_paginate">
-                    <ul class="pagination">
-                        <li class="paginate_button page-item previous disabled" id="kt_roles_view_table_previous"><a
-                                href="#" aria-controls="kt_roles_view_table" data-dt-idx="0" tabindex="0"
-                                class="page-link"><i class="previous"></i></a></li>
-                        <li class="paginate_button page-item active"><a href="#" aria-controls="kt_roles_view_table"
-                                data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="kt_roles_view_table"
-                                data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="kt_roles_view_table"
-                                data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                        <li class="paginate_button page-item next" id="kt_roles_view_table_next"><a href="#"
-                                aria-controls="kt_roles_view_table" data-dt-idx="4" tabindex="0" class="page-link"><i
-                                    class="next"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
 
     </div>
 
