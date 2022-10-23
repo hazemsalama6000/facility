@@ -14,6 +14,8 @@ import { ClientService } from "../../services/client.service";
 import { IRegion } from "src/app/modules/share/models/IRegion.interface";
 import { RegionService } from "src/app/modules/share/Services/region.service";
 import { PathrouteService } from "src/app/modules/declarations/services/pathroute.service";
+import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
+import { toasterService } from "src/app/core-module/UIServices/toaster.service";
 
 export interface PeriodicElement {
 	name: string;
@@ -42,7 +44,7 @@ export class ClientImportExcel implements OnInit {
 	dropdownPathRouteData:any=[];
 	
 	clientCategorySelected: LookUpModel={} as LookUpModel;
-	//dataSource = ELEMENT_DATA;
+	dataSource :any;
 	columnsToDisplay = [
 		'id',
 		'name',
@@ -72,7 +74,7 @@ export class ClientImportExcel implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(private service: ClientService, private auth: AuthService,
-		private ref: ChangeDetectorRef,private regionService: RegionService,private pathrouteService: PathrouteService) { }
+		private ref: ChangeDetectorRef,private regionService: RegionService,private pathrouteService: PathrouteService,	private toaster: toasterService) { }
 
 	ngOnInit(): void {
 		this.auth.userData.subscribe((data: IUserData) => {
@@ -157,11 +159,38 @@ export class ClientImportExcel implements OnInit {
 				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].id)
 			}
 
-			console.log(this.data);
-
+			this.dataSource = new MatTableDataSource<IClientUpsertModel>(this.data);
+			this.dataSource.paginator = this.paginator;
 		}
 
 	}
 
+
+
+
+	
+	Submit() {
+
+				this.service.PostClientData(this.data).
+					subscribe(
+						(data: HttpReponseModel) => {
+
+							if (data.isSuccess) {
+								this.toaster.openSuccessSnackBar(data.message);
+								// console.log(data.message);
+								document.getElementById("closeme")?.click();
+								this.service.bSubject.next(true);
+							}
+							else if (data.isExists) {
+								this.toaster.openWarningSnackBar(data.message);
+							}
+						},
+						(error: any) => {
+							console.log(error);
+							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+						}
+					);
+
+	}
 
 }

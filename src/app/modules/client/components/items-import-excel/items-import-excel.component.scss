@@ -62,9 +62,8 @@ tr.example-element-row:not(.example-expanded-row):active {
   
   .example-table-container {
 	position: relative;
-	min-height: 600px;
+	min-height: 200px;
 	max-height: 400px;
-	
 	overflow: auto;
   }
   

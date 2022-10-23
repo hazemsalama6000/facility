@@ -368,6 +368,7 @@ export enum HttpPaths {
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
+	API_CATEGORY_List = "/api/v1/invt/listofinvitemscategories/",
 
 	API_CATEGORY_ADD = "/api/v1/invt/addnewinvitemcategory",
 	API_CATEGORY_UPDATE = "/api/v1/invt/updateinvitemcategory/",

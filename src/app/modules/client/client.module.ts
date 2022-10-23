@@ -18,6 +18,7 @@ import { BranchAssignPathComponent } from './components/branches/branch_list_con
 import { BranchPathRoutesLogs } from './components/branches/branch_list_content/branch_pathroutes_logs/branch_pathroutes_logs.component';
 import{BranchsAssignPathRouteComponent} from './components/client-profile/client-datalist/branchs_assignPathRoute/branchs_assignPathRoute.component'
 import { ClientImportExcel } from './components/client-import-excel/client-import-excel.component';
+import { ItemsImportExcel } from './components/items-import-excel/items-import-excel.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ClientImportExcel } from './components/client-import-excel/client-impor
     BranchListContentComponent,
     BranchUpsertComponent
 	,BranchsAssignPathRouteComponent,
-	ClientImportExcel
+	ClientImportExcel,
+	ItemsImportExcel
   ],
   imports: [
     CommonModule,

@@ -15,6 +15,8 @@
 			<div class="col-md-8 d-flex justify-content-center align-items-center">
 				<label style="width:250px ;" for="formFile" class="form-label fontForInputs">ملف بيانات العملاء</label>
 				<input class="form-control" type="file" id="formFile" (change)="ReadClientExcel($event)">
+				<button style="width:100px ;"  (click)="Submit()" class="mx-2" mat-raised-button color="primary">حفظ</button>
+
 				<span style="width:200px ;" class="mx-12 fontForHints text-danger"> الملف من نوع اكسيل فقط <strong
 						class="text-dark mx-1">(.xlsx)</strong></span>
 			</div>
@@ -22,8 +24,6 @@
 		</div>
 
 	</mat-card>
-
-
 
 
 	<div class="example-container mat-elevation-z8">
@@ -37,7 +37,7 @@
 
 		<div class="example-table-container">
 
-			<table mat-table [dataSource]="data" multiTemplateDataRows class="mat-elevation-z8">
+			<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 				<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 					<th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
 						<span *ngSwitchCase="'id'"> الاى دي</span>
@@ -72,7 +72,7 @@
 
 					</th>
 
-					<td class="justify-content-end" mat-cell [ngSwitch]="column" *matCellDef="let element">
+					<td class="justify-content-end"  mat-cell [ngSwitch]="column" *matCellDef="let element">
 						<span class="badge badge-danger" *ngSwitchCase="'id'"> {{element[column]}}</span>
 						<span class="badge badge-danger" *ngSwitchCase="'name'"> {{element[column]}}</span>
 						<span class="badge badge-primary" *ngSwitchCase="'clientDataCode'"> {{element[column] }} </span>
@@ -216,8 +216,10 @@
 
 		</div>
 
-		<mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="5" aria-label="Select page of GitHub search results">
+		<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [pageSize]="5" aria-label="Select page of GitHub search results">
 		</mat-paginator>
+
+
 	</div>
 
 

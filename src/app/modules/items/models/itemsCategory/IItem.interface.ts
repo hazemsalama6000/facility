@@ -18,4 +18,5 @@ export interface IItem {
     itemCategory_Id: number;
     unit_Id: number;
     company_Id: number;
+	checked?:boolean;
 }
