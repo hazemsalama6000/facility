@@ -72,7 +72,7 @@
 
 					</th>
 
-					<td class="justify-content-end"  mat-cell [ngSwitch]="column" *matCellDef="let element">
+					<td style="background-color:beige ;" class="justify-content-end"  mat-cell [ngSwitch]="column" *matCellDef="let element">
 						<span class="badge badge-danger" *ngSwitchCase="'id'"> {{element[column]}}</span>
 						<span class="badge badge-danger" *ngSwitchCase="'name'"> {{element[column]}}</span>
 						<span class="badge badge-primary" *ngSwitchCase="'clientDataCode'"> {{element[column] }} </span>
