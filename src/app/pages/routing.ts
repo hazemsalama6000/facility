@@ -52,6 +52,11 @@ const Routing: Routes = [
 			import('../modules/InventoryTransaction/InventoryTransaction.module').then(m => m.InventoryTransactionModule)
 	},
 	{
+		path: 'InvRiffels',
+		loadChildren: () =>
+			import('../modules/inventoryriffels/inventoryriffels.module').then(m => m.InventoryriffelsModule)
+	},
+	{
 		path: 'items',
 		loadChildren: () => import('../modules/items/item.module').then(m => m.ItemModule)
 	},

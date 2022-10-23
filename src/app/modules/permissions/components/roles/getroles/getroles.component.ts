@@ -8,6 +8,7 @@ import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { ConfirmationDialogService } from 'src/app/shared-module/Components/confirm-dialog/confirmDialog.service';
 import { IRoles, IRolesProfile } from '../../../models/IRolesProfile.interface';
 import { RolesService } from '../../../services/roles.service';
+import { AddnewroleComponent } from '../addnewrole/addnewrole.component';
 import { UpdateroleComponent } from '../updaterole/updaterole.component';
 
 @Component({
@@ -57,6 +58,14 @@ export class GetrolesComponent implements OnInit {
       minWidth: '60vw',
       width: "60vw",
       position: { right: '0' }
+    })
+  }
+
+  openDialogAddRole() {
+    this.dialog.open(AddnewroleComponent, {
+      width: '80vw',
+      height: '100vh',
+      position: { right: '0' },
     })
   }
 

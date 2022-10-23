@@ -1,0 +1,23 @@
+<div class="row m-0 p-0">
+  <div class="col-md-12">
+    <mat-tab-group style="width: 100%;">
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <a class="nav-link text-hover-primary me-6 fontForInputs" style="color:rgb(71, 71, 71); font-weight: bold;" id="complainsLink"
+            routerLink="/InvTransaction/dailytransaction" routerLinkActive="text-primary">
+            <mat-icon>library_add</mat-icon>
+            الجرد
+          </a>
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+  <!--begin:::Tabs-->
+  <br>
+  <!--end:::Tabs-->
+  <!--begin:::Tab content-->
+  <router-outlet class="col-md-12"></router-outlet>
+  <!--end:::Tab content-->
+</div>
