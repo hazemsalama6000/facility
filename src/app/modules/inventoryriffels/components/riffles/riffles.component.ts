@@ -32,7 +32,7 @@ export class RifflesComponent implements OnInit {
   page = { PNum: 1, PSize: 5 }
   userData: IUserData;
   showbtn: number = 0;
-  items: IItemProfile[] = [];
+  // items: IItemProfile[] = [];
   item: IItemProfile = {} as IItemProfile;
   private unsubscribe: Subscription[] = [];
 

@@ -36,5 +36,6 @@ export interface IConvertedUnits {
     factor: number,
     quantityInExcutedUnit: number,
     isBaseUnit: boolean
+    riffleQuantity?:number;
 }
 
