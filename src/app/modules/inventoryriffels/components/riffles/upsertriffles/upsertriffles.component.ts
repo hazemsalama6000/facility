@@ -5,6 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
@@ -67,15 +68,31 @@ export class UpsertrifflesComponent implements OnInit {
     private rifflesService: RifflesService,
     private datePipe: DatePipe,
     private dialogRef: MatDialogRef<UpsertrifflesComponent>,
-    private toaster: toasterService
+    private toaster: toasterService,
+    private activatedRoute: ActivatedRoute
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
       this.fillDropdown();
     });
     this.unsubscribe.push(subuser);
-    this.dataSource = new MatTableDataSource<IRiffle>([]);
-    this.dataSource.paginator = this.paginator;
+
+    activatedRoute.queryParams.subscribe(res => {
+      if (res.id) {
+        rifflesService.getRiffleById(res.id).subscribe(res => {
+
+          this.dataSource = new MatTableDataSource<IRiffle>([]);
+          this.dataSource.paginator = this.paginator;
+
+        })
+        console.log('params!!!!!!!!!!')
+      } else {
+        this.dataSource = new MatTableDataSource<IRiffle>([]);
+        this.dataSource.paginator = this.paginator;
+      }
+    })
+
+
   }
 
   ngOnInit(): void { }
@@ -144,7 +161,7 @@ export class UpsertrifflesComponent implements OnInit {
             item.id = 0;
             item.itemData_Id = res.id;
             item.name = res.name;
-            item.code=res.code;
+            item.code = res.code;
             item.countingProcess_Id = 0;
 
             item.itemsConversion = [];
@@ -154,7 +171,7 @@ export class UpsertrifflesComponent implements OnInit {
               units.stockQuantity = c.quantityInExcutedUnit;
               units.itemConversion_Id = c.unitConversionId;
               units.countingItem_Id = 0;
-              units.unitName=c.convertedUnitName
+              units.unitName = c.convertedUnitName
               item.itemsConversion.push(units);
             });
 
@@ -205,7 +222,7 @@ export class UpsertrifflesComponent implements OnInit {
 
   }
 
-  createObject(items:IItemRiffles[]) {
+  createObject(items: IItemRiffles[]) {
     let riffle: IAddRiffles = {} as IAddRiffles;
 
     riffle.id = this.masterForm.get('id')?.value;
@@ -217,14 +234,14 @@ export class UpsertrifflesComponent implements OnInit {
     riffle.commmittee_Id = this.masterForm.get('commmittee_Id')?.value;
     riffle.finalSave = this.finalSave;
     riffle.items = [];
-   items.map(x => {
+    items.map(x => {
       let item: IItemAddRiffles = {} as IItemAddRiffles;
       item.id = x.id;
       item.itemData_Id = x.itemData_Id;
       item.countingProcess_Id = x.countingProcess_Id;
 
       item.itemsConversion = [];
-      x.itemsConversion.map(c  => {
+      x.itemsConversion.map(c => {
         let units: IUnitConversionAddRiffles = {} as IUnitConversionAddRiffles;
         units.id = c.id;
         units.countingQuantity = c.countingQuantity ?? 0;

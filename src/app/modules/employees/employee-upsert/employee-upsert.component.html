@@ -154,18 +154,16 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id"
-						name="state_Id" formControlName="state_Id" (change)="onItemSelectState($event)"
-						placeholder="{{'HR.INPUTS.STATE' | translate}}">
+					<ng-select class="customized" [items]="dropdownListDataForState" bindLabel="Name" bindValue="Id" name="state_Id"
+						formControlName="state_Id" (change)="onItemSelectState($event)" placeholder="{{'HR.INPUTS.STATE' | translate}}">
 					</ng-select>
 
 				</div>
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id"
-						name="Region_Id" id="Region_Id" formControlName="Region_Id"
-						placeholder="{{'HR.INPUTS.REGION' | translate}}">
+					<ng-select class="customized" [items]="dropdownListDataForRegion" bindLabel="Name" bindValue="Id" name="Region_Id" id="Region_Id"
+						formControlName="Region_Id" placeholder="{{'HR.INPUTS.REGION' | translate}}">
 					</ng-select>
 
 					<mat-hint>
@@ -182,7 +180,7 @@
 				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ الميلاد </mat-label>
-						<input matInput [max]="maxDate"  [matDatepicker]="picker1" formControlName="BirthDate">
+						<input matInput [max]="maxDate" [matDatepicker]="picker1" formControlName="BirthDate">
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
 						<mat-hint>
@@ -200,8 +198,7 @@
 
 					<mat-form-field appearance="outline">
 						<mat-label> الرقم القومى </mat-label>
-						<input matInput minlength="14" maxlength="14" placeholder="Placeholder" name="NId"
-							formControlName="NId">
+						<input matInput minlength="14" maxlength="14" placeholder="Placeholder" name="NId" formControlName="NId">
 						<mat-hint>
 							<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
@@ -238,8 +235,7 @@
 				<div class="col-md-2">
 					<mat-form-field appearance="outline">
 						<mat-label> {{'HR.INPUTS.PHONENUM' | translate}}</mat-label>
-						<input matInput placeholder="01147785..." minlength="3" maxlength="11" name="Mobile"
-							formControlName="Mobile">
+						<input matInput placeholder="01147785..." minlength="3" maxlength="11" name="Mobile" formControlName="Mobile">
 						<mat-hint>
 							<!--	<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
 										  validation: 'required',
@@ -272,9 +268,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForMilitary" bindLabel="Name" bindValue="Id"
-						name="MilitaryStatus_Id" id="MilitaryStatus_Id" formControlName="MilitaryStatus_Id"
-						placeholder="موقف التجنيد">
+					<ng-select class="customized" [items]="dropdownListDataForMilitary" bindLabel="Name" bindValue="Id" name="MilitaryStatus_Id"
+						id="MilitaryStatus_Id" formControlName="MilitaryStatus_Id" placeholder="موقف التجنيد">
 					</ng-select>
 
 					<mat-hint>
@@ -290,9 +285,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForMarital" bindLabel="Name" bindValue="Id"
-						name="MartialStatus_Id" id="MartialStatus_Id" formControlName="MartialStatus_Id"
-						placeholder="الحالة الاجتماعية">
+					<ng-select class="customized" [items]="dropdownListDataForMarital" bindLabel="Name" bindValue="Id" name="MartialStatus_Id"
+						id="MartialStatus_Id" formControlName="MartialStatus_Id" placeholder="الحالة الاجتماعية">
 					</ng-select>
 
 					<mat-hint>
@@ -385,7 +379,7 @@
 				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التخرج </mat-label>
-						<input matInput  [max]="maxDate"  [matDatepicker]="picker3" formControlName="GraduateDate">
+						<input matInput [max]="maxDate" [matDatepicker]="picker3" formControlName="GraduateDate">
 						<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
 						<mat-datepicker #picker3></mat-datepicker>
 						<mat-hint>
@@ -402,7 +396,7 @@
 				<div class="col-md-2">
 					<mat-form-field style="width:100%" color="accent" appearance="outline">
 						<mat-label> تاريخ التعيين </mat-label>
-						<input matInput [max]="maxDate"  [matDatepicker]="picker2" formControlName="HireDate">
+						<input matInput [max]="maxDate" [matDatepicker]="picker2" formControlName="HireDate">
 						<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 						<mat-datepicker #picker2></mat-datepicker>
 						<mat-hint>
@@ -440,9 +434,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForDepartment" bindLabel="Name"
-						bindValue="Id" name="Department_Id" formControlName="Department_Id"
-						(change)="onItemSelectDepartment($event)" placeholder="الادارة">
+					<ng-select class="customized" [items]="dropdownListDataForDepartment" bindLabel="Name" bindValue="Id" name="Department_Id"
+						formControlName="Department_Id" (change)="onItemSelectDepartment($event)" placeholder="الادارة">
 					</ng-select>
 
 				</div>
@@ -450,9 +443,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForSecion" bindLabel="Name" bindValue="Id"
-						name="Section_Id" formControlName="Section_Id" (change)="onItemSelectSection($event)"
-						placeholder="القسم">
+					<ng-select class="customized" [items]="dropdownListDataForSecion" bindLabel="Name" bindValue="Id" name="Section_Id"
+						formControlName="Section_Id" (change)="onItemSelectSection($event)" placeholder="القسم">
 					</ng-select>
 
 				</div>
@@ -460,8 +452,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForJobs" bindLabel="Name" bindValue="Id"
-						name="JobSection_Id" formControlName="JobSection_Id" placeholder="الوظيفة">
+					<ng-select class="customized" [items]="dropdownListDataForJobs" bindLabel="Name" bindValue="Id" name="JobSection_Id"
+						formControlName="JobSection_Id" placeholder="الوظيفة">
 					</ng-select>
 					<mat-hint>
 						<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -475,8 +467,8 @@
 
 				<div class="col-md-2">
 
-					<ng-select class="customized" [items]="dropdownListDataForStatus" bindLabel="Name" bindValue="Id"
-						name="Status_Id" formControlName="Status_Id" placeholder="الحالة">
+					<ng-select class="customized" [items]="dropdownListDataForStatus" bindLabel="Name" bindValue="Id" name="Status_Id"
+						formControlName="Status_Id" placeholder="الحالة">
 					</ng-select>
 
 				</div>
@@ -497,10 +489,8 @@
 
 	<mat-dialog-actions>
 		<div class="d-flex">
-			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true"
-				color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
-			<button mat-button [mat-dialog-close]="true" id="closeme"
-				cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
+			<button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true" color="primary">{{'HR.BUTTONS.SAVE'|translate}}</button>
+			<button mat-button [mat-dialog-close]="true" id="closeme" cdkFocusInitial>{{'HR.BUTTONS.CLOSE'|translate}}</button>
 		</div>
 	</mat-dialog-actions>
 </form>
