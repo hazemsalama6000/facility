@@ -43,7 +43,8 @@ export class UpsertitemComponent {
     nature: [null, Validators.compose([Validators.required])],
     itemCategory_Id: [null],
     unit_Id: [null, Validators.compose([Validators.required])],
-    company_Id: [0]
+    company_Id: [0],
+    index : [0]
   });
 
   constructor(
@@ -94,7 +95,7 @@ export class UpsertitemComponent {
       if (this.data.type == 'add') {
         this.ItemForm.patchValue({ Id: this.data.node.id, itemCategory_Id: this.data.node.id, company_Id: this.userData.companyId });
         console.log(this.ItemForm.value)
-        this.itemsCategoryService.AddItem(this.ItemForm.value).subscribe(
+        this.itemsCategoryService.AddItem([this.ItemForm.value]).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
             if (data.isSuccess) {
@@ -114,7 +115,7 @@ export class UpsertitemComponent {
         );
       } else {
 
-        this.itemsCategoryService.updateItem(this.ItemForm.value).subscribe(
+        this.itemsCategoryService.updateItem([this.ItemForm.value]).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
             if (data.isSuccess) {

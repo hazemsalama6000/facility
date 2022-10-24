@@ -56,7 +56,7 @@
             </label>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="addItem(node)" *ngIf="node.isLast==false" class="align-items-center d-flex justify-content-between px-2">
+              <button mat-menu-item (click)="addItem(node)" *ngIf="node.isLast==false||node.level==1" class="align-items-center d-flex justify-content-between px-2">
                 <mat-icon class="m-0">add</mat-icon><span>اضافة</span>
               </button>
               <button mat-menu-item (click)="updateItem(node)" *ngIf="node.level!=1" class="align-items-center d-flex justify-content-between px-2">
