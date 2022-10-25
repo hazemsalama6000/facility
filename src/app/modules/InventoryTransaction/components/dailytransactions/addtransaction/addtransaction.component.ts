@@ -35,7 +35,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   saveButtonClickedFlag: boolean = false;
   dropdownTransType: ITransType[] = [];
-  TransType: ITransType = { id: 0, name: '', transKind: true, sysName: '',isShowInList:false };
+  TransType: ITransType = { id: 0, name: '', transKind: true, sysName: '', isShowInList: false };
   dropdownStock: LookUpModel[] = [];
   dropdownEntityType: IEntityType[] = [];
   EntityType: IEntityType = { id: 0, name: '', sysName: '' };
@@ -122,17 +122,20 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     if (item) {
       this.TransType = item;
       this.invTransactionService.getEntityType(item.id).subscribe(res => {
-        this.dropdownEntityType = res;
-        this.EntityType = res.find(x => x.sysName == 'stock') ?? { sysName: '' } as IEntityType;
+        if (res && res.length > 0) {
+          this.dropdownEntityType = res;
+          this.EntityType = res.find(x => x.sysName == 'stock') ?? { sysName: '' } as IEntityType;
 
-        if (this.TransType.sysName == 'settlementinc' || this.TransType.sysName == 'settlementdec') {
-          this.masterForm.patchValue({
-            entityType_Id: this.EntityType.id ?? 0,
-            entity_Id: this.masterForm.get('stock_Id')?.value
-          })
-        }
+          if (this.TransType.sysName == 'settlementinc' || this.TransType.sysName == 'settlementdec') {
+            this.masterForm.patchValue({
+              entityType_Id: this.EntityType.id ?? 0,
+              entity_Id: this.masterForm.get('stock_Id')?.value
+            });
+
+          }
+        } else
+          this.toaster.openWarningSnackBar(' لايوجد نوع مستفيد لأجراءات التسويات (المخزن)  يرجى ضبط اعدادات المستفيدين من شاشة(اعدادات المستفيدين)')
       });
-
 
     } else
       this.TransType = {} as ITransType;

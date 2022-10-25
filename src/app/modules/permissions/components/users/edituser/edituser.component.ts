@@ -50,13 +50,13 @@ export class EdituserComponent implements OnInit {
     });
 
     this.unsubscribe.push(userdata);
-
+console.log(data)
     if (data.user) {
       this.userForm.patchValue({
         user_Id: data.user.id,
         email: data.user.email,
         phone: data.user.phoneNumber,
-        userType_Id: data.user.userTypeId,
+        userType_Id: data.user.userType_Id,
       })
 
     }

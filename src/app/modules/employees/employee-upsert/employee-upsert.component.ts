@@ -78,7 +78,7 @@ export class EmployeeUpsertComponent implements OnInit {
 		private jobService: JobService,
 		private service: EmployeeService,
 		private authService: AuthService, private datePipe: DatePipe
-		,public dateService:CheckDatesService
+		, public dateService: CheckDatesService
 	) {
 		//here get data of company and put data in the form
 	}
@@ -89,12 +89,12 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.isEdit = true;
 			this.EmployeeDataForm = this.fb.group({
 				id: [0],
-				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				Name: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: ['', Validators.compose([Validators.required])],
 				Region_Id: ['', Validators.compose([Validators.required])],
-				MilitaryStatus_Id: ['', ],
+				MilitaryStatus_Id: ['',],
 				Department_Id: ['', Validators.compose([Validators.required])],
 				Section_Id: ['', Validators.compose([Validators.required])],
 				Status_Id: [],
@@ -102,7 +102,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				JobSection_Id: ['', Validators.compose([Validators.required])],
 				MartialStatus_Id: ['',],
 				BirthDate: ['', Validators.compose([])],
-				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				University: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				Qualification: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				GraduateDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
@@ -120,7 +120,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.EmployeeDataForm = this.fb.group({
 				id: [0],
 				Image: [''],
-				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				Code: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(3), Validators.maxLength(100), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				Name: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
 				Address: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
 				state_Id: [, Validators.compose([Validators.required])],
@@ -132,7 +132,7 @@ export class EmployeeUpsertComponent implements OnInit {
 				JobSection_Id: [, Validators.compose([Validators.required])],
 				MartialStatus_Id: [],
 				BirthDate: [''],
-				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14),Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+				NId: ['', Validators.compose([Validators.required, Validators.min(0), Validators.minLength(14), Validators.maxLength(14), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 				University: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				Qualification: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(14)])],
 				GraduateDate: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
@@ -193,11 +193,8 @@ export class EmployeeUpsertComponent implements OnInit {
 					this.dropdownListDataForSecion = data.map(item => ({ Id: item.id, Name: item.name }) as LookUpModel)
 				}
 			);
-			this.jobService.getListData(this.employee.Section_Id).subscribe(
-				(data: any) => {
-					this.dropdownListDataForJobs = data.map((item: any) => ({ Id: item.id, Name: item.name }) as LookUpModel)
-				}
-			);
+
+			this.jobService.getListData(this.employee.Section_Id).subscribe((data: any) => { this.dropdownListDataForJobs = data; });
 
 			setTimeout(() => {
 				this.EmployeeDataForm.setValue(this.employee);
@@ -237,11 +234,7 @@ export class EmployeeUpsertComponent implements OnInit {
 
 
 	onItemSelectSection(item: any) {
-		this.jobService.getListData(item.Id).subscribe(
-			(data: any) => {
-				this.dropdownListDataForJobs = data.map((item: any) => ({ Id: item.id, Name: item.name }) as LookUpModel)
-			}
-		);
+		this.jobService.getListData(item.Id).subscribe((data: any) => this.dropdownListDataForJobs = data);
 	}
 
 
@@ -257,7 +250,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			state_Id: 0,
 			Region_Id: 0,
 			Image: '', Mobile: '0',
-			Email: '', BirthDate: '', Status_Id:0,
+			Email: '', BirthDate: '', Status_Id: 0,
 			NId: '', MilitaryStatus_Id: 0, MartialStatus_Id: 0,
 
 			University: '',
@@ -275,7 +268,7 @@ export class EmployeeUpsertComponent implements OnInit {
 			this.service.getEmployeeByIdForUpdate(this.data.employeeId).subscribe(
 				(data: IEmployeeForm) => {
 					this.employee = data;
-					
+
 					console.log(this.employee);
 
 					this.isEdit = true;
@@ -321,19 +314,19 @@ export class EmployeeUpsertComponent implements OnInit {
 				fd.append('Region_Id', model.Region_Id);
 				fd.append('Mobile', model.Mobile);
 				fd.append('Email', model.Email);
-				fd.append('BirthDate', model.BirthDate==null?'':model.BirthDate);
+				fd.append('BirthDate', model.BirthDate == null ? '' : model.BirthDate);
 
 				fd.append('NId', model.NId);
-				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id==null?'':model.MilitaryStatus_Id);
-				fd.append('Status_Id', model.Status_Id==null?'':model.Status_Id);
+				fd.append('MilitaryStatus_Id', model.MilitaryStatus_Id == null ? '' : model.MilitaryStatus_Id);
+				fd.append('Status_Id', model.Status_Id == null ? '' : model.Status_Id);
 
-				fd.append('MartialStatus_Id', model.MartialStatus_Id==null?'':model.MartialStatus_Id);
+				fd.append('MartialStatus_Id', model.MartialStatus_Id == null ? '' : model.MartialStatus_Id);
 				fd.append('University', model.University);
 
 				fd.append('Qualification', model.Qualification);
-				fd.append('GraduateDate', model.GraduateDate==null?'':model.GraduateDate);
+				fd.append('GraduateDate', model.GraduateDate == null ? '' : model.GraduateDate);
 				fd.append('JobSection_Id', model.JobSection_Id);
-				fd.append('HireDate', model.HireDate==null?'':model.HireDate);
+				fd.append('HireDate', model.HireDate == null ? '' : model.HireDate);
 				fd.append('Branch_Id', this.data.branch_Id.toString());
 				fd.append('IsTechnician', 'false');
 

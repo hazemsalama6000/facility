@@ -419,7 +419,7 @@ app-managesidemenu mat-tree-node[aria-level="4"] {
 
 app-treepermission mat-tree-node[aria-level="4"] {
 	display: inline-flex;
-	margin-inline-start: 40px !important;
+	// margin-inline-start: 40px !important;
 }
 
 .mat-checkbox-label {
@@ -477,15 +477,18 @@ app-internaldivisiontree .cdk-drag-animating {
 
 
 
-app-inventorytransaction .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+app-inventorytransaction .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination, 
+app-inventoryriffels .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
 	width: 7%;
 }
 
-app-inventorytransaction .mat-tab-label {
+app-inventorytransaction .mat-tab-label ,
+app-inventoryriffels .mat-tab-label{
 	padding: 0 !important;
 }
 
-app-inventorytransaction .mat-tab-label-content>a {
+app-inventorytransaction .mat-tab-label-content>a
+app-inventoryriffels .mat-tab-label-content>a {
 	margin: 0 !important;
 }
 
@@ -546,7 +549,7 @@ app-addtransaction mat-spinner svg {
 	width: 30px !important;
 }
 
- .mat-menu-content{
+.mat-menu-content {
 	width: 250px;
 }
 

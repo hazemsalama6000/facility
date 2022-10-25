@@ -2,7 +2,7 @@ export enum HttpPaths {
 
 	// Geographic Data APIs
 
-	API_BRANCH_URL = "/api/v1/shared/listofbranches",
+	API_BRANCH_URL = "/api/v1/shared/listofcompanybranches",
 	API_AREA_URL = "/api/v1/shared/listofareas",
 	API_BLOCK_URL = "/api/v1/shared/listofblocks",
 
@@ -438,6 +438,10 @@ export enum HttpPaths {
 	API_GET_ENTITY_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/getentitiesperstocktranstype',
 	API_UPDATE_ENTITY_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/manageentitiesperstocktranstype',
 	API_GET_PRICE = '/api/v1/invt/getavgpriceforitem?',
+
+	API_LIST_OF_COMMMITTEE = '/api/v1/Committee/listofcommittee',
+	API_ADD_COUNTING_PROCESS = '/api/v1/invt/addstockcountingprocess',
+
 
 
 }

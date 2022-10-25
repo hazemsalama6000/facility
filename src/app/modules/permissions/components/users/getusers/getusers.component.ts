@@ -7,9 +7,7 @@ import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { IUsers } from '../../../models/IRolesProfile.interface';
-import { IUserList } from '../../../models/IUserLList.interface';
 import { UsersService } from '../../../services/users.service';
-import { AddnewuserComponent } from '../addnewuser/addnewuser.component';
 import { AssignrolestousersComponent } from '../assignrolestousers/assignrolestousers.component';
 import { EdituserComponent } from '../edituser/edituser.component';
 

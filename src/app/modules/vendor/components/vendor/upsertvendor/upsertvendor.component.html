@@ -319,6 +319,7 @@
     </div>
 
     <div class="row mx-0">
+      
 
       <div class="d-flex justify-content-start align-content-center mt-3">
         <mat-icon class="text-primary">receipt</mat-icon>
@@ -331,7 +332,7 @@
       <div class="col-md-2">
         <mat-form-field appearance="outline">
           <mat-label>{{'HR.INPUTS.COMMERCIALRECORD' | translate}} </mat-label>
-          <input matInput placeholder="" name="commercialRecord" formControlName="commercialRecord">
+          <input matInput  type="number" placeholder="" name="commercialRecord" formControlName="commercialRecord">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'required',
@@ -347,7 +348,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'maxlength',
-                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , max:50},
+                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.COMMERCIALRECORD' | translate , max:6},
                       control: vendorForm.controls['commercialRecord']
                      }"></ng-container>
 
@@ -366,7 +367,7 @@
       <div class="col-md-2">
         <mat-form-field appearance="outline">
           <mat-label>{{'HR.INPUTS.TAXCARDNO' | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="taxFileNum" formControlName="taxFileNum">
+          <input matInput  type="number" placeholder="" name="taxFileNum" formControlName="taxFileNum">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'required',
@@ -382,7 +383,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'maxlength',
-                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , max:50},
+                      message: 'AUTH.VALIDATION.MAX_LENGTH' | translate : {name:'HR.INPUTS.TAXCARDNO' | translate , max:12},
                       control: vendorForm.controls['taxFileNum']
                      }"></ng-container>
 
@@ -403,7 +404,7 @@
       <div class="col-md-2" *ngIf="vendorForm.controls['isWithHoldTaxActive'].value">
         <mat-form-field appearance="outline">
           <mat-label>{{'HR.INPUTS.WTAX' | translate}} </mat-label>
-          <input matInput placeholder="Placeholder" name="withHoldTax" formControlName="withHoldTax">
+          <input matInput type="number" placeholder="" name="withHoldTax" formControlName="withHoldTax">
           <mat-hint>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -414,7 +415,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'max',
-                  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , max:100},
+                  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.WTAX' | translate , max:3},
                   control: vendorForm.controls['withHoldTax']
                  }"></ng-container>
 
@@ -439,7 +440,7 @@
       <div class="col-md-2" *ngIf="vendorForm.controls['isVatTaxActive'].value">
         <mat-form-field appearance="outline">
           <mat-label>{{'HR.INPUTS.VATTAX' | translate}} </mat-label>
-          <input matInput placeholder="" name="vatTax" formControlName="vatTax">
+          <input matInput  type="number" placeholder="" name="vatTax" formControlName="vatTax">
           <mat-hint>
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -450,7 +451,7 @@
 
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                       validation: 'max',
-                      message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.VATTAX' | translate , max:100},
+                      message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'HR.INPUTS.VATTAX' | translate , max:3},
                       control: vendorForm.controls['vatTax']
                      }"></ng-container>
 

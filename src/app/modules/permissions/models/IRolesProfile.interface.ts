@@ -19,7 +19,7 @@ export interface IUsers {
     code: string;
     email: string;
     phoneNumber:string;
-    userTypeId:number;
+    userType_Id:number;
     section: string;
     isActive: boolean;
     userName:string;
