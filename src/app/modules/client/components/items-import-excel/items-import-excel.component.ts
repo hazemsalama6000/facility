@@ -42,7 +42,7 @@ export class ItemsImportExcel implements OnInit {
 	CategorySelected: LookUpModel = {} as LookUpModel;
 	unitSelected: LookUpModel = {} as LookUpModel;
 	NatureSelected: any = {};
-
+	companyId = 0;
 	displayedColumns: string[] = ['id', 'barCode', 'code',
 		'name', 'hasVatTax', 'vatTaxValue', 'quantity', 'description', 'hasExpireDate', 'expirationDate'
 		,
@@ -65,7 +65,7 @@ export class ItemsImportExcel implements OnInit {
 
 	ngOnInit(): void {
 		this.auth.userData.subscribe((data: IUserData) => {
-
+			this.companyId = data.companyId;
 			this.itemsCategoryService.getCategoryTypes(data.companyId).subscribe((res: LookUpModel[]) => this.dropdownCategoryData = res, (err) => console.log(err));
 			this.unitService.getLookUpUnits(data.companyId).subscribe((res: LookUpModel[]) => this.dropdownUnitData = res, (err) => console.log(err));
 			this.dropdownNatureData = [{ name: "أصل", value: true }, { name: "مستهلك", value: false }];
@@ -131,9 +131,39 @@ export class ItemsImportExcel implements OnInit {
 			this.ExcelImportData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
 
 			this.data = this.ExcelImportData as IItem[];
-			
+
 			for (let i = 0; i < this.data.length; i++) {
-				this.data[i].id = i;
+				let message: string = "";
+				this.data[i].index = i;
+				this.data[i].barCode = this.data[i].barCode?.toString();
+				this.data[i].code = this.data[i].code?.toString();
+				this.data[i].company_Id = this.companyId;
+
+				if (this.data[i].code == undefined || this.data[i].code == "" || this.data[i].code.length < 4) {
+					message += ",  الكود مطلوب والطول اكبر من 4 حروف";
+				}
+				if (this.data[i].name == undefined || this.data[i].name == "") {
+					message += ", الاسم مطلوب";
+				}
+				if (this.data[i].unit_Id == undefined || this.data[i].unit_Id == 0) {
+					message += ", الوحدة الصغرى";
+				}
+				if (this.data[i].nature == undefined) {
+					message += ", الطبيعة مطلوب";
+				}
+				if (this.data[i].maxLimit == undefined) {
+					message += " , اكبر كمية مطلوب";
+				}
+				if (this.data[i].minLimit == undefined) {
+					message += ", اصغر كمية سمطلوب";
+				}
+				if (this.data[i].orderingLimit == undefined) {
+					message += ", الحد الادنى للطلب مطلوب";
+				}
+
+
+				this.data[i].errorMessage = message != "" ? message : undefined;
+
 			}
 
 			this.dataSource = new MatTableDataSource<IItem>(this.data);
@@ -157,7 +187,15 @@ export class ItemsImportExcel implements OnInit {
 			},
 			(error: any) => {
 				console.log(error);
-				this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+
+				if (typeof error === 'object') {
+					for (var i = 0; i < error.data.length; i++) {
+						this.data[error.data[i].index].errorMessage = error.data[i].message + ' , ';
+					}
+				}
+				else {
+					this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+				}
 			}
 		);
 

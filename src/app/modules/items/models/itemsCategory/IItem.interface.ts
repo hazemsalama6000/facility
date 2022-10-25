@@ -20,4 +20,6 @@ export interface IItem {
     company_Id: number;
 	checked?:boolean;
 	errorMessage?:string;
+	index?:number;
+
 }

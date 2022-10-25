@@ -40,11 +40,11 @@ export interface PeriodicElement {
 
 export class ClientImportExcel implements OnInit {
 	dropdownCategoryData: any = [];
-	dropdownListDataForRegion:any=[];
-	dropdownPathRouteData:any=[];
-	
-	clientCategorySelected: LookUpModel={} as LookUpModel;
-	dataSource :any;
+	dropdownListDataForRegion: any = [];
+	dropdownPathRouteData: any = [];
+
+	clientCategorySelected: LookUpModel = {} as LookUpModel;
+	dataSource: any;
 	columnsToDisplay = [
 		'id',
 		'name',
@@ -69,15 +69,16 @@ export class ClientImportExcel implements OnInit {
 	resultsLength = 0;
 	isLoadingResults = true;
 	isRateLimitReached = false;
-
+	companyBranchId = 0;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(private service: ClientService, private auth: AuthService,
-		private ref: ChangeDetectorRef,private regionService: RegionService,private pathrouteService: PathrouteService,	private toaster: toasterService) { }
+		private ref: ChangeDetectorRef, private regionService: RegionService, private pathrouteService: PathrouteService, private toaster: toasterService) { }
 
 	ngOnInit(): void {
 		this.auth.userData.subscribe((data: IUserData) => {
+			this.companyBranchId = data.branchId;
 			this.service.getClientCategories(data.companyId).subscribe(
 				(data: LookUpModel[]) => {
 					this.dropdownCategoryData = data;
@@ -100,24 +101,24 @@ export class ClientImportExcel implements OnInit {
 		console.log(this.clientCategorySelected);
 	}
 
-	implementCategory(){
-		let categoryId=this.clientCategorySelected.Id;
-		this.data.filter(a=>a.checked==true).forEach(function (data) {
+	implementCategory() {
+		let categoryId = this.clientCategorySelected.Id;
+		this.data.filter(a => a.checked == true).forEach(function (data) {
 			data.clientCategory_Id = categoryId;
 		});
 	}
 
-	implementPathRouteId(clientId:number){
+	implementPathRouteId(clientId: number) {
 
-		let pathRouteId=this.data.find(a=>a.id==clientId)?.pathRouteId
-		this.data.find(a=>a.id==clientId)?.clientDataBranches.filter(a=>a.checked==true).forEach(function (data) {
+		let pathRouteId = this.data.find(a => a.id == clientId)?.pathRouteId
+		this.data.find(a => a.id == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.pathRoute_Id = pathRouteId;
 		});
 	}
 
-	implementRegionId(clientId:number){
-		let regionId=this.data.find(a=>a.id==clientId)?.regionId!;
-		this.data.find(a=>a.id==clientId)?.clientDataBranches.filter(a=>a.checked==true).forEach(function (data) {
+	implementRegionId(clientId: number) {
+		let regionId = this.data.find(a => a.id == clientId)?.regionId!;
+		this.data.find(a => a.id == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.region_Id = regionId;
 		});
 	}
@@ -130,9 +131,9 @@ export class ClientImportExcel implements OnInit {
 
 	}
 
-	setAllForClientBranchPathRoute(completed: boolean,clientId:number) {
+	setAllForClientBranchPathRoute(completed: boolean, clientId: number) {
 
-		this.data.find(a=>a.id==clientId)?.clientDataBranches.forEach(function (data) {
+		this.data.find(a => a.id == clientId)?.clientDataBranches.forEach(function (data) {
 			data.checked = completed;
 		});
 
@@ -153,11 +154,89 @@ export class ClientImportExcel implements OnInit {
 			this.ExcelImportData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
 			this.ExcelImportBranchData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[1]]);
 
+			for (let i = 0; i < this.ExcelImportBranchData.length; i++) {
+				this.ExcelImportBranchData[i].telephone = this.ExcelImportBranchData[i].telephone?.toString();
+				this.ExcelImportBranchData[i].mobile = this.ExcelImportBranchData[i].mobile?.toString();
+				this.ExcelImportBranchData[i].secondMobile = this.ExcelImportBranchData[i].secondMobile?.toString();
+				this.ExcelImportBranchData[i].managerMobile = this.ExcelImportBranchData[i].managerMobile?.toString();
+				this.ExcelImportBranchData[i].clientBranchCode = this.ExcelImportBranchData[i].clientBranchCode?.toString();
+				this.ExcelImportBranchData[i].name = this.ExcelImportBranchData[i].name?.toString();
+				this.ExcelImportBranchData[i].address = this.ExcelImportBranchData[i].address?.toString();
+				this.ExcelImportBranchData[i].responsibleName = this.ExcelImportBranchData[i].responsibleName?.toString();
+				this.ExcelImportBranchData[i].commercialName = this.ExcelImportBranchData[i].commercialName?.toString();
+				//this.ExcelImportBranchData[i].message = "this.data[i].activity?.toString()"; 
+				this.ExcelImportBranchData[i].index = i;
+
+				let message: string = "";
+
+				if (this.ExcelImportBranchData[i].clientBranchCode == undefined) {
+					message += ", الكود مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].name == undefined) {
+					message += ", الاسم مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].telephone == undefined) {
+					message += ",  التليفون مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].mobile == undefined) {
+					message += ",   الموبيل الفرع مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].secondMobile == undefined) {
+					message += ",   الموبيل الفرع 2 مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].managerMobile == undefined) {
+					message += ",   الموبيل مسؤول المبيعات 2 مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].responsibleName == undefined) {
+					message += " ,   اسم المسؤول مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].address == undefined) {
+					message += ", العنوان مطلوب";
+				}
+
+
+				this.ExcelImportBranchData[i].message = message != "" ? message : undefined;
+
+			}
+
 			this.data = this.ExcelImportData;
 
 			for (let i = 0; i < this.data.length; i++) {
-				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].id)
+				this.data[i].clientDataCode = this.data[i].clientDataCode?.toString();
+				this.data[i].commercialRecord = this.data[i].commercialRecord?.toString();
+				this.data[i].taxCardNum = this.data[i].taxCardNum?.toString();
+				this.data[i].vatTaxNum = this.data[i].vatTaxNum?.toString();
+				this.data[i].name = this.data[i].name?.toString();
+				this.data[i].activity = this.data[i].activity?.toString();
+				this.data[i].index = i;
+				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].id);
+				this.data[i].companyBranch_Id = this.companyBranchId;
+
+				this.data[i].iserrorInBranch = this.data[i].clientDataBranches.filter(a => a.message != undefined).length > 0 ? true : false;
+
+				let message: string = "";
+
+				if (this.data[i].clientDataCode == undefined || this.data[i].clientDataCode == "") {
+					message += ", الكود مطلوب";
+				}
+				if (this.data[i].name == undefined) {
+					message += ", الاسم مطلوب";
+				}
+				if (this.data[i].activity == undefined) {
+					message += ",  النشاط مطلوب";
+				}
+				if (this.data[i].commercialRecord == undefined) {
+					message += ",  السجل التجارى مطلوب";
+				}
+				if (this.data[i].taxCardNum == undefined) {
+					message += " ,  رقم تسجيل ض.ق مطلوب";
+				}
+
+				this.data[i].message = message != "" ? message : undefined;
+
 			}
+
+			console.log(this.data);
 
 			this.dataSource = new MatTableDataSource<IClientUpsertModel>(this.data);
 			this.dataSource.paginator = this.paginator;
@@ -168,28 +247,35 @@ export class ClientImportExcel implements OnInit {
 
 
 
-	
 	Submit() {
 
-				this.service.PostClientData(this.data).
-					subscribe(
-						(data: HttpReponseModel) => {
+		this.service.PostClientData(this.data).
+			subscribe(
+				(data: HttpReponseModel) => {
 
-							if (data.isSuccess) {
-								this.toaster.openSuccessSnackBar(data.message);
-								// console.log(data.message);
-								document.getElementById("closeme")?.click();
-								this.service.bSubject.next(true);
-							}
-							else if (data.isExists) {
-								this.toaster.openWarningSnackBar(data.message);
-							}
-						},
-						(error: any) => {
-							console.log(error);
-							this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+					if (data.isSuccess) {
+						this.toaster.openSuccessSnackBar(data.message);
+						// console.log(data.message);
+						document.getElementById("closeme")?.click();
+						this.service.bSubject.next(true);
+					}
+					else if (data.isExists) {
+						this.toaster.openWarningSnackBar(data.message);
+					}
+				},
+				(error: any) => {
+					console.log(error);
+					if (typeof error === 'object') {
+						for (var i = 0; i < error.data.length; i++) {
+							this.data[error.data[i].index].message = error.data[i].message
 						}
-					);
+					}
+					else {
+						this.toaster.openWarningSnackBar(error.toString().replace("Error:", ""));
+					}
+
+				}
+			);
 
 	}
 
