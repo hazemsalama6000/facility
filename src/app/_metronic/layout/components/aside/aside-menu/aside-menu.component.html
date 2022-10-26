@@ -1,4 +1,4 @@
-<!-- <ng-container *ngFor="let item of (userData.menu[2]?.childNode)??[]">
+<ng-container *ngFor="let item of menu"> 
 	<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
 		<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
 				<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
@@ -45,10 +45,10 @@
 		</ng-container>
 	</ng-container>
 
-</ng-container> -->
+</ng-container>
 
 
-<div class="menu-item">
+<!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
 			<mat-icon style="font-size:25px;">home</mat-icon>
 		</span><span class="menu-title"> الرئيسية </span>
@@ -380,12 +380,12 @@
 		</div>
 
 	</div>
-</div>
+</div> 
 
 
 
 
-<!-- <div class="menu-item">
+<div class="menu-item">
 	<a class="menu-link without-sub" routerLink="declarations/carexpenses" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>

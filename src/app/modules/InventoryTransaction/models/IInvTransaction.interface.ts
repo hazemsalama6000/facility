@@ -48,6 +48,8 @@ export interface IInvTransactionDetails {
     receivedNotes: string,
 
     unitConversions: IConvertedUnits[],
-    convertedUnits: IConvertedUnits
+    convertedUnits: IConvertedUnits,
+
+    btnEdit?:boolean
 }
 

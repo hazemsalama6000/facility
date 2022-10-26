@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +18,7 @@ import { ItemService } from 'src/app/modules/items/services/item.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { IAddRiffles, IItemAddRiffles, IUnitConversionAddRiffles } from '../../../models/IAddRiffles.interface';
 import { IItemRiffles, IRiffle, IUnitConversionRiffles } from '../../../models/IRiffle.interface';
+import { IRiffles } from '../../../models/IRiffles.interface';
 import { RifflesService } from '../../../services/riffles.service';
 
 @Component({
@@ -69,7 +70,8 @@ export class UpsertrifflesComponent implements OnInit {
     private datePipe: DatePipe,
     private dialogRef: MatDialogRef<UpsertrifflesComponent>,
     private toaster: toasterService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: {model:IRiffles}
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
@@ -77,21 +79,24 @@ export class UpsertrifflesComponent implements OnInit {
     });
     this.unsubscribe.push(subuser);
 
-    activatedRoute.queryParams.subscribe(res => {
-      if (res.id) {
-        rifflesService.getRiffleById(res.id).subscribe(res => {
-
-          this.dataSource = new MatTableDataSource<IRiffle>([]);
+      if (data.model) {
+        rifflesService.getRiffleById(data.model.id).subscribe(res => {
+          this.masterForm.patchValue({
+            id: res.id,
+            number: res.number,
+            date: res.date,
+            stock_Id: res.stock_Id,
+            commmittee_Id: res.commmittee_Id,
+            financialYear_Id: res.financialYear_Id,
+            isCountingPartial: res.isCountingPartial
+          })
+          this.dataSource = new MatTableDataSource<IItemRiffles>(res.items);
           this.dataSource.paginator = this.paginator;
-
         })
-        console.log('params!!!!!!!!!!')
       } else {
-        this.dataSource = new MatTableDataSource<IRiffle>([]);
+        this.dataSource = new MatTableDataSource<IItemRiffles>([]);
         this.dataSource.paginator = this.paginator;
       }
-    })
-
 
   }
 
@@ -215,7 +220,7 @@ export class UpsertrifflesComponent implements OnInit {
         (error: any) => {
           this.loading = false;
           console.log(error)
-          this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+          this.toaster.openWarningSnackBar(error.message);
         }
       );
     }

@@ -11,6 +11,7 @@ export interface ISeachTransaction {
     CarId?: number;
     ExternalVendorId?: number;
     TransferStockId?: number;
+    stockEmployeeId:number;
     CompanyBranchId: number;
     PageNumber: number;
     PageSize: number;

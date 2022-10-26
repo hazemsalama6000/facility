@@ -115,7 +115,7 @@ export class UpsertitemComponent {
         );
       } else {
 
-        this.itemsCategoryService.updateItem([this.ItemForm.value]).subscribe(
+        this.itemsCategoryService.updateItem(this.ItemForm.value).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
             if (data.isSuccess) {

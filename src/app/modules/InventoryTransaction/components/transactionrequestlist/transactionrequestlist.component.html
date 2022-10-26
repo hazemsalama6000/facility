@@ -168,7 +168,7 @@
                   </ng-select>
                 </td> 
                 <td> {{x.quantity|number : '1.0-2'}} </td>
-                <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
+                <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (keyup)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
                 <td> {{x.remainingQuantity|number : '1.0-2'}} </td>
                 <td>
                   <input type="text" class="form-control p-1" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
@@ -177,7 +177,7 @@
             </table>
 
             <div class="d-inline-flex">
-              <button (click)="saveTransaction(element)" mat-raised-button color="primary" class="mx-md-1 mb-2"
+              <button [disabled]="element.btnEdit" (click)="saveTransaction(element)" mat-raised-button color="primary" class="mx-md-1 mb-2"
                 aria-label="Example icon button with a filter list icon">{{'TRANSACTIONS.BUTTONS.ADD'|translate}}
               </button>
             </div>

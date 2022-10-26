@@ -114,14 +114,14 @@
                                                     }"></ng-container>
 
                                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                                                        validation: 'min',
-                                                        message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , min:3},
+                                                        validation: 'minlength',
+                                                        message: 'AUTH.VALIDATION.MIN_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , min:6},
                                                         control: userDataForm.controls['userName']
                                                       }"></ng-container>
 
                                 <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                                                          validation: 'max',
-                                                          message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , max:100},
+                                                          validation: 'maxlength',
+                                                          message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'PERMISSIONS.TITLES.FULLNAME' | translate , max:150},
                                                           control: userDataForm.controls['userName']
                                                        }"></ng-container>
 

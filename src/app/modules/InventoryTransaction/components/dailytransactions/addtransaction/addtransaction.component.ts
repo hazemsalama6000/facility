@@ -115,7 +115,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
   fillDropdown() {
     this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.isShowInList); });
-    this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
   }
 
   onSelectTransType(item: ITransType) {
@@ -206,7 +206,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
       this.detailsForm.get('quantity')?.enable();
 
       this.autoCompleteItems = []
-      if (text.length > 3) {
+      if (text.length > 2) {
         this.itemLoader = true
         this.itemService.getLookUpItemsByCode(this.userData.companyId, text).subscribe(res => {
           if (res)
@@ -246,8 +246,6 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   onSelectUnit(item: IConvertedUnits) {
-    console.log(item)
-    console.log(this.detailsForm.value)
     this.convertedUnit = item;
   }
 
