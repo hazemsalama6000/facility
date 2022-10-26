@@ -40,7 +40,7 @@
 			<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 				<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 					<th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-						<span *ngSwitchCase="'id'"> الاى دي</span>
+						<span *ngSwitchCase="'index'"> الاى دي</span>
 						<span *ngSwitchCase="'name'"> الاسم</span>
 						<span *ngSwitchCase="'clientDataCode'"> الكود </span>
 						<span *ngSwitchCase="'clientCommercialName'"> الاسم التجارى </span>
@@ -73,7 +73,7 @@
 					</th>
 
 					<td style="background-color:beige ;" class="justify-content-end"  mat-cell [ngSwitch]="column" *matCellDef="let element">
-						<span class="badge badge-danger" *ngSwitchCase="'id'"> {{element[column]}}</span>
+						<span class="badge badge-danger" *ngSwitchCase="'index'"> {{element[column]}}</span>
 						<span class="badge badge-danger" *ngSwitchCase="'name'"> {{element[column]}}</span>
 						<span class="badge badge-primary" *ngSwitchCase="'clientDataCode'"> {{element[column] }} </span>
 						<span *ngSwitchCase="'clientCommercialName'"> {{element[column] }} </span>
@@ -132,16 +132,16 @@
 						[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
 							<table class="table mt-10" style="border:2px solid rgb(187, 187, 187);">
-								<tr>
-									<th class="trpadding">كود العميل </th>
-									<th> الاسم</th>
-									<th> كود</th>
-									<th> العنوان </th>
-									<th>تليفون </th>
-									<th>موبيل </th>
-									<th> موبيل 2</th>
-									<th>موبيل المسؤول </th>
-									<th>
+								<tr >
+									<th class="trpadding paddingZero">كود العميل </th>
+									<th  class="paddingZero" > الاسم</th>
+									<th class="paddingZero" > كود</th>
+									<th class="paddingZero" > العنوان </th>
+									<th class="paddingZero" >تليفون </th>
+									<th class="paddingZero" >موبيل </th>
+									<th class="paddingZero" > موبيل 2</th>
+									<th class="paddingZero" >موبيل المسؤول </th>
+									<th class="paddingZero" >
 										<span class="d-flex">
 											<ng-select style="width:150px;" class="transdrop"
 												[items]="dropdownListDataForRegion" [(ngModel)]="element.regionId"
@@ -150,7 +150,7 @@
 											</ng-select>
 
 											<button class="mx-1"  style="width: 30px;height:30px"  matTooltip="تطبيق المنطقة" mat-mini-fab
-												color="primary" (click)="implementRegionId(element.id)"
+												color="primary" (click)="implementRegionId(element.index)"
 												aria-label="Example icon button with a menu icon">
 												<mat-icon style="font-size:15px ;"><span class="material-symbols-outlined">done_all</span>
 												</mat-icon>
@@ -158,14 +158,14 @@
 										</span>
 
 									</th>
-									<th> اسم المسؤول</th>
-									<th> الاسم التجارى </th>
-									<th> تم الانتهاء</th>
-									<th> نشط</th>
-									<th> الفنى</th>
-									<th> x</th>
-									<th> y</th>
-									<th>
+									<th class="paddingZero" > اسم المسؤول</th>
+									<th class="paddingZero" > الاسم التجارى </th>
+									<th class="paddingZero" > تم الانتهاء</th>
+									<th class="paddingZero" > نشط</th>
+									<th class="paddingZero" > الفنى</th>
+									<th class="paddingZero" > x</th>
+									<th class="paddingZero" > y</th>
+									<th class="paddingZero" >
 										<span class="d-flex">
 											<ng-select style="width:150px ;" class="transdrop"
 												[items]="dropdownPathRouteData" bindLabel="Name"
@@ -174,18 +174,18 @@
 											</ng-select>
 											<button class="mx-1" matTooltip="تطبيق خط السير" mat-mini-fab style="width: 30px;height:30px"
 											 color="warn"
-												(click)="implementPathRouteId(element.id)"
+												(click)="implementPathRouteId(element.index)"
 												aria-label="Example icon button with a menu icon">
 												<mat-icon style="font-size:15px ;"><span class="material-symbols-outlined">done_all</span>
 												</mat-icon>
 											</button>
 										</span>
 									</th>
-									<th> فرع رئيسى</th>
-									<th>
+									<th class="paddingZero" > فرع رئيسى</th>
+									<th class="paddingZero" >
 										<span class="example-list-section">
 											<mat-checkbox  class="example-margin customcheck" [color]="'primary'"
-												(change)="setAllForClientBranchPathRoute($event.checked,element.id)">
+												(change)="setAllForClientBranchPathRoute($event.checked,element.index)">
 											</mat-checkbox>
 										</span>
 									</th>

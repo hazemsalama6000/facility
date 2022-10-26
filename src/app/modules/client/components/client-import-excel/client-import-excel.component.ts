@@ -46,7 +46,7 @@ export class ClientImportExcel implements OnInit {
 	clientCategorySelected: LookUpModel = {} as LookUpModel;
 	dataSource: any;
 	columnsToDisplay = [
-		'id',
+		'index',
 		'name',
 		'clientDataCode',
 		'clientCommercialName',
@@ -110,15 +110,15 @@ export class ClientImportExcel implements OnInit {
 
 	implementPathRouteId(clientId: number) {
 
-		let pathRouteId = this.data.find(a => a.id == clientId)?.pathRouteId
-		this.data.find(a => a.id == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
+		let pathRouteId = this.data.find(a => a.index == clientId)?.pathRouteId
+		this.data.find(a => a.index == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.pathRoute_Id = pathRouteId;
 		});
 	}
 
 	implementRegionId(clientId: number) {
-		let regionId = this.data.find(a => a.id == clientId)?.regionId!;
-		this.data.find(a => a.id == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
+		let regionId = this.data.find(a => a.index == clientId)?.regionId!;
+		this.data.find(a => a.index == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.region_Id = regionId;
 		});
 	}
@@ -133,7 +133,7 @@ export class ClientImportExcel implements OnInit {
 
 	setAllForClientBranchPathRoute(completed: boolean, clientId: number) {
 
-		this.data.find(a => a.id == clientId)?.clientDataBranches.forEach(function (data) {
+		this.data.find(a => a.index == clientId)?.clientDataBranches.forEach(function (data) {
 			data.checked = completed;
 		});
 
@@ -165,7 +165,6 @@ export class ClientImportExcel implements OnInit {
 				this.ExcelImportBranchData[i].responsibleName = this.ExcelImportBranchData[i].responsibleName?.toString();
 				this.ExcelImportBranchData[i].commercialName = this.ExcelImportBranchData[i].commercialName?.toString();
 				//this.ExcelImportBranchData[i].message = "this.data[i].activity?.toString()"; 
-				this.ExcelImportBranchData[i].index = i;
 
 				let message: string = "";
 
@@ -208,9 +207,13 @@ export class ClientImportExcel implements OnInit {
 				this.data[i].vatTaxNum = this.data[i].vatTaxNum?.toString();
 				this.data[i].name = this.data[i].name?.toString();
 				this.data[i].activity = this.data[i].activity?.toString();
-				this.data[i].index = i;
-				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].id);
+				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].index);
 				this.data[i].companyBranch_Id = this.companyBranchId;
+				this.data[i].index = i;
+
+				for (let x = 0; x < this.data[i].clientDataBranches.length; x++) {
+					this.data[i].clientDataBranches[x].index = x;
+				}
 
 				this.data[i].iserrorInBranch = this.data[i].clientDataBranches.filter(a => a.message != undefined).length > 0 ? true : false;
 
@@ -267,7 +270,13 @@ export class ClientImportExcel implements OnInit {
 					console.log(error);
 					if (typeof error === 'object') {
 						for (var i = 0; i < error.data.length; i++) {
-							this.data[error.data[i].index].message = error.data[i].message
+							this.data[error.data[i].index].message = error.data[i].message;
+
+							for (var x = 0; x < error.data[i].clientDataBranches.length; x++) {
+								this.data[error.data[i].index].clientDataBranches[error.data[i].clientDataBranches[x].index].message = error.data[i].clientDataBranches[x].message;
+							    this.data[error.data[i].index].iserrorInBranch = true;
+							}
+
 						}
 					}
 					else {
