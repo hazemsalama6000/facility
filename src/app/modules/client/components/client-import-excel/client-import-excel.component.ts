@@ -59,7 +59,7 @@ export class ClientImportExcel implements OnInit {
 		'isVatTaxActive',
 		'withHoldTax',
 		'isWithHoldTaxActive',
-		'clientCategory_Id',
+		'clientCategoryName',
 		'checked'
 	];
 	columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
@@ -103,23 +103,31 @@ export class ClientImportExcel implements OnInit {
 
 	implementCategory() {
 		let categoryId = this.clientCategorySelected.Id;
+		let categories =this.dropdownCategoryData;
 		this.data.filter(a => a.checked == true).forEach(function (data) {
 			data.clientCategory_Id = categoryId;
+			data.clientCategoryName = categories.find((a:any) => a.Id == data.clientCategory_Id)?.Name;
 		});
 	}
 
 	implementPathRouteId(clientId: number) {
 
-		let pathRouteId = this.data.find(a => a.index == clientId)?.pathRouteId
+		let pathRouteId = this.data.find(a => a.index == clientId)?.pathRouteId;
+		let pathroutes =this.dropdownPathRouteData;
+
 		this.data.find(a => a.index == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.pathRoute_Id = pathRouteId;
+			data.pathRouteName = pathroutes.find((a:any) => a.Id == data.pathRoute_Id)?.Name;
 		});
 	}
 
 	implementRegionId(clientId: number) {
 		let regionId = this.data.find(a => a.index == clientId)?.regionId!;
+		let regions =this.dropdownListDataForRegion;
+
 		this.data.find(a => a.index == clientId)?.clientDataBranches.filter(a => a.checked == true).forEach(function (data) {
 			data.region_Id = regionId;
+			data.regionName = regions.find((a:any) => a.Id == data.region_Id)?.Name;
 		});
 	}
 
@@ -164,6 +172,10 @@ export class ClientImportExcel implements OnInit {
 				this.ExcelImportBranchData[i].address = this.ExcelImportBranchData[i].address?.toString();
 				this.ExcelImportBranchData[i].responsibleName = this.ExcelImportBranchData[i].responsibleName?.toString();
 				this.ExcelImportBranchData[i].commercialName = this.ExcelImportBranchData[i].commercialName?.toString();
+
+				this.ExcelImportBranchData[i].pathRouteName = this.dropdownPathRouteData.find((a:any) => a.Id == this.ExcelImportBranchData[i].pathRoute_Id)?.Name;
+				this.ExcelImportBranchData[i].regionName =this.dropdownListDataForRegion.find((a:any) => a.Id == this.ExcelImportBranchData[i].region_Id)?.Name;
+
 				//this.ExcelImportBranchData[i].message = "this.data[i].activity?.toString()"; 
 
 				let message: string = "";
@@ -210,6 +222,10 @@ export class ClientImportExcel implements OnInit {
 				this.data[i].clientDataBranches = this.ExcelImportBranchData.filter((a: any) => a.clientData_Id == this.data[i].index);
 				this.data[i].companyBranch_Id = this.companyBranchId;
 				this.data[i].index = i;
+				console.log(this.dropdownCategoryData);
+				this.data[i].clientCategoryName = this.dropdownCategoryData.find((a:any) => a.Id == this.data[i].clientCategory_Id)?.Name;
+				
+				console.log(this.data[i].clientCategoryName);
 
 				for (let x = 0; x < this.data[i].clientDataBranches.length; x++) {
 					this.data[i].clientDataBranches[x].index = x;
@@ -274,7 +290,7 @@ export class ClientImportExcel implements OnInit {
 
 							for (var x = 0; x < error.data[i].clientDataBranches.length; x++) {
 								this.data[error.data[i].index].clientDataBranches[error.data[i].clientDataBranches[x].index].message = error.data[i].clientDataBranches[x].message;
-							    this.data[error.data[i].index].iserrorInBranch = true;
+								this.data[error.data[i].index].iserrorInBranch = true;
 							}
 
 						}

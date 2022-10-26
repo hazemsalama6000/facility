@@ -166,7 +166,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="nature">
+			<ng-container matColumnDef="natureName">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 					<span class="d-flex">
 						<ng-select style="width:80px;" appendTo="body" class="transdrop" [items]="dropdownNatureData"
@@ -181,12 +181,12 @@
 				</th>
 				<td mat-cell *matCellDef="let element; let x=index">
 					<span>
-						{{element.nature}}
+						{{element.natureName}}
 					</span>
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="itemCategory_Id">
+			<ng-container matColumnDef="itemCategoryName">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 					<span class="d-flex">
 						<ng-select style="width:100px;" appendTo="body" class="transdrop" [items]="dropdownCategoryData"
@@ -202,12 +202,12 @@
 				</th>
 				<td mat-cell *matCellDef="let element; let x=index">
 					<span>
-						{{element.itemCategory_Id}}
+						{{element.itemCategoryName}}
 					</span>
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="unit_Id">
+			<ng-container matColumnDef="unitName">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 
 					<span class="d-flex">
@@ -223,7 +223,7 @@
 				</th>
 				<td mat-cell *matCellDef="let element; let x=index">
 					<span>
-						{{element.unit_Id}}
+						{{element.unitName}}
 					</span>
 				</td>
 			</ng-container>

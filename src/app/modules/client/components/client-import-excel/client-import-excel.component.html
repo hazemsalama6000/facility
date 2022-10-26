@@ -51,7 +51,7 @@
 						<span *ngSwitchCase="'isVatTaxActive'"> حالة ضريبة ق م </span>
 						<span *ngSwitchCase="'withHoldTax'"> ضريبة الخصم </span>
 						<span *ngSwitchCase="'isWithHoldTaxActive'"> حالة ضريبة الخصم </span>
-						<span *ngSwitchCase="'clientCategory_Id'">
+						<span *ngSwitchCase="'clientCategoryName'">
 							<ng-select (change)="onItemSelectState($event)" class="customized"
 								[items]="dropdownCategoryData" bindLabel="Name" bindValue="Id" name="clientCategory_Id"
 								placeholder="تصنيف العميل">
@@ -84,7 +84,7 @@
 						<span class="badge badge-info" *ngSwitchCase="'isVatTaxActive'"> {{element[column] }} </span>
 						<span *ngSwitchCase="'withHoldTax'"> {{element[column] }} </span>
 						<span *ngSwitchCase="'isWithHoldTaxActive'"> {{element[column] }} </span>
-						<span *ngSwitchCase="'clientCategory_Id'"> {{element[column] }} </span>
+						<span *ngSwitchCase="'clientCategoryName'"> {{element[column] }} </span>
 						<span *ngSwitchCase="'checked'" class="d-flex justify-content-center align-items-center">
 
 							<span class="example-list-section">
@@ -201,7 +201,7 @@
 									<td class="bg-info text-white">{{x.mobile}}</td>
 									<td>{{x.secondMobile}}</td>
 									<td>{{x.managerMobile}}</td>
-									<td>{{x.region_Id}}</td>
+									<td>{{x.regionName}}</td>
 									<td>{{x.responsibleName}}</td>
 									<td>{{x.commercialName}}</td>
 									<td>{{x.isCompletedData}}</td>
@@ -209,7 +209,7 @@
 									<td>{{x.technician_Id}}</td>
 									<td>{{x.x}}</td>
 									<td>{{x.y}}</td>
-									<td>{{x.pathRoute_Id}}</td>
+									<td>{{x.pathRouteName}}</td>
 									<td>{{x.isMain}}</td>
 									<td class="d-flex justify-content-center align-content-center">
 										<span class="example-list-section">

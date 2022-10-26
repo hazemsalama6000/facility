@@ -14,6 +14,7 @@ export interface IClientUpsertModel {
     isWithHoldTaxActive: true,
     isAddedClientBranch: false,
     clientCategory_Id: number,
+	clientCategoryName?:string,
     companyBranch_Id: number,
 	checked?:boolean, //for binding only
 	regionId?:number, //for binding only
@@ -32,6 +33,7 @@ export interface IClientUpsertModel {
         secondMobile: string,
         managerMobile: string,
         region_Id: number,
+		regionName?:string,
         responsibleName: string,
         commercialName: string,
         mobileDate?: string,
@@ -43,6 +45,7 @@ export interface IClientUpsertModel {
         clientData_Id?: number,
         clientBranchId: number,
         pathRoute_Id?: number,
+		pathRouteName?:string,
         isMain?: false,
 		checked?:boolean,
 		message?:string,

@@ -47,8 +47,8 @@ export class ItemsImportExcel implements OnInit {
 		'name', 'hasVatTax', 'vatTaxValue', 'quantity', 'description', 'hasExpireDate', 'expirationDate'
 		,
 		//'convertedUnitOfMeasure',
-		'isActive', 'maxLimit', 'minLimit', 'orderingLimit', 'nature'
-		, 'itemCategory_Id', 'unit_Id', 'checked'];
+		'isActive', 'maxLimit', 'minLimit', 'orderingLimit', 'natureName'
+		, 'itemCategoryName', 'unitName', 'checked'];
 
 	dataSource: any;
 
@@ -88,22 +88,30 @@ export class ItemsImportExcel implements OnInit {
 
 	implementUnit() {
 		let unitId = this.unitSelected.Id;
+		let units = this.dropdownUnitData;
+
 		this.data.filter(a => a.checked == true).forEach(function (data) {
 			data.unit_Id = unitId;
+			data.unitName = units.find((a: any) => a.Id == data.unit_Id)?.Name;
 		});
 	}
 
 	implementNature() {
 		let value = this.NatureSelected.value;
+		let valueText = this.NatureSelected.name;
 		this.data.filter(a => a.checked == true).forEach(function (data) {
 			data.nature = value;
+			data.natureName = valueText;
 		});
 	}
 
 	implementCategory() {
 		let categoryId = this.CategorySelected.Id;
+		let categories = this.dropdownCategoryData;
+
 		this.data.filter(a => a.checked == true).forEach(function (data) {
 			data.itemCategory_Id = categoryId;
+			data.itemCategoryName = categories.find((a: any) => a.Id == data.itemCategory_Id)?.Name;
 		});
 	}
 
@@ -138,6 +146,12 @@ export class ItemsImportExcel implements OnInit {
 				this.data[i].barCode = this.data[i].barCode?.toString();
 				this.data[i].code = this.data[i].code?.toString();
 				this.data[i].company_Id = this.companyId;
+
+				this.data[i].itemCategoryName = this.dropdownCategoryData.find((a: any) => a.Id == this.data[i].itemCategory_Id)?.Name;
+				this.data[i].natureName = this.dropdownNatureData.find((a: any) => a.value == this.data[i].nature)?.name;
+				this.data[i].unitName = this.dropdownUnitData.find((a: any) => a.Id == this.data[i].unit_Id)?.Name;
+				
+				console.log(this.dropdownCategoryData);
 
 				if (this.data[i].code == undefined || this.data[i].code == "" || this.data[i].code.length < 4) {
 					message += ",  الكود مطلوب والطول اكبر من 4 حروف";
