@@ -62,8 +62,8 @@ export class InventoryService {
     return this.http.CommonPutRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_DEACTIVE_STOCK_TECHNIQUE}`);
   }
 
-  getLookUpStocks(companyBranchId:number,ExceptStockId:number=0): Observable<LookUpModel[]> {
-    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_INVENTORY}${companyBranchId}${ExceptStockId>0?'&ExceptStockId='+ExceptStockId:''}`)
+  getLookUpStocks(companyBranchId: number, ExceptStockId: number = 0, employeeId: number = 0): Observable<LookUpModel[]> {
+    return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_INVENTORY}${companyBranchId}${ExceptStockId > 0 ? '&ExceptStockId=' + ExceptStockId : ''}${employeeId > 0 ? '&employeeId=' + employeeId : ''}`)
       .pipe(map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel)));
   }
 

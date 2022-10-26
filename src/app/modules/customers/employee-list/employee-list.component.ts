@@ -79,6 +79,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
       // employeesIds: [],
       // jobsIds: [],
       // sectionsIds: [],
+      companyId:0,
       pageSize: 5,
       pageNumber: 1
     };
@@ -88,6 +89,7 @@ export class Employee_listComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const data = this.authService.userData.subscribe(res => {
       this.userData = res;
+      this.searchObject.companyId=res.companyId;
       this.fillDropdowns();
       this.getEmployeeData();
     });
@@ -278,6 +280,7 @@ export interface IEmployeeSearch {
   sectionsIds?: number[];
   jobsIds?: number[];
   Contact?: string;
+  companyId:number;
   pageNumber: number;
   pageSize: number;
 }

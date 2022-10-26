@@ -438,8 +438,13 @@ export enum HttpPaths {
 	API_UPDATE_ENTITY_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/manageentitiesperstocktranstype',
 	API_GET_PRICE = '/api/v1/invt/getavgpriceforitem?',
 
+
 	API_LIST_OF_COMMMITTEE = '/api/v1/Committee/listofcommittee',
+
+	//Riffles
 	API_ADD_COUNTING_PROCESS = '/api/v1/invt/addstockcountingprocess',
+	API_GET_RIFFLE_BY_ID = '/api/v1/invt/getprofilecountingprocess?CountingProcessId=',
+	API_GET_RIFFLE_DATA = '',
 
 
 

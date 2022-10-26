@@ -62,7 +62,7 @@ export class ReserveditemComponent implements OnInit {
   }
 
   fillDropdown() {
-    this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
   }
 
   autoCompleteItems: LookUpModel[] = [];
