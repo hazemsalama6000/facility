@@ -34,7 +34,7 @@ export class TransactionreturnsComponent implements OnInit {
   loading: boolean = false;
   data: any[] = [];
   totalRecord = 0;
-  searchModel: any = { CompanyBranchId: 0, PageNumber: 1, PageSize: 5, IsRetrieveTrans: true };
+  searchModel: any = { CompanyBranchId: 0, stockEmployeeId: 0, PageNumber: 1, PageSize: 5, IsRetrieveTrans: true };
   isLoadingResults = true;
   isRateLimitReached = false;
   userData: IUserData;
@@ -55,9 +55,10 @@ export class TransactionreturnsComponent implements OnInit {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
       this.searchModel.CompanyBranchId = data.branchId;
+      this.searchModel.stockEmployeeId = data.employeeId;
       let subTrans = invTransactionService.bSubject.subscribe(res => this.getTransactionData());
       this.unsubscribe.push(subTrans);
-      this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+      this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
 
     });
     this.unsubscribe.push(subuser);
@@ -180,8 +181,6 @@ export class TransactionreturnsComponent implements OnInit {
       });
     });
 
-    console.log(transaction)
-
     return transaction;
   }
 
@@ -201,11 +200,11 @@ export class TransactionreturnsComponent implements OnInit {
 
     let isQuantity = false;
     obj.itemData.map((x) => {
-      if (isNaN(x.preConvertedQuantity) || isNaN(x.quantity)) isQuantity = true;
+      if (isNaN(x.preConvertedQuantity) || isNaN(x.quantity) || x.preConvertedQuantity == 0) isQuantity = true;
     })
 
     if (isQuantity) {
-      this.toaster.openWarningSnackBar('أدخل الكميات المستلمة')
+      this.toaster.openWarningSnackBar('أدخل الكميات المرتجعة')
       return;
     }
 
@@ -220,27 +219,28 @@ export class TransactionreturnsComponent implements OnInit {
       return;
     }
 
-    this.invTransactionService.addTransaction(obj).subscribe(
-      (data: HttpReponseModel) => {
-        this.loading = false;
-        if (data.isSuccess) {
-          this.invTransactionService.bSubject.next(false);
-          this.toaster.openSuccessSnackBar(data.message);
-        }
-        else if (data.isExists) {
-          this.toaster.openWarningSnackBar(data.message);
-        }
-      },
-      (error: any) => {
-        this.loading = false;
-        console.log(error)
-        this.toaster.openWarningSnackBar(error.message);
-      }
-    );
+    console.log(obj, 'done')
+    // this.invTransactionService.addTransaction(obj).subscribe(
+    //   (data: HttpReponseModel) => {
+    //     this.loading = false;
+    //     if (data.isSuccess) {
+    //       this.invTransactionService.bSubject.next(false);
+    //       this.toaster.openSuccessSnackBar(data.message);
+    //     }
+    //     else if (data.isExists) {
+    //       this.toaster.openWarningSnackBar(data.message);
+    //     }
+    //   },
+    //   (error: any) => {
+    //     this.loading = false;
+    //     console.log(error)
+    //     this.toaster.openWarningSnackBar(error.message);
+    //   }
+    // );
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 1 && event.key === '0'&&event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
+    if ((event.target.value.length === 1 && event.key === '0' && event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
   }

@@ -28,14 +28,14 @@ import { InvTransactionService } from '../../services/invTransaction.service';
 })
 export class TransactionrequestlistComponent implements OnInit {
 
-  columnsToDisplay = ['n','docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
+  columnsToDisplay = ['n', 'docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
   @ViewChild(MatTable) table: MatTable<IInvTransaction>;
   loading: boolean = false;
   data: any[] = [];
   totalRecord = 0;
-  searchModel: any = { CompanyBranchId: 0, PageNumber: 1, PageSize: 5, IsTransferRequest: true };
+  searchModel: any = { CompanyBranchId: 0, stockEmployeeId: 0, PageNumber: 1, PageSize: 5, IsTransferRequest: true };
   isLoadingResults = true;
   isRateLimitReached = false;
   userData: IUserData;
@@ -56,9 +56,10 @@ export class TransactionrequestlistComponent implements OnInit {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
       this.searchModel.CompanyBranchId = data.branchId;
+      this.searchModel.stockEmployeeId = data.employeeId;
       let subTrans = invTransactionService.bSubject.subscribe(res => this.getTransactionData());
       this.unsubscribe.push(subTrans);
-      this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+      this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
 
     });
     this.unsubscribe.push(subuser);
@@ -69,9 +70,9 @@ export class TransactionrequestlistComponent implements OnInit {
 
   getTransactionData() {
     this.invTransactionService.getTransferFromTransaction(this.searchModel).subscribe(res => {
-      res.data.map(x => x.stockTransDetails.map(obj => obj.quantity = obj.baseQuantity / obj.convertedUnits.factor));
+      res.data.map(x => x.stockTransDetails.map(obj => { obj.quantity = obj.baseQuantity / obj.convertedUnits.factor; obj.receivedQuantity = 0; }));
       this.data = res.data;
-      this.totalRecord=res.totalRecords;
+      this.totalRecord = res.totalRecords;
       this.isLoadingResults = false;
     })
   }
@@ -103,7 +104,7 @@ export class TransactionrequestlistComponent implements OnInit {
       if (res.data) {
         element.financialYear_Id = res.data.id;
         this.data[elementIndex].financialYear_Id = res.data.id;
-         console.log(element, element.financialYear_Id, element.stockTransEntity.transferStock_Id, element.stockTransTypeId)
+        console.log(element, element.financialYear_Id, element.stockTransEntity.transferStock_Id, element.stockTransTypeId)
         if (element.financialYear_Id > 0 && element.stockTransEntity.transferStock_Id > 0 && element.stockTransTypeId > 0) {
           this.invTransactionService.getDocumentNumber(element.financialYear_Id, element.stockTransEntity.transferStock_Id, element.stockTransTypeId).subscribe(res => {
             this.data[elementIndex].docReceivedNumber = res.data.docId;
@@ -132,11 +133,14 @@ export class TransactionrequestlistComponent implements OnInit {
     this.data[elementIndex].stockTransDetails[itemIndex].quantity = element.baseQuantity / element.convertedUnits.factor;
     if (quantity > element.baseQuantity) {
       this.toaster.openWarningSnackBar('لايمكن اضافة كمية اكبر من الكمية الموجودة');
-      this.data[elementIndex].stockTransDetails[itemIndex].receivedQuantity = null;
+      console.log(quantity, element.baseQuantity)
+      this.data[elementIndex].stockTransDetails[itemIndex].receivedQuantity = 0;
       this.data[elementIndex].stockTransDetails[itemIndex].remainingQuantity = element.baseQuantity / element.convertedUnits.factor;
     } else
       this.data[elementIndex].stockTransDetails[itemIndex].remainingQuantity = (element.baseQuantity / element.convertedUnits.factor) - element.receivedQuantity;
 
+    if (element.receivedQuantity == null)
+      this.data[elementIndex].stockTransDetails[itemIndex].receivedQuantity = 0;
     this.table.renderRows();
     // console.log(element)
   }
@@ -153,12 +157,12 @@ export class TransactionrequestlistComponent implements OnInit {
     transaction.financialYear_Id = item.financialYear_Id;
     transaction.ReceivedFromTrans_Id = item.id;
     transaction.notes = '';
-    
+
     transaction.transEntity = {} as ITransEntity;
     transaction.transEntity.stockTransaction_Id = 0;
     transaction.transEntity.transferStock_Id = item.stockId;
-    transaction.transEntity.entityType_Id=item.stockTransEntity.entityType_Id;
-    
+    transaction.transEntity.entityType_Id = item.stockTransEntity.entityType_Id;
+
     transaction.itemData = [];
     item.stockTransDetails.map((obj, index) => {
       transaction.itemData.push({
@@ -232,7 +236,7 @@ export class TransactionrequestlistComponent implements OnInit {
   }
 
   restrictZero(event: any) {
-    if ((event.target.value.length === 1 && event.key === '0')&& event.target.value.startsWith('0')|| event.key === '-' || event.key === '.'|| event.key === '+'|| event.key === 'e') {
+    if ((event.target.value.length === 1 && event.key === '0') && event.target.value.startsWith('0') || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
   }

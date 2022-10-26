@@ -42,7 +42,7 @@ export class DailytransactionsComponent implements OnInit {
   totalRecord = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  searchModel: ISeachTransaction = { CompanyBranchId: 0, PageNumber: 1, PageSize: 5, };
+  searchModel: ISeachTransaction = { CompanyBranchId: 0,stockEmployeeId:0, PageNumber: 1, PageSize: 5, };
 
   dropdownEntity: LookUpModel[] = [];
   dropdownTransType: ITransType[] = [];
@@ -68,6 +68,7 @@ export class DailytransactionsComponent implements OnInit {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
       this.searchModel.CompanyBranchId = data.branchId;
+      this.searchModel.stockEmployeeId = data.employeeId;
       this.fillDropdown();
       let subTrans = invTransactionService.bSubject.subscribe(res => this.getTransactionData());
       this.unsubscribe.push(subTrans);
@@ -96,7 +97,7 @@ export class DailytransactionsComponent implements OnInit {
 
   fillDropdown() {
     this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res });
-    this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
   }
 
   getTransactionByCode = (text: string) => {

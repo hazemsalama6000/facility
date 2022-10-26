@@ -7,6 +7,7 @@ import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
+import { IAddVendor } from '../../../models/IAddVendor.interface';
 import { IVendor } from '../../../models/IVendor.interface';
 import { VendorService } from '../../../services/vendor.service';
 import { VendoractivityService } from '../../../services/vendoractivity.service';
@@ -50,9 +51,9 @@ export class UpsertvendorComponent implements OnInit {
     commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(6)])],
     taxFileNum: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(12)])],
     isWithHoldTaxActive: [false],
-    withHoldTax: [0, Validators.compose([Validators.min(0), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    withHoldTax: [0, Validators.compose([Validators.min(1), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
     isVatTaxActive: [false],
-    vatTax: [0, Validators.compose([Validators.min(0), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    vatTax: [0, Validators.compose([Validators.min(1), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
 
     branch_Id: [0],
   });
@@ -112,12 +113,17 @@ export class UpsertvendorComponent implements OnInit {
 
 
   UpsertVendorActivity() {
+    console.log(
+      this.vendorForm.get('commercialRecord')?.errors,
+      this.vendorForm.errors
+      )
     if (this.vendorForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
+
       this.vendorForm.patchValue({ branch_Id: this.userData.branchId });
       if (this.isEdit) {
-        console.log(JSON.stringify(this.vendorForm.value))
-        this.vendorService.updateVendor(this.vendorForm.value).subscribe(
+        let vendorObj = this.createObject();
+        this.vendorService.updateVendor(vendorObj).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
             if (data.isSuccess) {
@@ -137,8 +143,8 @@ export class UpsertvendorComponent implements OnInit {
         );
       } else {
         this.vendorForm.patchValue({ branch_Id: this.userData.branchId });
-
-        this.vendorService.addVendor(this.vendorForm.value).subscribe(
+        let vendorObj = this.createObject();
+        this.vendorService.addVendor(vendorObj).subscribe(
           (data: HttpReponseModel) => {
             this.loading = false;
             if (data.isSuccess) {
@@ -160,6 +166,33 @@ export class UpsertvendorComponent implements OnInit {
 
     }
 
+  }
+
+  createObject() {
+    let data: IAddVendor = {
+      activity_Id: this.vendorForm.get('activity_Id')?.value,
+      code: this.vendorForm.get('code')?.value,
+      name: this.vendorForm.get('name')?.value,
+      address: this.vendorForm.get('address')?.value,
+      telephone: this.vendorForm.get('telephone')?.value,
+      mobile: this.vendorForm.get('mobile')?.value,
+      commercialRecord: this.vendorForm.get('commercialRecord')?.value + '',
+      taxFileNum: this.vendorForm.get('taxFileNum')?.value + '',
+      email: this.vendorForm.get('email')?.value,
+      site: this.vendorForm.get('site')?.value,
+      vatTax: this.vendorForm.get('vatTax')?.value,
+      isVatTaxActive: this.vendorForm.get('isVatTaxActive')?.value,
+      withHoldTax: this.vendorForm.get('withHoldTax')?.value,
+      isWithHoldTaxActive: this.vendorForm.get('isWithHoldTaxActive')?.value,
+      isActive: this.vendorForm.get('isActive')?.value,
+      classification_Id: this.vendorForm.get('classification_Id')?.value,
+      mainCompany_Id: this.vendorForm.get('mainCompany_Id')?.value,
+      taxOffice_Id: this.vendorForm.get('taxOffice_Id')?.value,
+      branch_Id: this.vendorForm.get('branch_Id')?.value,
+      id: this.vendorForm.get('id')?.value
+    }
+
+    return data;
   }
 
   ngOnDestroy() {

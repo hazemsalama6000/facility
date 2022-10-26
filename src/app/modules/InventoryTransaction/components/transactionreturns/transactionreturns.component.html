@@ -168,7 +168,7 @@
                   </ng-select>
                 </td> 
                 <td> {{x.quantity|number : '1.0-2'}} </td>
-                <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (input)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
+                <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (keyup)="editObject(x,elementIndex,item);" (keydown)="restrictZero($event)"></td>
                 <td> {{x.remainingQuantity|number : '1.0-2'}} </td>
                 <td>
                   <input type="text" class="form-control p-1" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
