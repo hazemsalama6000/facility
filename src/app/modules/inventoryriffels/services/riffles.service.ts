@@ -6,7 +6,7 @@ import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IAddRiffles } from '../models/IAddRiffles.interface';
 import { IRiffle } from '../models/IRiffle.interface';
-import { IRiffles } from '../models/IRiffles.interface';
+import { IRiffles, IRifflesPaginantion } from '../models/IRiffles.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,38 +25,19 @@ export class RifflesService {
   }
 
   getRiffleById(riffleId: number): Observable<IRiffle> {
-    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_RIFFLE_BY_ID}`).pipe(
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_RIFFLE_BY_ID}${riffleId}`).pipe(
       map(items => items.data as IRiffle)
     )
   }
 
-  getRifflesData(searchModel: any): Observable<IRiffles[]> {
-    // return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_RIFFLE_DATA}`).pipe(
-    //   map(items => items.data as IRiffles[])
-    // )
-    return of([
-      {
-        id: 1,
-        number: "12",
-        commmittee_Id: 2,
-        commmitteeName: "لجنة فرعية",
-        date: Date(),
-        isCountingPartial: false,
-        stock_Id: 12,
-        stockName: "مخزن السلام",
-        finalSave: false
-      }, {
-        id: 1,
-        number: "12",
-        commmittee_Id: 2,
-        commmitteeName: "لجنة فرعية",
-        date: Date(),
-        isCountingPartial: false,
-        stock_Id: 12,
-        stockName: "مخزن السلام",
-        finalSave: true
-      }
-    ] as IRiffles[])
+  getRifflesData(searchModel: any): Observable<IRifflesPaginantion> {
+    let queryString = Object.keys(searchModel).map((key: string) =>
+      searchModel[key] != null && searchModel[key] != '' && searchModel[key] != undefined ? key + '=' + searchModel[key] : null
+    ).filter(x => x != null).join('&');
+console.log(searchModel)
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_RIFFLE_DATA}${queryString}`).pipe(
+      map(items => items.data as IRifflesPaginantion)
+    )
   }
 
   addRiffle(model: IAddRiffles): Observable<HttpReponseModel> {

@@ -272,6 +272,7 @@ export enum HttpPaths {
 	//financial year
 	API_GET_FINANCIAL_YEAR = "/api/v1/shared/getfinancialyears/",
 	API_GET_ACTIVE_FINANCIAL_YEAR = "/api/v1/shared/getactivefinancialyear/",
+	API_LIST_OF_FINANCIAL_YEAR = "/api/v1/shared/listoffinancialyears/",
 	API_ADD_FINANCIAL_YEAR = "/api/v1/shared/addfinancialyear",
 	API_DEACTIVE_FINANCIAL_YEAR = "/api/v1/shared/changefinancialyearactiveornot?",
 	API_CHECK_FINANCIAL_YEAR = "/api/v1/shared/checkdateinrange?",
@@ -445,7 +446,7 @@ export enum HttpPaths {
 	//Riffles
 	API_ADD_COUNTING_PROCESS = '/api/v1/invt/addstockcountingprocess',
 	API_GET_RIFFLE_BY_ID = '/api/v1/invt/getprofilecountingprocess?CountingProcessId=',
-	API_GET_RIFFLE_DATA = '',
+	API_GET_RIFFLE_DATA = '/api/v1/invt/getcountingprocess?',
 
 
 

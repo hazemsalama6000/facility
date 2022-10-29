@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection">  عرض اعضاء لجنة( {{data.model.name}} ) </span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content style="z-index: -1;" class="mat-typography">
+  <div class="row mx-0 py-3">
+    <div class="col"><span class="badge badge-info fs-6">أسم اللجنة : {{data.model.name}}</span></div>
+    <div class="col"><span class="badge badge-primary fs-6">التاريخ : {{data.model.date|date:'dd/MM/yyyy'}}</span></div>
+    <div class="col"><span class="badge badge-success fs-6">نوع اللجنة : {{data.model.type}}</span></div>
+  </div>
+  <div class="example-container mat-elevation-z8 ">
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 text-center">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="n">
+          <th mat-header-cell *matHeaderCellDef> م</th>
+          <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
+            <span>{{((searchModel.PageNumber-1)*searchModel.PageSize)+(x+1) }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> الاسم </th>
+          <td mat-cell *matCellDef="let element; let x=index">
+            <span class="badge badge-info">{{element.name}}</span>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> الوظيفة </th>
+          <td mat-cell *matCellDef="let element; let x=index">
+            <span class="badge badge-primary"> {{element.position}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> التليفون </th>
+          <td mat-cell *matCellDef="let element; let x=index">
+            <span class="badge badge-success">{{element.phone}}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let entry">
+
+        </tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4"> {{'SHARE.MESSAGE.NOROWFOUND'|translate}} </td>
+        </tr>
+      </table>
+
+      <!-- <mat-paginator [pageSize]="searchModel.PageSize" (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator> -->
+    </div>
+
+
+  </div>
+</mat-dialog-content>

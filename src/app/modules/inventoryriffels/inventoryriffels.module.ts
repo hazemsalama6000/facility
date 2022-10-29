@@ -10,12 +10,14 @@ import { InventoryRiffelRoutingModule } from './inventoryriffles-routing.module'
 import { SharedModule } from 'src/app/shared-module/shared-module.module';
 import { RifflesComponent } from './components/riffles/riffles.component';
 import { UpsertrifflesComponent } from './components/riffles/upsertriffles/upsertriffles.component';
+import { ViewcommitteeComponent } from './components/riffles/viewcommittee/viewcommittee.component';
 
 @NgModule({
   declarations: [
     InventoryriffelsComponent,
     RifflesComponent,
-    UpsertrifflesComponent
+    UpsertrifflesComponent,
+    ViewcommitteeComponent
   ],
   imports: [
     CommonModule,

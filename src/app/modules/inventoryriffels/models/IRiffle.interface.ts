@@ -13,11 +13,11 @@ export interface IRiffle {
 }
 
 export interface IItemRiffles extends IItemAddRiffles {
-    name: string,
-    code:string,
+    itemName: string,
+    itemCode:string,
     itemsConversion: IUnitConversionRiffles[]
 }
 
 export interface IUnitConversionRiffles extends IUnitConversionAddRiffles {
-    unitName: string
+    conversionName: string
 }

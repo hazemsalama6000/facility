@@ -26,46 +26,71 @@
   <mat-divider></mat-divider>
 
   <div class="col-12 mt-3">
-    <!-- <div class="row mx-5">
+    <div class="row mx-5">
 
-      <div class="col">
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>بحث باسم المنتج </mat-label>
-          <input type="text" matInput [matAutocomplete]="auto" #text (input)="inputAutoComplete(text.value)">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayinputAutoComplete" (optionSelected)="onSelectedAutoComplete($event)">
-            <mat-option *ngFor="let option of autoCompleteItems" [value]="option">
-              {{option.Name}}
-            </mat-option>
-          </mat-autocomplete>
+      <div class="col" style="max-width: 160px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getRifflesByDate()">
+          <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
+          <mat-datepicker #startD></mat-datepicker>
         </mat-form-field>
       </div>
 
-      <div class="col">
+      <div class="col" style="max-width: 160px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getRifflesByDate()">
+          <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
+          <mat-datepicker #endD></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-3">
         <ng-select #Stock class="customized" [items]="dropdownStock" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.StockId"
-          placeholder="أختر المخزن" (change)="getTransactionData();" (clear)="getTransactionData();">
+          placeholder="أختر المخزن" (change)="getRifflesData();" (clear)="getRifflesData();">
         </ng-select>
       </div>
 
-      <div class="col">
-        <ng-select #TransType class="customized" [items]="dropdownTransType" bindLabel="name" bindValue="id"
-          [(ngModel)]="searchModel.StockTransTypeId" placeholder="أختر نوع العملية" (change)="getTransactionData();onSelectTransType($event)"
-          (clear)="getTransactionData();">
+      <div class="col-3">
+        <ng-select #Stock class="customized" [items]="dropdownFinancialyear" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.FinancialYearId"
+          placeholder="أختر السنة المالية" (change)="getRifflesData();" (clear)="getRifflesData();">
         </ng-select>
       </div>
 
-      <div class="col">
-        <ng-select #EntityType class="customized" [items]="dropdownEntityType" bindLabel="name" [(ngModel)]="entityTypeObject"
-          placeholder="أختر نوع المستفيد" (change)="onSelectEntityType($event);" (clear)="Entity.handleClearClick();dropdownEntity=[]">
-        </ng-select>
+      <div class="col-2">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+
+          <mat-radio-group [(ngModel)]="searchModel.FinalSave" color="primary" (change)="getRifflesData();">
+            <mat-radio-button class="d-block m-2 fontForInputs" value="true">حفظ نهائى </mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" value="false">حفظ مؤقت</mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
+          </mat-radio-group>
+
+          <mat-divider></mat-divider>
+
+          <mat-radio-group [(ngModel)]="searchModel.IsSettlementDone" color="primary" (change)="getRifflesData();">
+            <mat-radio-button class="d-block m-2 fontForInputs" value="true">تم التسوية </mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" value="false">لم يتم التسوية </mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
+          </mat-radio-group>
+
+          <mat-divider></mat-divider>
+
+          <mat-radio-group [(ngModel)]="searchModel.IsCountingPartial" color="primary" (change)="getRifflesData();">
+            <mat-radio-button class="d-block m-2 fontForInputs" value="true">جرد جزئى </mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" value="false"> جرد كلى </mat-radio-button>
+            <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
+          </mat-radio-group>
+
+        </mat-menu>
       </div>
 
-      <div class="col">
-        <ng-select #Entity class="customized" [items]="dropdownEntity" bindLabel="Name" bindValue="Id" placeholder="أختر المستفيد"
-          (change)="onSelectEntity($event);">
-        </ng-select>
-      </div>
-
-    </div> -->
+    </div>
   </div>
 
 </mat-card>
@@ -79,7 +104,7 @@
       <ng-container matColumnDef="n">
         <th mat-header-cell *matHeaderCellDef> م</th>
         <td mat-cell *matCellDef="let element; let x=index" style="cursor: pointer;">
-          <span>{{((page.PNum-1)*page.PSize)+(x+1) }}</span>
+          <span>{{((searchModel.PageNumber-1)*searchModel.PageSize)+(x+1) }}</span>
         </td>
       </ng-container>
 
@@ -103,7 +128,11 @@
       <ng-container matColumnDef="commmittee">
         <th mat-header-cell *matHeaderCellDef> اسم اللجنة</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <span class="badge badge-primary">{{element.commmitteeName}}</span>
+          <button mat-raised-button color="primary" (click)="openCommmittee(element.committee)"
+            style="min-width: unset !important;width: unset !important;">
+            {{element.committee.name}}<mat-icon class="ms-1 fs-2" style="height: 15px;">visibility</mat-icon>
+          </button>
+          <span class="badge badge-primary"></span>
         </td>
       </ng-container>
 
@@ -119,6 +148,22 @@
         <td mat-cell *matCellDef="let element; let x=index">
           <mat-icon *ngIf="element.isCountingPartial == true" class="text-success">done</mat-icon>
           <mat-icon *ngIf="element.isCountingPartial == false" class="text-danger">close</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="isSettlementDone">
+        <th mat-header-cell *matHeaderCellDef>تم التسوية</th>
+        <td mat-cell *matCellDef="let element; let x=index">
+          <mat-icon *ngIf="element.isSettlementDone == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="element.isSettlementDone == false" class="text-danger">close</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef>الحالة</th>
+        <td mat-cell *matCellDef="let element; let x=index">
+          <mat-icon *ngIf="element.finalSave == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="element.finalSave == false" class="text-danger">close</mat-icon>
         </td>
       </ng-container>
 
@@ -142,8 +187,8 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSize]="page.PSize" (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-      aria-label="Select page of periodic elements">
+    <mat-paginator [length]="totalRecord" [pageSize]="searchModel.PageSize" (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
 
