@@ -7,11 +7,13 @@ import { Subscription } from 'rxjs';
 import { toasterService } from 'src/app/core-module/UIServices/toaster.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
+import { FinancialyearService } from 'src/app/modules/declarations/services/financialyear.service';
 import { InventoryService } from 'src/app/modules/declarations/services/inventory.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
-import { IRiffles } from '../../models/IRiffles.interface';
+import { ICommmittee, IRiffles } from '../../models/IRiffles.interface';
 import { RifflesService } from '../../services/riffles.service';
 import { UpsertrifflesComponent } from './upsertriffles/upsertriffles.component';
+import { ViewcommitteeComponent } from './viewcommittee/viewcommittee.component';
 
 @Component({
   selector: 'app-riffles',
@@ -21,18 +23,22 @@ import { UpsertrifflesComponent } from './upsertriffles/upsertriffles.component'
 export class RifflesComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['n', 'code', 'date', 'commmittee', 'stock', 'isCountingPartial', 'action'];
+  displayedColumns: string[] = ['n', 'code', 'date', 'commmittee', 'stock', 'isCountingPartial', 'isSettlementDone','state', 'action'];
   dataSource: any;
   dropdownStock: LookUpModel[] = [];
-  searchModel: any = { itemId: 0 }
-  page = { PNum: 1, PSize: 5 }
+  dropdownFinancialyear: LookUpModel[] = [];
+  searchModel: ISearchRiffles = { StockEmployeeId: 0, PageNumber: 1, PageSize: 5, FinalSave:null,IsCountingPartial:null,IsSettlementDone:null };
   userData: IUserData;
   showbtn: boolean = false;
+  totalRecord = 0;
+  startDate: string;
+  endDate: string;
   private unsubscribe: Subscription[] = [];
 
   constructor(
     private inventoryService: InventoryService,
     private rifflesService: RifflesService,
+    private financialyearService: FinancialyearService,
     private auth: AuthService,
     private datePipe: DatePipe,
     private toaster: toasterService,
@@ -40,7 +46,10 @@ export class RifflesComponent implements OnInit {
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
-      this.getRifflesData();
+      this.searchModel.StockEmployeeId = data.employeeId;
+      
+      let change=rifflesService.bSubject.subscribe(res=>this.getRifflesData())
+      this.unsubscribe.push(change)
       this.fillDropdown();
     });
     this.unsubscribe.push(subuser);
@@ -50,16 +59,30 @@ export class RifflesComponent implements OnInit {
   ngOnInit(): void { }
 
   fillDropdown() {
-    this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
+    this.financialyearService.getLookUpFinancialYear(this.userData.companyId).subscribe(res => this.dropdownFinancialyear = res);
   }
 
   getRifflesData() {
     this.rifflesService.getRifflesData(this.searchModel).subscribe(res => {
-      console.log(res.filter(x=>x.finalSave==false).length)
-      this.showbtn=res.filter(x=>x.finalSave==false).length==0;
-      this.dataSource = new MatTableDataSource<IRiffles>(res);
+      console.log(res.data.filter(x => x.finalSave == false).length)
+      this.showbtn = res.data.filter(x => x.finalSave == false).length == 0;
+      this.totalRecord = res.totalRecords;
+      this.dataSource = new MatTableDataSource<IRiffles>(res.data);
       this.dataSource.paginator = this.paginator;
     });
+  }
+
+  getRifflesByDate() {
+    if (this.startDate && this.endDate) {
+      this.searchModel.StartDate = this.datePipe.transform(new Date(this.startDate ?? ''), 'yyyy-MM-dd') + "T00:00:00" ?? '';
+      this.searchModel.EndDate = this.datePipe.transform(new Date(this.endDate ?? ''), 'yyyy-MM-dd') + "T00:00:00" ?? '';
+      this.getRifflesData();
+    } else {
+      this.searchModel.StartDate = '';
+      this.searchModel.EndDate = '';
+      this.getRifflesData();
+    }
   }
 
   openDialog(item?: IRiffles) {
@@ -69,11 +92,20 @@ export class RifflesComponent implements OnInit {
       position: { right: '0' },
       data: { model: item }
     })
+  } 
+  
+  openCommmittee(element:ICommmittee) {
+    this.dialog.open(ViewcommitteeComponent, {
+      minWidth: '50%',
+      height: '70vh',
+      data: { model: element }
+    })
   }
 
   pageEvent(event: any) {
-    this.page.PSize = event.pageSize;
-    this.page.PNum = event.pageIndex + 1;
+    this.getRifflesData();
+    this.searchModel.PageSize = event.pageSize;
+    this.searchModel.PageNumber = event.pageIndex + 1;
   }
 
   ngOnDestroy() {
@@ -83,4 +115,17 @@ export class RifflesComponent implements OnInit {
 
 }
 
+
+export interface ISearchRiffles {
+  StockEmployeeId: number;
+  FinancialYearId?: number;
+  StockId?: number;
+  IsSettlementDone?:boolean|null;
+  IsCountingPartial?:boolean|null;
+  FinalSave?:boolean|null;
+  StartDate?: string;
+  EndDate?: string;
+  PageSize: number;
+  PageNumber: number;
+}
 

@@ -141,7 +141,7 @@
             <mat-icon>person_add</mat-icon>
           </button>
 
-          <button *ngIf="element.technician!=''&&element.technician!=null" matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}"
+          <button *ngIf="element.technician!=''&&element.technician!=null&&element.isActive==true" matTooltip="{{'DECLARATIONS.BUTTONS.CANCELASSIGN' | translate}}"
             mat-mini-fab color="warn" class="mx-md-1" (click)="stopAssignTechincian(element)">
             <mat-icon>person_off</mat-icon>
           </button>
