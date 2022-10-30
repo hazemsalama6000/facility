@@ -147,6 +147,13 @@ export class ClientImportExcel implements OnInit {
 
 	}
 
+	downloadExcel(){
+		let element = document.createElement("a");
+		element.download="ملف بيانات العملاء"; 
+		element.href="../../../../../assets/files/clientsTemplate.xlsx";
+		element.click();
+	  }
+
 	ExcelImportData: any;
 	ExcelImportBranchData: any;
 

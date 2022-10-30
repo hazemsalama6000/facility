@@ -18,6 +18,13 @@
 				<button style="width:100px ;" (click)="Submit()" class="mx-2" mat-raised-button
 					color="primary">حفظ</button>
 
+				<button (click)="downloadExcel()" matTooltip="تحميل ملف ملاء بيانات الاصناف" mat-mini-fab color="warn"
+					aria-label="Example icon button with a menu icon">
+					<mat-icon><span class="material-symbols-outlined">
+						attachment
+						</span></mat-icon>
+				</button>
+
 				<span style="width:200px ;" class="mx-12 fontForHints text-danger"> الملف من نوع اكسيل فقط <strong
 						class="text-dark mx-1">(.xlsx)</strong></span>
 			</div>
@@ -85,14 +92,14 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="quantity">
+		<!--	<ng-container matColumnDef="quantity">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> الكمية </th>
 				<td mat-cell *matCellDef="let element; let x=index">
 					<span>
 						{{element.quantity}}
 					</span>
 				</td>
-			</ng-container>
+			</ng-container>-->
 
 			<ng-container matColumnDef="description">
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef> الوصف </th>
@@ -170,10 +177,12 @@
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 					<span class="d-flex">
 						<ng-select style="width:80px;" appendTo="body" class="transdrop" [items]="dropdownNatureData"
-							bindLabel="name" bindValue="value" placeholder="الطبيعة" name="nature" id="nature" (change)="onNatureSelected($event)">
+							bindLabel="name" bindValue="value" placeholder="الطبيعة" name="nature" id="nature"
+							(change)="onNatureSelected($event)">
 						</ng-select>
-						<button  (click)="implementNature()" class="mx-1" style="width: 30px;height:30px" matTooltip="تطبيق الطبيعة" mat-mini-fab
-							color="primary" aria-label="Example icon button with a menu icon">
+						<button (click)="implementNature()" class="mx-1" style="width: 30px;height:30px"
+							matTooltip="تطبيق الطبيعة" mat-mini-fab color="primary"
+							aria-label="Example icon button with a menu icon">
 							<mat-icon style="font-size:15px ;"><span class="material-symbols-outlined">done_all</span>
 							</mat-icon>
 						</button>
@@ -190,10 +199,12 @@
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 					<span class="d-flex">
 						<ng-select style="width:100px;" appendTo="body" class="transdrop" [items]="dropdownCategoryData"
-							bindLabel="Name" bindValue="Id" placeholder="التصنيف" id="itemCategory_Id" (change)="onCategorySelect($event)">
+							bindLabel="Name" bindValue="Id" placeholder="التصنيف" id="itemCategory_Id"
+							(change)="onCategorySelect($event)">
 						</ng-select>
-						<button (click)="implementCategory()" class="mx-1" style="width: 30px;height:30px" matTooltip="تطبيق التصنيف" mat-mini-fab
-							color="warn" aria-label="Example icon button with a menu icon">
+						<button (click)="implementCategory()" class="mx-1" style="width: 30px;height:30px"
+							matTooltip="تطبيق التصنيف" mat-mini-fab color="warn"
+							aria-label="Example icon button with a menu icon">
 							<mat-icon style="font-size:15px ;"><span class="material-symbols-outlined">done_all</span>
 							</mat-icon>
 						</button>
@@ -211,11 +222,13 @@
 				<th class="stylingHeader" mat-header-cell *matHeaderCellDef>
 
 					<span class="d-flex">
-						<ng-select style="width:100px;" appendTo="body" class="transdrop" [items]="dropdownUnitData" bindLabel="Name"  (change)="onUnitSelect($event)"
-							bindValue="Id" placeholder="{{'DECLARATIONS.INPUTS.UNIT' | translate}}" id="unit_Id">
+						<ng-select style="width:100px;" appendTo="body" class="transdrop" [items]="dropdownUnitData"
+							bindLabel="Name" (change)="onUnitSelect($event)" bindValue="Id"
+							placeholder="{{'DECLARATIONS.INPUTS.UNIT' | translate}}" id="unit_Id">
 						</ng-select>
-						<button  (click)="implementUnit()"  class="mx-1" style="width: 30px;height:30px" matTooltip="تطبيق الوحدة" mat-mini-fab
-							color="primary" aria-label="Example icon button with a menu icon">
+						<button (click)="implementUnit()" class="mx-1" style="width: 30px;height:30px"
+							matTooltip="تطبيق الوحدة" mat-mini-fab color="primary"
+							aria-label="Example icon button with a menu icon">
 							<mat-icon style="font-size:15px ;"><span class="material-symbols-outlined">done_all</span>
 							</mat-icon>
 						</button>
@@ -245,10 +258,11 @@
 						</span>
 
 						<div class="example-button-container" *ngIf="element.errorMessage!=undefined">
-							<button matTooltip="{{element.errorMessage}}" mat-mini-fab color="warn" aria-label="Example icon button with a home icon">
+							<button matTooltip="{{element.errorMessage}}" mat-mini-fab color="warn"
+								aria-label="Example icon button with a home icon">
 								<mat-icon>info</mat-icon>
 							</button>
-						  </div>
+						</div>
 
 					</span>
 				</td>

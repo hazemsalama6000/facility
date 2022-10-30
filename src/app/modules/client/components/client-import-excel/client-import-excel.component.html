@@ -16,7 +16,12 @@
 				<label style="width:250px ;" for="formFile" class="form-label fontForInputs">ملف بيانات العملاء</label>
 				<input class="form-control" type="file" id="formFile" (change)="ReadClientExcel($event)">
 				<button style="width:100px ;"  (click)="Submit()" class="mx-2" mat-raised-button color="primary">حفظ</button>
-
+				<button (click)="downloadExcel()" matTooltip="تحميل ملف ملاء بيانات العملاء" mat-mini-fab color="warn"
+				aria-label="Example icon button with a menu icon">
+				<mat-icon><span class="material-symbols-outlined">
+					attachment
+					</span></mat-icon>
+			</button>
 				<span style="width:200px ;" class="mx-12 fontForHints text-danger"> الملف من نوع اكسيل فقط <strong
 						class="text-dark mx-1">(.xlsx)</strong></span>
 			</div>
