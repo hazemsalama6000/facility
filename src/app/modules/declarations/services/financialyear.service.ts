@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { CommonHttpService } from 'src/app/core-module/httpServices/CommonHttpService.service';
-import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IFinancialYear } from '../models/IFinancialYear.interface';
@@ -24,6 +23,11 @@ export class FinancialyearService {
     return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_ACTIVE_FINANCIAL_YEAR}${companyId}`)
       .pipe(map((Items: IFinancialYear) => [Items] as IFinancialYear[]));
   }
+
+  getLookUpFinancialYear(companyId: Number): Observable<LookUpModel[]> {
+		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_FINANCIAL_YEAR}${companyId}`)
+			.pipe(map(Items => Items.map((Item: any) => ({ Id: Item.id, Name: Item.year }) as LookUpModel)));
+	}
 
   AddFinancialYear(model: IFinancialYear) {
     return this.http.CommonPostRequests(model, `${localStorage.getItem("companyLink")}${HttpPaths.API_ADD_FINANCIAL_YEAR}`);

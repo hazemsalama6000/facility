@@ -70,8 +70,7 @@ export class UpsertrifflesComponent implements OnInit {
     private datePipe: DatePipe,
     private dialogRef: MatDialogRef<UpsertrifflesComponent>,
     private toaster: toasterService,
-    private activatedRoute: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) public data: {model:IRiffles}
+    @Inject(MAT_DIALOG_DATA) public data: { model: IRiffles }
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
       this.userData = data
@@ -79,24 +78,24 @@ export class UpsertrifflesComponent implements OnInit {
     });
     this.unsubscribe.push(subuser);
 
-      if (data.model) {
-        rifflesService.getRiffleById(data.model.id).subscribe(res => {
-          this.masterForm.patchValue({
-            id: res.id,
-            number: res.number,
-            date: res.date,
-            stock_Id: res.stock_Id,
-            commmittee_Id: res.commmittee_Id,
-            financialYear_Id: res.financialYear_Id,
-            isCountingPartial: res.isCountingPartial
-          })
-          this.dataSource = new MatTableDataSource<IItemRiffles>(res.items);
-          this.dataSource.paginator = this.paginator;
+    if (data.model) {
+      rifflesService.getRiffleById(data.model.id).subscribe(res => {
+        this.masterForm.patchValue({
+          id: res.id,
+          number: res.number,
+          date: res.date,
+          stock_Id: res.stock_Id,
+          commmittee_Id: res.commmittee_Id,
+          financialYear_Id: res.financialYear_Id,
+          isCountingPartial: res.isCountingPartial
         })
-      } else {
-        this.dataSource = new MatTableDataSource<IItemRiffles>([]);
+        this.dataSource = new MatTableDataSource<IItemRiffles>(res.items);
         this.dataSource.paginator = this.paginator;
-      }
+      })
+    } else {
+      this.dataSource = new MatTableDataSource<IItemRiffles>([]);
+      this.dataSource.paginator = this.paginator;
+    }
 
   }
 
@@ -127,7 +126,7 @@ export class UpsertrifflesComponent implements OnInit {
   }
 
   fillDropdown() {
-    this.inventoryService.getLookUpStocks(this.userData.branchId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
     this.rifflesService.getCommmittee().subscribe(res => this.dropdownRiffles = res);
   }
 
@@ -138,7 +137,7 @@ export class UpsertrifflesComponent implements OnInit {
       this.isReadOnly = true;
 
       this.autoCompleteItems = []
-      if (text.length > 3) {
+      if (text.length > 2) {
         this.itemLoader = true
         this.itemService.getLookUpItemsByCode(this.userData.companyId, text).subscribe(res => {
           if (res)
@@ -165,8 +164,8 @@ export class UpsertrifflesComponent implements OnInit {
 
             item.id = 0;
             item.itemData_Id = res.id;
-            item.name = res.name;
-            item.code = res.code;
+            item.itemName = res.name;
+            item.itemCode = res.code;
             item.countingProcess_Id = 0;
 
             item.itemsConversion = [];
@@ -176,11 +175,11 @@ export class UpsertrifflesComponent implements OnInit {
               units.stockQuantity = c.quantityInExcutedUnit;
               units.itemConversion_Id = c.unitConversionId;
               units.countingItem_Id = 0;
-              units.unitName = c.convertedUnitName
+              units.conversionName = c.convertedUnitName
               item.itemsConversion.push(units);
             });
 
-            this.dataSource.data.push(item);
+            this.dataSource.data.splice(0, 0, item);
             this.dataSource.paginator = this.paginator;
             this.table.renderRows();
             console.log(this.dataSource.data)
