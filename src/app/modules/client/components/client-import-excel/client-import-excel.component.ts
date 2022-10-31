@@ -108,6 +108,8 @@ export class ClientImportExcel implements OnInit {
 			data.clientCategory_Id = categoryId;
 			data.clientCategoryName = categories.find((a:any) => a.Id == data.clientCategory_Id)?.Name;
 		});
+		this.validateExcel();
+
 	}
 
 	implementPathRouteId(clientId: number) {
@@ -119,6 +121,8 @@ export class ClientImportExcel implements OnInit {
 			data.pathRoute_Id = pathRouteId;
 			data.pathRouteName = pathroutes.find((a:any) => a.Id == data.pathRoute_Id)?.Name;
 		});
+		this.validateExcel();
+
 	}
 
 	implementRegionId(clientId: number) {
@@ -129,6 +133,7 @@ export class ClientImportExcel implements OnInit {
 			data.region_Id = regionId;
 			data.regionName = regions.find((a:any) => a.Id == data.region_Id)?.Name;
 		});
+		this.validateExcel();
 	}
 
 	setAllForClient(completed: boolean) {
@@ -166,8 +171,8 @@ export class ClientImportExcel implements OnInit {
 			var workBook = XLSX.read(fileReader.result, { type: 'binary' });
 			var sheetNames = workBook.SheetNames;
 			//fill data from client sheet
-			this.ExcelImportData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
-			this.ExcelImportBranchData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[1]]);
+			this.ExcelImportData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]], { range: 1 });
+			this.ExcelImportBranchData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[1]], { range: 1 });
 
 			for (let i = 0; i < this.ExcelImportBranchData.length; i++) {
 				this.ExcelImportBranchData[i].telephone = this.ExcelImportBranchData[i].telephone?.toString();
@@ -211,7 +216,12 @@ export class ClientImportExcel implements OnInit {
 				if (this.ExcelImportBranchData[i].address == undefined) {
 					message += ", العنوان مطلوب";
 				}
-
+				if (this.ExcelImportBranchData[i].pathRoute_Id == undefined) {
+					message += ",  خط السير مطلوب";
+				}
+				if (this.ExcelImportBranchData[i].region_Id == undefined) {
+					message += ", المنطقة مطلوب";
+				}
 
 				this.ExcelImportBranchData[i].message = message != "" ? message : undefined;
 
@@ -257,6 +267,9 @@ export class ClientImportExcel implements OnInit {
 				if (this.data[i].taxCardNum == undefined) {
 					message += " ,  رقم تسجيل ض.ق مطلوب";
 				}
+				if (this.data[i].clientCategory_Id == undefined) {
+					message += " ,  التصنيف مطلوب";
+				}
 
 				this.data[i].message = message != "" ? message : undefined;
 
@@ -266,6 +279,83 @@ export class ClientImportExcel implements OnInit {
 
 			this.dataSource = new MatTableDataSource<IClientUpsertModel>(this.data);
 			this.dataSource.paginator = this.paginator;
+		}
+
+	}
+
+
+
+	validateExcel(){
+		
+
+		for (let i = 0; i < this.data.length; i++) {
+
+			for (let y = 0; y < this.data[i].clientDataBranches.length; y++) {
+			
+				//this.ExcelImportBranchData[i].message = "this.data[i].activity?.toString()"; 
+	
+				let message: string = "";
+	
+				if (this.data[i].clientDataBranches[y].clientBranchCode == undefined) {
+					message += ", الكود مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].name == undefined) {
+					message += ", الاسم مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].telephone == undefined) {
+					message += ",  التليفون مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].mobile == undefined) {
+					message += ",   الموبيل الفرع مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].secondMobile == undefined) {
+					message += ",   الموبيل الفرع 2 مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].managerMobile == undefined) {
+					message += ",   الموبيل مسؤول المبيعات 2 مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].responsibleName == undefined) {
+					message += " ,   اسم المسؤول مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].address == undefined) {
+					message += ", العنوان مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].pathRoute_Id == undefined) {
+					message += ",  خط السير مطلوب";
+				}
+				if (this.data[i].clientDataBranches[y].region_Id == undefined) {
+					message += ", المنطقة مطلوب";
+				}
+	
+				this.data[i].clientDataBranches[y].message = message != "" ? message : undefined;
+	
+			}
+
+			this.data[i].iserrorInBranch = this.data[i].clientDataBranches.filter(a => a.message != undefined).length > 0 ? true : false;
+
+			let message: string = "";
+
+			if (this.data[i].clientDataCode == undefined || this.data[i].clientDataCode == "") {
+				message += ", الكود مطلوب";
+			}
+			if (this.data[i].name == undefined) {
+				message += ", الاسم مطلوب";
+			}
+			if (this.data[i].activity == undefined) {
+				message += ",  النشاط مطلوب";
+			}
+			if (this.data[i].commercialRecord == undefined) {
+				message += ",  السجل التجارى مطلوب";
+			}
+			if (this.data[i].taxCardNum == undefined) {
+				message += " ,  رقم تسجيل ض.ق مطلوب";
+			}
+			if (this.data[i].clientCategory_Id == undefined) {
+				message += " ,  التصنيف مطلوب";
+			}
+
+			this.data[i].message = message != "" ? message : undefined;
+
 		}
 
 	}
