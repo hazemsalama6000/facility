@@ -14,7 +14,7 @@
 
 			<div class="col-md-8 d-flex justify-content-center align-items-center">
 				<label style="width:250px ;" for="formFile" class="form-label fontForInputs">ملف بيانات الاصناف</label>
-				<input class="form-control" type="file" id="formFile" (change)="ReadClientExcel($event)">
+				<input accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="form-control" type="file" id="formFile" (change)="ReadClientExcel($event)">
 				<button style="width:100px ;" (click)="Submit()" class="mx-2" mat-raised-button
 					color="primary">حفظ</button>
 
