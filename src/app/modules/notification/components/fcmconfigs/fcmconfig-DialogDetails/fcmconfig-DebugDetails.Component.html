@@ -1,0 +1,47 @@
+<div>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>apiKey</mat-card-title>
+        <mat-card-subtitle>{{modelData.apiKey}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>appId</mat-card-title>
+        <mat-card-subtitle>{{modelData.appId}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>authDomain</mat-card-title>
+        <mat-card-subtitle>{{modelData.authDomain}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>authDomain</mat-card-title>
+        <mat-card-subtitle *ngIf="modelData.isAndroid">Mobile</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!modelData.isAndroid">Web</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>measurementId</mat-card-title>
+        <mat-card-subtitle>{{modelData.measurementId}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>messagingSenderId</mat-card-title>
+        <mat-card-subtitle>{{modelData.messagingSenderId}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>projectId</mat-card-title>
+        <mat-card-subtitle>{{modelData.projectId}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>publicKey</mat-card-title>
+        <mat-card-subtitle>{{modelData.publicKey}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>senderId</mat-card-title>
+        <mat-card-subtitle>{{modelData.senderId}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>serverKey</mat-card-title>
+        <mat-card-subtitle>{{modelData.serverKey}}</mat-card-subtitle>
+    </mat-card>
+    <mat-card style="margin-top:10px;color: #686868;">
+        <mat-card-title>storageBucket</mat-card-title>
+        <mat-card-subtitle>{{modelData.storageBucket}}</mat-card-subtitle>
+    </mat-card>
+</div>

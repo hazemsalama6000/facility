@@ -73,10 +73,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 					this.Logging.LogRequestError({
 						severity: 'error',
 						summary: `HTTP Error - ${requestError.status}`,
-						detail: error.message,
+						detail:  error.data ? error : error.message,
 					});
 
-					return throwError(error.message)
+					return error.data ? throwError(error) : throwError(error.message);
 
 				}
 
@@ -84,7 +84,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 					this.Logging.LogRequestError({
 						severity: 'error',
 						summary: `HTTP Error - ${requestError.status}`,
-						detail: error.message
+						detail: error.data ? error : error.message
 					});
 					//don't change please return and use handling in subscription that i did
 					return error.data ? throwError(error) : throwError(error.message);

@@ -16,8 +16,6 @@ export class RifflesService {
 
   constructor(private http: CommonHttpService) { }
 
-
-
   getCommmittee() {
     return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_COMMMITTEE}`).pipe(
       map(Items => Items.data.map((Item: any) => ({ Id: Item.id, Name: Item.name }) as LookUpModel))
@@ -34,7 +32,7 @@ export class RifflesService {
     let queryString = Object.keys(searchModel).map((key: string) =>
       searchModel[key] != null && searchModel[key] != '' && searchModel[key] != undefined ? key + '=' + searchModel[key] : null
     ).filter(x => x != null).join('&');
-console.log(searchModel)
+    // console.log(searchModel)
     return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_RIFFLE_DATA}${queryString}`).pipe(
       map(items => items.data as IRifflesPaginantion)
     )
@@ -42,6 +40,14 @@ console.log(searchModel)
 
   addRiffle(model: IAddRiffles): Observable<HttpReponseModel> {
     return this.http.CommonPostRequests(model, `${localStorage.getItem('companyLink')}${HttpPaths.API_ADD_COUNTING_PROCESS}`)
+  }
+
+  updateFinalSave(riffleId: number): Observable<HttpReponseModel> {
+    return this.http.CommonPostRequests(null, `${localStorage.getItem('companyLink')}${HttpPaths.API_UPDATE_FINAL_SAVE}${riffleId}`)
+  }
+
+  updateSttelementSave(riffleId: number): Observable<HttpReponseModel> {
+    return this.http.CommonPostRequests(null, `${localStorage.getItem('companyLink')}${HttpPaths.API_UPDATE_STTELLEMENT_SAVE}${riffleId}`)
   }
 
 }
