@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection"> عرض تفاصيل الجرد </span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content style="z-index: -1;" class="mat-typography" style="min-height: calc(100vh - 145px);">
+  <div class="row mx-0 py-3">
+    <div class="col-2"><span class="badge badge-info fs-6">رقم الجرد : {{data.model.number}}</span></div>
+    <div class="col-2"><span class="badge badge-primary fs-6">التاريخ : {{riffleProfile.date|date:'dd/MM/yyyy'}}</span></div>
+    <div class="col-2"><span class="badge badge-success fs-6">المخزن : {{data.model.stockName}}</span></div>
+    <div class="col-2"><span class="badge badge-danger fs-6">اللجنة : {{data.model.committee.name}}</span></div>
+    <!-- <div class="col"><span class="badge badge-danger fs-6">اللجنة : {{data.model.committee.name}}</span></div> -->
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="row mx-0">
+
+    <div class="col" *ngIf="data.IsShowItemNoCount">
+      <div class="fontForInputs fs-5 my-3 badge badge-light-success">الاصناف المجرودة </div>
+      <app-itemscounting [data]="riffleProfile.items" [isSettlement]="false"></app-itemscounting>
+    </div>
+
+    <div class="col" *ngIf="data.IsShowItemNoCount">
+      <div class="fontForInputs fs-5 my-3 badge badge-light-danger">اصناف لم يتم جردها</div>
+      <app-itemsnocounting [data]="riffleProfile.notCountingItems"></app-itemsnocounting>
+    </div>
+
+
+    <div class="col" *ngIf="!data.IsShowItemNoCount">
+      <app-itemscounting [data]="riffleProfile.items" [isSettlement]="true" ></app-itemscounting>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="d-flex">
+    <button mat-raised-button color="primary" class="mx-2" *ngIf="data.IsShowItemNoCount&&riffleProfile.finalSave==false" (click)="saveFinal(riffleProfile.id)" >حفظ نهائى</button>
+    <button mat-raised-button color="primary" class="mx-2" *ngIf="!data.IsShowItemNoCount&&riffleProfile.isSettlementDone==false&&riffleProfile.finalSave==true" (click)="saveSttelement(riffleProfile.id)" > تسوية </button>
+  </div>
+</mat-dialog-actions>

@@ -443,7 +443,8 @@ export const locale = {
         QUANTITY: "Quantity",
         MAXLIMIT: "Max Limit",
         MINLIMIT: "Min Limit",
-        ORDERINGLIMIT: "Ordering Limit"
+        ORDERINGLIMIT: "Ordering Limit",
+        DETAILS:'View'
 
       },
       BUTTONS: {
@@ -576,6 +577,24 @@ export const locale = {
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
+      }
+    },
+
+    Notification:{
+      INPUTS:{
+        Title : "اعدادات الرسائل",
+        NAME : "Name",
+        IsAndroid : "Type",
+        apiKey : "apiKey",
+        ServerKey : "ServerKey",
+        mobile : "mobile",
+        web : "web"
+      },
+      BUTTONS:{
+        AddNotiModule : "AddNotiModule",
+      },
+    MESSAGE:{
+        NOROWFOUND:"Data Not Found"
       }
     }
 

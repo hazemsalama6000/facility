@@ -1,0 +1,202 @@
+<form [formGroup]="fcmConfigForm" (ngSubmit)="addOrUpdateCar()" >
+
+    <div mat-dialog-title>
+      <div class="row mx-0">
+        <!-- <div class="col"> {{data.carModel?("CARS.TITLES.UPDATECAR"|translate):("CARS.TITLES.ADDCAR"|translate) }}</div> -->
+        <div class="col-2">
+          <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  
+    <div mat-dialog-content class="overflow-auto py-2">
+      <div class="row mx-0">
+  
+        <div class="col-md-6 mb-3">
+  
+          <mat-form-field appearance="outline">
+            <mat-label> type </mat-label>
+                <mat-select class="customized" formControlName="isAndroid" name="isAndroid" bindLabel="Name" bindValue="Id"
+                  name="region" id="region_Id" placeholder="{{'CARS.INPUTS.CARMODEL' | translate}}">
+                  <mat-option value="true">Mobile</mat-option>
+                  <mat-option value="false">Web</mat-option>
+                </mat-select>
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'type'},
+                    control: fcmConfigForm.controls['isAndroid']
+                  }"></ng-container>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> apiKey </mat-label>
+              <input matInput placeholder="" name="apiKey" formControlName="apiKey">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'apiKey'},
+                      control: fcmConfigForm.controls['apiKey']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label> projectId </mat-label>
+            <input matInput placeholder="" name="projectId" formControlName="projectId">
+            <mat-hint>
+              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'projectId'},
+                    control: fcmConfigForm.controls['projectId']
+                  }"></ng-container>
+            </mat-hint>
+          </mat-form-field>
+      </div>
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> authDomain </mat-label>
+              <input matInput placeholder="" name="authDomain" formControlName="authDomain">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'authDomain'},
+                      control: fcmConfigForm.controls['authDomain']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> storageBucket </mat-label>
+              <input matInput placeholder="" name="storageBucket" formControlName="storageBucket">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'storageBucket'},
+                      control: fcmConfigForm.controls['storageBucket']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> messagingSenderId </mat-label>
+              <input matInput placeholder="" name="messagingSenderId" formControlName="messagingSenderId">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'messagingSenderId'},
+                      control: fcmConfigForm.controls['messagingSenderId']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> appId </mat-label>
+              <input matInput placeholder="" name="appId" formControlName="appId">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'appId'},
+                      control: fcmConfigForm.controls['appId']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> measurementId </mat-label>
+              <input matInput placeholder="" name="measurementId" formControlName="measurementId">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'measurementId'},
+                      control: fcmConfigForm.controls['measurementId']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> ServerKey </mat-label>
+              <input matInput placeholder="" name="serverKey" formControlName="serverKey">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'serverKey'},
+                      control: fcmConfigForm.controls['serverKey']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> SenderId </mat-label>
+              <input matInput placeholder="" name="senderId" formControlName="senderId">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'senderId'},
+                      control: fcmConfigForm.controls['senderId']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+        <div class="col-md-6 mb-3">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> PublicKey </mat-label>
+              <input matInput placeholder="" name="publicKey" formControlName="publicKey">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'publicKey'},
+                      control: fcmConfigForm.controls['publicKey']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div> 
+      </div>
+  
+    <mat-divider></mat-divider>
+    
+    <div mat-dialog-actions>
+      <div class="text-center col-md-6 d-flex">
+        <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'CARS.BUTTONS.CANCEL'|translate}}</button>
+  
+        <button type="submit" (click)="saveButtonClickedFlag = true;" [disabled]="loading" class="btn btn-primary">
+          <span class="indicator-label">{{'CARS.BUTTONS.SAVE'|translate}}</span>
+          <span class="indicator-progress">Please wait...
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+        </button>
+  
+      </div>
+    </div>
+  </div>
+  </form>
+  
+  <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+      <div class="fv-plugins-message-container">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </ng-container>
+  </ng-template>
+  

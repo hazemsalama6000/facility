@@ -1,17 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { InventorysettlementComponent } from "./components/inventorysettlement/inventorysettlement.component";
 import { RifflesComponent } from "./components/riffles/riffles.component";
-import { InventoryriffelsComponent } from "./inventoryriffels.component";
 
 const routes: Routes = [
-    {
-        path: '',
-        component: InventoryriffelsComponent,
-        children: [
-            { path: 'riffles', component: RifflesComponent }
-        ],
-    },
-
+    { path: 'riffles', component: RifflesComponent },
+    { path: 'inventorysettlement', component: InventorysettlementComponent }
 ];
 
 

@@ -1,12 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { LayoutService } from './core/layout.service';
 import { LayoutInitService } from './core/layout-init.service';
+import { MessagingService } from 'src/app/core-module/FcmMessagingServices/messaging.service';
 
 @Component({
   selector: 'app-layout',
@@ -43,9 +38,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   @ViewChild('ktHeaderMobile', { static: true }) ktHeaderMobile: ElementRef;
   @ViewChild('ktHeader', { static: true }) ktHeader: ElementRef;
 
+  message: any;
+
   constructor(
     private initService: LayoutInitService,
-    private layout: LayoutService
+    private layout: LayoutService,
   ) {
     this.initService.init();
   }
@@ -58,7 +55,12 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.asideCSSClasses = this.layout.getStringCSSClasses('aside');
     this.headerCSSClasses = this.layout.getStringCSSClasses('header');
     this.headerHTMLAttributes = this.layout.getHTMLAttributes('headerMenu');
+
+
+
   }
+
+
 
   ngAfterViewInit(): void {
     if (this.ktHeader) {

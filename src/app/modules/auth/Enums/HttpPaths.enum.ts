@@ -313,6 +313,7 @@ export enum HttpPaths {
 	//Inventory
 	API_GET_INVENTORY = "/api/v1/invt/getallstocks?companyBranchId=",
 	API_LIST_INVENTORY = "/api/v1/invt/listofstocks?companyBranchId=",
+	API_LIST_STOCK_KEEPERS = "/api/v1/invt/listofstockkeepers?companyBranchId=",
 	API_ADD_INVENTORY = "/api/v1/invt/addstock",
 	API_DELETE_INVENTORY = "/api/v1/invt/deletestock/",
 	API_ACTIVEDEACTIVE_INVENTORY = "/api/v1/invt/changestockactiveornot/",
@@ -447,6 +448,26 @@ export enum HttpPaths {
 	API_ADD_COUNTING_PROCESS = '/api/v1/invt/addstockcountingprocess',
 	API_GET_RIFFLE_BY_ID = '/api/v1/invt/getprofilecountingprocess?CountingProcessId=',
 	API_GET_RIFFLE_DATA = '/api/v1/invt/getcountingprocess?',
+	API_UPDATE_FINAL_SAVE = '/api/v1/invt/countingprocessfinalsaved?CountingProcessId=',
+	API_UPDATE_STTELLEMENT_SAVE = '/api/v1/invt/countingprocesssettlement?CountingProcessId=',
+
+	//Notifications
+
+	API_GET_FCMCONFIG = '/api/v1/notification/getallfcmconf',
+	API_POST_ADDFCMCONF = '/api/v1/notification/addfcmconf',
+	API_PUT_UPDATEFCMCONF = '/api/v1/notification/updatefcmconf/',
+	API_DELETE_DELETEFCMCONF = '/api/v1/notification/deletefcmconf/',
+
+	API_GET_NotiModules = '/api/v1/notification/getallnotimoudles',
+	API_POST_ADDNotiModules = '/api/v1/notification/addnoticmoudles',
+	API_PUT_UPDATENotiModules = '/api/v1/notification/updatenotimoudles/',
+	API_DELETE_DELETENotiModules = '/api/v1/notification/deletenotimoudles/',
+
+	API_GET_NOTIFICATION_BY_USER_ID = '/api/v1/notification/getusermessages?',
+	API_LIST_OF_MESSAGE_TYPE = '/api/v1/notification/listofmessagetypes',
+
+
+
 
 
 

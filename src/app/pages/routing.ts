@@ -64,6 +64,11 @@ const Routing: Routes = [
 		path: 'operation',
 		loadChildren: () =>
 			import('../modules/operations/operations.module').then(m => m.OperationsModule)
+	},	
+	{
+		path: 'notifications',
+		loadChildren: () =>
+			import('../modules/notification/notification.module').then((m) => m.NotificationModule)
 	},
 	{
 		path: 'share',

@@ -452,7 +452,8 @@ export const locale = {
         QUANTITY:"الكمية",
         MAXLIMIT:"أكبر كمية",
         MINLIMIT:"أقل كمية",
-        ORDERINGLIMIT:"الحد الادنى للطلب"
+        ORDERINGLIMIT:"الحد الادنى للطلب",
+        DETAILS:'عرض التفاصيل'
       },
       BUTTONS: {
         ADD: "اضافة",
@@ -584,6 +585,24 @@ export const locale = {
       },
       MESSAGE: {
         NOROWFOUND: "No Rows Found"
+      }
+    },
+
+    Notification:{
+      INPUTS:{
+        Title : "اعدادات الرسائل",
+        NAME : "المشروع",
+        IsAndroid : "النوع",
+        apiKey : "apiKey",
+        ServerKey : "ServerKey",
+        mobile : "mobile",
+        web : "web" 
+      },
+      BUTTONS:{
+        AddNotiModule : "اضافة مجموعة"
+      },
+      MESSAGE:{
+        NOROWFOUND:"لا توجد بيانات"
       }
     }
 

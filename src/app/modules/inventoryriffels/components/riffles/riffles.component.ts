@@ -14,6 +14,7 @@ import { ICommmittee, IRiffles } from '../../models/IRiffles.interface';
 import { RifflesService } from '../../services/riffles.service';
 import { UpsertrifflesComponent } from './upsertriffles/upsertriffles.component';
 import { ViewcommitteeComponent } from './viewcommittee/viewcommittee.component';
+import { ViewitemsComponent } from './viewitems/viewitems.component';
 
 @Component({
   selector: 'app-riffles',
@@ -65,11 +66,10 @@ export class RifflesComponent implements OnInit {
 
   getRifflesData() {
     this.rifflesService.getRifflesData(this.searchModel).subscribe(res => {
-      console.log(res.data.filter(x => x.finalSave == false).length)
       this.showbtn = res.data.filter(x => x.finalSave == false).length == 0;
       this.totalRecord = res.totalRecords;
       this.dataSource = new MatTableDataSource<IRiffles>(res.data);
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -93,7 +93,16 @@ export class RifflesComponent implements OnInit {
       data: { model: item }
     })
   } 
-  
+
+  openDialogViewItems(item?: IRiffles) {
+    this.dialog.open(ViewitemsComponent, {
+      minWidth: '100%',
+      height: '100vh',
+      position: { right: '0' },
+      data: { model: item,IsShowItemNoCount:true }
+    })
+  } 
+
   openCommmittee(element:ICommmittee) {
     this.dialog.open(ViewcommitteeComponent, {
       minWidth: '50%',
@@ -103,9 +112,9 @@ export class RifflesComponent implements OnInit {
   }
 
   pageEvent(event: any) {
-    this.getRifflesData();
     this.searchModel.PageSize = event.pageSize;
     this.searchModel.PageNumber = event.pageIndex + 1;
+    this.getRifflesData();
   }
 
   ngOnDestroy() {

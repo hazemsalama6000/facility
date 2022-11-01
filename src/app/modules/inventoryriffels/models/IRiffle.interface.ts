@@ -9,15 +9,25 @@ export interface IRiffle {
     commmittee_Id: number,
     stock_Id: number,
     financialYear_Id: number,
-    items: IItemRiffles[]
+    isSettlementDone: boolean;
+    items: IItemRiffles[],
+    notCountingItems: IItemNoCount[]
 }
 
 export interface IItemRiffles extends IItemAddRiffles {
     itemName: string,
-    itemCode:string,
+    itemCode: string,
     itemsConversion: IUnitConversionRiffles[]
 }
 
 export interface IUnitConversionRiffles extends IUnitConversionAddRiffles {
     conversionName: string
+
+}
+
+export interface IItemNoCount {
+    barCode: string
+    code: string
+    id: number
+    name: string
 }

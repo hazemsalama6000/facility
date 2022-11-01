@@ -1,6 +1,6 @@
-export interface ILoginData
-{
-	 companyCode: string,
+export interface ILoginData {
+     userToken: string|null,
+     companyCode: string,
      password: string,
      userName: string,
 }

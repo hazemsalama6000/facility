@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { InventoryriffelsComponent } from './inventoryriffels.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -11,13 +10,22 @@ import { SharedModule } from 'src/app/shared-module/shared-module.module';
 import { RifflesComponent } from './components/riffles/riffles.component';
 import { UpsertrifflesComponent } from './components/riffles/upsertriffles/upsertriffles.component';
 import { ViewcommitteeComponent } from './components/riffles/viewcommittee/viewcommittee.component';
+import { InventorysettlementComponent } from './components/inventorysettlement/inventorysettlement.component';
+// import { ViewriffleitemsComponent } from './components/inventorysettlement/viewriffleitems/viewriffleitems.component';
+import { ViewitemsComponent } from './components/riffles/viewitems/viewitems.component';
+import { ItemsnocountingComponent } from './components/riffles/viewitems/itemsnocounting/itemsnocounting.component';
+import { ItemscountingComponent } from './components/riffles/viewitems/itemscounting/itemscounting.component';
 
 @NgModule({
   declarations: [
-    InventoryriffelsComponent,
     RifflesComponent,
     UpsertrifflesComponent,
-    ViewcommitteeComponent
+    ViewcommitteeComponent,
+    InventorysettlementComponent,
+    // ViewriffleitemsComponent,
+    ViewitemsComponent,
+    ItemsnocountingComponent,
+    ItemscountingComponent
   ],
   imports: [
     CommonModule,
