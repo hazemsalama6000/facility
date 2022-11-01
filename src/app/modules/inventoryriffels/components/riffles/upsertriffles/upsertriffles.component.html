@@ -95,9 +95,6 @@
             <div class="d-flex mt-5">
               <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true;" [disabled]="loading" color="primary">حفظ مؤقت</button>
 
-              <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true; finalSave=true" [disabled]="loading"
-                class="bg-success text-white mx-2">حفظ نهائى</button>
-
               <button mat-button [mat-dialog-close]="true" cdkFocusInitial
                 style="width: 100px !important;background-color: #e7e7e7;">{{'HR.BUTTONS.CLOSE'|translate}}</button>
             </div>

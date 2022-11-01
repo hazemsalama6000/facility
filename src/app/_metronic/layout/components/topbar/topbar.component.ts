@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { MessagingService } from 'src/app/core-module/FcmMessagingServices/messaging.service';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
 import { TranslationService } from 'src/app/modules/i18n';
@@ -32,6 +33,7 @@ export class TopbarComponent implements OnInit {
   url: string = localStorage.getItem('companyLink') as string;
   language: LanguageFlag;
   langs = languages;
+  countNotify:number=0;
   private unsubscribe: Subscription[] = [];
 
 
@@ -40,7 +42,7 @@ export class TopbarComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private translationService: TranslationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     auth.userData.subscribe(res => this.userdata = res)
     MenuComponent.reinitialization()
@@ -60,7 +62,13 @@ export class TopbarComponent implements OnInit {
       lang: this.Currentlang == 'English' ? 'en' : 'ar',
       active: true
     };
+
   }
+
+  getCountNotify(countNotifiy:any){
+    this.countNotify=countNotifiy;
+  }
+
 
   logout() {
     localStorage.removeItem(this.TOKENIN_LOCALSTORAGE);

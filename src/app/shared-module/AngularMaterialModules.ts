@@ -36,6 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DividerModule } from 'primeng/divider';
 import { MatTreeModule } from '@angular/material/tree';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export const MaterialsModules=[
 
@@ -75,5 +76,6 @@ export const MaterialsModules=[
 	MatNativeDateModule,
     DividerModule,
     MatTreeModule,
-    DragDropModule
+    DragDropModule,
+    MatBadgeModule
 ];

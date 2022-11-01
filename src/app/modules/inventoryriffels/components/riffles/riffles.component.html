@@ -8,10 +8,10 @@
       </div>
 
 
-
+ <!-- *ngIf="showbtn" -->
 
       <div>
-        <button *ngIf="showbtn" (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.SAVE'|translate}}" mat-mini-fab color="primary"
+        <button  (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.SAVE'|translate}}" mat-mini-fab color="primary"
           aria-label="Example icon button with a filter list icon">
           <mat-icon>add</mat-icon>
         </button>
@@ -128,7 +128,7 @@
       <ng-container matColumnDef="commmittee">
         <th mat-header-cell *matHeaderCellDef> اسم اللجنة</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <button mat-raised-button color="primary" (click)="openCommmittee(element.committee)"
+          <button matTooltip="عرض بيانات اللجنة" mat-raised-button color="primary" (click)="openCommmittee(element.committee)"
             style="min-width: unset !important;width: unset !important;">
             {{element.committee.name}}<mat-icon class="ms-1 fs-2" style="height: 15px;">visibility</mat-icon>
           </button>
@@ -154,25 +154,31 @@
       <ng-container matColumnDef="isSettlementDone">
         <th mat-header-cell *matHeaderCellDef>تم التسوية</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <mat-icon *ngIf="element.isSettlementDone == true" class="text-success">done</mat-icon>
-          <mat-icon *ngIf="element.isSettlementDone == false" class="text-danger">close</mat-icon>
+          <mat-icon matTooltip="تم التسوية" *ngIf="element.isSettlementDone == true" class="text-success">done</mat-icon>
+          <mat-icon matTooltip="لم يتم التسوية" *ngIf="element.isSettlementDone == false" class="text-danger">close</mat-icon>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef>الحالة</th>
+        <th mat-header-cell *matHeaderCellDef>حالة الحفظ</th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <mat-icon *ngIf="element.finalSave == true" class="text-success">done</mat-icon>
-          <mat-icon *ngIf="element.finalSave == false" class="text-danger">close</mat-icon>
+          <mat-icon matTooltip="حفظ نهائى" *ngIf="element.finalSave == true" class="text-success">done</mat-icon>
+          <mat-icon matTooltip="حفظ مؤقت" *ngIf="element.finalSave == false" class="text-danger">close</mat-icon>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let x=index">
-          <button mat-mini-fab color="primary" (click)="openDialog(element)" *ngIf="!element.finalSave">
+
+          <button matTooltip="عرض تفاصيل الجرد" mat-mini-fab color="primary" class="mx-2" (click)="openDialogViewItems(element)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <button matTooltip="تعديل" mat-mini-fab color="primary" (click)="openDialog(element)" *ngIf="!element.finalSave">
             <mat-icon>edit</mat-icon>
           </button>
+
         </td>
       </ng-container>
 

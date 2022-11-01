@@ -8,6 +8,7 @@ import { ILoginData } from '../../models/ILoginData.interface';
 import { ICompanyConfigResponse } from '../../models/ICompanyConfigResponse.interface';
 import { ILoginResponseInterface } from '../../models/ILoginResponse.interface';
 import { environment } from 'src/environments/environment';
+import { MessagingService } from 'src/app/core-module/FcmMessagingServices/messaging.service';
 
 @Component({
 	selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private authService: AuthService,
 		private route: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		private FcmService: MessagingService
 	) {
 		this.isLoading$ = this.authService.isLoading$;
 		// redirect to home if already logged in
@@ -92,6 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	submit(LoginData: ILoginData) {
 
+
 		this.hasError = false;
 		this.hasErrorInCredentials = false;
 
@@ -99,23 +102,31 @@ export class LoginComponent implements OnInit, OnDestroy {
 		//check Company Validation 
 		const loginSubscr = this.authService
 			.CheckCompanyExistance(LoginData)
-			.pipe(catchError((err) => {this.hasError = true;return EMPTY;}))
+			.pipe(catchError((err) => { this.hasError = true; return EMPTY; }))
 			.subscribe((CompanyConfigResponse: ICompanyConfigResponse) => {
 
-				localStorage.setItem("companyLink", CompanyConfigResponse.companyLink)
-				//Inner Request To check User Validation
-				this.authService.Login(LoginData, CompanyConfigResponse.companyLink)
-					.subscribe((LoginResponse: ILoginResponseInterface) => {
-						if (LoginResponse.success == "false") {
-							this.hasErrorInCredentials = true;
-							console.log(this.hasErrorInCredentials);
-						}
-						else {
-							localStorage.setItem(this.TOKENIN_LOCALSTORAGE, LoginResponse.token);
-							this.authService.getUserByToken().subscribe();
-							this.router.navigate(['/dashboard']);
-						}
-					});
+				localStorage.setItem("companyLink", CompanyConfigResponse.companyLink);
+
+				this.FcmService.requestPermission().subscribe(token => {
+					LoginData.userToken = token
+
+					//Inner Request To check User Validation
+					this.authService.Login(LoginData, CompanyConfigResponse.companyLink)
+						.subscribe((LoginResponse: ILoginResponseInterface) => {
+							if (LoginResponse.success == "false") {
+								this.hasErrorInCredentials = true;
+								console.log(this.hasErrorInCredentials);
+							}
+							else {
+								localStorage.setItem(this.TOKENIN_LOCALSTORAGE, LoginResponse.token);
+
+								this.authService.getUserByToken().subscribe();
+								this.router.navigate(['/dashboard']);
+							}
+						});
+				})
+
+
 			});
 		this.unsubscribe.push(loginSubscr);
 	}

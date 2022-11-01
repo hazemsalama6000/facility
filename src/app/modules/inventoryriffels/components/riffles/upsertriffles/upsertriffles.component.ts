@@ -42,7 +42,7 @@ export class UpsertrifflesComponent implements OnInit {
   dropdownStock: LookUpModel[] = [];
   dropdownRiffles: LookUpModel[] = [];
   searchModel: any = { itemId: 0 }
-  page = { PNum: 1, PSize: 5 }
+  page = { PNum: 1, PSize: 20 }
   maxDate = new Date();
   userData: IUserData;
   showbtn: number = 0;
@@ -88,7 +88,7 @@ export class UpsertrifflesComponent implements OnInit {
           commmittee_Id: res.commmittee_Id,
           financialYear_Id: res.financialYear_Id,
           isCountingPartial: res.isCountingPartial
-        })
+        });
         this.dataSource = new MatTableDataSource<IItemRiffles>(res.items);
         this.dataSource.paginator = this.paginator;
       })
@@ -126,7 +126,7 @@ export class UpsertrifflesComponent implements OnInit {
   }
 
   fillDropdown() {
-    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
     this.rifflesService.getCommmittee().subscribe(res => this.dropdownRiffles = res);
   }
 
@@ -156,7 +156,9 @@ export class UpsertrifflesComponent implements OnInit {
       this.itemLoader = true;
       this.itemService.getItemProfile(x.option.value.Id, this.masterForm.get('stock_Id')?.value, this.userData.companyId).subscribe(res => {
         if (res) {
-          let index = this.dataSource.data.findIndex((x: any) => x.id == res.id);
+
+          let index = this.dataSource.data.findIndex((x: any) => x.itemData_Id == res.id);
+          //console.log(this.dataSource.data, res)
           if (index > -1)
             this.toaster.openWarningSnackBar('هذا الصنف تم اضاقته من قبل')
           else {
@@ -166,23 +168,30 @@ export class UpsertrifflesComponent implements OnInit {
             item.itemData_Id = res.id;
             item.itemName = res.name;
             item.itemCode = res.code;
+            item.totalStockQuantityByBaseUnit = res.quantityInBaseUnit;
             item.countingProcess_Id = 0;
 
             item.itemsConversion = [];
             res.convertedUnits.map(c => {
+              if (c.isBaseUnit){
+                item.baseUnitConversion_Id = c.unitConversionId;
+              }
+                
               let units: IUnitConversionRiffles = {} as IUnitConversionRiffles;
               units.id = 0;
-              units.stockQuantity = c.quantityInExcutedUnit;
+              units.stockQuantity = c.quantityReminigOfUnits;
               units.itemConversion_Id = c.unitConversionId;
               units.countingItem_Id = 0;
-              units.conversionName = c.convertedUnitName
+              units.conversionName = c.convertedUnitName;
+              units.factor = c.factor;
               item.itemsConversion.push(units);
             });
+
+
 
             this.dataSource.data.splice(0, 0, item);
             this.dataSource.paginator = this.paginator;
             this.table.renderRows();
-            console.log(this.dataSource.data)
           }
 
         }
@@ -194,7 +203,7 @@ export class UpsertrifflesComponent implements OnInit {
   addRiffle() {
 
     let obj = this.createObject(this.dataSource.data as IItemRiffles[]);
-    console.log(obj, this.finalSave)
+    //console.log(obj, this.finalSave)
     console.log(JSON.stringify(obj))
 
     if (obj.items.length == 0) {
@@ -227,6 +236,7 @@ export class UpsertrifflesComponent implements OnInit {
   }
 
   createObject(items: IItemRiffles[]) {
+
     let riffle: IAddRiffles = {} as IAddRiffles;
 
     riffle.id = this.masterForm.get('id')?.value;
@@ -242,18 +252,38 @@ export class UpsertrifflesComponent implements OnInit {
       let item: IItemAddRiffles = {} as IItemAddRiffles;
       item.id = x.id;
       item.itemData_Id = x.itemData_Id;
+      item.totalStockQuantityByBaseUnit = x.totalStockQuantityByBaseUnit;
+
+      item.baseUnitConversion_Id = x.baseUnitConversion_Id;
+      item.totalCountingQuantityByBaseUnit = 0;
+      item.isIncreaseSettlement = null;
       item.countingProcess_Id = x.countingProcess_Id;
 
       item.itemsConversion = [];
-      x.itemsConversion.map(c => {
+      x.itemsConversion.map((c, index) => {
+        if (isNaN(c.countingQuantity))
+          c.countingQuantity = 0;
+
         let units: IUnitConversionAddRiffles = {} as IUnitConversionAddRiffles;
         units.id = c.id;
-        units.countingQuantity = c.countingQuantity ?? 0;
+        units.countingQuantity = c.countingQuantity;
         units.stockQuantity = c.stockQuantity;
         units.itemConversion_Id = c.itemConversion_Id;
         units.countingItem_Id = c.countingItem_Id;
+        units.factor=c.factor;
         item.itemsConversion.push(units);
+
+        item.totalCountingQuantityByBaseUnit += c.countingQuantity * c.factor;
+        if ((index + 1) == x.itemsConversion.length) {
+          if (item.totalCountingQuantityByBaseUnit == item.totalStockQuantityByBaseUnit)
+            item.isIncreaseSettlement = null;
+          else if (item.totalCountingQuantityByBaseUnit > item.totalStockQuantityByBaseUnit)
+            item.isIncreaseSettlement = true;
+          else
+            item.isIncreaseSettlement = false;
+        }
       });
+
 
       riffle.items.push(item);
     });
@@ -264,7 +294,6 @@ export class UpsertrifflesComponent implements OnInit {
 
 
   restrictZero(event: any) {
-    console.log(event.target.value.startsWith("00"), event.target.value)
     if ((event.target.value.length === 1 && event.key === '0' && event.target.value.startsWith("0")) || event.key === '-' || event.key === '.' || event.key === '+' || event.key === 'e') {
       event.preventDefault();
     }
@@ -280,36 +309,4 @@ export class UpsertrifflesComponent implements OnInit {
   }
 }
 
-const x = {
-  "id": 0,
-  "number": 3,
-  "date": "2022-10-23T04:27:56",
-  "stock_Id": 13,
-  "financialYear_Id": 21,
-  "isCountingPartial": false,
-  "finalSave": false,
-  "items": [{
-    "id": 0,
-    "itemData_Id": 18,
-    "countingProcess_Id": 0,
-    "itemsConversion": [{
-      "id": 0,
-      "countingQuantity": 12,
-      "stockQuantity": 1100,
-      "itemConversion_Id": 18,
-      "countingItem_Id": 0
-    }, {
-      "id": 0,
-      "countingQuantity": 22,
-      "stockQuantity": 91.66666666666667,
-      "itemConversion_Id": 24,
-      "countingItem_Id": 0
-    }, {
-      "id": 0,
-      "countingQuantity": 5,
-      "stockQuantity": 11,
-      "itemConversion_Id": 25,
-      "countingItem_Id": 0
-    }]
-  }]
-}
+
