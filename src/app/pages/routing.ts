@@ -64,7 +64,12 @@ const Routing: Routes = [
 		path: 'operation',
 		loadChildren: () =>
 			import('../modules/operations/operations.module').then(m => m.OperationsModule)
-	},	
+	},
+	{
+		path: 'Committee',
+		loadChildren: () =>
+			import('../modules/Committee/CommitteeModule').then((m) => m.CommitteeModule)
+	},
 	{
 		path: 'notifications',
 		loadChildren: () =>

@@ -604,6 +604,28 @@ export const locale = {
       MESSAGE:{
         NOROWFOUND:"لا توجد بيانات"
       }
+    },
+
+    COMMITTEE:{
+      TITLES:{
+        COMMITTEETYPE : "أنواع المجموعات",
+        COMMITTEE : "مجموعات الجرد",
+        discription : "وصف",
+        members : "الأعضاء"
+      },
+      INPUTS:{
+        Title : "اعدادات المجموعات",
+        NAME : "الاسم",
+        POSITION : "المركز",
+        PHONE : "الموبايل",
+        ADDRESS : "الموقع",
+      },
+      BUTTONS:{
+        ADDCOMMITTEE : "اضافة مجموعة"
+      },
+      MESSAGE:{
+        NOROWFOUND:"لا توجد بيانات"
+      }
     }
 
   }

@@ -596,6 +596,28 @@ export const locale = {
     MESSAGE:{
         NOROWFOUND:"Data Not Found"
       }
+    },
+
+    COMMITTEE:{
+      TITLES:{
+        COMMITTEETYPE : "Committee Type",
+        COMMITTEE : "COMMITTEE",
+        discription : "discription",
+        members : "members"
+      },
+      INPUTS:{
+        Title : "اعدادات المجموعات",
+        NAME : "NAME",
+        POSITION : "Position",
+        PHONE : "PHONE",
+        ADDRESS : "ADDRESS",
+      },
+      BUTTONS:{
+        ADDCOMMITTEE : "Add Committee"
+      },
+      MESSAGE:{
+        NOROWFOUND: "NO ROW FOUND"
+      }
     }
 
   }
