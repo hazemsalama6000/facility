@@ -58,7 +58,9 @@ export class ViewnotificationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.FcmService.currentMessage.subscribe((res:any) => {
+
       if (res.data != undefined) {
         this.dataSource.data.splice(0, 0, (res.data as {}) as INotifications);
         this.totalRecord += 1;

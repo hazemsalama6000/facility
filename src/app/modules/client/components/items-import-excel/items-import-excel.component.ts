@@ -87,36 +87,54 @@ export class ItemsImportExcel implements OnInit {
 	}
 
 	implementUnit() {
-		let unitId = this.unitSelected.Id;
+		let unitId = this.unitSelected?.Id;
 		let units = this.dropdownUnitData;
 
-		this.data.filter(a => a.checked == true).forEach((data) =>{
-			data.unit_Id = unitId;
-			data.unitName = units.find((a: any) => a.Id == data.unit_Id)?.Name;
-		});
-		this.validateDataInExcel();
+		if (unitId == undefined) {
+			this.toaster.openWarningSnackBar("اختر الوحدة");
+		}
+		else {
+			this.data.filter(a => a.checked == true).forEach((data) => {
+				data.unit_Id = unitId;
+				data.unitName = units.find((a: any) => a.Id == data.unit_Id)?.Name;
+			});
+			this.validateDataInExcel();
+		}
 
 	}
 
 	implementNature() {
-		let value = this.NatureSelected.value;
-		let valueText = this.NatureSelected.name;
-		this.data.filter(a => a.checked == true).forEach( (data) =>{
-			data.nature = value;
-			data.natureName = valueText;
-		});
-		this.validateDataInExcel();
+		let value = this.NatureSelected?.value;
+		let valueText = this.NatureSelected?.name;
+
+		if (value == undefined) {
+			this.toaster.openWarningSnackBar("اختر الطبيعة");
+		}
+		else {
+			this.data.filter(a => a.checked == true).forEach((data) => {
+				data.nature = value;
+				data.natureName = valueText;
+			});
+			this.validateDataInExcel();
+		}
 	}
 
 	implementCategory() {
-		let categoryId = this.CategorySelected.Id;
+
+		let categoryId = this.CategorySelected?.Id;
 		let categories = this.dropdownCategoryData;
 
-		this.data.filter(a => a.checked == true).forEach( (data)=> {
-			data.itemCategory_Id = categoryId;
-			data.itemCategoryName = categories.find((a: any) => a.Id == data.itemCategory_Id)?.Name;
-		});
-		this.validateDataInExcel();
+		if (categoryId == undefined) {
+			this.toaster.openWarningSnackBar("اختر تصنيف");
+		}
+		else {
+			this.data.filter(a => a.checked == true).forEach((data) => {
+				data.itemCategory_Id = categoryId;
+				data.itemCategoryName = categories.find((a: any) => a.Id == data.itemCategory_Id)?.Name;
+			});
+			this.validateDataInExcel();
+		}
+
 	}
 
 	setAllForClient(completed: boolean) {
@@ -127,11 +145,11 @@ export class ItemsImportExcel implements OnInit {
 
 	}
 
-	validateDataInExcel(){
-		
+	validateDataInExcel() {
+
 		for (let i = 0; i < this.data.length; i++) {
 			let message: string = "";
-		
+
 			if (this.data[i].code == undefined || this.data[i].code == "" || this.data[i].code.length < 4) {
 				message += ",  الكود مطلوب والطول اكبر من 4 حروف";
 			}
@@ -156,6 +174,12 @@ export class ItemsImportExcel implements OnInit {
 			if (this.data[i].orderingLimit == undefined) {
 				message += ", الحد الادنى للطلب مطلوب";
 			}
+			if (this.data[i].vatTaxValue == undefined && this.data[i].hasVatTax == true) {
+				message += ",   ضريبة القيمة مطلوب";
+			}
+			if (this.data[i].vatTaxValue != undefined && this.data[i].hasVatTax == false) {
+				this.data[i].vatTaxValue = 0;
+			}
 
 			this.data[i].errorMessage = message != "" ? message : undefined;
 
@@ -166,7 +190,7 @@ export class ItemsImportExcel implements OnInit {
 	ExcelImportBranchData: any;
 
 	ReadClientExcel(event: any) {
-		this.event=event;
+		this.event = event;
 		let file = event.target.files[0];
 		let fileReader = new FileReader();
 		fileReader.readAsBinaryString(file);
@@ -181,7 +205,7 @@ export class ItemsImportExcel implements OnInit {
 
 			for (let i = 0; i < this.data.length; i++) {
 				let message: string = "";
-				this.data[i].index = i;
+				this.data[i].index = i + 1;
 				this.data[i].barCode = this.data[i].barCode?.toString();
 				this.data[i].code = this.data[i].code?.toString();
 				this.data[i].company_Id = this.companyId;
@@ -216,7 +240,12 @@ export class ItemsImportExcel implements OnInit {
 				if (this.data[i].orderingLimit == undefined) {
 					message += ", الحد الادنى للطلب مطلوب";
 				}
-
+				if (this.data[i].vatTaxValue == undefined && this.data[i].hasVatTax == true) {
+					message += ",   ضريبة القيمة مطلوب";
+				}
+				if (this.data[i].vatTaxValue != undefined && this.data[i].hasVatTax == false) {
+					this.data[i].vatTaxValue = 0;
+				}
 
 				this.data[i].errorMessage = message != "" ? message : undefined;
 
