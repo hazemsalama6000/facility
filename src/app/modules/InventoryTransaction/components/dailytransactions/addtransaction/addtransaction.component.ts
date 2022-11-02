@@ -17,7 +17,7 @@ import { ItemService } from 'src/app/modules/items/services/item.service';
 import { DepartmentService } from 'src/app/modules/share/Services/department_section/department.service';
 import { VendorService } from 'src/app/modules/vendor/services/vendor.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
-import { IAddTransaction, IItem, ITransEntity } from '../../../models/IAddTransaction.interface';
+import { IAddTransaction, IItem, ISerial, ITransEntity } from '../../../models/IAddTransaction.interface';
 import { IEntityType } from '../../../models/IEntityType.interface';
 import { ITransType } from '../../../models/ITransType.interface';
 import { InvTransactionService } from '../../../services/invTransaction.service';
@@ -94,19 +94,6 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     });
     this.unsubscribe.push(subuser);
 
-    // this.items = JSON.parse(localStorage.getItem('Items') as string);
-    // let masterData: any = JSON.parse(localStorage.getItem('mainData') as string);
-    // this.masterForm.patchValue({
-    //   stock_Id: masterData.stock_Id,
-    //   stockTransType_Id: masterData.stockTransType_Id,
-    //   documentDate: masterData.documentDate,
-    //   notes: masterData.notes,
-    //   entityType_Id: masterData.entityType_Id,
-    //   entity_Id: masterData.entity_Id,
-    //   financialYear_Id: masterData.financialYear_Id,
-    //   documentNumber: masterData.documentNumber,
-    // });
-
   }
 
 
@@ -115,7 +102,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
 
   fillDropdown() {
     this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res.filter(x => x.isShowInList); });
-    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
   }
 
   onSelectTransType(item: ITransType) {
@@ -236,6 +223,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
         if (res) {
           this.detailsForm.reset();
           this.item = res;
+          this.item.serialItems = [] as ISerial[];
           this.convertedUnits = res.convertedUnits;
           this.convertedUnit = res.convertedUnits.find(x => x.isBaseUnit) as IConvertedUnits;
           this.detailsForm.patchValue({ unit: this.convertedUnit.unitConversionId });
@@ -337,6 +325,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
     if (this.masterForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
       let obj = this.createTransactionObject();
+      console.log(JSON.stringify(obj),obj)
       this.invTransactionService.addTransaction(obj).subscribe(
         (data: HttpReponseModel) => {
           this.loading = false;
@@ -351,13 +340,17 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
         },
         (error: any) => {
 
-          error.data.itemData.map((d: IItem) => {
-            let index: number = d.indexRef - 1
-            this.items[index].isRefused = d.isRefused ?? false;
-          })
+          if (error.data) {
+            error.data.itemData.map((d: IItem) => {
+              let index: number = d.indexRef - 1
+              this.items[index].isRefused = d.isRefused ?? false;
+            })
 
-          this.loading = false;
-          this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+            this.loading = false;
+            this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+          } else {
+            this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+          }
         }
       );
     }
@@ -417,7 +410,8 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
         unitConversion_Id: obj.convertedUnit.unitConversionId,
         stockTransaction_Id: 0,
         itemId: obj.id,
-        indexRef: obj.indexRef
+        indexRef: obj.indexRef,
+        serialItems: obj.serialItems
       });
     });
 
@@ -427,12 +421,21 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
   }
 
   openSerialDialog(item: IItemProfile, index: number) {
-    this.dialog.open(AddserialsComponent, {
+    const serial = this.dialog.open(AddserialsComponent, {
       minWidth: '40%',
       minHeight: '80vh',
-      // position:{right:'0'}
-      data: { item: item }
+      maxHeight: '80vh',
+      data: { item: item, itemIndex: index }
     })
+
+    serial.afterClosed().subscribe(res => {
+      if (res.serials) {
+        console.log(res)
+        this.items[res.itemIndex].serialItems = res.serials;
+        console.log(this.items)
+      }
+    })
+
   }
 
 

@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Tab } from "bootstrap";
-import { BehaviorSubject, catchError, map, Observable, Subject, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, map, Observable, of, Subject, tap, throwError } from "rxjs";
 import { AnyCatcher } from "rxjs/internal/AnyCatcher";
 import { CommonHttpService } from "src/app/core-module/httpServices/CommonHttpService.service";
 import { HttpReponseModel } from "src/app/core-module/models/ResponseHttp";
@@ -28,15 +28,17 @@ export class StaticsService {
 			model[key] != null && model[key] != '' && model[key] != undefined ? key + '=' + model[key] : null
 		).filter(x => x != null).join('&');
 
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEE_STATICS}?${queryString}`).pipe(
-			map((data: HttpReponseModel) => data.data)
-		);
+		// return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_EMPLOYEE_STATICS}?${queryString}`).pipe(
+		// 	map((data: HttpReponseModel) => data.data)
+		// );
+		return of({} as IEmployeeStatics)
 	}
 
 	getIssuesTweleveStatic(companyId: any): Observable<IIssueDisplayStatics[]> {
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_TWELVE_ISSUES_STATICS}${companyId}`).pipe(
-			map((data: HttpReponseModel) => data.data)
-		);
+		// return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_TWELVE_ISSUES_STATICS}${companyId}`).pipe(
+		// 	map((data: HttpReponseModel) => data.data)
+		// );
+		return of([] as IIssueDisplayStatics[])
 	}
 
 
@@ -45,7 +47,8 @@ export class StaticsService {
 			model[key] != null && model[key] != '' && model[key] != undefined ? key + '=' + model[key] : null
 		).filter(x => x != null).join('&');
 
-		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_DAILY_STATICS}?${queryString}`).pipe(map((data:HttpReponseModel)=> data.data));
+		//return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_GET_DAILY_STATICS}?${queryString}`).pipe(map((data: HttpReponseModel) => data.data));
+	return	of([] as IDailyStatics[])
 	}
 
 }

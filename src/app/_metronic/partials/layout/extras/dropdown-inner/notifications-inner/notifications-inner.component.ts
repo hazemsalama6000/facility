@@ -41,15 +41,22 @@ export class NotificationsInnerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.FcmService.receiveMessage().subscribe(res => {
-      if (res.data != undefined)
-        this.notifications.splice(0, 0, (res.data as {}) as INotifications)
+    this.FcmService.receiveMessage();
+
+    this.FcmService.currentMessage.subscribe((res: any) => {
+      console.log(res)
+      if (res.data) {
+        this.notifications.push((res.data as {}) as INotifications)
+        this.notifications.sort(function (a, b) { return new Date(a.messageDate).getDate() - new Date(b.messageDate).getDate() });
+        this.countNotifiy.emit(this.notifications.length);
+        console.log(this.notifications.filter(x => x.refId == "2"))
+      }
     });
   }
 
   getAllNotification() {
 
-    this.notificationsService.getAllNotification({User_Id:this.userdata.userId,PageNumber:1,PageSize:1000,ReadOnly:true}).subscribe(res => {
+    this.notificationsService.getAllNotification({ User_Id: this.userdata.userId, PageNumber: 1, PageSize: 1000, ReadOnly: true }).subscribe(res => {
       this.notifications = res.messagesRecords;
       this.countNotifiy.emit(res.messagesRecords.filter(x => x.readOnly == true).length)
     })

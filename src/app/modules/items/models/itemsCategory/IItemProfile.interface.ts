@@ -1,3 +1,5 @@
+import { ISerial } from "src/app/modules/InventoryTransaction/models/IAddTransaction.interface";
+
 export interface IItemProfile {
     quantityInBaseUnit: number,
     convertedUnits: IConvertedUnits[],
@@ -27,6 +29,8 @@ export interface IItemProfile {
     preconvertedQuantity:number,
     indexRef:number,
     isRefused: boolean
+
+    serialItems:ISerial []
 
 }
 

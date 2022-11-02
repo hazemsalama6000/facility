@@ -18,6 +18,7 @@ import { IInvTransaction } from '../../models/IInvTransaction.interface';
 import { ISeachTransaction } from '../../models/ISeachTransaction.interface';
 import { ITransType } from '../../models/ITransType.interface';
 import { InvTransactionService } from '../../services/invTransaction.service';
+import { AddserialsComponent } from './addtransaction/addserials/addserials.component';
 import { AddtransactionComponent } from './addtransaction/addtransaction.component';
 
 @Component({
@@ -34,7 +35,7 @@ import { AddtransactionComponent } from './addtransaction/addtransaction.compone
 })
 export class DailytransactionsComponent implements OnInit {
 
-  columnsToDisplay = [ 'n','docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
+  columnsToDisplay = ['n', 'docNumber', 'docDate', 'stockName', 'transType', 'entityName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: IInvTransaction | null;
 
@@ -42,7 +43,7 @@ export class DailytransactionsComponent implements OnInit {
   totalRecord = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  searchModel: ISeachTransaction = { CompanyBranchId: 0,stockEmployeeId:0, PageNumber: 1, PageSize: 5, };
+  searchModel: ISeachTransaction = { CompanyBranchId: 0, stockEmployeeId: 0, PageNumber: 1, PageSize: 5, };
 
   dropdownEntity: LookUpModel[] = [];
   dropdownTransType: ITransType[] = [];
@@ -97,7 +98,7 @@ export class DailytransactionsComponent implements OnInit {
 
   fillDropdown() {
     this.invTransactionService.getTransactionType().subscribe(res => { this.dropdownTransType = res });
-    this.inventoryService.getLookUpStocks(this.userData.branchId,0,this.userData.employeeId).subscribe(res => this.dropdownStock = res);
+    this.inventoryService.getLookUpStocks(this.userData.branchId, 0, this.userData.employeeId).subscribe(res => this.dropdownStock = res);
   }
 
   getTransactionByCode = (text: string) => {
@@ -206,13 +207,14 @@ export class DailytransactionsComponent implements OnInit {
 
 
   openDialog() {
+
     this.dialog.open(AddtransactionComponent, {
       minWidth: '100%',
       height: '100vh',
       position: { right: '0' }
     })
-  }
 
+  }
 
   ngOnDestroy = () => this.unsubscribe.forEach((sb) => sb.unsubscribe());
 

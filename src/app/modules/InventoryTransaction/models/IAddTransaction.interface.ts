@@ -12,6 +12,7 @@ export interface IAddTransaction {
     transEntity: ITransEntity;
     itemData: IItem[];
 
+
 }
 
 export interface ITransEntity {
@@ -35,6 +36,11 @@ export interface IItem {
     unitConversion_Id: number,
     stockTransaction_Id: number,
     stockShelf_Id?: number,
-    notes?: string;
-    isRefused?: boolean
+    notes?: string,
+    serialItems?: ISerial[],
+    isRefused?: boolean,
+}
+
+export interface ISerial {
+    serial: string
 }

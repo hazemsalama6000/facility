@@ -107,24 +107,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 				localStorage.setItem("companyLink", CompanyConfigResponse.companyLink);
 
-				this.FcmService.requestPermission().subscribe(token => {
-					LoginData.userToken = token
+				this.FcmService.requestPermission().subscribe(token => { LoginData.userToken = token }, (err) => console.log(err));
 
-					//Inner Request To check User Validation
-					this.authService.Login(LoginData, CompanyConfigResponse.companyLink)
-						.subscribe((LoginResponse: ILoginResponseInterface) => {
-							if (LoginResponse.success == "false") {
-								this.hasErrorInCredentials = true;
-								console.log(this.hasErrorInCredentials);
-							}
-							else {
-								localStorage.setItem(this.TOKENIN_LOCALSTORAGE, LoginResponse.token);
+				//Inner Request To check User Validation
+				this.authService.Login(LoginData, CompanyConfigResponse.companyLink)
+					.subscribe((LoginResponse: ILoginResponseInterface) => {
+						if (LoginResponse.success == "false") {
+							this.hasErrorInCredentials = true;
+							console.log(this.hasErrorInCredentials);
+						}
+						else {
+							localStorage.setItem(this.TOKENIN_LOCALSTORAGE, LoginResponse.token);
+							this.authService.getUserByToken().subscribe();
+							this.router.navigate(['/dashboard']);
+						}
+					});
 
-								this.authService.getUserByToken().subscribe();
-								this.router.navigate(['/dashboard']);
-							}
-						});
-				})
 
 
 			});

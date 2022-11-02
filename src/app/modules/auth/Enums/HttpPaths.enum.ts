@@ -467,7 +467,25 @@ export enum HttpPaths {
 	API_LIST_OF_MESSAGE_TYPE = '/api/v1/notification/listofmessagetypes',
 
 
+	API_GET_LISTOFCOMMITTEEMEMBERS = '/api/v1/Committee/listofcommitteemembers',
+	API_GET_GETCOMMITTEEMEMBERS = '/api/v1/Committee/getcommitteemembers',
+	API_POST_ADDCOMMITTEEMEMBERS = '/api/v1/Committee/addcommitteemember',
+	API_PUT_UPDATECOMMITTEEMEMBERS = '/api/v1/Committee/updatecommitteemember/',
+	API_DELETE_COMMITTEEMEMBERS = '/api/v1/Committee/deletecommitteemember/',
 
+	API_GET_LISTOFCOMMITTEETYPES = '/api/v1/Committee/listofcommitteetypes',
+	API_POST_ADDCOMMITTEETYPES = '/api/v1/Committee/addcommitteetype',
+	API_PUT_UPDATECOMMITTEETYPES = '/api/v1/Committee/updatecommitteetype/',
+	API_DELETE_COMMITTEETYPES = '/api/v1/Committee/deletefcommitteetype/',
+
+	API_GET_GETCOMMITTEES = '/api/v1/Committee/getcommittee',
+	API_GET_GETCOMMITTEEMEMBERSDETAILS = '/api/v1/Committee/getcommitteemembersdetails',
+	API_POST_ADDCOMMITTEE = '/api/v1/Committee/addcommittee',
+	API_PUT_UPDATECOMMITTEE = '/api/v1/Committee/updatecommittee/',
+	API_DELETE_COMMITTEE = '/api/v1/Committee/deletecommittee/',
+
+	API_GET_STOCKS_BY_TRANS_TYPE_ID = '/api/v1/invt/getstocksperstocktranstype',
+	API_UPDATE_STOCKS_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/managestocksperstocktranstype'
 
 
 

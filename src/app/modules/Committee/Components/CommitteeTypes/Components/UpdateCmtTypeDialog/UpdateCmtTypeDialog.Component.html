@@ -1,0 +1,57 @@
+<form [formGroup]="CommitteeTypeForm" (ngSubmit)="addOrUpdateCommitteeMember()" >
+
+    <div mat-dialog-title>
+      <div class="row mx-0">
+        <!-- <div class="col"> {{data.carModel?("CARS.TITLES.UPDATECAR"|translate):("CARS.TITLES.ADDCAR"|translate) }}</div> -->
+        <div class="col-2">
+          <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  
+    <div mat-dialog-content class="overflow-auto py-2">
+      <div class="row mx-0">
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> Name </mat-label>
+              <input matInput placeholder="" name="name" formControlName="name">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'name'},
+                      control: CommitteeTypeForm.controls['name']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+      </div>
+  
+    <mat-divider></mat-divider>
+    
+    <div mat-dialog-actions>
+      <div class="text-center col-md-6 d-flex">
+        <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'CARS.BUTTONS.CANCEL'|translate}}</button>
+  
+        <button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" class="btn btn-primary">
+          <span class="indicator-label">{{'CARS.BUTTONS.SAVE'|translate}}</span>
+          <span class="indicator-progress">Please wait...
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+        </button>
+  
+      </div>
+    </div>
+  </div>
+  </form>
+  
+  <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+      <div class="fv-plugins-message-container">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </ng-container>
+  </ng-template>
+  

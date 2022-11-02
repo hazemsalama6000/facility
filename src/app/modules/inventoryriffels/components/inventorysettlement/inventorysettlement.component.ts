@@ -87,6 +87,13 @@ export class InventorysettlementComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.startDate = '';
+    this.endDate = '';
+    this.searchModel = { StockEmployeeId:this.userData.employeeId, PageNumber: 1, PageSize: 5, FinalSave: true, IsCountingPartial: false, IsSettlementDone: null };
+    this.getRifflesData();
+  }
+
   openDialog(item?: IRiffles) {
     this.dialog.open(ViewitemsComponent, {
       minWidth: '100%',

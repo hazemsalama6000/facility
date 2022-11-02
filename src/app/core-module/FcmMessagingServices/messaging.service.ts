@@ -17,7 +17,7 @@ export class MessagingService {
     }
 
     receiveMessage() {
-        return this.angularFireMessaging.messages;
+        return this.angularFireMessaging.messages.subscribe(res=>this.currentMessage.next(res));
     }
 
 }
