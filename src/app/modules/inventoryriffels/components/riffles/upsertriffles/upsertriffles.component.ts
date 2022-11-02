@@ -79,7 +79,7 @@ export class UpsertrifflesComponent implements OnInit {
     this.unsubscribe.push(subuser);
 
     if (data.model) {
-      rifflesService.getRiffleById(data.model.id).subscribe(res => {
+      rifflesService.getRiffleById(data.model.id).subscribe(res => {  
         this.masterForm.patchValue({
           id: res.id,
           number: res.number,
@@ -89,6 +89,7 @@ export class UpsertrifflesComponent implements OnInit {
           financialYear_Id: res.financialYear_Id,
           isCountingPartial: res.isCountingPartial
         });
+        this.isReadOnly = true;
         this.dataSource = new MatTableDataSource<IItemRiffles>(res.items);
         this.dataSource.paginator = this.paginator;
       })
@@ -96,6 +97,8 @@ export class UpsertrifflesComponent implements OnInit {
       this.dataSource = new MatTableDataSource<IItemRiffles>([]);
       this.dataSource.paginator = this.paginator;
     }
+
+
 
   }
 
@@ -244,7 +247,9 @@ export class UpsertrifflesComponent implements OnInit {
     riffle.date = this.datePipe.transform(new Date().setDate(new Date(this.masterForm.get('date')?.value).getDate()), 'yyyy-MM-ddThh:mm:ss') ?? '';
     riffle.stock_Id = this.masterForm.get('stock_Id')?.value;
     riffle.financialYear_Id = this.masterForm.get('financialYear_Id')?.value;
+
     riffle.isCountingPartial = this.masterForm.get('isCountingPartial')?.value;
+
     riffle.commmittee_Id = this.masterForm.get('commmittee_Id')?.value;
     riffle.finalSave = this.finalSave;
     riffle.items = [];

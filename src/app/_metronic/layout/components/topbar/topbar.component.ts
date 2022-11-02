@@ -66,6 +66,7 @@ export class TopbarComponent implements OnInit {
   }
 
   getCountNotify(countNotifiy:any){
+    console.log(countNotifiy)
     this.countNotify=countNotifiy;
   }
 

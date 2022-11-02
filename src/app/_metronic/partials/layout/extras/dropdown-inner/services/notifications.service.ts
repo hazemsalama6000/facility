@@ -31,9 +31,9 @@ export class NotificationsService {
     )
   }
 
-  getLookUpMessageType(): Observable<LookUpModel[]> {
+  getLookUpMessageType(showAll: boolean = true): Observable<LookUpModel[]> {
 
-    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_MESSAGE_TYPE}`).pipe(
+    return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_LIST_OF_MESSAGE_TYPE}?showAll=${showAll}`).pipe(
       map((items: any) => items.data.map((item: any) => ({ Id: item.id, Name: item.name })) as LookUpModel[])
     )
   }

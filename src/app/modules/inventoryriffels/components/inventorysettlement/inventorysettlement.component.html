@@ -39,26 +39,20 @@
         </ng-select>
       </div>
 
-      <div class="col-3">
+      <div class="col-2">
         <ng-select #Stock class="customized" [items]="dropdownFinancialyear" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.FinancialYearId"
           placeholder="أختر السنة المالية" (change)="getRifflesData();" (clear)="getRifflesData();">
         </ng-select>
       </div>
 
       <div class="col-2">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
 
-          <mat-icon>search</mat-icon>
+        <button mat-mini-fab [matMenuTriggerFor]="menu" color="primary" matTooltip="بحث مفصل" class="mx-3">
+
+          <mat-icon>more_vert</mat-icon>
         </button>
+        
         <mat-menu #menu="matMenu">
-
-          <!-- <mat-radio-group [(ngModel)]="searchModel.FinalSave" color="primary" (change)="getRifflesData();">
-            <mat-radio-button class="d-block m-2 fontForInputs" value="true">حفظ نهائى </mat-radio-button>
-            <mat-radio-button class="d-block m-2 fontForInputs" value="false">حفظ مؤقت</mat-radio-button>
-            <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
-          </mat-radio-group> -->
-
-          <mat-divider></mat-divider>
 
           <mat-radio-group [(ngModel)]="searchModel.IsSettlementDone" color="primary" (change)="getRifflesData();">
             <mat-radio-button class="d-block m-2 fontForInputs" value="true">تم التسوية </mat-radio-button>
@@ -66,15 +60,12 @@
             <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
           </mat-radio-group>
 
-          <mat-divider></mat-divider>
+        </mat-menu> 
+        
+        <button mat-mini-fab color="primary" matTooltip="اعادة الضبط" (click)="clearSearch()">
+          <mat-icon>restart_alt</mat-icon>
+        </button>
 
-          <mat-radio-group [(ngModel)]="searchModel.IsCountingPartial" color="primary" (change)="getRifflesData();">
-            <mat-radio-button class="d-block m-2 fontForInputs" value="true">جرد جزئى </mat-radio-button>
-            <mat-radio-button class="d-block m-2 fontForInputs" value="false"> جرد كلى </mat-radio-button>
-            <mat-radio-button class="d-block m-2 fontForInputs" [value]="null">الكل</mat-radio-button>
-          </mat-radio-group>
-
-        </mat-menu>
       </div>
 
     </div>
@@ -113,7 +104,7 @@
 
       <!-- Name Column {{"HR.INPUTS.NAME" | translate}}-->
       <ng-container matColumnDef="commmittee">
-        <th mat-header-cell *matHeaderCellDef> اسم اللجنة</th>
+        <th mat-header-cell *matHeaderCellDef>  اللجنة</th>
         <td mat-cell *matCellDef="let element; let x=index">
           <button mat-raised-button color="primary" (click)="openCommmittee(element.committee)"
             style="min-width: unset !important;width: unset !important;">

@@ -85,6 +85,13 @@ export class RifflesComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.startDate = '';
+    this.endDate = '';
+    this.searchModel = { StockEmployeeId: this.userData.employeeId, PageNumber: 1, PageSize: 5, FinalSave: null, IsCountingPartial: null, IsSettlementDone: null };
+    this.getRifflesData();
+  }
+
   openDialog(item?: IRiffles) {
     this.dialog.open(UpsertrifflesComponent, {
       minWidth: '100%',

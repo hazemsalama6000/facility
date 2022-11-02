@@ -58,7 +58,7 @@ export class ViewnotificationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.FcmService.receiveMessage().subscribe(res => {
+    this.FcmService.currentMessage.subscribe((res:any) => {
       if (res.data != undefined) {
         this.dataSource.data.splice(0, 0, (res.data as {}) as INotifications);
         this.totalRecord += 1;
@@ -95,7 +95,7 @@ export class ViewnotificationsComponent implements OnInit {
 
   //  getNotifyByStatus(item:any){
   //   if (item) {
-      
+
   //   } else {
   //     delete this.searchModel.ReadOnly
   //   }

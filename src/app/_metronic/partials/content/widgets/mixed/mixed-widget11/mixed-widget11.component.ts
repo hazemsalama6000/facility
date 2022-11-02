@@ -13,7 +13,7 @@ export class MixedWidget11Component implements OnInit {
   @Input() chartColor: string = '';
   @Input() chartHeight: string;
   chartOptions: any = {};
-companyName:string;
+companyName:string='';
 
   constructor(private auth:AuthService, private datePipe: DatePipe, private service: StaticsService) {}
 
@@ -25,7 +25,7 @@ companyName:string;
 			model.EndDate = this.datePipe.transform(new Date(), 'MM/dd/yyyy')!;
 
 			this.service.getDailyStatic(model).subscribe((dataa: IDailyStatics[]) => {
-				this.companyName = dataa[0].companyName;
+				// this.companyName = dataa[0].companyName;
 				this.chartOptions = getChartOptions(this.chartHeight, this.chartColor, dataa );
 			});
 		});
@@ -44,7 +44,7 @@ function getChartOptions(chartHeight: string, chartColor: string,dataa:IDailySta
     series: [
       {
         name: 'العدد ',
-        data: [dataa[0].complaintsCount, dataa[0].meterReadingsCount, dataa[0].updatedCustomersCount],
+        data: [0,0, 1],
       },
     
     ],
