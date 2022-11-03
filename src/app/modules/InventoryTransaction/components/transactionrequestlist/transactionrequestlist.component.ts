@@ -70,7 +70,11 @@ export class TransactionrequestlistComponent implements OnInit {
 
   getTransactionData() {
     this.invTransactionService.getTransferFromTransaction(this.searchModel).subscribe(res => {
-      res.data.map(x => x.stockTransDetails.map(obj => { obj.quantity = obj.baseQuantity / obj.convertedUnits.factor; obj.receivedQuantity = 0; }));
+      res.data.map(x => x.stockTransDetails.map(obj => {
+        obj.quantity = obj.baseQuantity / obj.convertedUnits.factor;
+        obj.receivedQuantity = obj.quantity;
+        obj.remainingQuantity = 0;
+      }));
       this.data = res.data;
       this.totalRecord = res.totalRecords;
       this.isLoadingResults = false;
@@ -173,7 +177,8 @@ export class TransactionrequestlistComponent implements OnInit {
         itemId: obj.itemId,
         indexRef: index + 1,
         stockTransaction_Id: 0,
-        notes: obj.receivedNotes ?? ''
+        notes: obj.receivedNotes ?? '',
+        serialItems:[]
       });
     });
 
@@ -230,7 +235,12 @@ export class TransactionrequestlistComponent implements OnInit {
       },
       (error: any) => {
         this.loading = false;
-        this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+        console.log(error,'sssssssssssssssssss')
+        if(error.data)
+        this.toaster.openWarningSnackBar(error.message);
+        else
+        this.toaster.openWarningSnackBar(error);
+
       }
     );
   }

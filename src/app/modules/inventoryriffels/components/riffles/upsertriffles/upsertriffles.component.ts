@@ -31,7 +31,7 @@ export class UpsertrifflesComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<IItemProfile>;
-  displayedColumns: string[] = ['n', 'itemCode', 'itemName', 'quantity'];
+  displayedColumns: string[] = ['n', 'itemCode', 'itemName', 'quantity', 'action'];
   dataSource: any;
   finalSave: boolean = false;
   loading: boolean = false;
@@ -79,7 +79,7 @@ export class UpsertrifflesComponent implements OnInit {
     this.unsubscribe.push(subuser);
 
     if (data.model) {
-      rifflesService.getRiffleById(data.model.id).subscribe(res => {  
+      rifflesService.getRiffleById(data.model.id).subscribe(res => {
         this.masterForm.patchValue({
           id: res.id,
           number: res.number,
@@ -176,10 +176,10 @@ export class UpsertrifflesComponent implements OnInit {
 
             item.itemsConversion = [];
             res.convertedUnits.map(c => {
-              if (c.isBaseUnit){
+              if (c.isBaseUnit) {
                 item.baseUnitConversion_Id = c.unitConversionId;
               }
-                
+
               let units: IUnitConversionRiffles = {} as IUnitConversionRiffles;
               units.id = 0;
               units.stockQuantity = c.quantityReminigOfUnits;
@@ -201,6 +201,12 @@ export class UpsertrifflesComponent implements OnInit {
         this.itemLoader = false;
       }, (err) => { this.toaster.openWarningSnackBar(err); this.itemLoader = false; })
     }
+  }
+
+  deleteItem(index: number) {
+    this.dataSource.data.splice(index, 1);
+    this.dataSource.paginator = this.paginator;
+    this.table.renderRows();
   }
 
   addRiffle() {
@@ -231,8 +237,10 @@ export class UpsertrifflesComponent implements OnInit {
         (error: any) => {
           this.loading = false;
           console.log(error)
+          if(error.data)
           this.toaster.openWarningSnackBar(error.message);
-        }
+          else
+          this.toaster.openWarningSnackBar(error);        }
       );
     }
 
@@ -275,7 +283,7 @@ export class UpsertrifflesComponent implements OnInit {
         units.stockQuantity = c.stockQuantity;
         units.itemConversion_Id = c.itemConversion_Id;
         units.countingItem_Id = c.countingItem_Id;
-        units.factor=c.factor;
+        units.factor = c.factor;
         item.itemsConversion.push(units);
 
         item.totalCountingQuantityByBaseUnit += c.countingQuantity * c.factor;
