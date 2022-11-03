@@ -349,7 +349,7 @@ export class AddtransactionComponent implements OnInit, OnDestroy {
             this.loading = false;
             this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
           } else {
-            this.toaster.openWarningSnackBar(error.message.toString().replace("Error:", ""));
+            this.toaster.openWarningSnackBar(error);
           }
         }
       );

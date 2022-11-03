@@ -25,7 +25,7 @@ import { ViewitemsComponent } from '../riffles/viewitems/viewitems.component';
 export class InventorysettlementComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['n', 'code', 'date', 'commmittee', 'stock', 'isCountingPartial', 'isSettlementDone', 'state', 'action'];
+  displayedColumns: string[] = ['n', 'code', 'date', 'commmittee', 'stock',  'isSettlementDone', 'state', 'action'];
   dataSource: any;
   dropdownStock: LookUpModel[] = [];
   dropdownFinancialyear: LookUpModel[] = [];

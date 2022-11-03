@@ -43,7 +43,7 @@
 
 <mat-dialog-actions>
   <div class="d-flex">
-    <button mat-raised-button color="primary" class="mx-2" *ngIf="data.IsShowItemNoCount&&riffleProfile.finalSave==false" (click)="saveFinal(riffleProfile.id)" >حفظ نهائى</button>
-    <button mat-raised-button color="primary" class="mx-2" *ngIf="!data.IsShowItemNoCount&&riffleProfile.isSettlementDone==false&&riffleProfile.finalSave==true" (click)="saveSttelement(riffleProfile.id)" > تسوية </button>
+    <button mat-raised-button color="primary" class="mx-2" *ngIf="data.IsShowItemNoCount&&riffleProfile.finalSave==false" (click)="saveFinal(riffleProfile)" >حفظ نهائى</button>
+    <button mat-raised-button color="primary" class="mx-2" *ngIf="!data.IsShowItemNoCount&&riffleProfile.isSettlementDone==false&&riffleProfile.finalSave==true" (click)="saveSttelement(riffleProfile)" > تسوية </button>
   </div>
 </mat-dialog-actions>

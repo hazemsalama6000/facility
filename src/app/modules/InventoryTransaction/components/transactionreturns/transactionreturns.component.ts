@@ -177,7 +177,8 @@ export class TransactionreturnsComponent implements OnInit {
         itemId: obj.itemId,
         indexRef: index + 1,
         stockTransaction_Id: 0,
-        notes: obj.receivedNotes ?? ''
+        notes: obj.receivedNotes ?? '',
+        serialItems:[]
       });
     });
 
@@ -220,23 +221,25 @@ export class TransactionreturnsComponent implements OnInit {
     }
 
     console.log(obj, 'done')
-    // this.invTransactionService.addTransaction(obj).subscribe(
-    //   (data: HttpReponseModel) => {
-    //     this.loading = false;
-    //     if (data.isSuccess) {
-    //       this.invTransactionService.bSubject.next(false);
-    //       this.toaster.openSuccessSnackBar(data.message);
-    //     }
-    //     else if (data.isExists) {
-    //       this.toaster.openWarningSnackBar(data.message);
-    //     }
-    //   },
-    //   (error: any) => {
-    //     this.loading = false;
-    //     console.log(error)
-    //     this.toaster.openWarningSnackBar(error.message);
-    //   }
-    // );
+    this.invTransactionService.addTransaction(obj).subscribe(
+      (data: HttpReponseModel) => {
+        this.loading = false;
+        if (data.isSuccess) {
+          this.invTransactionService.bSubject.next(false);
+          this.toaster.openSuccessSnackBar(data.message);
+        }
+        else if (data.isExists) {
+          this.toaster.openWarningSnackBar(data.message);
+        }
+      },
+      (error: any) => {
+        this.loading = false;
+        console.log(error)
+        if(error.data)
+        this.toaster.openWarningSnackBar(error.message);
+        else
+        this.toaster.openWarningSnackBar(error);      }
+    );
   }
 
   restrictZero(event: any) {
