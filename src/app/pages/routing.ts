@@ -71,6 +71,11 @@ const Routing: Routes = [
 			import('../modules/Committee/CommitteeModule').then((m) => m.CommitteeModule)
 	},
 	{
+		path: 'ordering',
+		loadChildren: () =>
+			import('../modules/clientOrdering/clientOrdering.module').then((m) => m.ClientOrderingModule)
+	},
+	{
 		path: 'notifications',
 		loadChildren: () =>
 			import('../modules/notification/notification.module').then((m) => m.NotificationModule)
