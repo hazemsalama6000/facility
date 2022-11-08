@@ -352,7 +352,7 @@ export enum HttpPaths {
 
 	API_CLIENT_DELETE = "/api/v1/cust/deleteclientcategory/",
 	API_CLIENT_LIST = "/api/v1/cust/listofclientsdata?CompanyBranchId=",
-
+	API_LIST_OF_CLIENT_BY_EMPLOYEE_ID = '/api/v1/Ordering/listofclientsbyemployeeid?Id=',
 
 	//Client Branches
 	API_CLIENTBRANCHES_GETBRANCHES = "/api/v1/cust/getclientbranches?",
@@ -367,6 +367,8 @@ export enum HttpPaths {
 	API_CLIENTBRANCH_PATHROUTE_LOGS = "/api/v1/cust/getclientbranchpathrouteslog?",
 	API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE = "/api/v1/cust/removepathroutefromclientbranch?",
 	API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE = "/api/v1/cust/listofclientsbranchesnotassigned?",
+	API_LIST_OF_CLIENT_BRANCH_BY_ID = '/api/v1/cust/listofclientbranches?clientId=',
+
 
 	//items and category
 	API_GET_ITEMS_CATEGORY = "/api/v1/invt/getinvitemswithchildrentree/",
@@ -379,6 +381,7 @@ export enum HttpPaths {
 
 	API_ITEM_ADD = "/api/v1/invt/addnewinvitems",
 	API_GET_ITEM_BY_ID = "/api/v1/invt/getinvitemprofile?itemId=",
+	API_GET_ITEM_BY_ID_FOR_ORDER = "/api/v1/invt/getitemprofilebyitemid?",
 	API_ITEM_UPDATE = "/api/v1/invt/updateinvitems/",
 	API_PARENT_ITEM_UPDATE = "/api/v1/invt/changeitemcategory",
 	API_ACTIVE_DEACTIVE_ITEMS = "/api/v1/invt/changeitemisactiveornot/",
