@@ -368,6 +368,7 @@ export enum HttpPaths {
 	API_CLIENTBRANCH_TO_DEASSIGN_PATHROUTE = "/api/v1/cust/removepathroutefromclientbranch?",
 	API_CLIENTBRANCH_GETNOT_ASSIGNEDTO_PATHROUTE = "/api/v1/cust/listofclientsbranchesnotassigned?",
 	API_LIST_OF_CLIENT_BRANCH_BY_ID = '/api/v1/cust/listofclientbranches?clientId=',
+	API_LIST_OF_CLIENT_BRANCH_BY_EMPLOYEE_ID = '/api/v1/Ordering/listofclientbranchesbyemployeeid?Id=',
 
 
 	//items and category
@@ -488,7 +489,25 @@ export enum HttpPaths {
 	API_DELETE_COMMITTEE = '/api/v1/Committee/deletecommittee/',
 
 	API_GET_STOCKS_BY_TRANS_TYPE_ID = '/api/v1/invt/getstocksperstocktranstype',
-	API_UPDATE_STOCKS_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/managestocksperstocktranstype'
+	API_UPDATE_STOCKS_TYPE_BY_TRANS_TYPE_ID = '/api/v1/invt/managestocksperstocktranstype',
+
+
+	//orders
+	API_ADD_ORDER = '/api/v1/Ordering/addorder',
+	API_GET_ORDERS = '/api/v1/Ordering/getorders?',
+	API_GET_STATISTICS_ORDERS = '/api/v1/Ordering/getstatisticsforemployee?',
+
+	//Ordering status
+	API_GET_LISTOFORDERSTATUS = '/api/v1/Ordering/listoforderstatus',
+	API_GET_GETORDERSTATUS = '/api/v1/Ordering/getallorderstatus',
+	API_POST_ADDORDERSTATUS = '/api/v1/Ordering/addorderstatus',
+	API_PUT_UPDATEORDERSTATUS = '/api/v1/Ordering/updateorderstatus/',
+	API_DELETE_ORDERSTATUS = '/api/v1/Ordering/deleteorderstatus/',
+
+	API_POST_GetEMPLOYEEBYCOMPANYID = '/api/v1/hr/getofallemployeeswithfilter',
+	API_GET_GETCLIENTSBYEMPLOYEEID = '/api/v1/Ordering/getclientsbyemployeeid',
+	API_POST_MANAGECLIENTSOFEMPLOYEE = '/api/v1/Ordering/manageclientsofemployee',
+
 
 
 

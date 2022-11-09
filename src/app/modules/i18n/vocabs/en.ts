@@ -618,6 +618,18 @@ export const locale = {
       MESSAGE:{
         NOROWFOUND: "NO ROW FOUND"
       }
+    },
+
+    ORDERING:{
+      TITLES:{
+        NAME : "Order Status",
+        Client : "Client Name"
+      },
+      INPUTS:{
+        NAME : "Name",
+        txtColor : 'Text Color',
+        ordering : 'Ordering'
+      }
     }
 
   }

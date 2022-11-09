@@ -12,6 +12,9 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ActivitiesComponent } from './components/activities/activities.component';
 import { OrderStatisticsComponent } from './components/orderStatistics/orderStatistics.component';
 import { AddOrderComponent } from './components/addOrder/addOrder.component';
+import { OrderStatusComponent } from './components/orderStatus/OrderStatus.Component';
+import { AddOrderStatusComponent } from './components/orderStatus/AddOrderStatusDialog/AddOrderStatus.Component';
+import { UpdateOrderStatusComponent } from './components/orderStatus/UpdateOrderStatusDialog/UpdateOrderStatus.Component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { AddOrderComponent } from './components/addOrder/addOrder.component';
     OrdersComponent,
     ActivitiesComponent,
     OrderStatisticsComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    OrderStatusComponent,
+    AddOrderStatusComponent,
+    UpdateOrderStatusComponent
   ],
   imports: [
     CommonModule,

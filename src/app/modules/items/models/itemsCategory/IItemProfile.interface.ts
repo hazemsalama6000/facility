@@ -26,6 +26,7 @@ export interface IItemProfile {
     price:number,
     convertedUnit:IConvertedUnits,
     total:number,
+    notes:string,
     preconvertedQuantity:number,
     indexRef:number,
     isRefused: boolean

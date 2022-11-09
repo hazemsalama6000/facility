@@ -17,8 +17,8 @@
     <form [formGroup]="masterForm" (ngSubmit)="addRiffle()" class="row">
 
       <div class="col-3 pb-3">
-        <ng-select  [items]="dropdownClient" bindLabel="Name" bindValue="Id" placeholder="أختر العميل" formControlName="Client_Id"
-         (change)="onSelectClient($event)" (clear)="dropdownClientBranch=[];masterForm.get('ClientBranch_Id')?.setValue(null)">
+        <ng-select [items]="dropdownClient" bindLabel="Name" bindValue="Id" placeholder="أختر العميل" formControlName="Client_Id"
+          (change)="onSelectClient($event)" (clear)="dropdownClientBranch=[];">
         </ng-select>
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -30,7 +30,7 @@
       </div>
 
       <div class="col-3 pb-3">
-        <ng-select  [items]="dropdownClientBranch" bindLabel="Name" placeholder="أختر الفرع" formControlName="ClientBranch_Id">
+        <ng-select [items]="dropdownClientBranch" [multiple]="true" bindLabel="Name" placeholder="أختر الفرع" formControlName="ClientBranch_Id">
         </ng-select>
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -41,14 +41,7 @@
         </mat-hint>
       </div>
 
-      <div class="col-3">
-        <mat-form-field appearance="outline">
-          <mat-label> ملاحظات</mat-label>
-          <input matInput type="number" placeholder="" name="number" formControlName="Notes">
-        </mat-form-field>
-      </div>
-
-      <div class="col-3 d-flex align-items-center">
+      <div class="col-6 d-flex justify-content-end align-items-center pe-11">
         <button mat-raised-button type="submit" (click)="saveButtonClickedFlag = true;" [disabled]="loading" color="primary" class="w-100px">اتمام
           الطلب</button>
       </div>
@@ -71,86 +64,62 @@
           <!-- <mat-icon matSuffix style="cursor: pointer;">search</mat-icon> -->
         </mat-form-field>
       </div>
-      <div class="col-7"></div>
 
-      <!-- <form [formGroup]="detailsForm" (ngSubmit)="AddItem()" class="col-12">
+      <div class="col-3">
+        <ng-select  [items]="item.convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="item.convertedUnit"
+          placeholder="أختر الوحدة" appendTo="body" [clearable]="false">
+        </ng-select>
+      </div>
 
-        <div class="row">
-          <div class="col-3">
-            <ng-select [items]="[]" bindLabel="convertedUnitName" bindValue="unitConversionId" placeholder="اختر الوحدة المنفذ بها"
-              formControlName="unit" dropdownPosition="top">
-            </ng-select>
-            <mat-hint>
-              <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                  validation: 'required',
-                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'اختر الوحدة المنفذ بها'},
-                  control: detailsForm.controls['unit']}">
-              </ng-container>
-            </mat-hint>
-          </div>
+      <div class="col-2">
+        <mat-form-field appearance="outline">
+          <mat-label> الكمية</mat-label>
+          <input matInput type="number" placeholder="" [(ngModel)]="item.quantity" (keydown)="restrictZero($event)">
+        </mat-form-field>
+      </div>
 
-          <div class="col-2">
-            <mat-form-field appearance="outline">
-              <mat-label> {{"الكمية المنفذة" | translate}} </mat-label>
-              <input matInput type="number" name="quantity" formControlName="quantity" (keydown)="restrictZero($event)">
-              <mat-hint>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-              validation: 'required',
-              message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'الكمية المنفذة' },
-              control: detailsForm.controls['quantity']
-            }"></ng-container>
-                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-              validation: 'pattern',
-              message: 'AUTH.VALIDATION.INVALID' | translate : {name:'الكمية المنفذة' },
-              control:  detailsForm.controls['quantity']
-              }"></ng-container>
-              </mat-hint>
-            </mat-form-field>
-          </div>
-
-             <div class="col-2 d-flex align-items-center justify-content-center">
-            <mat-checkbox name="CanChangeQuantity" formControlName="CanChangeQuantity" class="mx-2 fontForInputs">تغيير الكمية</mat-checkbox>
-          </div>
-          <div class="col-2 d-flex align-items-center justify-content-center">
-            <mat-checkbox name="CanScaduled" formControlName="CanScaduled" class="mx-2 fontForInputs">التوصيل على اكثر من مرة</mat-checkbox>
-          </div>
-          <div class="col-2 d-flex align-items-center justify-content-center">
-            <mat-checkbox name="CanRefuse" formControlName="CanRefuse" class="mx-2 fontForInputs">امكانية الرفض </mat-checkbox>
-          </div>
-
-
-          <div class="col-1">
-            <button matTooltip="{{'TRANSACTIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
-              aria-label="Example icon button with a filter list icon">
-              <mat-icon>add</mat-icon>
-            </button>
-          </div>
-        </div>
-
-      </form> -->
-
+      <div class="col-2">
+        <button mat-mini-fab matTooltip="اضافة صنف" color="primary" (click)="AddItem()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
 
       <div class="col-12 border-top-2 border">
 
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
 
-          <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+          <ng-container matColumnDef="n">
+            <th mat-header-cell *matHeaderCellDef class="fw-boldest w-100px text-start text-dark"> م</th>
+            <td mat-cell *matCellDef="let element;let elementIndex=dataIndex">
+              <span>{{elementIndex+1 }}</span>
+            </td>
+          </ng-container>
 
-            <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef class="w-100px text-start">
-              <span *ngSwitchCase="'n'"> م</span>
-              <span *ngSwitchCase="'branchName'"> أسم الفرع</span>
-              <span *ngSwitchCase="'action'"></span>
-            </th>
+          <ng-container matColumnDef="branchName">
+            <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> أسم الفرع</th>
+            <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+              <span class="badge badge-secondary px-3 fs-5"> {{element.branchName }} </span>
+            </td>
+          </ng-container>
 
-            <td class="text-start" mat-cell [ngSwitch]="column" *matCellDef="let element;let elementIndex=dataIndex">
-              <span *ngSwitchCase="'n'"> {{elementIndex+1 }} </span>
-              <span class="badge badge-info" *ngSwitchCase="'branchName'"> {{element[column] }} </span>
-              <span *ngSwitchCase="'action'"></span>
+          <ng-container matColumnDef="notes">
+            <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> ملاحظات</th>
+            <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center w-400px">
+              <input type="text" class="form-control " [(ngModel)]="element.notes" placeholder="ملاحظات">
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="w-100px"> </th>
+            <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="ps-6">
+              <button mat-mini-fab matTooltip="حذف فرع" aria-label="expand row" (click)="deleteOrder(elementIndex)" class="bg-danger">
+                <mat-icon>delete</mat-icon>
+              </button>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="expand">
-            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="fw-boldest w-15px text-center">&nbsp;</th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button aria-label="expand row"
                 (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
@@ -171,57 +140,57 @@
 
                 <!-- style="border:2px solid rgb(187, 187, 187);" -->
                 <table class="table" style="border:2px solid rgb(187, 187, 187);">
-                  <tr>
-                    <th rowspan="2" class="trpadding"> م </th>
-                    <th rowspan="2" class="trpadding"> كود </th>
-                    <th rowspan="2" class="w-125px"> الاسم </th>
-                    <th rowspan="2" class="w-125px"> التصنيف</th>
-                    <!-- <th rowspan="2"> الباركود</th> -->
-                    <th rowspan="2"> السعر</th>
-                    <th colspan="2" class="badge-success"> الكمية المنفذ بها</th>
-                    <!-- <th colspan="3" class="badge-primary"> الكمية بعد التحويل</th> -->
-                    <th colspan="4" class="badge-info"> الكمية المستلمة</th>
-                    <th rowspan="2" class=" "> ملاحظات</th>
-                  </tr>
-                  <tr style="border: 2px solid rgb(187, 187, 187);">
-                    <th class="w-50px">الوحدة</th>
-                    <th>الكمية </th>
-
-                    <!-- <th>الوحدة</th>
-                    <th>المعامل</th>
-                    <th>الكمية </th> -->
-
-                    <th>الوحدة</th>
-                    <th>الكمية</th>
-                    <th class="w-75px">المستلم</th>
-                    <th> المتبقى </th>
+                  <tr style="font-weight:bold;">
+                    <th rowspan="2" class="py-1"> م </th>
+                    <th rowspan="2" class="w-100px"> كود </th>
+                    <th rowspan="2"> الاسم </th>
+                    <th rowspan="2" class="w-100px badge-success"> الوحدة</th>
+                    <th rowspan="2" class="w-100px badge-info"> الكمية </th>
+                    <!-- <th rowspan="2" class="w-100px"> السعر</th> -->
+                    <th colspan="3" class="w-100px badge-primary">فى حالة عدم توافر الكميات</th>
+                    <th rowspan="2" class="w-150px"> ملاحظات</th>
+                    <!-- <th rowspan="2" class="w-150px"> الاجمالى</th> -->
+                    <th rowspan="2"></th>
                   </tr>
 
-                  <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails;let item = index"
-                    style="border: 2px solid rgb(187, 187, 187);">
-                    <td>{{item+1}}</td>
-                    <td>{{x.itemCode}}</td>
-                    <td>{{x.itemName}}</td>
-                    <td>{{x.categoryName}}</td>
-                    <!-- <td>{{x.itemBarCode}}</td> -->
-                    <td>{{x.price|number : '1.0-2'}}</td>
-                    <td>{{x.preConvertedUnitName}}</td>
-                    <td>{{x.preConvertedQuantity|number : '1.0-2'}}</td>
-                    <!-- <td>{{x.baseUnitName}}</td>
-                    <td>x</td>
-                    <td>{{x.baseQuantity}}</td> -->
+                  <tr style="border:2px solid rgb(187, 187, 187);">
+                    <th class="w-100px"> إرسال المتاح </th>
+                    <th class="w-100px"> إلغاء الصنف </th>
+                    <th class="w-100px px-1"> التوصيل على اكثر من مرة</th>
+                  </tr>
+
+                  <tr class="text-center p-1" *ngFor="let item of element.items;let itemIndex = index" style="border: 2px solid rgb(187, 187, 187);">
+                    <td>{{itemIndex+1}}</td>
+                    <td>{{item.code}}</td>
+                    <td>{{item.name}}</td>
                     <td>
-                      <ng-select #Stock class="transdrop p-1" [items]="x.unitConversions" bindLabel="convertedUnitName" [(ngModel)]="x.convertedUnits"
-                        placeholder="أختر الوحدة" appendTo="body" [clearable]="false">
+                      <ng-select class="transdrop p-1" [items]="item.convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="item.convertedUnit"
+                        placeholder="أختر الوحدة" appendTo="body" [clearable]="false" (change)="inputQuantity(item,elementIndex,itemIndex)">
                       </ng-select>
                     </td>
-                    <td> {{x.quantity|number : '1.0-2'}} </td>
-                    <td><input type="number" class="form-control p-1" [(ngModel)]="x.receivedQuantity" (keydown)="restrictZero($event)"></td>
-                    <td> {{x.remainingQuantity|number : '1.0-2'}} </td>
+                    <td><input type="number" class="form-control p-1" [(ngModel)]="item.quantity" (input)="inputQuantity(item,elementIndex,itemIndex)"
+                        (keydown)="restrictZero($event)"></td>
+                    <!-- <td>{{item.price|number : '1.0-2'}}</td> -->
                     <td>
-                      <input type="text" class="form-control p-1" [(ngModel)]="x.receivedNotes" placeholder="ملاحظات">
+                      <mat-checkbox color="primary" [(ngModel)]="item.CanChangeQuantity"></mat-checkbox>
+                    </td>
+                    <td>
+                      <mat-checkbox color="primary" [(ngModel)]="item.CanRefuse"></mat-checkbox>
+                    </td>
+                    <td>
+                      <mat-checkbox color="primary" [(ngModel)]="item.CanScaduled"></mat-checkbox>
+                    </td>
+                    <td>
+                      <input type="text" class="form-control p-1" [(ngModel)]="item.notes" placeholder="ملاحظات">
+                    </td>
+                    <!-- <td>{{item.total}} </td> -->
+                    <td>
+                      <mat-icon (click)="deleteItem(elementIndex,itemIndex)" class="text-danger p-0">delete</mat-icon>
                     </td>
                   </tr>
+                  <!-- <tr>
+                    <td colspan="12" class="text-center"><span class="badge badge-light-info fs-5">الاجمالى : {{element.total}}</span></td>
+                  </tr> -->
                 </table>
 
               </div>
