@@ -182,7 +182,6 @@
               </mat-option>
             </mat-autocomplete>
             <mat-spinner matSuffix  [diameter]="40" [hidden]="!itemLoader"></mat-spinner>
-            <!-- <mat-icon matSuffix style="cursor: pointer;">search</mat-icon> -->
           </mat-form-field>
         </div>
 
@@ -203,7 +202,7 @@
                   <tr>
                     <td>{{item.unit}}</td>
                     <td>{{item.quantityInBaseUnit}}</td>
-                    <td>{{convertedUnit?.quantityInExcutedUnit| number : '1.0-2'}}</td>
+                    <td>{{convertedUnit.quantityInExcutedUnit| number : '1.0-2'}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -243,7 +242,7 @@
 
             <div class="col-3">
               <mat-form-field appearance="outline">
-                <mat-label> {{"السعر ب "+(item.unit??'') | translate}} </mat-label>
+                <mat-label> {{"السعر ب "+(item.unit) }} </mat-label>
                 <input matInput type="number" placeholder="" [readonly]="TransType.sysName!='increase'" name="price" formControlName="price"
                   (keydown)="restrictZeroPrice($event)">
                 <mat-hint>

@@ -626,6 +626,18 @@ export const locale = {
       MESSAGE:{
         NOROWFOUND:"لا توجد بيانات"
       }
+    },
+
+    ORDERING:{
+      TITLES:{
+        NAME : "حالات الطلبات",
+        Client : "اسم العميل"
+      },
+      INPUTS:{
+        NAME : "الاسم",
+        txtColor : 'لون النص',
+        ordering : 'الترتيب'
+      }
     }
 
   }

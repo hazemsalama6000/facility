@@ -1,0 +1,99 @@
+<form [formGroup]="OrderStatusForm" (ngSubmit)="addOrUpdateOrderStatus()" >
+
+    <div mat-dialog-title>
+      <div class="row mx-0">
+        <!-- <div class="col"> {{data.carModel?("CARS.TITLES.UPDATECAR"|translate):("CARS.TITLES.ADDCAR"|translate) }}</div> -->
+        <div class="col-2">
+          <button mat-button mat-dialog-close><span class="material-icons">close</span></button>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  
+    <div mat-dialog-content class="overflow-auto py-2">
+      <div class="row mx-0">
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> Name </mat-label>
+              <input matInput placeholder="" name="name" formControlName="name">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'name'},
+                      control: OrderStatusForm.controls['name']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> sysName </mat-label>
+              <input matInput placeholder="" name="sysName" formControlName="sysName">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'sysName'},
+                      control: OrderStatusForm.controls['sysName']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row mx-0">
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> txtColor </mat-label>
+              <input matInput placeholder="" name="txtColor" formControlName="txtColor">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'txtColor'},
+                      control: OrderStatusForm.controls['txtColor']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label> ordering </mat-label>
+              <input matInput placeholder="" type="number" name="Ordring" formControlName="Ordring">
+              <mat-hint>
+                <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'Ordring'},
+                      control: OrderStatusForm.controls['Ordring']
+                    }"></ng-container>
+              </mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+
+  
+    <mat-divider></mat-divider>
+    
+    <div mat-dialog-actions>
+      <div class="text-center col-md-6 d-flex">
+        <button type="reset" mat-button mat-dialog-close class="btn btn-light me-3 p-0">{{'CARS.BUTTONS.CANCEL'|translate}}</button>
+  
+        <button type="submit" (click)="saveButtonClickedFlag = true" [disabled]="loading" class="btn btn-primary">
+          <span class="indicator-label">{{'CARS.BUTTONS.SAVE'|translate}}</span>
+          <span class="indicator-progress">Please wait...
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+          </span>
+        </button>
+  
+      </div>
+    </div>
+  </div>
+  </form>
+  
+  <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <ng-container *ngIf="control.hasError(validation) && ( saveButtonClickedFlag || control.touched)">
+      <div class="fv-plugins-message-container">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </ng-container>
+  </ng-template>
+  

@@ -1,123 +1,123 @@
-<!--begin::Table Widget 4-->
 <div class="card card-flush h-100">
-  <!--begin::Card header-->
-  <div class="card-header pt-7">
-    <!--begin::Title-->
-    <h3 class="card-title align-items-start flex-column">
-      <span class="card-label fw-bolder text-gray-800">Product Orders</span>
-      <span class="text-gray-400 mt-1 fw-bold fs-6">Avg. 57 orders per day</span>
-    </h3>
-    <!--end::Title-->
-    <!--begin::Actions-->
-    <div class="card-toolbar">
-      <!--begin::Filters-->
-      <div class="d-flex flex-stack flex-wrap gap-4">
-        <!--begin::Destination-->
-        <div class="d-flex align-items-center fw-bolder">
-          <!--begin::Label-->
-          <div class="text-gray-400 fs-7 me-2">Cateogry</div>
-          <!--end::Label-->
-          <!--begin::Select-->
-          <select class="form-select form-select-transparent text-graY-800 fs-base lh-1 fw-bolder py-0 ps-3 w-auto" data-control="select2"
-            data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option">
-            <option></option>
-            <option value="Show All" selected="selected">Show All</option>
-            <option value="a">Category A</option>
-            <option value="b">Category A</option>
-          </select>
-          <!--end::Select-->
-        </div>
-        <!--end::Destination-->
-        <!--begin::Status-->
-        <div class="d-flex align-items-center fw-bolder">
-          <!--begin::Label-->
-          <div class="text-gray-400 fs-7 me-2">Status</div>
-          <!--end::Label-->
-          <!--begin::Select-->
-          <select class="form-select form-select-transparent text-dark fs-7 lh-1 fw-bolder py-0 ps-3 w-auto" data-control="select2"
-            data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option" data-kt-table-widget-4="filter_status">
-            <option></option>
-            <option value="Show All" selected="selected">Show All</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Pending">Pending</option>
-          </select>
-          <!--end::Select-->
-        </div>
-        <!--end::Status-->
-        <!--begin::Search-->
-        <div class="position-relative my-1">
-          <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-          <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                fill="currentColor" />
-              <path
-                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                fill="currentColor" />
-            </svg>
-          </span>
-          <!--end::Svg Icon-->
-          <input type="text" data-kt-table-widget-4="search" class="form-control w-150px fs-7 ps-12" placeholder="Search" />
-        </div>
-        <!--end::Search-->
+  <div class="card-header pt-7 px-1 border-bottom-2 border">
+
+    <div class="row mx-0 my-4 w-100">
+
+      <div style="width: 130px;" >
+        <mat-form-field appearance="outline">
+          <mat-label> رقم الطلب</mat-label>
+          <input #codeInput type="text" name="code" matInput>
+          <mat-icon matSuffix (click)="getTransactionByCode(codeInput.value);clearSearch()" style="cursor: pointer;">search</mat-icon>
+        </mat-form-field>
       </div>
-      <!--begin::Filters-->
+
+      <div style="width: 150px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getOrdersByDate()">
+          <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
+          <mat-datepicker #startD></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div style="width: 150px;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
+          <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getOrdersByDate()">
+          <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
+          <mat-datepicker #endD></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-2">
+        <ng-select [items]="dropdownClientBranch" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.ClientBranchId" placeholder="أختر الفرع"
+          (change)="getOrdersData();searchModel.OrderCode=null" (clear)="getOrdersData();">
+        </ng-select>
+      </div>
+
+      <div class="col-2">
+        <ng-select [items]="dropdownOrderStatus" bindLabel="Name" bindValue="Id" [(ngModel)]="searchModel.OrderStatusId" placeholder="أختر الحالة"
+          (change)="getOrdersData();searchModel.OrderCode=null" (clear)="getOrdersData();">
+        </ng-select>
+      </div>
+
+      <div class="col-1">
+        <button mat-mini-fab color="primary" matTooltip="اعادة الضبط" (click)="clearSearch()">
+          <mat-icon>restart_alt</mat-icon>
+        </button>
+      </div>
+
     </div>
-    <!--end::Actions-->
+
   </div>
-  <!--end::Card header-->
-  <!--begin::Card body-->
+
   <div class="card-body p-0 pt-2">
 
     <table mat-table [dataSource]="data" multiTemplateDataRows>
 
-      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+      <ng-container matColumnDef="n">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest w-50px text-start text-dark"> م</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex">
+          <span>{{elementIndex+1 }}</span>
+        </td>
+      </ng-container>
 
-        <th style="font-weight:bold;" [ngSwitch]="column" mat-header-cell *matHeaderCellDef>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'n'"> م</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'docNumber'">
-            {{"TRANSACTIONS.TITLES.ID"|translate}}</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'docDate'">
-            {{"TRANSACTIONS.TITLES.DOCDATE"|translate}}</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'transType'">
-            {{"TRANSACTIONS.TITLES.TRANSCTYPE"|translate}}</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'stockName'">
-            {{"TRANSACTIONS.TITLES.STOCKNAME"|translate}}</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'entityName'"> المستفيد</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'notes'">
-            {{"TRANSACTIONS.TITLES.NOTES"|translate}}</span>
-          <span class="text-start text-gray-400 fw-bolder fs-7 text-uppercase " *ngSwitchCase="'action'"></span>
-        </th>
+      <ng-container matColumnDef="orderCode">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> الكود</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="w-50px text-center">
+          <span class="badge badge-info px-3 fs-5 mx-2"> {{element.orderCode }} </span>
+        </td>
+      </ng-container>
 
-        <td class="text-center" mat-cell [ngSwitch]="column" *matCellDef="let element;let elementIndex=dataIndex">
-          <span *ngSwitchCase="'n'"> {{((searchModel.PageNumber-1)*searchModel.PageSize)+(elementIndex+1) }} </span>
-          <span *ngSwitchCase="'docNumber'"> {{element[column] }} </span>
-          <span class="badge badge-primary" *ngSwitchCase="'docDate'"> {{element[column] | date:'dd/MM/yyyy'}}</span>
-          <span class="badge badge-danger" *ngSwitchCase="'transType'"> {{element[column] }} </span>
-          <span class="badge badge-success" *ngSwitchCase="'stockName'"> {{element[column] }} </span>
-          <span class="badge py-3 px-4 fs-7 badge-light-warning" *ngSwitchCase="'entityName'"> {{element[column] }} </span>
-          <span *ngSwitchCase="'notes'"> {{element[column] }} </span>
-          <span *ngSwitchCase="'action'">
+      <ng-container matColumnDef="orderDate">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest w-50px text-center fs-5  text-dark"> التاريخ</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-secondary px-3 fs-5 mx-2"> {{element.orderDate|date:'dd/MM/yyyy' }} </span>
+        </td>
+      </ng-container>
 
-          </span>
+      <ng-container matColumnDef="clientBranch">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest w-100px text-center fs-5  text-dark"> أسم الفرع</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-primary px-3 fs-5 mx-2"> {{element.clientBranch }} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orderEmployee">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest w-100px text-center fs-5  text-dark"> الموطف</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-secondary px-3 fs-5 mx-2"> {{element.orderEmployee }} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPrice">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> الاجمالى</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-secondary px-3 fs-5 mx-2"> {{element.totalPrice }} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> الحالة</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-{{getActiveStatus(element.status).txtColor }} px-3 fs-5 mx-2"> {{getActiveStatus(element.status).name }} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef class="fw-boldest text-center fs-5  text-dark"> ملاحظات</th>
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" class="text-center">
+          <span class="badge badge-danger px-3 fs-5 mx-2" *ngIf="element.notes"> {{element.notes }} </span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="expand">
-        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="fw-boldest w-15px text-center">&nbsp;</th>
         <td mat-cell *matCellDef="let element">
-          <!-- <button mat-button class="btn btn-sm btn-icon btn-light btn-active-light-primary h-25px w-25px"
+          <button mat-icon-button aria-label="expand row"
             (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-            <mat-icon *ngIf="expandedElement !== element">add</mat-icon>
-            <mat-icon *ngIf="expandedElement === element">remove</mat-icon>
-          </button> -->
-
-          <button type="button" aria-label="expand row" class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px"
-            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-            <mat-icon *ngIf="expandedElement !== element">add</mat-icon>
-            <mat-icon *ngIf="expandedElement === element">remove</mat-icon>
+            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -125,53 +125,57 @@
       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
       <ng-container matColumnDef="expandedDetail">
 
-        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <td mat-cell *matCellDef="let element;let elementIndex=dataIndex" [attr.colspan]="columnsToDisplayWithExpand.length">
 
-          <div class="example-element-detail justify-content-center align-items-center"
+          <div class="example-element-detail justify-content-center align-items-center d-block"
             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <mat-divider></mat-divider>
+
             <!-- style="border:2px solid rgb(187, 187, 187);" -->
-            <table class="table mt-10" style="border:2px solid rgb(187, 187, 187);">
-              <tr>
-                <th rowspan="2" class="trpadding"> م</th>
-                <th rowspan="2" class="trpadding"> كود </th>
-                <th rowspan="2"> الاسم </th>
-                <th rowspan="2"> التصنيف</th>
-                <th rowspan="2"> الباركود</th>
-
-                <th colspan="3" class="badge-primary"> الكمية بالوحدة الاساسية</th>
-                <!-- <th rowspan="2"> السعر</th> -->
-                <th colspan="3" class="badge-success"> الكمية المنفذ بها</th>
-                <th rowspan="2"> الاجمالى</th>
-              </tr>
-              <tr style="border: 2px solid rgb(187, 187, 187);">
-                <th>الوحدة</th>
-                <th>السعر</th>
-                <th>الكمية </th>
-
-                <th>الوحدة</th>
-                <th>المعامل</th>
-                <th>الكمية </th>
+            <table class="table" style="border:2px solid rgb(187, 187, 187);">
+              <tr style="font-weight:bold;">
+                <th rowspan="2" class="py-1"> م </th>
+                <!-- <th rowspan="2"> كود </th> -->
+                <th rowspan="2" class="w-150px"> الاسم </th>
+                <th rowspan="2" class="w-100px badge-success"> الوحدة</th>
+                <th rowspan="2" class="w-100px badge-info"> الكمية </th>
+                <!-- <th rowspan="2" class="w-100px"> السعر</th> -->
+                <th colspan="3" class="w-100px badge-primary">فى حالة عدم توافر الكميات</th>
+                <th rowspan="2" class="w-150px"> ملاحظات</th>
+                <!-- <th rowspan="2" class="w-150px"> الاجمالى</th> -->
               </tr>
 
-              <tr class="text-center p-1" *ngFor="let x of element.stockTransDetails;let i=index" style="border: 2px solid rgb(187, 187, 187);">
-                <td>{{i+1}}</td>
-                <td>{{x.itemCode}}</td>
-                <td>{{x.itemName}}</td>
-                <td>{{x.categoryName}}</td>
-                <td>{{x.itemBarCode}}</td>
-
-                <td>{{x.baseUnitName}}</td>
-                <td>{{x.price|number : '1.0-2'}}</td>
-                <td>{{x.baseQuantity|number : '1.0-2'}}</td>
-
-
-                <td>{{x.preConvertedUnitName}}</td>
-                <td>{{x.factor}}</td>
-                <td>{{x.preConvertedQuantity|number : '1.0-2'}}</td>
-
-                <td>{{x.baseQuantity*x.price|number : '1.0-2'}}</td>
-
+              <tr style="border:2px solid rgb(187, 187, 187);">
+                <th class="w-100px"> إرسال المتاح </th>
+                <th class="w-100px"> إلغاء الصنف </th>
+                <th class="w-100px px-1"> التوصيل على اكثر من مرة</th>
               </tr>
+
+              <tr class="text-center p-1" *ngFor="let item of element.orderItems;let itemIndex = index" style="border: 2px solid rgb(187, 187, 187);">
+                <td>{{itemIndex+1}}</td>
+                <!-- <td>{{item.code}}</td> -->
+                <td>{{item.itemName}}</td>
+                <td>{{item.unitConversion}}</td>
+                <td>{{item.quantity}}</td>
+                <!-- <td>{{item.price|number : '1.0-2'}}</td> -->
+                <td>
+                  <mat-icon *ngIf="item.canChangeQuantity == true" class="text-success">done</mat-icon>
+                  <mat-icon *ngIf="item.canChangeQuantity == false" class="text-danger">close</mat-icon>
+                </td>
+                <td>
+                  <mat-icon *ngIf="item.canRefuse == true" class="text-success">done</mat-icon>
+                  <mat-icon *ngIf="item.canRefuse == false" class="text-danger">close</mat-icon>
+                </td>
+                <td>
+                  <mat-icon *ngIf="item.canScaduled == true" class="text-success">done</mat-icon>
+                  <mat-icon *ngIf="item.canScaduled == false" class="text-danger">close</mat-icon>
+                </td>
+                <td> {{item.notes}}</td>
+                <!-- <td>{{0}} </td> -->
+              </tr>
+              <!-- <tr>
+                <td colspan="12" class="text-center"><span class="badge badge-light-info fs-5">الاجمالى : {{element.totalPrice}}</span></td>
+              </tr> -->
             </table>
 
           </div>
@@ -191,6 +195,5 @@
     </mat-paginator>
 
   </div>
-  <!--end::Card body-->
+
 </div>
-<!--end::Table Widget 4-->

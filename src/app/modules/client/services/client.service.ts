@@ -71,7 +71,7 @@ export class ClientService {
 
 	listOfClient(employeeId: number): Observable<LookUpModel[]> {
 		return this.http.CommonGetRequests(`${localStorage.getItem("companyLink")}${HttpPaths.API_LIST_OF_CLIENT_BY_EMPLOYEE_ID}${employeeId}`).pipe(
-			map(Items => Items.data.map((item: any) => ({ Id: item.name, Name: item.name })) as LookUpModel[])
+			map(Items => Items.data.map((item: any) => ({ Id: item.id, Name: item.name })) as LookUpModel[])
 		)
 	}
 

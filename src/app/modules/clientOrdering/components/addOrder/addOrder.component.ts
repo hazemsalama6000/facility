@@ -16,6 +16,9 @@ import { InventoryService } from 'src/app/modules/declarations/services/inventor
 import { ItemService } from 'src/app/modules/items/services/item.service';
 import { LookUpModel } from 'src/app/shared-module/models/lookup';
 import { IItemsForOrder, IOrderOperation } from '../../models/IItemsForOrder.interface';
+import { IConvertedUnits } from 'src/app/modules/items/models/itemsCategory/IItemProfile.interface';
+import { IAddOrder, IAddOrderItems } from '../../models/IAddOrder.interface';
+import { OrderingService } from '../../services/ordering.service';
 
 @Component({
   selector: 'app-addOrder',
@@ -32,15 +35,14 @@ import { IItemsForOrder, IOrderOperation } from '../../models/IItemsForOrder.int
 export class AddOrderComponent implements OnInit {
 
 
-  columnsToDisplay = ['n', 'branchName', 'action'];
+  columnsToDisplay = ['n', 'branchName', 'notes', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement: IItemsForOrder | null;
-  @ViewChild(MatTable) table: MatTable<IItemsForOrder>;
+  expandedElement: IOrderOperation | null;
+  @ViewChild(MatTable) table: MatTable<IOrderOperation>;
   loading: boolean = false;
   itemLoader: boolean = false;
   dataSource: IOrderOperation[] = [];
-  // isLoadingResults = true;
-  // isRateLimitReached = false;
+  item: IItemsForOrder = {} as IItemsForOrder;
   userData: IUserData;
   dropdownClient: LookUpModel[] = [];
   dropdownClientBranch: LookUpModel[] = [];
@@ -55,29 +57,17 @@ export class AddOrderComponent implements OnInit {
   masterForm: FormGroup = this.fb.group({
     Id: [0],
     TotalPrice: [null],
-    Notes: [''],
     OrderEmployee_Id: [null, Validators.compose([Validators.required])],
     ClientBranch_Id: [null, Validators.compose([Validators.required])],
     Client_Id: [null, Validators.compose([Validators.required])],
-    OrderItems: [null]
-  });
-
-  detailsForm: FormGroup = this.fb.group({
-    name: [''],
-    // price: [{ value: '', disabled: true }, Validators.compose([Validators.required])],
-    quantity: [{ value: '', disabled: true }, Validators.compose([Validators.required, Validators.pattern("^[0-9]*$")])],
-    unit: [{ value: null, disabled: true }, Validators.compose([Validators.required])],
-    CanChangeQuantity: [false],
-    CanScaduled: [false],
-    CanRefuse: [false],
   });
 
   constructor(
     private fb: FormBuilder,
     private clientBranch: ClientBranchService,
     private client: ClientService,
-    private inventoryService: InventoryService,
     private itemService: ItemService,
+    private orderService: OrderingService,
     private auth: AuthService,
     private datePipe: DatePipe,
     private dialogRef: MatDialogRef<AddOrderComponent>,
@@ -85,8 +75,8 @@ export class AddOrderComponent implements OnInit {
     // @Inject(MAT_DIALOG_DATA) public data: { model: IRiffles }
   ) {
     let subuser = this.auth.userData.subscribe((data: IUserData) => {
-      this.userData = data,
-        this.masterForm.get('OrderEmployee_Id')?.setValue(this.userData.employeeId)
+      this.userData = data;
+      this.masterForm.get('OrderEmployee_Id')?.setValue(this.userData.employeeId);
       this.fillDropdown();
     });
     this.unsubscribe.push(subuser);
@@ -108,27 +98,21 @@ export class AddOrderComponent implements OnInit {
   autoCompleteItems: LookUpModel[] = [];
 
   inputAutoComplete(text: string) {
-    // if (this.masterForm.valid) {
-    this.isReadOnly = true;
-    this.detailsForm.get('price')?.enable();
-    this.detailsForm.get('unit')?.enable();
-    this.detailsForm.get('quantity')?.enable();
+    if (this.masterForm.valid) {
+      this.isReadOnly = true;
+      this.autoCompleteItems = []
+      if (text.length > 2) {
+        this.itemLoader = true
+        this.itemService.getLookUpItemsByCode(this.userData.companyId, text).subscribe(res => {
+          if (res)
+            this.autoCompleteItems = res
+          this.itemLoader = false;
+        });
 
-    this.autoCompleteItems = []
-    if (text.length > 2) {
-      this.itemLoader = true
-      this.itemService.getLookUpItemsByCode(this.userData.companyId, text).subscribe(res => {
-        if (res)
-          this.autoCompleteItems = res
-        this.itemLoader = false;
-      });
-
-    }
-    // } else
-    //   this.toaster.openWarningSnackBar('برجاء استكمال البيانات الاساسية أولاً')
+      }
+    } else
+      this.toaster.openWarningSnackBar('برجاء استكمال البيانات الاساسية أولاً')
   }
-
-
 
   displayinputAutoComplete = (item?: LookUpModel): string => item ? item.Name : '';
   onSelectedAutoComplete(x: MatAutocompleteSelectedEvent) {
@@ -136,32 +120,9 @@ export class AddOrderComponent implements OnInit {
       this.itemLoader = true;
       this.itemService.getItemProfileForOrder(x.option.value.Id, this.userData.companyId).subscribe(res => {
         if (res) {
-
-          let branches: LookUpModel[] = [{ Id: 1, Name: 'cairo' }, { Id: 2, Name: 'ddd' }];
-          if (branches.length > 0) {
-
-            branches.map(branch => {
-              let order: IOrderOperation = {} as IOrderOperation;
-              order.branchId = branch.Id;
-              order.branchName = branch.Name;
-
-              this.dataSource.push(order);
-              this.table.renderRows();
-            });
-
-          }
-
-          // let index = 0//this.dataSource.data.findIndex((x: any) => x.itemData_Id == res.id);
-          // //console.log(this.dataSource.data, res)
-          // if (index > -1)
-          //   this.toaster.openWarningSnackBar('هذا الصنف تم اضاقته من قبل')
-          // else {
-          //   if (res) {
-
-          //   }
-
-
-          // }
+          res.convertedUnit = res.convertedUnits.find(x => x.isBaseUnit) ?? {} as IConvertedUnits;
+          res.total = 0;
+          this.item = res;
           this.itemLoader = false;
         }
         this.itemLoader = false;
@@ -170,73 +131,118 @@ export class AddOrderComponent implements OnInit {
   }
 
   AddItem() {
-    if (this.detailsForm.valid) {
+    let branches: LookUpModel[] = this.masterForm.get('ClientBranch_Id')?.value as LookUpModel[];
+    if (branches.length > 0 && this.item) {
 
-      // this.item.quantity = this.detailsForm.get('quantity')?.value;
+      branches.map(branch => {
+        let dataSourceOrder: IOrderOperation | undefined = this.dataSource.find(x => x.branchId == branch.Id);
+        if (dataSourceOrder)
+          dataSourceOrder.items.findIndex(x => x.id == this.item.id) == -1 ? dataSourceOrder?.items.push({ ...this.item }) : null;
+        else {
+          let order: IOrderOperation = {} as IOrderOperation;
+          order.branchId = branch.Id;
+          order.branchName = branch.Name;
+          order.total = 0;
+          order.items = [];
+          order.items.push({ ...this.item });
+          this.dataSource.push(order);
+        }
+      });
 
-      // if (this.item.quantity < 1) {
-      //   this.detailsForm.get('quantity')?.setErrors(Validators.pattern("^[0-9]*$"))
-      //   return;
-      // }
+    }
+    this.table.renderRows();
+  }
 
-      // this.item.price = this.detailsForm.get('price')?.value;
-      // this.item.total = this.item.quantity * this.item.price;
-      // this.items.push(this.item);
-      // this.item = {} as IItemProfile;
-      // this.convertedUnits = [];
-      // this.detailsForm.reset();
-      // this.detailsForm.get('price')?.setValue(null)
-      // this.detailsForm.get('quantity')?.setValue(null)
-      // this.detailsForm.get('unit')?.setValue(null)
-      // this.searchItem = '';
-      // this.dataSource.data=this.items;
-      // this.dataSource.paginator = this.paginator;
-      // this.table.renderRows();
+  deleteOrder(elementIndex: number) {
+    this.dataSource.splice(elementIndex, 1);
+    this.table.renderRows();
+  }
+
+  deleteItem(elementIndex: number, itemIndex: number) {
+    this.dataSource[elementIndex].items.splice(itemIndex, 1);
+    this.table.renderRows();
+  }
+
+  inputQuantity(element: IItemsForOrder, elementIndex: number, itemIndex: number) {
+    if (!isNaN(element.quantity) && !isNaN(element.price)) {
+      this.dataSource[elementIndex].items[itemIndex].total = (element.quantity * element.convertedUnit.factor) * element.price;
+      // this.dataSource[elementIndex].total = this.dataSource[elementIndex].items.reduce((sum, current) => sum + current.total, 0);
+      this.table.renderRows();
     }
   }
 
-  deleteItem(index: number) {
-    // this.dataSource.data.splice(index, 1);
-    // this.dataSource.paginator = this.paginator;
-    // this.table.renderRows();
-  }
 
   addRiffle() {
 
-    // let obj = this.createObject(this.dataSource.data as IItemRiffles[]);
+    let obj = this.createObject();
 
-    // console.log(JSON.stringify(obj))
+    console.log(JSON.stringify(obj))
+    console.log(obj)
 
-    // if (obj.items.length == 0) {
-    //   this.toaster.openWarningSnackBar('لا يوجد اصناف للحفظ')
-    //   return;
-    // }
+    if (obj.length == 0) {
+      this.toaster.openWarningSnackBar('لا يوجد بيانات للحفظ')
+      return;
+    }
 
-    // if (this.masterForm.valid && this.saveButtonClickedFlag) {
-    //   this.loading = true;
-    //   this.rifflesService.addRiffle(obj).subscribe(
-    //     (data: HttpReponseModel) => {
-    //       this.loading = false;
-    //       if (data.isSuccess) {
-    //         this.rifflesService.bSubject.next(false);
-    //         this.dialogRef.close();
-    //         this.toaster.openSuccessSnackBar(data.message);
-    //       }
-    //       else if (data.isExists) {
-    //         this.toaster.openWarningSnackBar(data.message);
-    //       }
-    //     },
-    //     (error: any) => {
-    //       this.loading = false;
-    //       console.log(error)
-    //       if (error.data)
-    //         this.toaster.openWarningSnackBar(error.message);
-    //       else
-    //         this.toaster.openWarningSnackBar(error);
-    //     }
-    //   );
-    // }
+    if (this.masterForm.valid && this.saveButtonClickedFlag) {
+      this.loading = true;
+      this.orderService.addOrder(obj).subscribe(
+        (data: HttpReponseModel) => {
+          this.loading = false;
+          if (data.isSuccess) {
+            this.orderService.bSubject.next(false);
+            this.dialogRef.close();
+            this.toaster.openSuccessSnackBar(data.message);
+          }
+          else if (data.isExists) {
+            this.toaster.openWarningSnackBar(data.message);
+          }
+        },
+        (error: any) => {
+          this.loading = false;
+          console.log(error)
+          if (error.data)
+            this.toaster.openWarningSnackBar(error.message);
+          else
+            this.toaster.openWarningSnackBar(error);
+        }
+      );
+    }
 
+  }
+
+  createObject(): IAddOrder[] {
+
+    let orders: IAddOrder[] = [];
+
+    this.dataSource.map(ord => {
+      let order: IAddOrder = {} as IAddOrder;
+      order.id = 0;
+      order.clientBranch_Id = ord.branchId;
+      order.orderEmployee_Id = this.userData.employeeId;
+      order.totalPrice = ord.total;
+      order.notes = order.notes;
+
+      order.orderItems = [];
+      ord.items.map((item: any) => {
+        order.orderItems.push({
+          id: 0,
+          order_Id: 0,
+          notes: item.notes ?? '',
+          quantity: item.quantity,
+          isRefuse: false,
+          isRefuseNotes: '',
+          canChangeQuantity: item.CanChangeQuantity ?? false,
+          canRefuse: item.CanRefuse ?? false,
+          canScaduled: item.CanScaduled ?? false,
+          unitConversion_Id: item.convertedUnit.unitConversionId
+        });
+      });
+
+      orders.push(order);
+    });
+
+    return orders;
   }
 
   restrictZero(event: any) {
