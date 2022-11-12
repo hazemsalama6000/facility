@@ -81,6 +81,8 @@ export class OrdersComponent implements OnInit {
       this.data = res.data;
       this.isLoadingResults = false;
       this.totalRecord = res.totalRecords;
+
+      this.orderService.orderCount.next(res.totalRecords);
     })
   }
 

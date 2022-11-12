@@ -2,7 +2,8 @@
 
   <div class="d-flex justify-content-between align-items-center">
 
-    <span class="fontsection">{{data.type=='add'?("DECLARATIONS.TITLES.ADDITEM"|translate):("DECLARATIONS.TITLES.EDITITEM"|translate)}}</span>
+    <span
+      class="fontsection">{{data.type=='add'?("DECLARATIONS.TITLES.ADDITEM"|translate):("DECLARATIONS.TITLES.EDITITEM"|translate)}}</span>
     <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
       <mat-icon>close</mat-icon>
     </button>
@@ -21,7 +22,7 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.CODE" | translate}}</mat-label>
-          <input matInput  placeholder="" name="code" formControlName="code">
+          <input matInput placeholder="" name="code" formControlName="code">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -129,7 +130,8 @@
       <div class="col-md-4 mb-3">
 
         <ng-select appendTo="body" class="customized" [items]="dropdownUnitData" bindLabel="Name" bindValue="Id"
-          placeholder="{{'DECLARATIONS.INPUTS.UNIT' | translate}}" name="unit_Id" id="unit_Id" formControlName="unit_Id">
+          placeholder="{{'DECLARATIONS.INPUTS.UNIT' | translate}}" name="unit_Id" id="unit_Id"
+          formControlName="unit_Id">
         </ng-select>
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -144,8 +146,8 @@
       <!-- nature -->
       <div class="col-md-4 mb-3">
 
-        <ng-select appendTo="body" class="customized" [items]="dropdownNatureData" bindLabel="name" bindValue="value" placeholder="طبيعة الصنف"
-          name="nature" id="nature" formControlName="nature">
+        <ng-select appendTo="body" class="customized" [items]="dropdownNatureData" bindLabel="name" bindValue="value"
+          placeholder="طبيعة الصنف" name="nature" id="nature" formControlName="nature">
         </ng-select>
         <mat-hint>
           <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -166,7 +168,8 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.MAXLIMIT" | translate}} </mat-label>
-          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="maxLimit" formControlName="maxLimit">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="maxLimit"
+            formControlName="maxLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -193,7 +196,8 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.MINLIMIT" | translate}} </mat-label>
-          <input matInput  type="number" (keydown)="restrictZero($event)" placeholder="" name="minLimit" formControlName="minLimit">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="minLimit"
+            formControlName="minLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -220,7 +224,8 @@
       <div class="col-md-4 mb-3">
         <mat-form-field appearance="outline">
           <mat-label> {{"DECLARATIONS.INPUTS.ORDERINGLIMIT" | translate}} </mat-label>
-          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="orderingLimit" formControlName="orderingLimit">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="orderingLimit"
+            formControlName="orderingLimit">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
@@ -245,7 +250,7 @@
 
       <!-- expirationDate {{'DECLARATIONS.INPUTS.DATE'|translate}}-->
       <div class="col-md-6 mb-3">
-        <mat-checkbox formControlName="hasExpireDate" color="primary"  class="mb-2">
+        <mat-checkbox formControlName="hasExpireDate" color="primary" class="mb-2">
           له صلاحية
         </mat-checkbox>
       </div>
@@ -257,13 +262,20 @@
         </mat-checkbox>
         <mat-form-field appearance="outline">
           <mat-label> النسبة</mat-label>
-          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="vatTaxValue" formControlName="vatTaxValue">
+          <input matInput type="number" (keydown)="restrictZero($event)" placeholder="" name="vatTaxValue"
+            formControlName="vatTaxValue" onKeyPress="if(this.value.length==3) return false;">
           <mat-hint>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                   validation: 'required',
-                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'DECLARATIONS.INPUTS.NAME' | translate},
+                  message: 'AUTH.VALIDATION.REQUIRED' | translate : {name:'النسبة'},
                   control: ItemForm.controls['vatTaxValue']
                 }"></ng-container>
+
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'max',
+                  message: 'AUTH.VALIDATION.MAX_VALUE_NUMBER' | translate : {name:'النسبة',max:100},
+                  control: ItemForm.controls['vatTaxValue']
+                }"></ng-container>  
           </mat-hint>
         </mat-form-field>
       </div>

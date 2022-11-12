@@ -5,12 +5,15 @@ import { HttpReponseModel } from 'src/app/core-module/models/ResponseHttp';
 import { HttpPaths } from '../../auth/Enums/HttpPaths.enum';
 import { IAddOrder } from '../models/IAddOrder.interface';
 import { IOrderPagination } from '../models/IOrdersList.interface';
+import { IOrderStatusList } from '../models/IOrderStatusList.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderingService {
   bSubject = new BehaviorSubject<boolean>(false);
+  orderCount = new BehaviorSubject<number>(0);
+
 
   constructor(private http: CommonHttpService) { }
 
@@ -23,13 +26,13 @@ export class OrderingService {
     .pipe(map((Items:HttpReponseModel) => Items.data as IOrderPagination));
   }
 
-  getStatisticsOrders(searchModel:any): Observable<IOrderPagination> {
+  getStatisticsOrders(searchModel:any): Observable<IOrderStatusList[]> {
     let queryString = Object.keys(searchModel).map((key: string) =>
     searchModel[key] != null && searchModel[key] != '' && searchModel[key] != undefined ? key + '=' + searchModel[key] : null
   ).filter(x => x != null).join('&');
 
     return this.http.CommonGetRequests(`${localStorage.getItem('companyLink')}${HttpPaths.API_GET_STATISTICS_ORDERS}${queryString}`)
-    .pipe(map((Items:HttpReponseModel) => Items.data as IOrderPagination));
+    .pipe(map((Items:HttpReponseModel) => Items.data as IOrderStatusList[]));
   }
 
   addOrder(model: IAddOrder[]): Observable<HttpReponseModel> {

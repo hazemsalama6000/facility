@@ -48,12 +48,12 @@ export class UpsertvendorComponent implements OnInit {
     email: ['', Validators.compose([Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
     site: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
 
-    commercialRecord: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(6)])],
-    taxFileNum: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(12)])],
+    commercialRecord: ['', Validators.compose([Validators.required])],
+    taxFileNum: ['', Validators.compose([Validators.required,Validators.maxLength(12)])],
     isWithHoldTaxActive: [false],
-    withHoldTax: [0, Validators.compose([Validators.min(1), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    withHoldTax: [0, Validators.compose([Validators.max(100)])],
     isVatTaxActive: [false],
-    vatTax: [0, Validators.compose([Validators.min(1), Validators.max(3), Validators.pattern("^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$")])],
+    vatTax: [0, Validators.compose([Validators.max(100)])],
 
     branch_Id: [0],
   });
@@ -116,7 +116,7 @@ export class UpsertvendorComponent implements OnInit {
     console.log(
       this.vendorForm.get('commercialRecord')?.errors,
       this.vendorForm.errors
-      )
+    )
     if (this.vendorForm.valid && this.saveButtonClickedFlag) {
       this.loading = true;
 
@@ -193,6 +193,18 @@ export class UpsertvendorComponent implements OnInit {
     }
 
     return data;
+  }
+
+  isNumberKey(evt:any){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
+  restrictZero(event: any) {
+
+    if ((event.target.value.length === 0 && event.key === '0') || (event.target.name != 'taxFileNum' && event.key === '-') || event.key === '.' || event.key === '+' || event.key === 'e') {
+      event.preventDefault();
+    }
   }
 
   ngOnDestroy() {
