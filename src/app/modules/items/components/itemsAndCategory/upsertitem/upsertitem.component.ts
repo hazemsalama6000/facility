@@ -37,7 +37,7 @@ export class UpsertitemComponent {
     minLimit: [null, Validators.compose([Validators.required])],
     orderingLimit: [null, Validators.compose([Validators.required])],
     hasVatTax: [false],
-    vatTaxValue: [{ value: null, disabled: true }],
+    vatTaxValue: [{ value: null, disabled: true }, Validators.compose([Validators.max(100)])],
     hasExpireDate: [false],
     convertedUnitOfMeasure: [false],
     nature: [null, Validators.compose([Validators.required])],

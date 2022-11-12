@@ -9,7 +9,8 @@
         <div class="col-6">
           <mat-form-field color="accent" appearance="outline">
             <mat-label>{{'DECLARATIONS.INPUTS.FROMDATE'|translate}}</mat-label>
-            <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate" (dateChange)="getOrdersByDate()">
+            <input matInput [matDatepicker]="startD" [max]="endDate" [(ngModel)]="startDate"
+              (dateChange)="getOrdersByDate()">
             <mat-datepicker-toggle matSuffix [for]="startD"></mat-datepicker-toggle>
             <mat-datepicker #startD></mat-datepicker>
           </mat-form-field>
@@ -18,7 +19,8 @@
         <div class="col-6">
           <mat-form-field color="accent" appearance="outline">
             <mat-label>{{'DECLARATIONS.INPUTS.TODATE'|translate}}</mat-label>
-            <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate" (dateChange)="getOrdersByDate()">
+            <input matInput [matDatepicker]="endD" [min]="startDate" [(ngModel)]="endDate"
+              (dateChange)="getOrdersByDate()">
             <mat-datepicker-toggle matSuffix [for]="endD"></mat-datepicker-toggle>
             <mat-datepicker #endD></mat-datepicker>
           </mat-form-field>
@@ -39,35 +41,18 @@
           <span class="progress-right">
             <span class="progress-bar"></span>
           </span>
-          <div class="progress-value">45665565</div>
+          <div class="progress-value fontForInputs fs-3">
+            <!-- <span >عدد الطلبات:</span> -->
+            <span> {{orderingService.orderCount|async}}</span>
+          </div>
         </div>
       </div>
 
-      <div class="col-4 mb-3">
-        <span class="badge badge-primary text-white fs-6 fw-bold d-flex align-items-center justify-content-between">
-          <div>Completed</div>
-          <div>45</div>
-        </span>
-      </div>
-
-      <div class="col-4 mb-3">
-        <span class="badge badge-danger text-white fs-6 fw-bold d-flex align-items-center justify-content-between">
-          <div>Completed</div>
-          <div>45</div>
-        </span>
-      </div>
-
-      <div class="col-4 mb-3">
-        <span class="badge badge-success text-white fs-6 fw-bold d-flex align-items-center justify-content-between">
-          <div>Completed</div>
-          <div>45</div>
-        </span>
-      </div>
-
-      <div class="col-4 mb-3">
-        <span class="badge badge-info text-white fs-6 fw-bold d-flex align-items-center justify-content-between">
-          <div>Completed</div>
-          <div>45</div>
+      <div class="col-4 mb-3" *ngFor="let item of data">
+        <span
+          class="badge badge-{{item.orderColor}} text-white fs-6 fw-bold d-flex align-items-center justify-content-between">
+          <div>{{item.orderStatus}}</div>
+          <div>{{item.orderCount}}</div>
         </span>
       </div>
 
