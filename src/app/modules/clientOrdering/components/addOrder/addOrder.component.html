@@ -14,7 +14,7 @@
 <mat-dialog-content style="z-index: -1;" class="mat-typography" style="min-height: 85vh;overflow-y: auto;">
 
   <mat-card class="mat-elevation-z5 p-0 mt-2 px-2">
-    <form [formGroup]="masterForm" (ngSubmit)="addRiffle()" class="row">
+    <form [formGroup]="masterForm" (ngSubmit)="addOrder()" class="row">
 
       <div class="col-3 pb-3">
         <ng-select [items]="dropdownClient" bindLabel="Name" bindValue="Id" placeholder="أختر العميل" formControlName="Client_Id"
@@ -66,8 +66,8 @@
       </div>
 
       <div class="col-3">
-        <ng-select  [items]="item.convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="item.convertedUnit"
-          placeholder="أختر الوحدة" appendTo="body" [clearable]="false">
+        <ng-select [items]="item.convertedUnits" bindLabel="convertedUnitName" [(ngModel)]="item.convertedUnit" placeholder="أختر الوحدة"
+          appendTo="body" [clearable]="false">
         </ng-select>
       </div>
 
@@ -168,9 +168,11 @@
                         placeholder="أختر الوحدة" appendTo="body" [clearable]="false" (change)="inputQuantity(item,elementIndex,itemIndex)">
                       </ng-select>
                     </td>
-                    <td><input type="number" class="form-control p-1" [(ngModel)]="item.quantity" (input)="inputQuantity(item,elementIndex,itemIndex)"
-                        (keydown)="restrictZero($event)"></td>
-                    <!-- <td>{{item.price|number : '1.0-2'}}</td> -->
+                    <td>
+                      <input type="number" class="form-control p-1" [(ngModel)]="item.quantity" (input)="inputQuantity(item,elementIndex,itemIndex)"
+                        (keydown)="restrictZero($event)">
+                      <mat-hint class="fs-9" *ngIf="item.noQuantity">الكمية غير صحيحة</mat-hint>
+                    </td>
                     <td>
                       <mat-checkbox color="primary" [(ngModel)]="item.CanChangeQuantity"></mat-checkbox>
                     </td>

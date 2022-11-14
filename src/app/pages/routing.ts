@@ -76,6 +76,11 @@ const Routing: Routes = [
 			import('../modules/clientOrdering/clientOrdering.module').then((m) => m.ClientOrderingModule)
 	},
 	{
+		path: 'inventoryordering',
+		loadChildren: () =>
+			import('../modules/inventoryOrdering/inventoryOrdering.module').then((m) => m.InventoryOrderingModule)
+	},
+	{
 		path: 'notifications',
 		loadChildren: () =>
 			import('../modules/notification/notification.module').then((m) => m.NotificationModule)

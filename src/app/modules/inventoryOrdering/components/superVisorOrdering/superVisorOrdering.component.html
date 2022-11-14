@@ -4,10 +4,10 @@
     <div class="d-flex mx-5 justify-content-between align-items-center">
       <div class="m-2">
         <mat-icon class="text-primary mx-5" style="font-size:30px;">library_add</mat-icon>
-        <span class="fontsection"> طلبات العملاء</span>
+        <span class="fontsection"> طلبات </span>
       </div>
       <div >
-        <button (click)="openDialog()" matTooltip="{{'TRANSACTIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
+        <button  matTooltip="{{'TRANSACTIONS.BUTTONS.ADD'|translate}}" mat-mini-fab color="primary" class="mx-md-1"
           aria-label="Example icon button with a filter list icon">
           <mat-icon>add</mat-icon>
         </button>
@@ -20,15 +20,15 @@
 
 <div class="row mx-0">
   <div class="col-8 px-1">
-    <app-orders></app-orders>
+    <app-superVisorOrders></app-superVisorOrders>
   </div>
   <div class="col-4 px-1">
     <div class="row mx-0">
       <div class="col-12 mb-4">
-        <app-orderStatistics></app-orderStatistics>
+        <app-superVisorOrderingStatistics></app-superVisorOrderingStatistics>
       </div>
       <div class="col-12">
-        <app-activities></app-activities>
+        <app-superVisorOrderActivities></app-superVisorOrderActivities>
       </div>
     </div>
   </div>

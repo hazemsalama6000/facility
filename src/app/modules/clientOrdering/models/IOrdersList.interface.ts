@@ -34,6 +34,9 @@ export interface IOrderStatus {
     name: string,
     sysName: string,
     txtColor: string,
+    icon: string,
     ordring: number,
+    notes:string,
+    statusDate:Date,
     currentStatus: boolean
 }

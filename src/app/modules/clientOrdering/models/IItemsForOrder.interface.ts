@@ -13,4 +13,6 @@ export interface IItemsForOrder extends IItemProfile {
     CanChangeQuantity?: boolean,
     CanRefuse?: boolean,
     CanScaduled?: boolean,
+
+    noQuantity?:boolean;
 }
