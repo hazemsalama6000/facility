@@ -3,15 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/auth';
 import { IUserData } from 'src/app/modules/auth/models/IUserData.interface';
-import { IOrderStatusList } from '../../models/IOrderStatusList.interface';
-import { OrderingService } from '../../services/ordering.service';
+import { IOrderStatusList } from 'src/app/modules/clientOrdering/models/IOrderStatusList.interface';
+import { OrderingService } from 'src/app/modules/clientOrdering/services/ordering.service';
 
 @Component({
-  selector: 'app-orderStatistics',
-  templateUrl: './orderStatistics.component.html',
-  styleUrls: ['./orderStatistics.component.scss']
+  selector: 'app-superVisorOrderingStatistics',
+  templateUrl: './superVisorOrderingStatistics.component.html',
+  styleUrls: ['./superVisorOrderingStatistics.component.scss']
 })
-export class OrderStatisticsComponent implements OnInit {
+export class SuperVisorOrderingStatisticsComponent implements OnInit {
 
   data: IOrderStatusList[] = [];
   searchModel: any = { OrderEmployeeId: 0, StartDate: null, EndDate: null, };

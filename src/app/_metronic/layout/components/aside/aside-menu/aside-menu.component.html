@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of menu"> 
+<ng-container *ngFor="let item of menu">
 	<div class="menu-item" *ngIf="item.isLast==true&&item.isDeleted==false">
 		<a class="menu-link without-sub" [routerLink]="item.route" routerLinkActive="active"><span class="menu-icon">
 				<mat-icon style="font-size:25px;">{{item.icon}}</mat-icon>
@@ -484,14 +484,14 @@
 	</a>
 </div> -->
 
- <div class="menu-item">
+<div class="menu-item">
 	<a class="menu-link without-sub" routerLink="client/clientimportexcel" routerLinkActive="active">
 		<span class="menu-icon">
 			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
 		</span>
 		<span class="menu-title"> العملاء من اكسيل </span>
 	</a>
-</div> 
+</div>
 <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="client/itemImportExcel" routerLinkActive="active">
 		<span class="menu-icon">
@@ -499,7 +499,7 @@
 		</span>
 		<span class="menu-title"> الاصناف من اكسيل </span>
 	</a>
-</div> 
+</div>
 
 <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="ordering/orders" routerLinkActive="active">
@@ -508,7 +508,17 @@
 		</span>
 		<span class="menu-title"> الطلبات</span>
 	</a>
-</div> 
+</div>
+
+
+<div class="menu-item">
+	<a class="menu-link without-sub" routerLink="inventoryordering/supervisorordering" routerLinkActive="active">
+		<span class="menu-icon">
+			<span [inlineSVG]="'./assets/media/icons/duotune/art/art002.svg'" class="svg-icon svg-icon-2"></span>
+		</span>
+		<span class="menu-title">طلبات المشرف </span>
+	</a>
+</div>
 
 <!-- <div class="menu-item">
 	<a class="menu-link without-sub" routerLink="vendor/vendorlist" routerLinkActive="active">

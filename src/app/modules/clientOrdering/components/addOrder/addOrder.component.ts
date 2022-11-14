@@ -46,9 +46,7 @@ export class AddOrderComponent implements OnInit {
   userData: IUserData;
   dropdownClient: LookUpModel[] = [];
   dropdownClientBranch: LookUpModel[] = [];
-  // maxDate = new Date();
-  // startDate: string;
-  // endDate: string;
+  noQuantity: boolean = false;
   searchItem: string;
   saveButtonClickedFlag: boolean = false;
   isReadOnly: boolean = false;
@@ -172,7 +170,7 @@ export class AddOrderComponent implements OnInit {
   }
 
 
-  addRiffle() {
+  addOrder() {
 
     let obj = this.createObject();
 
@@ -184,7 +182,7 @@ export class AddOrderComponent implements OnInit {
       return;
     }
 
-    if (this.masterForm.valid && this.saveButtonClickedFlag) {
+    if (this.masterForm.valid && this.saveButtonClickedFlag && !this.noQuantity) {
       this.loading = true;
       this.orderService.addOrder(obj).subscribe(
         (data: HttpReponseModel) => {
@@ -212,10 +210,10 @@ export class AddOrderComponent implements OnInit {
   }
 
   createObject(): IAddOrder[] {
-
+    console.log(this.dataSource)
     let orders: IAddOrder[] = [];
 
-    this.dataSource.map(ord => {
+    this.dataSource.map((ord, ordIndex) => {
       let order: IAddOrder = {} as IAddOrder;
       order.id = 0;
       order.clientBranch_Id = ord.branchId;
@@ -224,7 +222,14 @@ export class AddOrderComponent implements OnInit {
       order.notes = order.notes;
 
       order.orderItems = [];
-      ord.items.map((item: any) => {
+      ord.items.map(item => {
+
+        item.noQuantity = item.quantity == null || item.quantity == undefined || item.quantity == 0 ? true : false;
+        this.noQuantity = this.noQuantity ? true : item.noQuantity;
+
+        if (item.noQuantity) {
+          this.toaster.openWarningSnackBar(`الكميات غير صحيحة فى الطلب رقم ${ordIndex+1} `);
+        }
         order.orderItems.push({
           id: 0,
           order_Id: 0,
@@ -238,6 +243,7 @@ export class AddOrderComponent implements OnInit {
           unitConversion_Id: item.convertedUnit.unitConversionId
         });
       });
+      console.log(this.noQuantity)
 
       orders.push(order);
     });

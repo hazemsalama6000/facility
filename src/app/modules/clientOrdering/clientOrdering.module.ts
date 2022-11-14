@@ -15,6 +15,7 @@ import { AddOrderComponent } from './components/addOrder/addOrder.component';
 import { OrderStatusComponent } from './components/orderStatus/OrderStatus.Component';
 import { AddOrderStatusComponent } from './components/orderStatus/AddOrderStatusDialog/AddOrderStatus.Component';
 import { UpdateOrderStatusComponent } from './components/orderStatus/UpdateOrderStatusDialog/UpdateOrderStatus.Component';
+import { ViewOrderStatusComponent } from './components/viewOrderStatus/viewOrderStatus.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpdateOrderStatusComponent } from './components/orderStatus/UpdateOrder
     AddOrderComponent,
     OrderStatusComponent,
     AddOrderStatusComponent,
-    UpdateOrderStatusComponent
+    UpdateOrderStatusComponent,
+    ViewOrderStatusComponent
   ],
   imports: [
     CommonModule,

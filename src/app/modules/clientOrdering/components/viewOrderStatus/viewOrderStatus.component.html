@@ -1,0 +1,87 @@
+<h2 mat-dialog-title class="m-0 mb-2">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="fontsection">تتبع الطلب رقم : #{{data.order.orderCode}}</span>
+    <button class="col-md-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+</h2>
+<mat-divider></mat-divider>
+
+
+<mat-dialog-content style="z-index: -1;" class="mat-typography" style="min-height: 85vh;overflow-y: auto;">
+
+  <div class="row mx-0 mt-5">
+    <div class="col-12">
+      <div class=" row text-center ">
+        <div class="col"> <strong>تاريخ الطلب </strong> <br>{{data.order.orderDate|date:'dd/MM/yyyy'}}</div>
+        <div class="col"> <strong>اسم الفرع</strong> <br> {{data.order.clientBranch}} </div>
+        <div class="col"> <strong>الموظف </strong> <br> {{data.order.orderEmployee}} </div>
+        <div class="col"> <strong>الحالة</strong> <br> <span
+            class="badge {{getActiveStatus(data.order.status).txtColor}}">{{getActiveStatus(data.order.status).name}}</span></div>
+      </div>
+    </div>
+    <div class="track p-0">
+<!-- text-{{stat.txtColor}} -->
+      <ng-container *ngFor="let stat of data.order.status;let i=index">
+        <div class="step" [ngClass]="{'active': stat.statusDate}">
+          <span class="icon"> <i class="{{stat.icon}} fs-2 "></i> </span>
+          <span class="text text1">{{stat.name}}</span>
+          <span class="text">{{stat.statusDate|date:'HH:mm yyyy/MM/dd'}}</span>
+          <span class="text date">{{getDiffDate(data.order.orderDate,i)}}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row mx-0 mt-5">
+    <table class="table" style="border:2px solid rgb(187, 187, 187);">
+      <tr style="font-weight:bold;">
+        <th rowspan="2" class="py-1"> م </th>
+        <!-- <th rowspan="2"> كود </th> -->
+        <th rowspan="2" class="w-150px"> الاسم </th>
+        <th rowspan="2" class="w-100px badge-success"> الوحدة</th>
+        <th rowspan="2" class="w-100px badge-info"> الكمية </th>
+        <!-- <th rowspan="2" class="w-100px"> السعر</th> -->
+        <th colspan="3" class="w-100px badge-primary">فى حالة عدم توافر الكميات</th>
+        <th rowspan="2" class="w-150px"> ملاحظات</th>
+        <!-- <th rowspan="2" class="w-150px"> الاجمالى</th> -->
+      </tr>
+
+      <tr style="border:2px solid rgb(187, 187, 187);">
+        <th class="w-100px"> إرسال المتاح </th>
+        <th class="w-100px"> إلغاء الصنف </th>
+        <th class="w-100px px-1"> التوصيل على اكثر من مرة</th>
+      </tr>
+
+      <tr class="text-center p-1" *ngFor="let item of data.order.orderItems;let itemIndex = index" style="border: 2px solid rgb(187, 187, 187);">
+        <td>{{itemIndex+1}}</td>
+        <!-- <td>{{item.code}}</td> -->
+        <td>{{item.itemName}}</td>
+        <td>{{item.unitConversion}}</td>
+        <td>{{item.quantity}}</td>
+        <!-- <td>{{item.price|number : '1.0-2'}}</td> -->
+        <td>
+          <mat-icon *ngIf="item.canChangeQuantity == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="item.canChangeQuantity == false" class="text-danger">close</mat-icon>
+        </td>
+        <td>
+          <mat-icon *ngIf="item.canRefuse == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="item.canRefuse == false" class="text-danger">close</mat-icon>
+        </td>
+        <td>
+          <mat-icon *ngIf="item.canScaduled == true" class="text-success">done</mat-icon>
+          <mat-icon *ngIf="item.canScaduled == false" class="text-danger">close</mat-icon>
+        </td>
+        <td> {{item.notes}}</td>
+        <!-- <td>{{0}} </td> -->
+      </tr>
+      <!-- <tr>
+        <td colspan="12" class="text-center"><span class="badge badge-light-info fs-5">الاجمالى : {{element.totalPrice}}</span></td>
+      </tr> -->
+    </table>
+  </div>
+
+</mat-dialog-content>
